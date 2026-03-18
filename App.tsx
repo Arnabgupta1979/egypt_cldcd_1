@@ -21,8 +21,8 @@ import {
   Phone,
   Clock
 } from 'lucide-react';
-import { Language, Document, DocStatus, Variety, Authority } from './types';
-import { MOCK_DOCS, MOCK_VARIETIES, MOCK_AUTHORITIES } from './constants';
+import { Language, Document, DocStatus, Variety, Authority, Stakeholder, JourneyNode, JourneyResult } from './types';
+import { MOCK_DOCS, MOCK_VARIETIES, MOCK_AUTHORITIES, STAKEHOLDERS, JOURNEY_NODES } from './constants';
 import { getDocumentSummary } from './geminiService';
 
 // --- Components ---
@@ -37,7 +37,7 @@ const Navbar: React.FC<{
   
   const navItems = [
     { id: 'home', label: isAr ? 'الرئيسية' : 'Home', icon: Home },
-    { id: 'journeys', label: isAr ? 'المهام' : 'Journeys', icon: ArrowRight },
+    { id: 'journeys', label: isAr ? 'رحلتي' : 'My Journey', icon: ArrowRight },
     { id: 'library', label: isAr ? 'المكتبة' : 'Library', icon: FileText },
     { id: 'catalogue', label: isAr ? 'الكتالوج' : 'Catalogue', icon: BookOpen },
     { id: 'directory', label: isAr ? 'الدليل' : 'Directory', icon: MapPin },
@@ -113,7 +113,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void }> = ({ la
             onClick={onStartJourney}
             className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-xl font-bold shadow-xl flex items-center gap-3 transition-all transform hover:-translate-y-1"
           >
-            {isAr ? 'ابدأ رحلة المهام (الويزارد)' : 'Start Task-Based Journey'}
+            {isAr ? 'ابدأ رحلتك كمعني بالقطاع' : 'Start Stakeholder Journey'}
             <ArrowRight className={`w-5 h-5 ${isAr ? 'rotate-180' : ''}`} />
           </button>
           <button 
@@ -569,191 +569,276 @@ const ContactView: React.FC<{ lang: Language }> = ({ lang }) => {
   );
 };
 
-// --- View: Journey Wizard ---
-const JourneyView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => void }> = ({ lang, onNavigateToDoc }) => {
+// --- View: Stakeholder Journey ---
+
+const ResultView: React.FC<{
+  result: JourneyResult;
+  lang: Language;
+  stakeholder: Stakeholder;
+  onNavigateToDoc: (id: string) => void;
+  onRestart: () => void;
+}> = ({ result, lang, stakeholder, onNavigateToDoc, onRestart }) => {
   const isAr = lang === 'ar';
-  const [step, setStep] = useState(0);
-  const [formData, setFormData] = useState<any>({});
-
-  // Defined steps based on PDF branching for "Import"
-  const steps = [
-    { 
-      id: 'crop',
-      title: isAr ? 'ما هو نوع المحصول؟' : 'What is the crop type?', 
-      options: [
-        { id: 'potato', label: isAr ? 'بطاطس (تقاوي)' : 'Potato (Seed Tubers)' },
-        { id: 'field', label: isAr ? 'محاصيل حقلية (قمح، ذرة)' : 'Field Crops (Wheat, Corn)' },
-        { id: 'veg', label: isAr ? 'خضروات' : 'Vegetables' }
-      ] 
-    },
-    { 
-      id: 'purpose',
-      title: isAr ? 'ما هو الغرض من الاستيراد؟' : 'Import Purpose?', 
-      options: [
-        { id: 'commercial', label: isAr ? 'تجاري' : 'Commercial' },
-        { id: 'trial', label: isAr ? 'تجريبي / بحثي' : 'Research / Trial' }
-      ] 
-    },
-    { 
-      id: 'origin',
-      title: isAr ? 'بلد المنشأ' : 'Country of Origin', 
-      options: [
-        { id: 'eu', label: isAr ? 'الاتحاد الأوروبي' : 'European Union' },
-        { id: 'usa', label: isAr ? 'الولايات المتحدة' : 'USA' },
-        { id: 'other', label: isAr ? 'دول أخرى' : 'Other Countries' }
-      ] 
-    },
-  ];
-
-  const handleSelect = (valId: string) => {
-    setFormData({ ...formData, [steps[step].id]: valId });
-    setStep(step + 1);
-  };
-
-  const handleDownloadPackage = () => {
-    // Collect package content
-    const date = new Date().toLocaleDateString();
-    const cropText = steps[0].options.find(o => o.id === formData.crop)?.label;
-    const purposeText = steps[1].options.find(o => o.id === formData.purpose)?.label;
-    const originText = steps[2].options.find(o => o.id === formData.origin)?.label;
-
-    const content = `
-${isAr ? 'بوابة التقاوي المصرية' : 'Egypt Seed Portal'} - ${isAr ? 'حزمة إجراءات الاستيراد' : 'Import Action Package'}
-------------------------------------------------------------
-${isAr ? 'تاريخ الإنشاء:' : 'Generated Date:'} ${date}
-
-${isAr ? 'المعايير المختارة:' : 'Selected Criteria:'}
-- ${isAr ? 'المحصول:' : 'Crop:'} ${cropText}
-- ${isAr ? 'الغرض:' : 'Purpose:'} ${purposeText}
-- ${isAr ? 'المنشأ:' : 'Origin:'} ${originText}
-
-${isAr ? 'المستندات المطلوبة واللوائح المرتبطة:' : 'Required Documents & Associated Regulations:'}
-1. ${isAr ? 'تصريح استيراد من CAPQ' : 'Import Permit from CAPQ'} (Ref: 562/2019)
-2. ${isAr ? 'شهادة صحة نباتية' : 'Phytosanitary Certificate'} (IPPC Standards)
-3. ${isAr ? 'شهادة جودة ISTA' : 'ISTA Quality Certificate'} (Law 53/1966)
-${formData.crop === 'potato' ? `4. ${isAr ? 'قرار معايير استيراد البطاطس' : 'Potato Import Standards'} (Ref: 1485/2015)` : ''}
-
-${isAr ? 'ملاحظات هامة:' : 'Important Notes:'}
-${formData.crop === 'potato' ? (isAr ? '- الموعد النهائي لوصول شحنات البطاطس الصيفية هو 10 يناير.' : '- Deadline for summer potato shipments is Jan 10.') : ''}
-${isAr ? '- يرجى مراجعة الدليل لمعرفة قنوات التقديم الرسمية.' : '- Please check the directory for official submission channels.'}
-------------------------------------------------------------
-    `.trim();
-
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `Seed_Import_Package_${formData.crop || 'Generic'}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
+  const authorities = MOCK_AUTHORITIES.filter(a => result.authorityIds.includes(a.id));
+  const documents = MOCK_DOCS.filter(d => result.documentIds.includes(d.id));
 
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4 animate-fade-in">
-      <div className="mb-12">
-        <h2 className="text-3xl font-black text-emerald-950 mb-2">{isAr ? 'دليل استيراد التقاوي' : 'Seed Import Navigator'}</h2>
-        <div className="flex gap-3 mb-6">
-          {steps.map((_, i) => (
-            <div key={i} className={`h-2 flex-1 rounded-full transition-all duration-500 ${i <= step ? 'bg-amber-400' : 'bg-slate-200'}`} />
-          ))}
+    <div className="space-y-6 animate-slide-in">
+      {/* Header */}
+      <div className={`${stakeholder.bgColor} ${stakeholder.borderColor} border-2 p-8 rounded-3xl`}>
+        <div className="flex items-start gap-4">
+          <span className="text-4xl">{stakeholder.emoji}</span>
+          <div>
+            <p className={`text-xs font-black uppercase tracking-widest ${stakeholder.textColor} mb-1`}>
+              {stakeholder.label[lang]}
+            </p>
+            <h3 className="text-2xl font-black text-slate-800 leading-tight mb-3">{result.title[lang]}</h3>
+            <p className="text-slate-600 leading-relaxed">{result.summary[lang]}</p>
+          </div>
         </div>
       </div>
 
-      {step < steps.length ? (
-        <div className="bg-white p-12 rounded-[40px] shadow-2xl border border-slate-100">
-          <div className="flex justify-between items-center mb-10">
-            <h3 className="text-2xl font-black text-slate-800">{steps[step].title}</h3>
-            {step > 0 && (
-              <button onClick={() => setStep(step - 1)} className="text-slate-400 hover:text-emerald-700 flex items-center gap-1 font-bold">
-                <ChevronLeft className={`w-5 h-5 ${isAr ? 'rotate-180' : ''}`} /> {isAr ? 'رجوع' : 'Back'}
-              </button>
-            )}
+      {/* Warning / Deadline */}
+      {result.warning && (
+        <div className="p-4 bg-amber-50 border-l-4 border-amber-400 rounded-r-xl flex gap-3">
+          <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <p className="text-sm text-amber-900 font-semibold">{result.warning[lang]}</p>
+        </div>
+      )}
+      {result.deadline && (
+        <div className="p-4 bg-red-50 border-l-4 border-red-400 rounded-r-xl flex gap-3">
+          <Clock className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+          <div>
+            <p className="text-xs font-black text-red-700 uppercase tracking-wider mb-1">{isAr ? 'موعد نهائي مهم' : 'Important Deadline'}</p>
+            <p className="text-sm text-red-900 font-semibold">{result.deadline[lang]}</p>
           </div>
-          <div className="grid grid-cols-1 gap-4">
-            {steps[step].options.map((opt) => (
-              <button 
-                key={opt.id}
-                onClick={() => handleSelect(opt.id)}
-                className="p-6 border-2 border-slate-50 rounded-2xl hover:border-emerald-500 hover:bg-emerald-50 text-left font-bold transition-all flex items-center justify-between group bg-white shadow-sm"
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Key Points */}
+        <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+          <h4 className="font-black text-slate-700 text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 text-emerald-500" />
+            {isAr ? 'النقاط الرئيسية' : 'Key Points'}
+          </h4>
+          <ul className="space-y-3">
+            {result.keyPoints[lang].map((pt, i) => (
+              <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
+                <span className={`w-5 h-5 rounded-full ${stakeholder.bgColor} ${stakeholder.textColor} text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5`}>
+                  {i + 1}
+                </span>
+                {pt}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="space-y-4">
+          {/* Authorities */}
+          {authorities.length > 0 && (
+            <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+              <h4 className="font-black text-slate-700 text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
+                <Building className="w-4 h-4 text-blue-500" />
+                {isAr ? 'الجهات المعنية' : 'Relevant Authorities'}
+              </h4>
+              <div className="space-y-3">
+                {authorities.map(auth => (
+                  <div key={auth.id} className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+                    <div className={`w-10 h-10 ${stakeholder.bgColor} rounded-lg flex items-center justify-center ${stakeholder.textColor} text-xs font-black shrink-0`}>
+                      {auth.shortName}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-slate-800 truncate">{auth.name[lang]}</p>
+                      <p className="text-[10px] text-slate-400 flex items-center gap-1 mt-0.5">
+                        <Phone className="w-3 h-3" /> {auth.phone}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Documents */}
+          {documents.length > 0 && (
+            <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+              <h4 className="font-black text-slate-700 text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
+                <FileText className="w-4 h-4 text-purple-500" />
+                {isAr ? 'المستندات القانونية' : 'Legal Documents'}
+              </h4>
+              <div className="space-y-2">
+                {documents.map(doc => (
+                  <button
+                    key={doc.id}
+                    onClick={() => onNavigateToDoc(doc.id)}
+                    className="w-full text-left flex items-center justify-between p-3 bg-slate-50 hover:bg-emerald-50 rounded-xl transition-all group border border-transparent hover:border-emerald-200"
+                  >
+                    <div>
+                      <p className="text-xs font-bold text-slate-700 group-hover:text-emerald-800">{doc.title[lang]}</p>
+                      <p className="text-[10px] text-slate-400 font-mono">{doc.refNumber}</p>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Restart */}
+      <button
+        onClick={onRestart}
+        className="flex items-center gap-2 text-slate-500 hover:text-emerald-700 font-bold text-sm transition-colors"
+      >
+        <ChevronLeft className="w-4 h-4" />
+        {isAr ? 'بدء رحلة جديدة' : 'Start a new journey'}
+      </button>
+    </div>
+  );
+};
+
+const JourneyView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => void }> = ({ lang, onNavigateToDoc }) => {
+  const isAr = lang === 'ar';
+  const [selectedStakeholder, setSelectedStakeholder] = useState<Stakeholder | null>(null);
+  const [nodeHistory, setNodeHistory] = useState<JourneyNode[]>([]);
+  const [currentResult, setCurrentResult] = useState<JourneyResult | null>(null);
+
+  const currentNode = nodeHistory[nodeHistory.length - 1] ?? null;
+
+  const handleSelectStakeholder = (s: Stakeholder) => {
+    const rootNode = JOURNEY_NODES[s.rootNodeId];
+    setSelectedStakeholder(s);
+    setNodeHistory([rootNode]);
+    setCurrentResult(null);
+  };
+
+  const handleSelectOption = (optionId: string) => {
+    if (!currentNode) return;
+    const option = currentNode.options.find(o => o.id === optionId);
+    if (!option) return;
+    if (option.result) {
+      setCurrentResult(option.result);
+    } else if (option.nextNodeId) {
+      const nextNode = JOURNEY_NODES[option.nextNodeId];
+      if (nextNode) setNodeHistory(prev => [...prev, nextNode]);
+    }
+  };
+
+  const handleBack = () => {
+    if (currentResult) {
+      setCurrentResult(null);
+    } else if (nodeHistory.length > 1) {
+      setNodeHistory(prev => prev.slice(0, -1));
+    } else {
+      setSelectedStakeholder(null);
+      setNodeHistory([]);
+    }
+  };
+
+  const handleRestart = () => {
+    setSelectedStakeholder(null);
+    setNodeHistory([]);
+    setCurrentResult(null);
+  };
+
+  // Progress: stakeholder selected = 1 step, each node = 1 step, result = final
+  const totalDepth = nodeHistory.length + (currentResult ? 1 : 0);
+  const progressSteps = selectedStakeholder ? Math.max(totalDepth + 1, 2) : 0;
+
+  return (
+    <div className="max-w-4xl mx-auto py-10 px-4 animate-fade-in">
+      {/* Header */}
+      <div className="mb-8">
+        <h2 className="text-3xl font-black text-emerald-950 mb-1">
+          {isAr ? 'رحلة المعنيين بالقطاع' : 'Stakeholder Journey'}
+        </h2>
+        <p className="text-slate-500 text-sm">
+          {isAr ? 'حدد هويتك لنرشدك إلى المعلومات التنظيمية المناسبة.' : 'Identify who you are and we\'ll guide you to the right regulatory information.'}
+        </p>
+        {selectedStakeholder && (
+          <div className="flex gap-2 mt-4">
+            {Array.from({ length: progressSteps }).map((_, i) => (
+              <div
+                key={i}
+                className={`h-1.5 flex-1 rounded-full transition-all duration-500 ${
+                  i < totalDepth ? `bg-${selectedStakeholder.accentColor}-500` : 'bg-slate-200'
+                }`}
+                style={i < totalDepth ? { backgroundColor: '' } : {}}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Step 0: Stakeholder Selection */}
+      {!selectedStakeholder && (
+        <div>
+          <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">
+            {isAr ? 'من أنت؟' : 'Who are you?'}
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {STAKEHOLDERS.map(s => (
+              <button
+                key={s.id}
+                onClick={() => handleSelectStakeholder(s)}
+                className={`${s.bgColor} ${s.borderColor} border-2 p-6 rounded-2xl text-left hover:shadow-lg transition-all group hover:scale-[1.02]`}
               >
-                <span className="text-slate-700 text-lg group-hover:text-emerald-900">{opt.label}</span>
-                <div className="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center group-hover:bg-emerald-100 transition-all">
-                   <ChevronRight className={`w-5 h-5 text-slate-300 group-hover:text-emerald-600 ${isAr ? 'rotate-180' : ''}`} />
-                </div>
+                <span className="text-4xl block mb-4">{s.emoji}</span>
+                <h3 className={`font-black text-slate-800 text-lg mb-1 group-hover:${s.textColor}`}>{s.label[lang]}</h3>
+                <p className="text-slate-500 text-xs leading-relaxed">{s.description[lang]}</p>
               </button>
             ))}
           </div>
         </div>
-      ) : (
-        <div className="space-y-8 animate-slide-in">
-          <div className="bg-emerald-900 p-12 rounded-[40px] text-white text-center space-y-6 shadow-2xl relative overflow-hidden">
-            <div className="w-20 h-20 bg-emerald-800 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-700">
-              <CheckCircle className="w-10 h-10 text-amber-400" />
-            </div>
-            <h3 className="text-3xl font-black">{isAr ? 'تم إنشاء خطة الاستيراد' : 'Import Plan Generated'}</h3>
-            <p className="text-emerald-100 max-w-lg mx-auto leading-relaxed">
-              {isAr 
-                ? 'بناءً على المعايير المحددة (خاصة لتقاوي البطاطس)، يرجى الالتزام بالمواعيد النهائية للتقديم (10 يناير).' 
-                : 'Based on your selection (specifically for Potato Tubers), please adhere to the submission deadlines (Jan 10).'}
-            </p>
-            <button 
-              onClick={handleDownloadPackage}
-              className="bg-amber-400 text-emerald-950 px-10 py-4 rounded-2xl font-black shadow-lg hover:scale-105 transition-all flex items-center gap-2 mx-auto"
-            >
-              <Download className="w-5 h-5" />
-              {isAr ? 'تحميل حزمة المستندات (TXT)' : 'Download Action Package (TXT)'}
-            </button>
-          </div>
+      )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
-              <h4 className="font-black text-slate-800 mb-6 flex items-center gap-2">
-                <FileText className="w-5 h-5 text-emerald-600" />
-                {isAr ? 'المستندات المطلوبة (حسب القانون)' : 'Required Documents (By Law)'}
-              </h4>
-              <ul className="space-y-4">
-                {[
-                  { label: isAr ? 'تصريح استيراد من الحجر الزراعي' : 'Import Permit from CAPQ', doc: 'res-562-2019' },
-                  { label: isAr ? 'شهادة صحة نباتية رسمية (IPPC)' : 'Official Phytosanitary Certificate', doc: 'res-562-2019' },
-                  { label: isAr ? 'شهادة ISTA البرتقالية / جودة' : 'ISTA Orange / Quality Certificate', doc: 'law-53-1966' },
-                  ...(formData.crop === 'potato' ? [{ label: isAr ? 'قرار معايير استيراد البطاطس' : 'Potato Import Standards Decree', doc: 'dec-1485-2015' }] : [])
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center justify-between group">
-                    <span className="text-sm text-slate-600">{item.label}</span>
-                    <button 
-                      onClick={() => onNavigateToDoc(item.doc)}
-                      className="text-[10px] bg-slate-100 px-3 py-1 rounded-lg text-slate-500 border border-slate-200 hover:bg-emerald-100 hover:text-emerald-700 hover:border-emerald-300 font-bold transition-all"
-                    >
-                      {isAr ? 'عرض القرار' : 'View Law'}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+      {/* Breadcrumb back button */}
+      {selectedStakeholder && !currentResult && (
+        <button onClick={handleBack} className="flex items-center gap-2 text-slate-400 hover:text-slate-700 font-bold text-sm mb-6 transition-colors">
+          <ChevronLeft className="w-4 h-4" />
+          {nodeHistory.length > 1 ? (isAr ? 'رجوع' : 'Back') : (isAr ? 'تغيير الهوية' : 'Change stakeholder')}
+        </button>
+      )}
+
+      {/* Stakeholder Question Node */}
+      {selectedStakeholder && currentNode && !currentResult && (
+        <div className="bg-white p-8 rounded-[32px] shadow-xl border border-slate-100">
+          <div className="flex items-center gap-3 mb-8">
+            <span className="text-3xl">{selectedStakeholder.emoji}</span>
+            <div>
+              <p className={`text-xs font-black uppercase tracking-widest ${selectedStakeholder.textColor}`}>{selectedStakeholder.label[lang]}</p>
+              <h3 className="text-xl font-black text-slate-800">{currentNode.question[lang]}</h3>
             </div>
-            
-            <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
-              <h4 className="font-black text-slate-800 mb-6 flex items-center gap-2">
-                <Clock className="w-5 h-5 text-amber-500" />
-                {isAr ? 'المواعيد النهائية والقيود' : 'Deadlines & Restrictions'}
-              </h4>
-              <div className="space-y-4 text-sm text-slate-600">
-                <div className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0"></div>
-                  <p>{isAr ? 'يجب وصول شحنات البطاطس الصيفية قبل 10 يناير.' : 'Summer potato shipments must arrive before Jan 10.'}</p>
+          </div>
+          <div className="grid grid-cols-1 gap-3">
+            {currentNode.options.map(opt => (
+              <button
+                key={opt.id}
+                onClick={() => handleSelectOption(opt.id)}
+                className={`p-5 border-2 border-slate-100 rounded-xl hover:${selectedStakeholder.borderColor} hover:${selectedStakeholder.bgColor} text-left font-bold transition-all flex items-center justify-between group bg-white`}
+              >
+                <div>
+                  <span className="text-slate-700 font-bold group-hover:text-slate-900">{opt.label[lang]}</span>
+                  {opt.sublabel && <p className="text-xs text-slate-400 mt-0.5 font-normal">{opt.sublabel[lang]}</p>}
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0"></div>
-                  <p>{isAr ? 'يشترط رتبة Elite أو ما يعادلها (EU EEC2).' : 'Elite grade or equivalent (EU EEC2) required.'}</p>
-                </div>
-                <button onClick={() => setStep(0)} className="text-emerald-700 font-bold text-xs mt-4 hover:underline">
-                  {isAr ? 'بدء رحلة جديدة' : 'Start New Journey'}
-                </button>
-              </div>
-            </div>
+                <ChevronRight className={`w-5 h-5 text-slate-300 group-hover:${selectedStakeholder.textColor} shrink-0`} />
+              </button>
+            ))}
           </div>
         </div>
+      )}
+
+      {/* Result */}
+      {selectedStakeholder && currentResult && (
+        <ResultView
+          result={currentResult}
+          lang={lang}
+          stakeholder={selectedStakeholder}
+          onNavigateToDoc={onNavigateToDoc}
+          onRestart={handleRestart}
+        />
       )}
     </div>
   );
@@ -808,7 +893,7 @@ export default function App() {
               <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('library')}>{lang === 'ar' ? 'مكتبة القرارات' : 'Library of Decrees'}</li>
               <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('catalogue')}>{lang === 'ar' ? 'الكتالوج القومي' : 'National Catalogue'}</li>
               <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('directory')}>{lang === 'ar' ? 'دليل الهيئات' : 'Authority Directory'}</li>
-              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('journeys')}>{lang === 'ar' ? 'رحلات المستخدم' : 'User Journeys'}</li>
+              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('journeys')}>{lang === 'ar' ? 'رحلات المعنيين' : 'Stakeholder Journeys'}</li>
             </ul>
           </div>
           <div>

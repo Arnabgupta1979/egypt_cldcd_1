@@ -8,6 +8,46 @@ export enum DocStatus {
   REPEALED = 'Repealed'
 }
 
+// --- Stakeholder Journey Types ---
+
+export interface JourneyResult {
+  title: { en: string; ar: string };
+  summary: { en: string; ar: string };
+  keyPoints: { en: string[]; ar: string[] };
+  authorityIds: string[];
+  documentIds: string[];
+  warning?: { en: string; ar: string };
+  deadline?: { en: string; ar: string };
+}
+
+export interface JourneyOption {
+  id: string;
+  label: { en: string; ar: string };
+  sublabel?: { en: string; ar: string };
+  nextNodeId?: string;
+  result?: JourneyResult;
+}
+
+export interface JourneyNode {
+  id: string;
+  question: { en: string; ar: string };
+  options: JourneyOption[];
+}
+
+export interface Stakeholder {
+  id: string;
+  label: { en: string; ar: string };
+  description: { en: string; ar: string };
+  emoji: string;
+  accentColor: string;
+  bgColor: string;
+  borderColor: string;
+  textColor: string;
+  rootNodeId: string;
+}
+
+// --- Document / Variety / Authority Types ---
+
 export interface Document {
   id: string;
   title: { ar: string; en: string };
