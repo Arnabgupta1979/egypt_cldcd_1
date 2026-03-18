@@ -1,0 +1,7 @@
+{
+  "name": "Egypt Seed Regulatory Portal",
+  "description": "A comprehensive information hub for seed regulations, decrees, and variety catalogues managed by CASC.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
