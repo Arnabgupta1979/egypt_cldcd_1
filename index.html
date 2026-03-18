@@ -4,9 +4,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Egypt Seed Regulatory Portal</title>
+    <title>CASC Egypt — Central Administration for Seed Certification</title>
+
+    <!-- Egyptian / MALR colour palette override — must come BEFORE the CDN script -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              /* Egyptian Government Green — based on MALR / agr.gov.eg deep green */
+              emerald: {
+                50:  '#f0faf3',
+                100: '#d9f2e3',
+                200: '#b4e4c8',
+                300: '#7fcfa4',
+                400: '#44b37a',
+                500: '#22965C',
+                600: '#147A48',
+                700: '#0E6239',
+                800: '#0B4F2E',
+                900: '#093D23',
+                950: '#051F12',
+              },
+              /* Pharaonic Gold — traditional Egyptian / Saladin's Eagle gold */
+              amber: {
+                50:  '#fefce8',
+                100: '#fef6c0',
+                200: '#feec85',
+                300: '#fedd3e',
+                400: '#C8A200',
+                500: '#A88500',
+                600: '#886A00',
+                700: '#6A5000',
+                800: '#4C3900',
+                900: '#2F2300',
+                950: '#181200',
+              },
+            },
+            fontFamily: {
+              sans: ['Cairo', 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
       body { font-family: 'Cairo', sans-serif; }
     </style>

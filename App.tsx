@@ -231,15 +231,15 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
             {isAr ? 'عرض الأصناف' : 'View Varieties'} <ChevronRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
           </span>
         </div>
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition-all border-b-4 border-b-sky-500">
-          <div className="w-12 h-12 bg-sky-50 text-sky-600 rounded-xl flex items-center justify-center mb-6">
+        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition-all border-b-4 border-b-blue-700">
+          <div className="w-12 h-12 bg-blue-50 text-blue-700 rounded-xl flex items-center justify-center mb-6">
             <MapPin className="w-6 h-6" />
           </div>
           <h3 className="text-xl font-bold text-slate-800 mb-3">{isAr ? 'دليل الجهات الرقابية' : 'Regulatory Authority Directory'}</h3>
           <p className="text-slate-600 text-sm leading-relaxed mb-4">
             {isAr ? 'دليلك للجهات المسؤولة عن كل مهمة وأماكن التقديم.' : 'Your guide to the authorities responsible for each task and submission points.'}
           </p>
-          <span className="text-sky-700 font-bold text-sm flex items-center gap-1">
+          <span className="text-blue-800 font-bold text-sm flex items-center gap-1">
             {isAr ? 'البحث في الدليل' : 'Search Directory'} <ChevronRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
           </span>
         </div>
@@ -677,9 +677,9 @@ const ContactView: React.FC<{ lang: Language }> = ({ lang }) => {
             <textarea rows={5} className="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
           </div>
 
-          <div className="p-4 bg-sky-50 rounded-xl flex gap-3 items-start">
-            <Info className="w-5 h-5 text-sky-600 shrink-0 mt-0.5" />
-            <p className="text-xs text-sky-800 leading-relaxed">
+          <div className="p-4 bg-blue-50 rounded-xl flex gap-3 items-start">
+            <Info className="w-5 h-5 text-blue-700 shrink-0 mt-0.5" />
+            <p className="text-xs text-blue-900 leading-relaxed">
               {isAr 
                 ? 'سيتم إرفاق بيانات جلستك الحالية (المستندات التي تصفحتها) لمساعدة الخبراء في الرد بشكل أدق.' 
                 : 'Your session metadata (browsed documents) will be attached to help our experts provide an accurate response.'}
@@ -1212,6 +1212,12 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+      {/* Egyptian flag stripe — Red / White / Black */}
+      <div className="flex h-1.5">
+        <div className="flex-1 bg-[#CE1126]"></div>
+        <div className="flex-1 bg-white"></div>
+        <div className="flex-1 bg-[#000000]"></div>
+      </div>
       <TopBanner lang={lang} />
       <Navbar lang={lang} setLang={setLang} activeTab={activeTab} setActiveTab={setActiveTab} />
 
