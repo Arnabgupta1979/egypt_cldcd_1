@@ -14,6 +14,7 @@ export interface JourneyResult {
   title: { en: string; ar: string };
   summary: { en: string; ar: string };
   keyPoints: { en: string[]; ar: string[] };
+  procedure?: { en: string[]; ar: string[] };
   authorityIds: string[];
   documentIds: string[];
   warning?: { en: string; ar: string };
