@@ -49,7 +49,7 @@ const TopBanner: React.FC<{ lang: Language }> = ({ lang }) => {
           <span>
             {isAr
               ? 'البوابة الرسمية للإدارة المركزية لتصديق التقاوي — وزارة الزراعة واستصلاح الأراضي، جمهورية مصر العربية'
-              : 'Official Portal of CASC — Central Administration for Seed Certification | Ministry of Agriculture & Land Reclamation, Egypt'}
+              : 'Official Portal of CASC — Central Administration for Seed Testing and Certification | Ministry of Agriculture & Land Reclamation, Egypt'}
           </span>
         </div>
         <div className="flex items-center gap-4">
@@ -161,7 +161,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
           {isAr ? 'الموقع الرسمي لـ CASC' : 'Official CASC Digital Portal — v1.0 Beta'}
         </div>
         <h1 className="text-5xl font-extrabold text-emerald-900 tracking-tight leading-tight">
-          {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Certification'}
+          {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing and Certification'}
         </h1>
         <p className="text-xl text-slate-500 font-semibold">
           {isAr ? 'وزارة الزراعة واستصلاح الأراضي — جمهورية مصر العربية' : 'Ministry of Agriculture & Land Reclamation — Arab Republic of Egypt'}
@@ -262,7 +262,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
             <p className="text-slate-600 leading-relaxed">
               {isAr
                 ? 'تأسست الإدارة المركزية لتصديق التقاوي (CASC) تحت مظلة وزارة الزراعة واستصلاح الأراضي لتكون المرجع الرسمي لتصديق التقاوي وتسجيل الأصناف وإصدار تراخيص الإنتاج والاستيراد والتصدير، بهدف ضمان سلامة القطاع وجودته.'
-                : 'The Central Administration for Seed Certification (CASC) operates under the Ministry of Agriculture & Land Reclamation as the official national authority for seed certification, variety registration, and issuing production, import, and export licences to ensure sector quality and compliance.'}
+                : 'The Central Administration for Seed Testing and Certification (CASC) operates under the Ministry of Agriculture & Land Reclamation as the official national authority for seed certification, variety registration, and issuing production, import, and export licences to ensure sector quality and compliance.'}
             </p>
             <button
               onClick={onGoAbout}
@@ -740,7 +740,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
   ];
 
   const contactPoints = [
-    { label: { en: 'Head Office', ar: 'المقر الرئيسي' }, value: { en: 'Central Administration for Seed Certification, Ministry of Agriculture Building, Nadi El-Seid St., Dokki, Giza, Egypt', ar: 'الإدارة المركزية لتصديق التقاوي، مبنى وزارة الزراعة، شارع نادي الصيد، الدقي، الجيزة، جمهورية مصر العربية' }, icon: MapPin },
+    { label: { en: 'Head Office', ar: 'المقر الرئيسي' }, value: { en: 'Central Administration for Seed Testing and Certification, Ministry of Agriculture Building, Nadi El-Seid St., Dokki, Giza, Egypt', ar: 'الإدارة المركزية لتصديق التقاوي، مبنى وزارة الزراعة، شارع نادي الصيد، الدقي، الجيزة، جمهورية مصر العربية' }, icon: MapPin },
     { label: { en: 'Main Phone', ar: 'الهاتف الرئيسي' }, value: { en: '+20 2 3573-1313', ar: '02-35731313' }, icon: Phone },
     { label: { en: 'Email', ar: 'البريد الإلكتروني' }, value: { en: 'casc@agr.gov.eg', ar: 'casc@agr.gov.eg' }, icon: Mail },
     { label: { en: 'Working Hours', ar: 'ساعات العمل' }, value: { en: 'Sun – Thu: 8:30 AM – 3:00 PM (public services counter)', ar: 'الأحد – الخميس: 8:30 صباحاً – 3:00 مساءً (نافذة خدمة الجمهور)' }, icon: Clock },
@@ -754,7 +754,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <div className="w-20 h-20 bg-amber-400 rounded-2xl flex items-center justify-center text-emerald-950 font-black text-2xl mx-auto shadow-2xl">CASC</div>
           <h1 className="text-4xl font-black leading-tight">
-            {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Certification'}
+            {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing and Certification'}
           </h1>
           <p className="text-emerald-200 text-lg font-semibold">
             {isAr ? 'وزارة الزراعة واستصلاح الأراضي — جمهورية مصر العربية' : 'Ministry of Agriculture & Land Reclamation — Arab Republic of Egypt'}
@@ -1273,7 +1273,7 @@ export default function App() {
               <div className="w-12 h-12 bg-amber-400 rounded-xl flex items-center justify-center text-emerald-950 font-black text-sm">CASC</div>
               <div>
                 <div className="text-white font-black text-base leading-tight">
-                  {lang === 'ar' ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Certification'}
+                  {lang === 'ar' ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing and Certification'}
                 </div>
                 <div className="text-emerald-400 text-xs mt-0.5">
                   {lang === 'ar' ? 'وزارة الزراعة واستصلاح الأراضي' : 'Ministry of Agriculture & Land Reclamation — Egypt'}
@@ -1314,7 +1314,7 @@ export default function App() {
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-emerald-900 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase font-bold tracking-widest text-emerald-600">
-          <span>© {new Date().getFullYear()} CASC — Central Administration for Seed Certification, MALR Egypt. All Rights Reserved.</span>
+          <span>© {new Date().getFullYear()} CASC — Central Administration for Seed Testing and Certification, MALR Egypt. All Rights Reserved.</span>
           <div className="flex gap-6 mt-4 md:mt-0">
             <span className="cursor-pointer hover:text-emerald-400">Terms of Use</span>
             <span className="cursor-pointer hover:text-emerald-400">Privacy Policy</span>
