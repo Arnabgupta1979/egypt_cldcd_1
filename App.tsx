@@ -27,7 +27,8 @@ import {
   Layers,
   Star,
   Megaphone,
-  FlaskConical
+  FlaskConical,
+  ListOrdered
 } from 'lucide-react';
 import { Language, Document, DocStatus, Variety, Authority, Stakeholder, JourneyNode, JourneyResult } from './types';
 import { MOCK_DOCS, MOCK_VARIETIES, MOCK_AUTHORITIES, STAKEHOLDERS, JOURNEY_NODES } from './constants';
@@ -965,22 +966,43 @@ const ResultView: React.FC<{
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Key Points */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-          <h4 className="font-black text-slate-700 text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-emerald-500" />
-            {isAr ? 'النقاط الرئيسية' : 'Key Points'}
-          </h4>
-          <ul className="space-y-3">
-            {result.keyPoints[lang].map((pt, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
-                <span className={`w-5 h-5 rounded-full ${stakeholder.bgColor} ${stakeholder.textColor} text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5`}>
-                  {i + 1}
-                </span>
-                {pt}
-              </li>
-            ))}
-          </ul>
+        {/* Stepwise Procedure + Key Points (compact text box) */}
+        <div className="space-y-4">
+          {/* Stepwise Procedure */}
+          {result.procedure && result.procedure[lang] && result.procedure[lang].length > 0 && (
+            <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+              <h4 className="font-black text-slate-700 text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
+                <ListOrdered className="w-4 h-4 text-emerald-500" />
+                {isAr ? 'الإجراءات خطوة بخطوة' : 'Stepwise Procedure'}
+              </h4>
+              <ol className="space-y-3">
+                {result.procedure[lang].map((step, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-slate-700 leading-relaxed">
+                    <span className={`w-6 h-6 rounded-full ${stakeholder.bgColor} ${stakeholder.textColor} text-[11px] font-black flex items-center justify-center shrink-0 mt-0.5 border ${stakeholder.borderColor}`}>
+                      {i + 1}
+                    </span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+          {/* Key Points — compact text box (shortened) */}
+          <div className="bg-slate-50 p-5 rounded-2xl border border-dashed border-slate-300">
+            <h4 className="font-black text-slate-700 text-[11px] uppercase tracking-widest mb-3 flex items-center gap-2">
+              <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
+              {isAr ? 'النقاط الرئيسية' : 'Key Points'}
+            </h4>
+            <ul className="space-y-1.5">
+              {result.keyPoints[lang].map((pt, i) => (
+                <li key={i} className="flex items-start gap-2 text-[13px] text-slate-600 leading-snug">
+                  <span className="text-emerald-600 font-black mt-0.5">·</span>
+                  <span>{pt}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="space-y-4">
