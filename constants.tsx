@@ -95,7 +95,7 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
       { id: 'quality', label: { en: 'Report a seed quality problem', ar: 'الإبلاغ عن مشكلة في جودة التقاوي' },
         result: {
           title: { en: 'Reporting Seed Quality Issues to CASC', ar: 'الإبلاغ عن مشكلات جودة التقاوي لـ CASC' },
-          summary: { en: 'The Central Administration for Seed Certification (CASC) is the primary body responsible for seed quality enforcement. They inspect seed markets and retail outlets and can investigate complaints.', ar: 'تعد الإدارة المركزية لفحص التقاوي واعتمادها (CASC) الجهة الرئيسية المسؤولة عن إنفاذ جودة التقاوي.' },
+          summary: { en: 'The Central Administration for Seed Testing and Certification (CASC) is the primary body responsible for seed quality enforcement. They inspect seed markets and retail outlets and can investigate complaints.', ar: 'تعد الإدارة المركزية لفحص التقاوي واعتمادها (CASC) الجهة الرئيسية المسؤولة عن إنفاذ جودة التقاوي.' },
           keyPoints: { en: ['Certified seed must meet ≥99% purity and minimum germination', 'Retain packaging, tag and lot number as evidence', 'CASC inspectors can test the reported batch and take enforcement action'], ar: ['يجب أن تحقق التقاوي المعتمدة ≥99% نقاء وحداً أدنى من الإنبات', 'احتفظ بالتغليف والعلامة ورقم الدفعة كدليل', 'يمكن لمفتشي CASC اختبار الدفعة واتخاذ إجراءات إنفاذ'] },
           procedure: { en: ['Preserve the original packaging, official tag, and any remaining seed — do not open additional bags.', 'Record the variety, lot number, purchase date, retailer name, and batch size.', 'Photograph the tag, packaging defects, and affected crop area (if already sown).', 'File a written complaint with the nearest CASC governorate directorate (or head office in Giza).', 'Hand over the retained sample for CASC laboratory re-testing (purity, germination, moisture, seed health).', 'CASC issues an inspection report; MALR can then suspend the trader\'s licence, seize the batch, and compensate the farmer.'], ar: ['احتفظ بالتغليف الأصلي والعلامة الرسمية وأي بذور متبقية، ولا تفتح أكياساً إضافية.', 'سجّل الصنف ورقم الدفعة وتاريخ الشراء واسم التاجر وحجم الدفعة.', 'التقط صوراً للعلامة وعيوب التغليف والمساحة المتضررة (إذا كانت قد زُرعت).', 'قدّم شكوى خطية إلى أقرب مديرية CASC بالمحافظة (أو المكتب الرئيسي بالجيزة).', 'سلّم العينة المحتفظ بها لإعادة الاختبار في مختبر CASC (نقاء، إنبات، رطوبة، صحة البذور).', 'يصدر CASC تقرير الفحص، وتتخذ MALR الإجراءات بتعليق ترخيص التاجر ومصادرة الدفعة وتعويض المزارع.'] },
           authorityIds: ['casc'],
@@ -581,7 +581,7 @@ export const MOCK_VARIETIES: Variety[] = [
 export const MOCK_AUTHORITIES: Authority[] = [
   {
     id: 'casc',
-    name: { ar: 'الإدارة المركزية لفحص واعتماد التقاوي (CASC)', en: 'Central Administration for Seed Certification (CASC)' },
+    name: { ar: 'الإدارة المركزية لفحص واعتماد التقاوي (CASC)', en: 'Central Administration for Seed Testing and Certification (CASC)' },
     shortName: 'CASC',
     tasks: ['Variety Registration', 'Seed Certification', 'Licensing Seed Dealers'],
     address: { ar: 'مبنى وزارة الزراعة، الجيزة، مصر', en: 'Ministry of Agriculture Bldg, Giza, Egypt' },
