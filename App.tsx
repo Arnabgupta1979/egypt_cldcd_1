@@ -92,7 +92,7 @@ const Navbar: React.FC<{
           <div className="flex items-center gap-4">
             <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
               <img
-                src={`${import.meta.env.BASE_URL}CASC-logo.png`}
+                src="/egypt_cldcd_1/CASC-logo.png"
                 alt={isAr ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
                 className="h-11 w-auto bg-white rounded-md p-1 shadow-sm"
               />
@@ -1275,7 +1275,7 @@ export default function App() {
           <div className="col-span-1 md:col-span-2 space-y-6">
             <div className="flex items-center gap-3">
               <img
-                src={`${import.meta.env.BASE_URL}CASC-logo.png`}
+                src="/egypt_cldcd_1/CASC-logo.png"
                 alt={lang === 'ar' ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
                 className="h-14 w-auto bg-white rounded-lg p-1.5 shadow-sm"
               />
