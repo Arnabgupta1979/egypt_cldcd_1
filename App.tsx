@@ -90,8 +90,12 @@ const Navbar: React.FC<{
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-4">
-            <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => setActiveTab('home')}>
-              <div className="w-9 h-9 bg-amber-400 rounded-full flex items-center justify-center text-emerald-900 font-black text-sm">CASC</div>
+            <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
+              <img
+                src={`${import.meta.env.BASE_URL}CASC-logo.png`}
+                alt={isAr ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
+                className="h-11 w-auto bg-white rounded-md p-1 shadow-sm"
+              />
               <div className="hidden md:block">
                 <div className="font-black text-base leading-tight">
                   {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'CASC Egypt'}
@@ -1270,7 +1274,11 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="col-span-1 md:col-span-2 space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-amber-400 rounded-xl flex items-center justify-center text-emerald-950 font-black text-sm">CASC</div>
+              <img
+                src={`${import.meta.env.BASE_URL}CASC-logo.png`}
+                alt={lang === 'ar' ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
+                className="h-14 w-auto bg-white rounded-lg p-1.5 shadow-sm"
+              />
               <div>
                 <div className="text-white font-black text-base leading-tight">
                   {lang === 'ar' ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing and Certification'}
