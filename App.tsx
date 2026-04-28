@@ -40,13 +40,13 @@ import { getDocumentSummary } from './geminiService';
 const TopBanner: React.FC<{ lang: Language }> = ({ lang }) => {
   const isAr = lang === 'ar';
   return (
-    <div className="bg-emerald-950 text-emerald-300 text-xs py-2 px-4">
+    <div className="bg-emerald-950 text-emerald-200/90 text-xs py-2.5 px-4 border-b border-emerald-900">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
         <div className="flex items-center gap-3">
-          <span className="bg-amber-400 text-emerald-950 font-black px-2 py-0.5 rounded text-[10px] uppercase tracking-widest">
+          <span className="font-stamp text-amber-300 px-2.5 py-0.5 text-[10px] uppercase border border-amber-400/60 ring-1 ring-amber-400/20 ring-offset-1 ring-offset-emerald-950">
             {isAr ? 'رسمي' : 'Official'}
           </span>
-          <span>
+          <span className="tracking-wide">
             {isAr
               ? 'البوابة الرسمية للإدارة المركزية لتصديق التقاوي — وزارة الزراعة واستصلاح الأراضي، جمهورية مصر العربية'
               : 'Official Portal of CASC — Central Administration for Seed Testing and Certification | Ministry of Agriculture & Land Reclamation, Egypt'}
@@ -86,32 +86,34 @@ const Navbar: React.FC<{
   ];
 
   return (
-    <nav className="bg-emerald-900 text-white sticky top-0 z-50 shadow-lg">
+    <nav className="bg-emerald-900 text-white sticky top-0 z-50 shadow-lg border-b border-emerald-950/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-[72px]">
           <div className="flex items-center gap-4">
             <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
               <img
-                src="/egypt_cldcd_1/CASC-logo.png"
+                src={`${import.meta.env.BASE_URL}CASC-logo.png`}
                 alt={isAr ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
-                className="h-11 w-auto bg-white rounded-md p-1 shadow-sm"
+                className="h-12 w-auto bg-white rounded-md p-1 shadow-sm ring-1 ring-amber-400/40"
               />
-              <div className="hidden md:block">
-                <div className="font-black text-base leading-tight">
+              <div className="hidden md:block ps-2 border-s border-emerald-700/70">
+                <div className="font-display font-bold text-lg leading-tight text-white">
                   {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'CASC Egypt'}
                 </div>
-                <div className="text-emerald-300 text-[10px] font-semibold leading-tight">
+                <div className="text-emerald-300 text-[10px] font-stamp uppercase leading-tight mt-0.5">
                   {isAr ? 'وزارة الزراعة واستصلاح الأراضي' : 'Ministry of Agriculture & Land Reclamation'}
                 </div>
               </div>
             </div>
-            <div className="hidden md:flex ml-10 items-baseline space-x-4">
+            <div className="hidden md:flex ml-10 items-baseline space-x-1">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${
-                    activeTab === item.id ? 'bg-emerald-700 text-white' : 'text-emerald-100 hover:bg-emerald-800'
+                  className={`px-3 py-2 text-sm font-semibold transition-all flex items-center gap-2 border-b-2 ${
+                    activeTab === item.id
+                      ? 'border-amber-400 text-amber-300'
+                      : 'border-transparent text-emerald-100 hover:text-amber-200 hover:border-amber-400/40'
                   }`}
                 >
                   <item.icon className="w-4 h-4" />
@@ -123,15 +125,15 @@ const Navbar: React.FC<{
           <div className="flex items-center gap-4">
             <button
               onClick={() => setLang(isAr ? 'en' : 'ar')}
-              className="flex items-center gap-2 bg-emerald-800 hover:bg-emerald-700 px-3 py-1.5 rounded-full border border-emerald-600 transition-all"
+              className="flex items-center gap-2 bg-emerald-950/40 hover:bg-emerald-800 px-3 py-1.5 rounded-sm border border-emerald-700 hover:border-amber-400/50 transition-all"
             >
               <Globe className="w-4 h-4" />
-              <span className="text-xs font-semibold">{isAr ? 'English' : 'العربية'}</span>
+              <span className="text-xs font-semibold tracking-wide">{isAr ? 'English' : 'العربية'}</span>
             </button>
-            <div className="border-l border-emerald-700 h-6 mx-2"></div>
-            <button className="flex items-center gap-2 text-emerald-100 hover:text-white transition-colors">
+            <div className="border-l border-emerald-700 h-6 mx-1"></div>
+            <button className="flex items-center gap-2 text-emerald-100 hover:text-amber-300 transition-colors">
               <User className="w-5 h-5" />
-              <span className="hidden sm:inline text-sm">{isAr ? 'دخول' : 'Login'}</span>
+              <span className="hidden sm:inline text-sm font-semibold">{isAr ? 'دخول' : 'Login'}</span>
             </button>
           </div>
         </div>
@@ -147,10 +149,10 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
     <div className="animate-fade-in">
 
       {/* Announcement Strip */}
-      <div className="bg-amber-50 border-b border-amber-200 py-3 px-4">
+      <div className="bg-amber-50 border-y border-amber-200/70 py-2.5 px-4">
         <div className="max-w-7xl mx-auto flex items-center gap-3">
-          <Megaphone className="w-4 h-4 text-amber-600 shrink-0" />
-          <p className="text-xs text-amber-800 font-semibold">
+          <Megaphone className="w-4 h-4 text-amber-700 shrink-0" />
+          <p className="text-xs text-amber-900 font-semibold tracking-wide">
             {isAr
               ? 'إشعار: آخر موعد لتقديم طلبات استيراد تقاوي البطاطس للموسم الصيفي هو 10 يناير 2026. يرجى التأكد من استيفاء جميع متطلبات الحجر الزراعي.'
               : 'Notice: The deadline for potato seed import applications (summer season) is January 10, 2026. Ensure all phytosanitary requirements are met.'}
@@ -158,42 +160,66 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
         </div>
       </div>
 
-      {/* Hero */}
-      <header className="text-center space-y-4 px-4 pt-12 pb-8 bg-gradient-to-b from-white to-slate-50">
-        <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-1 rounded-full text-sm font-bold border border-emerald-100 mb-4">
-          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-          {isAr ? 'الموقع الرسمي لـ CASC' : 'Official CASC Digital Portal — v1.0 Beta'}
+      {/* Hero — deep emerald authoritative band */}
+      <header className="relative overflow-hidden bg-emerald-950 text-white border-b border-amber-400/30">
+        {/* Decorative arabesque corner ornaments */}
+        <svg className="absolute top-6 left-6 w-20 h-20 text-amber-400/25 hidden md:block" viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1">
+          <path d="M2 2 L26 2 M2 2 L2 26" />
+          <path d="M2 14 Q14 14 14 2" />
+          <circle cx="22" cy="22" r="2.5" />
+        </svg>
+        <svg className="absolute top-6 right-6 w-20 h-20 text-amber-400/25 hidden md:block" viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1">
+          <path d="M78 2 L54 2 M78 2 L78 26" />
+          <path d="M78 14 Q66 14 66 2" />
+          <circle cx="58" cy="22" r="2.5" />
+        </svg>
+        {/* Subtle radial atmosphere */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,167,44,0.10),transparent_70%)] pointer-events-none"></div>
+
+        <div className="relative max-w-5xl mx-auto text-center space-y-5 px-4 pt-16 pb-14">
+          <div className="inline-flex items-center gap-2 bg-emerald-900/60 text-amber-300 px-4 py-1.5 rounded-sm text-xs font-stamp uppercase border border-amber-400/40">
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></div>
+            {isAr ? 'الموقع الرسمي لـ CASC' : 'Official CASC Digital Portal · v1.0 Beta'}
+          </div>
+          <h1 className="font-display text-5xl md:text-6xl font-bold text-white tracking-tight leading-[1.1] max-w-4xl mx-auto">
+            {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing & Certification'}
+          </h1>
+          {/* Ornamental flourish under title */}
+          <div className="flex items-center justify-center gap-3 pt-1">
+            <div className="h-px w-12 bg-amber-400/60"></div>
+            <svg className="w-4 h-4 text-amber-400" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z"/></svg>
+            <div className="h-px w-12 bg-amber-400/60"></div>
+          </div>
+          <p className="font-display italic text-xl text-amber-200/90">
+            {isAr ? 'وزارة الزراعة واستصلاح الأراضي — جمهورية مصر العربية' : 'Ministry of Agriculture & Land Reclamation — Arab Republic of Egypt'}
+          </p>
+          <p className="text-base text-emerald-100/85 max-w-2xl mx-auto leading-relaxed pt-3">
+            {isAr
+              ? 'توفير وصول شفاف وموثوق إلى التشريعات والقرارات والخدمات الإرشادية لقطاع التقاوي المصري لجميع المعنيين.'
+              : 'Providing transparent, reliable access to seed regulatory information, decrees, certification services, and guidance for all sector stakeholders.'}
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 pt-6">
+            <button
+              onClick={onStartJourney}
+              className="bg-amber-400 hover:bg-amber-300 text-emerald-950 px-8 py-3.5 font-bold tracking-wide flex items-center gap-3 transition-all shadow-minted"
+            >
+              {isAr ? 'ابدأ رحلتك كمعني بالقطاع' : 'Start Stakeholder Journey'}
+              <ArrowRight className={`w-5 h-5 ${isAr ? 'rotate-180' : ''}`} />
+            </button>
+            <button
+              onClick={onGoLibrary}
+              className="bg-transparent border border-amber-400/60 hover:border-amber-300 hover:bg-emerald-900/40 text-amber-200 hover:text-amber-100 px-8 py-3.5 font-bold tracking-wide transition-all"
+            >
+              {isAr ? 'تصفح المكتبة' : 'Browse Library'}
+            </button>
+          </div>
         </div>
-        <h1 className="text-5xl font-extrabold text-emerald-900 tracking-tight leading-tight">
-          {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing and Certification'}
-        </h1>
-        <p className="text-xl text-slate-500 font-semibold">
-          {isAr ? 'وزارة الزراعة واستصلاح الأراضي — جمهورية مصر العربية' : 'Ministry of Agriculture & Land Reclamation — Arab Republic of Egypt'}
-        </p>
-        <p className="text-base text-slate-600 max-w-3xl mx-auto leading-relaxed pt-2">
-          {isAr
-            ? 'توفير وصول شفاف وموثوق إلى التشريعات والقرارات والخدمات الإرشادية لقطاع التقاوي المصري لجميع المعنيين.'
-            : 'Providing transparent, reliable access to seed regulatory information, decrees, certification services, and guidance for all sector stakeholders.'}
-        </p>
-        <div className="flex flex-wrap justify-center gap-4 pt-6">
-          <button
-            onClick={onStartJourney}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-xl font-bold shadow-xl flex items-center gap-3 transition-all transform hover:-translate-y-1"
-          >
-            {isAr ? 'ابدأ رحلتك كمعني بالقطاع' : 'Start Stakeholder Journey'}
-            <ArrowRight className={`w-5 h-5 ${isAr ? 'rotate-180' : ''}`} />
-          </button>
-          <button
-            onClick={onGoLibrary}
-            className="bg-white border-2 border-emerald-100 hover:border-emerald-200 text-emerald-800 px-8 py-4 rounded-xl font-bold transition-all"
-          >
-            {isAr ? 'تصفح المكتبة' : 'Browse Library'}
-          </button>
-        </div>
+        {/* Bottom arabesque divider */}
+        <div className="arabesque-divider"></div>
       </header>
 
-      {/* Stats Strip */}
-      <div className="bg-emerald-900 text-white py-8">
+      {/* Stats Strip — inscribed band */}
+      <div className="bg-emerald-900 text-white py-10 border-y border-amber-400/25">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             { num: '500+', label: isAr ? 'صنف مسجل' : 'Registered Varieties', icon: BookOpen },
@@ -201,76 +227,82 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
             { num: '4', label: isAr ? 'فئات التصديق' : 'Seed Certification Classes', icon: Award },
             { num: '30+', label: isAr ? 'سنة من الخدمة' : 'Years of Service', icon: Star },
           ].map((s, i) => (
-            <div key={i} className="flex flex-col items-center gap-2">
-              <s.icon className="w-6 h-6 text-amber-400" />
-              <span className="text-3xl font-black text-amber-400">{s.num}</span>
-              <span className="text-emerald-200 text-xs font-semibold">{s.label}</span>
+            <div key={i} className="flex flex-col items-center gap-2 px-4 md:border-s md:border-amber-400/15 md:first:border-s-0">
+              <s.icon className="w-5 h-5 text-amber-400" />
+              <span className="font-display text-4xl font-bold text-amber-300">{s.num}</span>
+              <span className="text-emerald-200/80 text-[11px] font-stamp uppercase">{s.label}</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Quick-access cards */}
-      <div className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition-all border-b-4 border-b-emerald-600 cursor-pointer" onClick={onGoLibrary}>
-          <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-6">
-            <FileText className="w-6 h-6" />
-          </div>
-          <h3 className="text-xl font-bold text-slate-800 mb-3">{isAr ? 'مكتبة التشريعات' : 'Legislation Library'}</h3>
-          <p className="text-slate-600 text-sm leading-relaxed mb-4">
-            {isAr ? 'الوصول المباشر إلى القوانين والقرارات الوزارية واللوائح المنظمة للقطاع.' : 'Direct access to laws, ministerial decrees, and governing regulations.'}
-          </p>
-          <span className="text-emerald-700 font-bold text-sm flex items-center gap-1">
-            {isAr ? 'تصفح الآن' : 'Explore Now'} <ChevronRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
-          </span>
-        </div>
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition-all border-b-4 border-b-amber-500">
-          <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center mb-6">
-            <BookOpen className="w-6 h-6" />
-          </div>
-          <h3 className="text-xl font-bold text-slate-800 mb-3">{isAr ? 'الكتالوج الوطني للأصناف' : 'National Variety Catalogue'}</h3>
-          <p className="text-slate-600 text-sm leading-relaxed mb-4">
-            {isAr ? 'قاعدة بيانات شاملة للأصناف المسجلة والمعتمدة ومربيها.' : 'Comprehensive database of registered and certified varieties and their breeders.'}
-          </p>
-          <span className="text-amber-700 font-bold text-sm flex items-center gap-1">
-            {isAr ? 'عرض الأصناف' : 'View Varieties'} <ChevronRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
-          </span>
-        </div>
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition-all border-b-4 border-b-blue-700">
-          <div className="w-12 h-12 bg-blue-50 text-blue-700 rounded-xl flex items-center justify-center mb-6">
-            <MapPin className="w-6 h-6" />
-          </div>
-          <h3 className="text-xl font-bold text-slate-800 mb-3">{isAr ? 'دليل الجهات الرقابية' : 'Regulatory Authority Directory'}</h3>
-          <p className="text-slate-600 text-sm leading-relaxed mb-4">
-            {isAr ? 'دليلك للجهات المسؤولة عن كل مهمة وأماكن التقديم.' : 'Your guide to the authorities responsible for each task and submission points.'}
-          </p>
-          <span className="text-blue-800 font-bold text-sm flex items-center gap-1">
-            {isAr ? 'البحث في الدليل' : 'Search Directory'} <ChevronRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
-          </span>
-        </div>
+      {/* Quick-access cards — certificate aesthetic */}
+      <div className="max-w-6xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          { onClick: onGoLibrary, accent: 'emerald', icon: FileText,
+            title: isAr ? 'مكتبة التشريعات' : 'Legislation Library',
+            desc:  isAr ? 'الوصول المباشر إلى القوانين والقرارات الوزارية واللوائح المنظمة للقطاع.' : 'Direct access to laws, ministerial decrees, and governing regulations.',
+            cta:   isAr ? 'تصفح الآن' : 'Explore Now' },
+          { onClick: () => {}, accent: 'amber', icon: BookOpen,
+            title: isAr ? 'الكتالوج الوطني للأصناف' : 'National Variety Catalogue',
+            desc:  isAr ? 'قاعدة بيانات شاملة للأصناف المسجلة والمعتمدة ومربيها.' : 'Comprehensive database of registered and certified varieties and their breeders.',
+            cta:   isAr ? 'عرض الأصناف' : 'View Varieties' },
+          { onClick: () => {}, accent: 'blue', icon: MapPin,
+            title: isAr ? 'دليل الجهات الرقابية' : 'Regulatory Authority Directory',
+            desc:  isAr ? 'دليلك للجهات المسؤولة عن كل مهمة وأماكن التقديم.' : 'Your guide to the authorities responsible for each task and submission points.',
+            cta:   isAr ? 'البحث في الدليل' : 'Search Directory' },
+        ].map((card, i) => {
+          const accentMap: Record<string, { iconBg: string; iconText: string; cta: string; corner: string }> = {
+            emerald: { iconBg: 'bg-emerald-100/70', iconText: 'text-emerald-700', cta: 'text-emerald-700', corner: 'bg-emerald-700' },
+            amber:   { iconBg: 'bg-amber-100/70',   iconText: 'text-amber-700',   cta: 'text-amber-700',   corner: 'bg-amber-500'   },
+            blue:    { iconBg: 'bg-blue-50',        iconText: 'text-blue-700',    cta: 'text-blue-700',    corner: 'bg-blue-700'    },
+          };
+          const a = accentMap[card.accent];
+          return (
+            <div
+              key={i}
+              onClick={card.onClick}
+              className="relative bg-parchment-100 p-8 ring-1 ring-parchment-200 shadow-card hover:shadow-card-hover hover:ring-amber-400/40 transition-all cursor-pointer group"
+            >
+              {/* Top corner crest */}
+              <div className={`absolute top-0 left-0 w-12 h-1 ${a.corner}`}></div>
+              <div className={`absolute top-0 left-0 h-12 w-1 ${a.corner}`}></div>
+
+              <div className={`w-12 h-12 ${a.iconBg} ${a.iconText} flex items-center justify-center mb-6 ring-1 ring-current/10`}>
+                <card.icon className="w-6 h-6" />
+              </div>
+              <h3 className="font-display text-xl font-bold text-emerald-950 mb-3 leading-snug">{card.title}</h3>
+              <p className="text-ink-700/80 text-sm leading-relaxed mb-5">{card.desc}</p>
+              <span className={`${a.cta} font-bold text-sm flex items-center gap-1 gold-underline inline-block`}>
+                {card.cta} <ChevronRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
+              </span>
+            </div>
+          );
+        })}
       </div>
 
       {/* About CASC Teaser */}
-      <div className="bg-white border-t border-b border-slate-100 py-16">
+      <div className="bg-parchment-50 border-y border-parchment-200 py-20">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold">
-              <Shield className="w-3 h-3" />
+            <div className="inline-flex items-center gap-2 text-emerald-800 px-0 py-1 text-[11px] font-stamp uppercase">
+              <Shield className="w-3 h-3 text-amber-600" />
               {isAr ? 'من نحن' : 'Who We Are'}
             </div>
-            <h2 className="text-3xl font-black text-emerald-950 leading-tight">
+            <h2 className="font-display text-4xl font-bold text-emerald-950 leading-tight">
               {isAr
                 ? 'الجهة الوطنية المسؤولة عن تصديق وتنظيم قطاع التقاوي في مصر'
-                : 'Egypt\'s National Authority for Seed Certification & Regulation'}
+                : "Egypt's National Authority for Seed Certification & Regulation"}
             </h2>
-            <p className="text-slate-600 leading-relaxed">
+            <div className="h-px w-16 bg-amber-500/70"></div>
+            <p className="text-ink-700/85 leading-relaxed text-[15px]">
               {isAr
                 ? 'تأسست الإدارة المركزية لتصديق التقاوي (CASC) تحت مظلة وزارة الزراعة واستصلاح الأراضي لتكون المرجع الرسمي لتصديق التقاوي وتسجيل الأصناف وإصدار تراخيص الإنتاج والاستيراد والتصدير، بهدف ضمان سلامة القطاع وجودته.'
                 : 'The Central Administration for Seed Testing and Certification (CASC) operates under the Ministry of Agriculture & Land Reclamation as the official national authority for seed certification, variety registration, and issuing production, import, and export licences to ensure sector quality and compliance.'}
             </p>
             <button
               onClick={onGoAbout}
-              className="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-all"
+              className="bg-emerald-800 hover:bg-emerald-900 text-white px-6 py-3 font-bold tracking-wide flex items-center gap-2 transition-all shadow-minted"
             >
               {isAr ? 'اعرف المزيد عن CASC' : 'Learn More About CASC'}
               <ArrowRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
@@ -754,19 +786,29 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
     <div className="animate-fade-in">
 
       {/* Hero */}
-      <div className="bg-emerald-900 text-white py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <div className="w-20 h-20 bg-amber-400 rounded-2xl flex items-center justify-center text-emerald-950 font-black text-2xl mx-auto shadow-2xl">CASC</div>
-          <h1 className="text-4xl font-black leading-tight">
+      <div className="relative bg-emerald-950 text-white py-20 px-4 border-b border-amber-400/30 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,167,44,0.08),transparent_70%)] pointer-events-none"></div>
+        <div className="relative max-w-4xl mx-auto text-center space-y-6">
+          <img
+            src={`${import.meta.env.BASE_URL}CASC-logo.png`}
+            alt={isAr ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
+            className="h-24 w-auto mx-auto bg-white rounded-md p-2 shadow-2xl ring-1 ring-amber-400/40"
+          />
+          <h1 className="font-display text-4xl md:text-5xl font-bold leading-tight">
             {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing and Certification'}
           </h1>
-          <p className="text-emerald-200 text-lg font-semibold">
+          <div className="flex items-center justify-center gap-3">
+            <div className="h-px w-10 bg-amber-400/60"></div>
+            <svg className="w-3 h-3 text-amber-400" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z"/></svg>
+            <div className="h-px w-10 bg-amber-400/60"></div>
+          </div>
+          <p className="font-display italic text-amber-200/90 text-lg">
             {isAr ? 'وزارة الزراعة واستصلاح الأراضي — جمهورية مصر العربية' : 'Ministry of Agriculture & Land Reclamation — Arab Republic of Egypt'}
           </p>
-          <p className="text-emerald-100 max-w-2xl mx-auto leading-relaxed text-sm opacity-80">
+          <p className="text-emerald-100/80 max-w-2xl mx-auto leading-relaxed text-sm">
             {isAr
               ? 'الجهة الرسمية المنوط بها تنظيم قطاع التقاوي في مصر: التصديق، التسجيل، الترخيص، والرقابة على الجودة منذ عام 1976.'
-              : 'The official national body mandated to regulate Egypt\'s seed sector: certification, variety registration, producer licensing, and quality control since 1976.'}
+              : "The official national body mandated to regulate Egypt's seed sector: certification, variety registration, producer licensing, and quality control since 1976."}
           </p>
         </div>
       </div>
@@ -1237,13 +1279,14 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
-      {/* Egyptian flag stripe — Red / White / Black */}
-      <div className="flex h-1.5">
+    <div className="min-h-screen bg-parchment-50 bg-papyrus flex flex-col font-sans">
+      {/* Egyptian flag stripe — Red / White / Black, with gold hairline */}
+      <div className="flex h-1">
         <div className="flex-1 bg-[#CE1126]"></div>
         <div className="flex-1 bg-white"></div>
-        <div className="flex-1 bg-[#000000]"></div>
+        <div className="flex-1 bg-[#0a0a0a]"></div>
       </div>
+      <div className="h-px bg-amber-400/70"></div>
       <TopBanner lang={lang} />
       <Navbar lang={lang} setLang={setLang} activeTab={activeTab} setActiveTab={setActiveTab} />
 
@@ -1270,49 +1313,52 @@ export default function App() {
         {activeTab === 'contact' && <ContactView lang={lang} />}
       </main>
 
-      <footer className="bg-emerald-950 text-emerald-400 py-16 mt-0">
+      <footer className="bg-emerald-950 text-emerald-400 mt-0 border-t border-amber-400/30">
+        {/* Top arabesque divider — flipped */}
+        <div className="arabesque-divider" style={{ transform: 'scaleY(-1)' }}></div>
+        <div className="py-16">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="col-span-1 md:col-span-2 space-y-6">
             <div className="flex items-center gap-3">
               <img
-                src="/egypt_cldcd_1/CASC-logo.png"
+                src={`${import.meta.env.BASE_URL}CASC-logo.png`}
                 alt={lang === 'ar' ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
-                className="h-14 w-auto bg-white rounded-lg p-1.5 shadow-sm"
+                className="h-14 w-auto bg-white rounded-md p-1.5 shadow-sm ring-1 ring-amber-400/40"
               />
-              <div>
-                <div className="text-white font-black text-base leading-tight">
-                  {lang === 'ar' ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing and Certification'}
+              <div className="ps-3 border-s border-emerald-800">
+                <div className="text-white font-display font-bold text-base leading-tight">
+                  {lang === 'ar' ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing & Certification'}
                 </div>
-                <div className="text-emerald-400 text-xs mt-0.5">
+                <div className="text-amber-300/80 text-[10px] font-stamp uppercase mt-1">
                   {lang === 'ar' ? 'وزارة الزراعة واستصلاح الأراضي' : 'Ministry of Agriculture & Land Reclamation — Egypt'}
                 </div>
               </div>
             </div>
-            <p className="text-sm max-w-sm leading-relaxed text-emerald-100 opacity-70">
+            <p className="text-sm max-w-sm leading-relaxed text-emerald-100/70">
               {lang === 'ar'
                 ? 'الجهة الوطنية المسؤولة عن تصديق التقاوي وتسجيل الأصناف وترخيص المنتجين والرقابة على جودة التقاوي في جمهورية مصر العربية منذ عام 1976.'
                 : 'The national authority responsible for seed certification, variety registration, producer licensing, and seed quality oversight in Egypt since 1976.'}
             </p>
-            <div className="space-y-2 text-xs text-emerald-300 opacity-80">
+            <div className="space-y-2 text-xs text-emerald-300/85">
               <p className="flex items-center gap-2"><MapPin className="w-3 h-3 text-amber-400 shrink-0" /> {lang === 'ar' ? 'نادي الصيد، الدقي، الجيزة، جمهورية مصر العربية' : 'Nadi El-Seid St., Dokki, Giza, Egypt'}</p>
               <p className="flex items-center gap-2"><Phone className="w-3 h-3 text-amber-400 shrink-0" /> +20 2 3573-1313</p>
               <p className="flex items-center gap-2"><Mail className="w-3 h-3 text-amber-400 shrink-0" /> casc@agr.gov.eg</p>
             </div>
           </div>
           <div>
-            <h4 className="text-white font-black mb-6 uppercase tracking-widest text-xs">{lang === 'ar' ? 'أقسام البوابة' : 'Portal Sections'}</h4>
-            <ul className="text-sm space-y-4">
-              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('about')}>{lang === 'ar' ? 'عن CASC' : 'About CASC'}</li>
-              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('journeys')}>{lang === 'ar' ? 'رحلات المعنيين' : 'Stakeholder Journeys'}</li>
-              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('library')}>{lang === 'ar' ? 'مكتبة التشريعات' : 'Legislation Library'}</li>
-              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('catalogue')}>{lang === 'ar' ? 'الكتالوج الوطني' : 'National Variety Catalogue'}</li>
-              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('directory')}>{lang === 'ar' ? 'دليل الجهات' : 'Authority Directory'}</li>
-              <li className="hover:text-amber-400 cursor-pointer transition-colors" onClick={() => setActiveTab('contact')}>{lang === 'ar' ? 'تواصل معنا' : 'Contact Us'}</li>
+            <h4 className="text-amber-300 font-stamp mb-6 uppercase text-[11px]">{lang === 'ar' ? 'أقسام البوابة' : 'Portal Sections'}</h4>
+            <ul className="text-sm space-y-3.5">
+              <li className="text-emerald-200/80 hover:text-amber-300 cursor-pointer transition-colors" onClick={() => setActiveTab('about')}>{lang === 'ar' ? 'عن CASC' : 'About CASC'}</li>
+              <li className="text-emerald-200/80 hover:text-amber-300 cursor-pointer transition-colors" onClick={() => setActiveTab('journeys')}>{lang === 'ar' ? 'رحلات المعنيين' : 'Stakeholder Journeys'}</li>
+              <li className="text-emerald-200/80 hover:text-amber-300 cursor-pointer transition-colors" onClick={() => setActiveTab('library')}>{lang === 'ar' ? 'مكتبة التشريعات' : 'Legislation Library'}</li>
+              <li className="text-emerald-200/80 hover:text-amber-300 cursor-pointer transition-colors" onClick={() => setActiveTab('catalogue')}>{lang === 'ar' ? 'الكتالوج الوطني' : 'National Variety Catalogue'}</li>
+              <li className="text-emerald-200/80 hover:text-amber-300 cursor-pointer transition-colors" onClick={() => setActiveTab('directory')}>{lang === 'ar' ? 'دليل الجهات' : 'Authority Directory'}</li>
+              <li className="text-emerald-200/80 hover:text-amber-300 cursor-pointer transition-colors" onClick={() => setActiveTab('contact')}>{lang === 'ar' ? 'تواصل معنا' : 'Contact Us'}</li>
             </ul>
           </div>
           <div>
-            <h4 className="text-white font-black mb-6 uppercase tracking-widest text-xs">{lang === 'ar' ? 'خدمات CASC' : 'CASC Services'}</h4>
-            <ul className="text-sm space-y-4 text-emerald-300 opacity-80">
+            <h4 className="text-amber-300 font-stamp mb-6 uppercase text-[11px]">{lang === 'ar' ? 'خدمات CASC' : 'CASC Services'}</h4>
+            <ul className="text-sm space-y-3.5 text-emerald-300/75">
               <li>{lang === 'ar' ? 'تصديق التقاوي' : 'Seed Certification'}</li>
               <li>{lang === 'ar' ? 'تسجيل الأصناف' : 'Variety Registration'}</li>
               <li>{lang === 'ar' ? 'ترخيص المنتجين' : 'Producer Licensing'}</li>
@@ -1321,13 +1367,14 @@ export default function App() {
             </ul>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-emerald-900 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase font-bold tracking-widest text-emerald-600">
+        <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-emerald-900 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase font-stamp text-emerald-600/80">
           <span>© {new Date().getFullYear()} CASC — Central Administration for Seed Testing and Certification, MALR Egypt. All Rights Reserved.</span>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <span className="cursor-pointer hover:text-emerald-400">Terms of Use</span>
-            <span className="cursor-pointer hover:text-emerald-400">Privacy Policy</span>
-            <span className="cursor-pointer hover:text-emerald-400">Accessibility</span>
+            <span className="cursor-pointer hover:text-amber-300">Terms of Use</span>
+            <span className="cursor-pointer hover:text-amber-300">Privacy Policy</span>
+            <span className="cursor-pointer hover:text-amber-300">Accessibility</span>
           </div>
+        </div>
         </div>
       </footer>
     </div>
