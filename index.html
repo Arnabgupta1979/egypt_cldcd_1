@@ -14,48 +14,44 @@
         theme: {
           extend: {
             colors: {
-              /* ── Egyptian Government Green ────────────────────────────────
-                 Re-tuned with real depth: warm forest tones at the dark end,
-                 cooler fresh greens in the mids, soft sage at the top.
-                 Inspired by MALR official stationery + Mamluk-era manuscripts. */
+              /* ── Fresh Egyptian Seed Portal Palette ───────────────────────
+                 Uses the attached green/yellow/orange palette for a cleaner,
+                 warm civic identity across backgrounds, accents, and controls. */
               emerald: {
-                50:  '#f1f7f3',
-                100: '#dceadf',
-                200: '#b6d4bd',
-                300: '#83b692',
-                400: '#4f956a',
-                500: '#2d7a4f',
-                600: '#1f6440',
-                700: '#185234',
-                800: '#13402a',
-                900: '#0d2e1f',
-                950: '#061a11',
+                50:  '#eef7e5',
+                100: '#d9efc7',
+                200: '#c3e4a0',
+                300: '#abda79',
+                400: '#8fd04a',
+                500: '#73c525',
+                600: '#5da61f',
+                700: '#4a8a1b',
+                800: '#3c7018',
+                900: '#315913',
+                950: '#26420f',
               },
-              /* ── Pharaonic / Antique Gold ─────────────────────────────────
-                 Warmer and more lustrous than the previous mustard.
-                 Reads as aged metal, not yellow. */
+              /* ── Sunlit Amber / Citrus Accent ──────────────────────────────
+                 Aligns the highlight palette with the screenshot yellow/orange.
+                 Light yellow is used for soft surfaces and orange for strong CTA accents. */
               amber: {
-                50:  '#fdf9ec',
-                100: '#fbf0c8',
-                200: '#f6df8e',
-                300: '#eec657',
-                400: '#d4a72c',
-                500: '#b88a1f',
-                600: '#9a6e18',
-                700: '#7a5414',
-                800: '#5b3d10',
-                900: '#3d290a',
-                950: '#1f1505',
+                50:  '#fff9e0',
+                100: '#fff1b9',
+                200: '#ffef91',
+                300: '#ffdc66',
+                400: '#ffa02e',
+                500: '#ff8f13',
+                600: '#dc7c10',
+                700: '#ae620e',
+                800: '#85470c',
+                900: '#5f3309',
+                950: '#3f2306',
               },
-              /* ── Surface tones ─────────────────────────────────────────────
-                 Replaces flat slate-50. Warm off-whites that read as paper,
-                 not as a SaaS dashboard background. */
               parchment: {
-                50:  '#fbf8f1',  /* page background */
-                100: '#f5efdf',  /* raised surface  */
-                200: '#ebe1c6',  /* subtle dividers */
-                300: '#d9c89f',
-                400: '#bfa771',
+                50:  '#fff7d8',  /* page background */
+                100: '#fff0b9',  /* raised surface  */
+                200: '#ffe58f',  /* subtle dividers */
+                300: '#ffd76a',
+                400: '#ffc24a',
               },
               /* Deep ink for body copy — softer than pure black */
               ink: {
@@ -100,10 +96,10 @@
     <style>
       body {
         font-family: 'Cairo', system-ui, sans-serif;
-        background-color: #fbf8f1;
+        background-color: #fff7d8;
         background-image:
-          repeating-linear-gradient(115deg, rgba(212,167,44,0.018) 0 2px, transparent 2px 7px),
-          repeating-linear-gradient(25deg,  rgba(76,60,30,0.022)  0 1px, transparent 1px 5px);
+          repeating-linear-gradient(115deg, rgba(255,160,46,0.06) 0 2px, transparent 2px 7px),
+          repeating-linear-gradient(25deg,  rgba(70,132,50,0.02)  0 1px, transparent 1px 5px);
       }
 
       /* Display headings: serif for Latin, Amiri for Arabic */
@@ -134,10 +130,10 @@
       .arabesque-divider {
         height: 24px;
         background-image:
-          radial-gradient(circle at 50% 0, transparent 8px, #d4a72c 8px, #d4a72c 9px, transparent 9px),
-          radial-gradient(circle at 0   12px, #d4a72c 1.5px, transparent 1.5px),
-          radial-gradient(circle at 50% 12px, #d4a72c 1.5px, transparent 1.5px),
-          radial-gradient(circle at 100% 12px, #d4a72c 1.5px, transparent 1.5px);
+          radial-gradient(circle at 50% 0, transparent 8px, #ffa02e 8px, #ffa02e 9px, transparent 9px),
+          radial-gradient(circle at 0   12px, #ffa02e 1.5px, transparent 1.5px),
+          radial-gradient(circle at 50% 12px, #ffa02e 1.5px, transparent 1.5px),
+          radial-gradient(circle at 100% 12px, #ffa02e 1.5px, transparent 1.5px);
         background-size: 48px 24px, 48px 24px, 48px 24px, 48px 24px;
         background-repeat: repeat-x;
         opacity: 0.55;

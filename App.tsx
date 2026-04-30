@@ -174,7 +174,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
           <circle cx="58" cy="22" r="2.5" />
         </svg>
         {/* Subtle radial atmosphere */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,167,44,0.10),transparent_70%)] pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,160,46,0.10),transparent_70%)] pointer-events-none"></div>
 
         <div className="relative max-w-5xl mx-auto text-center space-y-5 px-4 pt-16 pb-14">
           <div className="inline-flex items-center gap-2 bg-emerald-900/60 text-amber-300 px-4 py-1.5 rounded-sm text-xs font-stamp uppercase border border-amber-400/40">
@@ -787,7 +787,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
 
       {/* Hero */}
       <div className="relative bg-emerald-950 text-white py-20 px-4 border-b border-amber-400/30 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,167,44,0.08),transparent_70%)] pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,160,46,0.08),transparent_70%)] pointer-events-none"></div>
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <img
             src={`${import.meta.env.BASE_URL}CASC-logo.png`}
