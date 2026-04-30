@@ -40,10 +40,10 @@ import { getDocumentSummary } from './geminiService';
 const TopBanner: React.FC<{ lang: Language }> = ({ lang }) => {
   const isAr = lang === 'ar';
   return (
-    <div className="bg-emerald-950 text-emerald-200/90 text-xs py-2.5 px-4 border-b border-emerald-900">
+    <div className="bg-amber-100 text-emerald-700 text-xs py-2.5 px-4 border-b border-amber-100">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
         <div className="flex items-center gap-3">
-          <span className="font-stamp text-amber-300 px-2.5 py-0.5 text-[10px] uppercase border border-amber-400/60 ring-1 ring-amber-400/20 ring-offset-1 ring-offset-emerald-950">
+          <span className="font-stamp text-emerald-700 px-2.5 py-0.5 text-[10px] uppercase border border-amber-100/90 ring-1 ring-amber-100/40 ring-offset-1 ring-offset-amber-50">
             {isAr ? 'رسمي' : 'Official'}
           </span>
           <span className="tracking-wide">
@@ -54,11 +54,11 @@ const TopBanner: React.FC<{ lang: Language }> = ({ lang }) => {
         </div>
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1">
-            <Phone className="w-3 h-3 text-amber-400" />
+            <Phone className="w-3 h-3 text-orange-500" />
             02-35731313
           </span>
           <span className="flex items-center gap-1">
-            <Mail className="w-3 h-3 text-amber-400" />
+            <Mail className="w-3 h-3 text-orange-500" />
             casc@agr.gov.eg
           </span>
         </div>
@@ -86,7 +86,7 @@ const Navbar: React.FC<{
   ];
 
   return (
-    <nav className="bg-emerald-900 text-white sticky top-0 z-50 shadow-lg border-b border-emerald-950/60">
+    <nav className="bg-emerald-700 text-white sticky top-0 z-50 shadow-lg border-b border-emerald-800/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-[72px]">
           <div className="flex items-center gap-4">
@@ -94,9 +94,9 @@ const Navbar: React.FC<{
               <img
                 src={`${import.meta.env.BASE_URL}CASC-logo.png`}
                 alt={isAr ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
-                className="h-12 w-auto bg-white rounded-md p-1 shadow-sm ring-1 ring-amber-400/40"
+                className="h-12 w-auto bg-white rounded-md p-1 shadow-sm ring-1 ring-orange-500/40"
               />
-              <div className="hidden md:block ps-2 border-s border-emerald-700/70">
+              <div className="hidden md:block ps-2 border-s border-emerald-800/70">
                 <div className="font-display font-bold text-lg leading-tight text-white">
                   {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'CASC Egypt'}
                 </div>
@@ -112,8 +112,8 @@ const Navbar: React.FC<{
                   onClick={() => setActiveTab(item.id)}
                   className={`px-3 py-2 text-sm font-semibold transition-all flex items-center gap-2 border-b-2 ${
                     activeTab === item.id
-                      ? 'border-amber-400 text-amber-300'
-                      : 'border-transparent text-emerald-100 hover:text-amber-200 hover:border-amber-400/40'
+                      ? 'border-orange-400 text-orange-500'
+                      : 'border-transparent text-emerald-100 hover:text-orange-500 hover:border-orange-400/40'
                   }`}
                 >
                   <item.icon className="w-4 h-4" />
@@ -125,13 +125,13 @@ const Navbar: React.FC<{
           <div className="flex items-center gap-4">
             <button
               onClick={() => setLang(isAr ? 'en' : 'ar')}
-              className="flex items-center gap-2 bg-emerald-950/40 hover:bg-emerald-800 px-3 py-1.5 rounded-sm border border-emerald-700 hover:border-amber-400/50 transition-all"
+              className="flex items-center gap-2 bg-emerald-950/40 hover:bg-emerald-800 px-3 py-1.5 rounded-sm border border-emerald-700 hover:border-orange-400/50 transition-all"
             >
               <Globe className="w-4 h-4" />
               <span className="text-xs font-semibold tracking-wide">{isAr ? 'English' : 'العربية'}</span>
             </button>
             <div className="border-l border-emerald-700 h-6 mx-1"></div>
-            <button className="flex items-center gap-2 text-emerald-100 hover:text-amber-300 transition-colors">
+            <button className="flex items-center gap-2 text-emerald-100 hover:text-orange-200 transition-colors">
               <User className="w-5 h-5" />
               <span className="hidden sm:inline text-sm font-semibold">{isAr ? 'دخول' : 'Login'}</span>
             </button>
@@ -149,10 +149,10 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
     <div className="animate-fade-in">
 
       {/* Announcement Strip */}
-      <div className="bg-amber-50 border-y border-amber-200/70 py-2.5 px-4">
+      <div className="bg-amber-100 border-y border-amber-100/70 py-2.5 px-4">
         <div className="max-w-7xl mx-auto flex items-center gap-3">
-          <Megaphone className="w-4 h-4 text-amber-700 shrink-0" />
-          <p className="text-xs text-amber-900 font-semibold tracking-wide">
+          <Megaphone className="w-4 h-4 text-emerald-700 shrink-0" />
+          <p className="text-xs text-emerald-700 font-semibold tracking-wide">
             {isAr
               ? 'إشعار: آخر موعد لتقديم طلبات استيراد تقاوي البطاطس للموسم الصيفي هو 10 يناير 2026. يرجى التأكد من استيفاء جميع متطلبات الحجر الزراعي.'
               : 'Notice: The deadline for potato seed import applications (summer season) is January 10, 2026. Ensure all phytosanitary requirements are met.'}
@@ -161,24 +161,24 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
       </div>
 
       {/* Hero — deep emerald authoritative band */}
-      <header className="relative overflow-hidden bg-emerald-950 text-white border-b border-amber-400/30">
+      <header className="relative overflow-hidden bg-emerald-700 text-white border-b border-amber-100/50">
         {/* Decorative arabesque corner ornaments */}
-        <svg className="absolute top-6 left-6 w-20 h-20 text-amber-400/25 hidden md:block" viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1">
+        <svg className="absolute top-6 left-6 w-20 h-20 text-amber-100/50 hidden md:block" viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1">
           <path d="M2 2 L26 2 M2 2 L2 26" />
           <path d="M2 14 Q14 14 14 2" />
           <circle cx="22" cy="22" r="2.5" />
         </svg>
-        <svg className="absolute top-6 right-6 w-20 h-20 text-amber-400/25 hidden md:block" viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1">
+        <svg className="absolute top-6 right-6 w-20 h-20 text-amber-100/50 hidden md:block" viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1">
           <path d="M78 2 L54 2 M78 2 L78 26" />
           <path d="M78 14 Q66 14 66 2" />
           <circle cx="58" cy="22" r="2.5" />
         </svg>
         {/* Subtle radial atmosphere */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(218,216,135,0.10),transparent_70%)] pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(231,251,180,0.10),transparent_70%)] pointer-events-none"></div>
 
         <div className="relative max-w-5xl mx-auto text-center space-y-5 px-4 pt-16 pb-14">
-          <div className="inline-flex items-center gap-2 bg-emerald-900/60 text-amber-300 px-4 py-1.5 rounded-sm text-xs font-stamp uppercase border border-amber-400/40">
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></div>
+          <div className="inline-flex items-center gap-2 bg-amber-100/95 text-emerald-700 px-4 py-1.5 rounded-sm text-xs font-stamp uppercase border border-amber-100">
+            <div className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></div>
             {isAr ? 'الموقع الرسمي لـ CASC' : 'Official CASC Digital Portal · v1.0 Beta'}
           </div>
           <h1 className="font-display text-5xl md:text-6xl font-bold text-white tracking-tight leading-[1.1] max-w-4xl mx-auto">
@@ -186,11 +186,11 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
           </h1>
           {/* Ornamental flourish under title */}
           <div className="flex items-center justify-center gap-3 pt-1">
-            <div className="h-px w-12 bg-amber-400/60"></div>
-            <svg className="w-4 h-4 text-amber-400" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z"/></svg>
-            <div className="h-px w-12 bg-amber-400/60"></div>
+            <div className="h-px w-12 bg-amber-100/80"></div>
+            <svg className="w-4 h-4 text-orange-500" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z"/></svg>
+            <div className="h-px w-12 bg-amber-100/80"></div>
           </div>
-          <p className="font-display italic text-xl text-amber-200/90">
+          <p className="font-display italic text-xl text-amber-900/90">
             {isAr ? 'وزارة الزراعة واستصلاح الأراضي — جمهورية مصر العربية' : 'Ministry of Agriculture & Land Reclamation — Arab Republic of Egypt'}
           </p>
           <p className="text-base text-emerald-100/85 max-w-2xl mx-auto leading-relaxed pt-3">
@@ -201,14 +201,14 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
           <div className="flex flex-wrap justify-center gap-4 pt-6">
             <button
               onClick={onStartJourney}
-              className="bg-amber-400 hover:bg-amber-300 text-emerald-950 px-8 py-3.5 font-bold tracking-wide flex items-center gap-3 transition-all shadow-minted"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3.5 font-bold tracking-wide flex items-center gap-3 transition-all shadow-minted"
             >
               {isAr ? 'ابدأ رحلتك كمعني بالقطاع' : 'Start Stakeholder Journey'}
               <ArrowRight className={`w-5 h-5 ${isAr ? 'rotate-180' : ''}`} />
             </button>
             <button
               onClick={onGoLibrary}
-              className="bg-transparent border border-amber-400/60 hover:border-amber-300 hover:bg-emerald-900/40 text-amber-200 hover:text-amber-100 px-8 py-3.5 font-bold tracking-wide transition-all"
+              className="bg-transparent border border-orange-600/60 hover:border-orange-500 hover:bg-emerald-800/15 text-orange-600 hover:text-orange-500 px-8 py-3.5 font-bold tracking-wide transition-all"
             >
               {isAr ? 'تصفح المكتبة' : 'Browse Library'}
             </button>
@@ -219,7 +219,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
       </header>
 
       {/* Stats Strip — inscribed band */}
-      <div className="bg-emerald-900 text-white py-10 border-y border-amber-400/25">
+      <div className="bg-emerald-800 text-white py-10 border-y border-amber-100/30">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             { num: '500+', label: isAr ? 'صنف مسجل' : 'Registered Varieties', icon: BookOpen },
@@ -228,8 +228,8 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
             { num: '30+', label: isAr ? 'سنة من الخدمة' : 'Years of Service', icon: Star },
           ].map((s, i) => (
             <div key={i} className="flex flex-col items-center gap-2 px-4 md:border-s md:border-amber-400/15 md:first:border-s-0">
-              <s.icon className="w-5 h-5 text-amber-400" />
-              <span className="font-display text-4xl font-bold text-amber-300">{s.num}</span>
+              <s.icon className="w-5 h-5 text-orange-400" />
+              <span className="font-display text-4xl font-bold text-orange-500">{s.num}</span>
               <span className="text-emerald-200/80 text-[11px] font-stamp uppercase">{s.label}</span>
             </div>
           ))}
@@ -254,7 +254,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
         ].map((card, i) => {
           const accentMap: Record<string, { iconBg: string; iconText: string; cta: string; corner: string }> = {
             emerald: { iconBg: 'bg-emerald-100/70', iconText: 'text-emerald-700', cta: 'text-emerald-700', corner: 'bg-emerald-700' },
-            amber:   { iconBg: 'bg-amber-100/70',   iconText: 'text-amber-700',   cta: 'text-amber-700',   corner: 'bg-amber-500'   },
+            amber:   { iconBg: 'bg-amber-100/70',  iconText: 'text-orange-700',  cta: 'text-orange-700',  corner: 'bg-orange-500'   },
             blue:    { iconBg: 'bg-blue-50',        iconText: 'text-blue-700',    cta: 'text-blue-700',    corner: 'bg-blue-700'    },
           };
           const a = accentMap[card.accent];
@@ -262,7 +262,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
             <div
               key={i}
               onClick={card.onClick}
-              className="relative bg-parchment-100 p-8 ring-1 ring-parchment-200 shadow-card hover:shadow-card-hover hover:ring-amber-400/40 transition-all cursor-pointer group"
+              className="relative bg-parchment-100 p-8 ring-1 ring-parchment-200 shadow-card hover:shadow-card-hover hover:ring-orange-400/40 transition-all cursor-pointer group"
             >
               {/* Top corner crest */}
               <div className={`absolute top-0 left-0 w-12 h-1 ${a.corner}`}></div>
@@ -286,7 +286,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 text-emerald-800 px-0 py-1 text-[11px] font-stamp uppercase">
-              <Shield className="w-3 h-3 text-amber-600" />
+              <Shield className="w-3 h-3 text-orange-600" />
               {isAr ? 'من نحن' : 'Who We Are'}
             </div>
             <h2 className="font-display text-4xl font-bold text-emerald-950 leading-tight">
@@ -294,7 +294,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
                 ? 'الجهة الوطنية المسؤولة عن تصديق وتنظيم قطاع التقاوي في مصر'
                 : "Egypt's National Authority for Seed Certification & Regulation"}
             </h2>
-            <div className="h-px w-16 bg-amber-500/70"></div>
+            <div className="h-px w-16 bg-orange-500/70"></div>
             <p className="text-ink-700/85 leading-relaxed text-[15px]">
               {isAr
                 ? 'تأسست الإدارة المركزية لتصديق التقاوي (CASC) تحت مظلة وزارة الزراعة واستصلاح الأراضي لتكون المرجع الرسمي لتصديق التقاوي وتسجيل الأصناف وإصدار تراخيص الإنتاج والاستيراد والتصدير، بهدف ضمان سلامة القطاع وجودته.'
@@ -430,14 +430,14 @@ const LibraryView: React.FC<{ lang: Language, initialDocId?: string }> = ({ lang
               </div>
               
               {selectedDoc.status === DocStatus.SUPERSEDED && (
-                <div className="p-4 bg-amber-50 border-l-4 border-amber-400 rounded-r-lg">
+                <div className="p-4 bg-amber-50 border-l-4 border-orange-500 rounded-r-lg">
                   <div className="flex gap-3">
-                    <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
+                    <AlertTriangle className="w-5 h-5 text-orange-600 shrink-0" />
                     <div className="text-sm">
-                      <p className="font-bold text-amber-900">{isAr ? 'ملغى بالإصدار الجديد' : 'Superseded'}</p>
+                      <p className="font-bold text-orange-900">{isAr ? 'ملغى بالإصدار الجديد' : 'Superseded'}</p>
                       <button 
                         onClick={() => setSelectedDoc(MOCK_DOCS.find(d => d.id === selectedDoc.latestVersionId) || null)}
-                        className="text-amber-700 underline font-bold mt-1"
+                        className="text-orange-700 underline font-bold mt-1"
                       >
                         {isAr ? 'انتقل للإصدار الحالي' : 'Go to Current Version'}
                       </button>
@@ -600,7 +600,7 @@ const DirectoryView: React.FC<{ lang: Language }> = ({ lang }) => {
           <div className="flex flex-wrap gap-2">
             <button 
               onClick={() => setSelectedTask('All')}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${selectedTask === 'All' ? 'bg-amber-400 text-emerald-950' : 'bg-emerald-800 hover:bg-emerald-700'}`}
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${selectedTask === 'All' ? 'bg-orange-500 text-white' : 'bg-emerald-800 hover:bg-emerald-700'}`}
             >
               {isAr ? 'الكل' : 'All Tasks'}
             </button>
@@ -608,7 +608,7 @@ const DirectoryView: React.FC<{ lang: Language }> = ({ lang }) => {
               <button 
                 key={t}
                 onClick={() => setSelectedTask(t)}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${selectedTask === t ? 'bg-amber-400 text-emerald-950' : 'bg-emerald-800 hover:bg-emerald-700'}`}
+                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${selectedTask === t ? 'bg-orange-500 text-white' : 'bg-emerald-800 hover:bg-emerald-700'}`}
               >
                 {t}
               </button>
@@ -786,21 +786,21 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
     <div className="animate-fade-in">
 
       {/* Hero */}
-      <div className="relative bg-emerald-950 text-white py-20 px-4 border-b border-amber-400/30 overflow-hidden">
+      <div className="relative bg-emerald-950 text-white py-20 px-4 border-b border-orange-400/30 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(218,216,135,0.08),transparent_70%)] pointer-events-none"></div>
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <img
             src={`${import.meta.env.BASE_URL}CASC-logo.png`}
             alt={isAr ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
-            className="h-24 w-auto mx-auto bg-white rounded-md p-2 shadow-2xl ring-1 ring-amber-400/40"
+            className="h-24 w-auto mx-auto bg-white rounded-md p-2 shadow-2xl ring-1 ring-orange-400/40"
           />
           <h1 className="font-display text-4xl md:text-5xl font-bold leading-tight">
             {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing and Certification'}
           </h1>
           <div className="flex items-center justify-center gap-3">
-            <div className="h-px w-10 bg-amber-400/60"></div>
-            <svg className="w-3 h-3 text-amber-400" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z"/></svg>
-            <div className="h-px w-10 bg-amber-400/60"></div>
+            <div className="h-px w-10 bg-orange-400/60"></div>
+            <svg className="w-3 h-3 text-orange-400" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z"/></svg>
+            <div className="h-px w-10 bg-orange-400/60"></div>
           </div>
           <p className="font-display italic text-amber-200/90 text-lg">
             {isAr ? 'وزارة الزراعة واستصلاح الأراضي — جمهورية مصر العربية' : 'Ministry of Agriculture & Land Reclamation — Arab Republic of Egypt'}
@@ -896,7 +896,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
       {/* Stakeholder Journey CTA */}
       <div className="bg-emerald-900 text-white py-12 px-4">
         <div className="max-w-3xl mx-auto text-center space-y-5">
-          <Users className="w-10 h-10 text-amber-400 mx-auto" />
+          <Users className="w-10 h-10 text-orange-400 mx-auto" />
           <h3 className="text-2xl font-black">
             {isAr ? 'هل أنت مزارع، مستورد، أو منتج تقاوي؟' : 'Are you a Farmer, Importer, or Seed Producer?'}
           </h3>
@@ -907,7 +907,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           </p>
           <button
             onClick={onStartJourney}
-            className="bg-amber-400 hover:bg-amber-300 text-emerald-950 font-black px-8 py-4 rounded-xl transition-all shadow-lg inline-flex items-center gap-2"
+            className="bg-orange-500 hover:bg-orange-600 text-white font-black px-8 py-4 rounded-xl transition-all shadow-lg inline-flex items-center gap-2"
           >
             {isAr ? 'ابدأ رحلتك الآن' : 'Start Your Journey Now'}
             <ArrowRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
@@ -996,9 +996,9 @@ const ResultView: React.FC<{
 
       {/* Warning / Deadline */}
       {result.warning && (
-        <div className="p-4 bg-amber-50 border-l-4 border-amber-400 rounded-r-xl flex gap-3">
-          <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-          <p className="text-sm text-amber-900 font-semibold">{result.warning[lang]}</p>
+        <div className="p-4 bg-amber-50 border-l-4 border-orange-500 rounded-r-xl flex gap-3">
+          <AlertTriangle className="w-5 h-5 text-orange-600 shrink-0 mt-0.5" />
+          <p className="text-sm text-orange-900 font-semibold">{result.warning[lang]}</p>
         </div>
       )}
       {result.deadline && (
@@ -1286,7 +1286,7 @@ export default function App() {
         <div className="flex-1 bg-white"></div>
         <div className="flex-1 bg-[#0a0a0a]"></div>
       </div>
-      <div className="h-px bg-amber-400/70"></div>
+      <div className="h-px bg-orange-400/70"></div>
       <TopBanner lang={lang} />
       <Navbar lang={lang} setLang={setLang} activeTab={activeTab} setActiveTab={setActiveTab} />
 
@@ -1313,7 +1313,7 @@ export default function App() {
         {activeTab === 'contact' && <ContactView lang={lang} />}
       </main>
 
-      <footer className="bg-emerald-950 text-emerald-400 mt-0 border-t border-amber-400/30">
+      <footer className="bg-emerald-950 text-emerald-200 mt-0 border-t border-orange-600/30">
         {/* Top arabesque divider — flipped */}
         <div className="arabesque-divider" style={{ transform: 'scaleY(-1)' }}></div>
         <div className="py-16">
@@ -1323,13 +1323,13 @@ export default function App() {
               <img
                 src={`${import.meta.env.BASE_URL}CASC-logo.png`}
                 alt={lang === 'ar' ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
-                className="h-14 w-auto bg-white rounded-md p-1.5 shadow-sm ring-1 ring-amber-400/40"
+                className="h-14 w-auto bg-white rounded-md p-1.5 shadow-sm ring-1 ring-orange-400/40"
               />
               <div className="ps-3 border-s border-emerald-800">
                 <div className="text-white font-display font-bold text-base leading-tight">
                   {lang === 'ar' ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing & Certification'}
                 </div>
-                <div className="text-amber-300/80 text-[10px] font-stamp uppercase mt-1">
+                <div className="text-orange-400/80 text-[10px] font-stamp uppercase mt-1">
                   {lang === 'ar' ? 'وزارة الزراعة واستصلاح الأراضي' : 'Ministry of Agriculture & Land Reclamation — Egypt'}
                 </div>
               </div>
@@ -1340,24 +1340,24 @@ export default function App() {
                 : 'The national authority responsible for seed certification, variety registration, producer licensing, and seed quality oversight in Egypt since 1976.'}
             </p>
             <div className="space-y-2 text-xs text-emerald-300/85">
-              <p className="flex items-center gap-2"><MapPin className="w-3 h-3 text-amber-400 shrink-0" /> {lang === 'ar' ? 'نادي الصيد، الدقي، الجيزة، جمهورية مصر العربية' : 'Nadi El-Seid St., Dokki, Giza, Egypt'}</p>
-              <p className="flex items-center gap-2"><Phone className="w-3 h-3 text-amber-400 shrink-0" /> +20 2 3573-1313</p>
-              <p className="flex items-center gap-2"><Mail className="w-3 h-3 text-amber-400 shrink-0" /> casc@agr.gov.eg</p>
+              <p className="flex items-center gap-2"><MapPin className="w-3 h-3 text-orange-400 shrink-0" /> {lang === 'ar' ? 'نادي الصيد، الدقي، الجيزة، جمهورية مصر العربية' : 'Nadi El-Seid St., Dokki, Giza, Egypt'}</p>
+              <p className="flex items-center gap-2"><Phone className="w-3 h-3 text-orange-400 shrink-0" /> +20 2 3573-1313</p>
+              <p className="flex items-center gap-2"><Mail className="w-3 h-3 text-orange-400 shrink-0" /> casc@agr.gov.eg</p>
             </div>
           </div>
           <div>
-            <h4 className="text-amber-300 font-stamp mb-6 uppercase text-[11px]">{lang === 'ar' ? 'أقسام البوابة' : 'Portal Sections'}</h4>
+            <h4 className="text-orange-400 font-stamp mb-6 uppercase text-[11px]">{lang === 'ar' ? 'أقسام البوابة' : 'Portal Sections'}</h4>
             <ul className="text-sm space-y-3.5">
-              <li className="text-emerald-200/80 hover:text-amber-300 cursor-pointer transition-colors" onClick={() => setActiveTab('about')}>{lang === 'ar' ? 'عن CASC' : 'About CASC'}</li>
-              <li className="text-emerald-200/80 hover:text-amber-300 cursor-pointer transition-colors" onClick={() => setActiveTab('journeys')}>{lang === 'ar' ? 'رحلات المعنيين' : 'Stakeholder Journeys'}</li>
-              <li className="text-emerald-200/80 hover:text-amber-300 cursor-pointer transition-colors" onClick={() => setActiveTab('library')}>{lang === 'ar' ? 'مكتبة التشريعات' : 'Legislation Library'}</li>
-              <li className="text-emerald-200/80 hover:text-amber-300 cursor-pointer transition-colors" onClick={() => setActiveTab('catalogue')}>{lang === 'ar' ? 'الكتالوج الوطني' : 'National Variety Catalogue'}</li>
-              <li className="text-emerald-200/80 hover:text-amber-300 cursor-pointer transition-colors" onClick={() => setActiveTab('directory')}>{lang === 'ar' ? 'دليل الجهات' : 'Authority Directory'}</li>
-              <li className="text-emerald-200/80 hover:text-amber-300 cursor-pointer transition-colors" onClick={() => setActiveTab('contact')}>{lang === 'ar' ? 'تواصل معنا' : 'Contact Us'}</li>
+              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('about')}>{lang === 'ar' ? 'عن CASC' : 'About CASC'}</li>
+              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('journeys')}>{lang === 'ar' ? 'رحلات المعنيين' : 'Stakeholder Journeys'}</li>
+              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('library')}>{lang === 'ar' ? 'مكتبة التشريعات' : 'Legislation Library'}</li>
+              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('catalogue')}>{lang === 'ar' ? 'الكتالوج الوطني' : 'National Variety Catalogue'}</li>
+              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('directory')}>{lang === 'ar' ? 'دليل الجهات' : 'Authority Directory'}</li>
+              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('contact')}>{lang === 'ar' ? 'تواصل معنا' : 'Contact Us'}</li>
             </ul>
           </div>
           <div>
-            <h4 className="text-amber-300 font-stamp mb-6 uppercase text-[11px]">{lang === 'ar' ? 'خدمات CASC' : 'CASC Services'}</h4>
+            <h4 className="text-orange-400 font-stamp mb-6 uppercase text-[11px]">{lang === 'ar' ? 'خدمات CASC' : 'CASC Services'}</h4>
             <ul className="text-sm space-y-3.5 text-emerald-300/75">
               <li>{lang === 'ar' ? 'تصديق التقاوي' : 'Seed Certification'}</li>
               <li>{lang === 'ar' ? 'تسجيل الأصناف' : 'Variety Registration'}</li>
@@ -1370,9 +1370,9 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-emerald-900 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase font-stamp text-emerald-600/80">
           <span>© {new Date().getFullYear()} CASC — Central Administration for Seed Testing and Certification, MALR Egypt. All Rights Reserved.</span>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <span className="cursor-pointer hover:text-amber-300">Terms of Use</span>
-            <span className="cursor-pointer hover:text-amber-300">Privacy Policy</span>
-            <span className="cursor-pointer hover:text-amber-300">Accessibility</span>
+            <span className="cursor-pointer hover:text-orange-500">Terms of Use</span>
+            <span className="cursor-pointer hover:text-orange-500">Privacy Policy</span>
+            <span className="cursor-pointer hover:text-orange-500">Accessibility</span>
           </div>
         </div>
         </div>
