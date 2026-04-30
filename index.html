@@ -65,13 +65,7 @@
               },
             },
             fontFamily: {
-              /* Body: Cairo (excellent Arabic + Latin support) */
-              sans: ['Cairo', 'system-ui', 'sans-serif'],
-              /* Display headings: Playfair Display for Latin, Amiri for Arabic.
-                 Browser falls back automatically based on character set. */
-              display: ['"Playfair Display"', 'Amiri', 'Cairo', 'serif'],
-              /* For OFFICIAL stamp, eyebrow labels, small caps */
-              stamp: ['"Cinzel"', '"Playfair Display"', 'serif'],
+              sans: ['Inter', 'system-ui', 'sans-serif'],
             },
             boxShadow: {
               /* Used on cards — soft warm shadow, not the flat black SaaS shadow */
@@ -94,24 +88,64 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Amiri:wght@400;700&family=Cinzel:wght@500;600;700&display=swap"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+      html,
       body {
-        font-family: 'Cairo', system-ui, sans-serif;
+        font-family: 'Inter', system-ui, sans-serif;
+        color: #3D3D3D;
+      }
+
+      html[dir="rtl"], body[dir="rtl"] {
+        font-family: "Segoe UI", "Noto Kufi Arabic", "Noto Naskh Arabic", "Inter", system-ui, sans-serif;
+      }
+
+      body {
         background-color: #f7fce3;
         background-image:
           repeating-linear-gradient(115deg, rgba(99,140,109,0.05) 0 2px, transparent 2px 7px),
           repeating-linear-gradient(25deg,  rgba(223,109,45,0.06)  0 1px, transparent 1px 5px);
       }
 
-      /* Display headings: serif for Latin, Amiri for Arabic */
-      .font-display { font-family: 'Playfair Display', 'Amiri', 'Cairo', serif; }
-      [dir="rtl"] .font-display { font-family: 'Amiri', 'Playfair Display', 'Cairo', serif; }
+      .text-slate-700, .text-slate-600, .text-slate-800, .text-slate-900 {
+        color: #2D4A32 !important;
+      }
 
-      /* Stamp typography for OFFICIAL badges and eyebrow labels */
-      .font-stamp { font-family: 'Cinzel', 'Playfair Display', serif; letter-spacing: 0.18em; }
+      .text-slate-500 {
+        color: #3D3D3D !important;
+      }
+
+      .text-slate-400 {
+        color: rgba(61, 61, 61, 0.7) !important;
+      }
+
+      .text-slate-300 {
+        color: rgba(61, 61, 61, 0.5) !important;
+      }
+
+      .text-blue-500, .text-blue-700, .text-purple-500, .text-sky-600, .text-rose-600 {
+        color: #638C6D !important;
+      }
+
+      .bg-slate-50, .bg-slate-100, .bg-blue-50, .bg-purple-50, .bg-sky-50, .bg-rose-50 {
+        background-color: #E7FBB4 !important;
+      }
+
+      .bg-blue-50, .bg-purple-50, .bg-sky-50, .bg-rose-50 {
+        background-color: #E7FBB4 !important;
+      }
+
+      .bg-slate-200 {
+        background-color: #E7FBB4 !important;
+      }
+
+      .border-slate-100, .border-slate-200 {
+        border-color: #E7FBB4 !important;
+      }
+
+      .bg-slate-300, .bg-slate-400 {
+        background-color: #E7FBB4 !important;
+      }
 
       /* Refined entrance for the page */
       @keyframes fade-in {
@@ -144,7 +178,7 @@
       }
     </style>
   </head>
-  <body class="text-ink-800">
+  <body class="text-[#3D3D3D]">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

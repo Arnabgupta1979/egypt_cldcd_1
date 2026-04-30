@@ -120,7 +120,65 @@ The portal covers six regulatory domains:
 > Note: "Production" is a distinct type added to represent CASP. Do not collapse it into "Regulatory" or "Advisory".
 
 ---
+## Design standards
 
+These are the agreed visual standards for the portal. All future UI changes must follow these specifications.
+
+### Colour palette
+
+| Role | Hex | RGB | Usage |
+|---|---|---|---|
+| Primary green | #638C6D | rgb(99, 140, 109) | Navbar, hero background, footer, section backgrounds |
+| Light accent | #E7FBB4 | rgb(231, 251, 180) | Notice banners, badges, tags, highlights, hover states |
+| Action orange | #DF6D2D | rgb(223, 109, 45) | Primary buttons, CTAs, active nav underlines |
+| Deep orange | #C84C05 | rgb(200, 76, 5) | Button hover states, secondary buttons, borders |
+| Dark green (text) | #2D4A32 | — | Body text on light backgrounds |
+| Near black (text) | #3D3D3D | — | Card body text on white backgrounds |
+
+### Text colour rules by background
+
+| Background | Heading colour | Body text colour | Notes |
+|---|---|---|---|
+| #638C6D (green) | #FFFFFF | #E7FBB4 | Never use dark text on green — insufficient contrast |
+| #E7FBB4 (light yellow-green) | #2D4A32 | #2D4A32 | Never use orange text on this background |
+| White / near-white | #2D4A32 | #3D3D3D | Standard card and content area treatment |
+| #C84C05 (deep orange) | #FFFFFF | #FFFFFF | Used only for small UI elements, not large backgrounds |
+
+### Typography
+
+- **Font family**: Inter (Google Fonts) — applied universally at html and body level
+- **Import**: `https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap`
+- No serif, display, or decorative fonts anywhere in the portal
+- Arabic text uses system Arabic font stack with Inter as fallback
+
+| Element | Weight | Notes |
+|---|---|---|
+| Hero heading (h1) | 800 | White on green background |
+| Section headings (h2) | 700 | |
+| Card headings (h3) | 600 | |
+| Navigation links | 500 | |
+| Body text | 400 | |
+| Captions / supporting text | 300 | |
+| Buttons | 600 | |
+| Labels and badges | 500 | Uppercase, letter-spacing 0.05em |
+
+### Icon colours
+
+- All icons across service cards and UI components: #638C6D (primary green)
+- Do not use mixed icon colours (blue, purple, red) — these have been removed
+- Icon background circles: #E7FBB4 or white
+
+### Stats section (homepage)
+
+- Numbers (500+, 12, 4, 30+): #E7FBB4 on green background
+- Labels below numbers: #FFFFFF at 80% opacity
+
+### General principles
+
+- Maintain sufficient contrast at all times — WCAG AA minimum
+- Do not introduce new font families without updating this file
+- Do not introduce new colours without updating this file
+- The palette should feel professional, lighter, and government-appropriate — not dark or heavy
 ## Development phases
 
 | Phase | Description |
