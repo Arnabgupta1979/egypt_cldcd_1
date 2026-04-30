@@ -18,40 +18,40 @@
                  Uses the attached green/yellow/orange palette for a cleaner,
                  warm civic identity across backgrounds, accents, and controls. */
               emerald: {
-                50:  '#eef7e5',
-                100: '#d9efc7',
-                200: '#c3e4a0',
-                300: '#abda79',
-                400: '#8fd04a',
-                500: '#73c525',
-                600: '#5da61f',
-                700: '#4a8a1b',
-                800: '#3c7018',
-                900: '#315913',
-                950: '#26420f',
+                50:  '#eff6f4',
+                100: '#d8ece2',
+                200: '#b9ddc8',
+                300: '#94c89f',
+                400: '#7dbc7b',
+                500: '#75b06f',
+                600: '#5f8e5b',
+                700: '#4f734f',
+                800: '#3f583f',
+                900: '#2f4234',
+                950: '#22312b',
               },
-              /* ── Sunlit Amber / Citrus Accent ──────────────────────────────
-                 Aligns the highlight palette with the screenshot yellow/orange.
-                 Light yellow is used for soft surfaces and orange for strong CTA accents. */
+              /* ── Soft olive / meadow accent palette ───────────────────────
+                 Uses the requested warm yellow-green palette for highlights
+                 while preserving accessible contrast for text and borders. */
               amber: {
-                50:  '#fff9e0',
-                100: '#fff1b9',
-                200: '#ffef91',
-                300: '#ffdc66',
-                400: '#ffa02e',
-                500: '#ff8f13',
-                600: '#dc7c10',
-                700: '#ae620e',
-                800: '#85470c',
-                900: '#5f3309',
-                950: '#3f2306',
+                50:  '#f5f8c4',
+                100: '#f0f8a4',
+                200: '#dad887',
+                300: '#c9c36f',
+                400: '#b5b359',
+                500: '#9a9950',
+                600: '#7d7a44',
+                700: '#626133',
+                800: '#4a4627',
+                900: '#36341d',
+                950: '#252312',
               },
               parchment: {
-                50:  '#fff7d8',  /* page background */
-                100: '#fff0b9',  /* raised surface  */
-                200: '#ffe58f',  /* subtle dividers */
-                300: '#ffd76a',
-                400: '#ffc24a',
+                50:  '#f6f8d0',
+                100: '#f0f8a4',  /* page background */
+                200: '#e5e78e',  /* raised surface  */
+                300: '#d8d477',  /* subtle dividers */
+                400: '#c5c05a',
               },
               /* Deep ink for body copy — softer than pure black */
               ink: {
@@ -74,14 +74,14 @@
               card: '0 1px 2px rgba(76, 60, 30, 0.04), 0 8px 24px -8px rgba(76, 60, 30, 0.08)',
               'card-hover': '0 4px 8px rgba(76, 60, 30, 0.06), 0 16px 40px -12px rgba(76, 60, 30, 0.18)',
               /* Inset hairline used on primary buttons for the "minted" feel */
-              minted: 'inset 0 0 0 1px rgba(212, 167, 44, 0.5), 0 4px 12px -2px rgba(13, 46, 31, 0.25)',
+              minted: 'inset 0 0 0 1px rgba(218, 216, 135, 0.5), 0 4px 12px -2px rgba(54, 101, 107, 0.25)',
             },
             backgroundImage: {
               /* Subtle papyrus fibre — generated from layered linear-gradients,
                  no external image needed. Almost invisible but warms the page. */
               'papyrus':
-                'repeating-linear-gradient(115deg, rgba(212,167,44,0.018) 0 2px, transparent 2px 7px),' +
-                'repeating-linear-gradient(25deg,  rgba(76,60,30,0.022) 0 1px, transparent 1px 5px)',
+                'repeating-linear-gradient(115deg, rgba(54,101,107,0.018) 0 2px, transparent 2px 7px),' +
+                'repeating-linear-gradient(25deg,  rgba(218,216,135,0.022) 0 1px, transparent 1px 5px)',
             },
           },
         },
@@ -96,10 +96,10 @@
     <style>
       body {
         font-family: 'Cairo', system-ui, sans-serif;
-        background-color: #fff7d8;
+        background-color: #f0f8a4;
         background-image:
-          repeating-linear-gradient(115deg, rgba(255,160,46,0.06) 0 2px, transparent 2px 7px),
-          repeating-linear-gradient(25deg,  rgba(70,132,50,0.02)  0 1px, transparent 1px 5px);
+          repeating-linear-gradient(115deg, rgba(54,101,107,0.06) 0 2px, transparent 2px 7px),
+          repeating-linear-gradient(25deg,  rgba(218,216,135,0.10)  0 1px, transparent 1px 5px);
       }
 
       /* Display headings: serif for Latin, Amiri for Arabic */
@@ -130,10 +130,10 @@
       .arabesque-divider {
         height: 24px;
         background-image:
-          radial-gradient(circle at 50% 0, transparent 8px, #ffa02e 8px, #ffa02e 9px, transparent 9px),
-          radial-gradient(circle at 0   12px, #ffa02e 1.5px, transparent 1.5px),
-          radial-gradient(circle at 50% 12px, #ffa02e 1.5px, transparent 1.5px),
-          radial-gradient(circle at 100% 12px, #ffa02e 1.5px, transparent 1.5px);
+          radial-gradient(circle at 50% 0, transparent 8px, #dad887 8px, #dad887 9px, transparent 9px),
+          radial-gradient(circle at 0   12px, #dad887 1.5px, transparent 1.5px),
+          radial-gradient(circle at 50% 12px, #dad887 1.5px, transparent 1.5px),
+          radial-gradient(circle at 100% 12px, #dad887 1.5px, transparent 1.5px);
         background-size: 48px 24px, 48px 24px, 48px 24px, 48px 24px;
         background-repeat: repeat-x;
         opacity: 0.55;
