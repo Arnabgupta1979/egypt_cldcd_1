@@ -115,7 +115,7 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
           summary: { en: 'The Central Administration for Seed Production (CASP) dominates public variety supply. Wheat and rice certified seed (blue-tagged) is produced from foundation seed developed by ARC research institutes.', ar: 'تهيمن الإدارة المركزية لإنتاج التقاوي (CASP) على توريد الأصناف العامة. التقاوي المعتمدة (ذات العلامة الزرقاء) تُنتج من تقاوي أساسية طورتها معاهد بحوث ARC.' },
           keyPoints: { en: ['CASP controls ~65–67% of certified wheat and rice supply', 'Look for the blue "Certified Seed" label — the farmer grade', 'Famous public varieties: Giza 168/171 (wheat); Sakha 101/104/105 (rice)'], ar: ['تسيطر CASP على ~65-67% من إمدادات القمح والأرز المعتمدة', 'ابحث عن العلامة الزرقاء "تقاوي معتمدة" — درجة المزارع', 'الأصناف العامة الشهيرة: جيزة 168/171 (قمح)؛ سخا 101/104/105 (أرز)'] },
           procedure: { en: ['Confirm the target variety on the CASC / CASP variety list for your governorate.', 'Locate a CASC-licensed outlet — either an agricultural cooperative or one of the 11,675 registered retailers.', 'Request Certified Seed (blue tag); reject any bags without the official CASC seal or Arabic label.', 'Verify the tag details: variety name, lot number, purity %, germination %, and production date.', 'Pay and retain the invoice together with the tag for the full cropping season.', 'Store in a cool, dry place and sow within the recommended window for your agro-ecological zone.'], ar: ['تحقق من الصنف المستهدف في قائمة أصناف CASC/CASP في محافظتك.', 'حدد منفذاً مرخصاً من CASC — إما جمعية تعاونية زراعية أو أحد التجار المسجلين (11,675 منفذاً).', 'اطلب التقاوي المعتمدة (علامة زرقاء)؛ ارفض أي أكياس بدون ختم CASC الرسمي أو الملصق العربي.', 'تحقق من تفاصيل العلامة: اسم الصنف، رقم الدفعة، نسبة النقاء، الإنبات، تاريخ الإنتاج.', 'ادفع واحتفظ بالفاتورة مع العلامة طوال الموسم الزراعي.', 'خزّن في مكان بارد وجاف وازرع ضمن النافذة الموصى بها لمنطقتك البيئية.'] },
-          authorityIds: ['casc'],
+          authorityIds: ['casc', 'casp'],
           documentIds: ['law-53-1966'],
         }
       },
@@ -599,6 +599,16 @@ export const MOCK_AUTHORITIES: Authority[] = [
     phone: '+20 2 33351625',
     channels: ['ePhyto Portal', 'Physical Submission'],
     website: 'https://www.capq.gov.eg'
+  },
+  {
+    id: 'casp',
+    name: { ar: 'الإدارة المركزية لإنتاج التقاوي (CASP)', en: 'Central Administration for Seed Production (CASP)' },
+    shortName: 'CASP',
+    tasks: ['Public Seed Production', 'Certified Seed Multiplication', 'Foundation Seed Supply'],
+    address: { ar: '8 شارع جمعة القاهرة، الجيزة، مصر', en: '8 Gamaa El Kahera Street, Giza, Egypt' },
+    email: 'Not available',
+    phone: '+20 2 35694060',
+    channels: ['Physical Submission', 'Cooperative Network']
   },
   {
     id: 'pvpo',

@@ -756,6 +756,12 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
       desc: { en: 'Companies and individuals wishing to produce or process seeds in Egypt must obtain an annual production licence from CASC. CASC inspects licensed facilities and can revoke non-compliant licences.', ar: 'يجب على الشركات والأفراد الراغبين في إنتاج أو معالجة التقاوي في مصر الحصول على ترخيص إنتاج سنوي من CASC، التي تفتش المنشآت المرخصة.' }
     },
     {
+      icon: Users,
+      color: 'emerald',
+      title: { en: 'Public Seed Production', ar: 'إنتاج التقاوي العامة' },
+      desc: { en: 'CASP supplies certified wheat, rice and strategic crop seed through state multiplication farms and licensed cooperatives, turning ARC foundation seed into blue-tagged farmer-ready lots.', ar: 'CASP تزود التقاوي المعتمدة للقمح والأرز والمحاصيل الاستراتيجية من خلال مزارع التكاثر الحكومية والجمعيات التعاونية المرخصة، محولة تقاوي ARC الأساسية إلى دفعات جاهزة للمزارعين بعلامة زرقاء.' }
+    },
+    {
       icon: Globe,
       color: 'sky',
       title: { en: 'Import & Export Permits', ar: 'تصاريح الاستيراد والتصدير' },
@@ -938,12 +944,13 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
             ))}
           </div>
           <div className="bg-emerald-50 p-8 rounded-3xl border border-emerald-100 space-y-6">
-            <h4 className="font-semibold text-emerald-900 text-lg">{isAr ? 'أقسام CASC الرئيسية' : 'Main CASC Departments'}</h4>
+            <h4 className="font-semibold text-emerald-900 text-lg">{isAr ? 'الأقسام الرئيسية في CASC / CASP' : 'Main CASC / CASP Departments'}</h4>
             {[
               { dept: { en: 'Seed Certification Dept.', ar: 'قسم تصديق التقاوي' }, contact: 'casc-cert@agr.gov.eg' },
               { dept: { en: 'Variety Registration Dept.', ar: 'قسم تسجيل الأصناف' }, contact: 'casc-variety@agr.gov.eg' },
               { dept: { en: 'Import/Export Permits', ar: 'قسم تصاريح الاستيراد والتصدير' }, contact: 'casc-trade@agr.gov.eg' },
               { dept: { en: 'Seed Quality Labs', ar: 'مختبرات جودة التقاوي' }, contact: 'casc-labs@agr.gov.eg' },
+              { dept: { en: 'Seed Production Dept.', ar: 'قسم إنتاج التقاوي' }, contact: '+20 2 35694060 / +20 2 35725986' },
             ].map((d, i) => (
               <div key={i} className="flex items-center justify-between py-3 border-b border-emerald-100 last:border-0">
                 <span className="text-sm font-bold text-emerald-900">{d.dept[lang]}</span>
