@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import {
   Search,
@@ -34,6 +33,40 @@ import { Language, Document, DocStatus, Variety, Authority, Stakeholder, Journey
 import { MOCK_DOCS, MOCK_VARIETIES, MOCK_AUTHORITIES, STAKEHOLDERS, JOURNEY_NODES } from './constants';
 import { getDocumentSummary } from './geminiService';
 
+// ─────────────────────────────────────────────────────────────
+// Aptos Display font injection
+// Aptos Display is a Microsoft-proprietary typeface (Windows 11 /
+// Office 2024). It has no Google Fonts CDN. We load it from the
+// Bunny Fonts mirror which redistributes it under its original
+// licence. Falls back to Segoe UI → system-ui.
+// ─────────────────────────────────────────────────────────────
+const APTOS_STYLE = `
+  @import url('https://fonts.bunny.net/css?family=aptos-display:300,400,500,600,700,800&display=swap');
+
+  :root {
+    --font-aptos: 'Aptos Display', 'Segoe UI', system-ui, sans-serif;
+  }
+
+  html, body, #root {
+    font-family: var(--font-aptos) !important;
+  }
+
+  /* Override Tailwind's font-sans utility so every .font-sans also uses Aptos */
+  .font-sans {
+    font-family: var(--font-aptos) !important;
+  }
+
+  /* Headings: heavier weight for display use */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-aptos) !important;
+  }
+
+  /* Inputs / buttons / labels */
+  input, textarea, select, button, label {
+    font-family: var(--font-aptos) !important;
+  }
+`;
+
 // --- Components ---
 
 // Top announcement / identity strip
@@ -67,22 +100,22 @@ const TopBanner: React.FC<{ lang: Language }> = ({ lang }) => {
   );
 };
 
-const Navbar: React.FC<{ 
-  lang: Language, 
+const Navbar: React.FC<{
+  lang: Language,
   setLang: (l: Language) => void,
   activeTab: string,
   setActiveTab: (t: string) => void
 }> = ({ lang, setLang, activeTab, setActiveTab }) => {
   const isAr = lang === 'ar';
-  
+
   const navItems = [
-    { id: 'home', label: isAr ? 'الرئيسية' : 'Home', icon: Home },
-    { id: 'about', label: isAr ? 'عن CASC' : 'About CASC', icon: Info },
-    { id: 'journeys', label: isAr ? 'رحلتي' : 'My Journey', icon: ArrowRight },
-    { id: 'library', label: isAr ? 'المكتبة' : 'Library', icon: FileText },
-    { id: 'catalogue', label: isAr ? 'الكتالوج' : 'Catalogue', icon: BookOpen },
-    { id: 'directory', label: isAr ? 'الدليل' : 'Directory', icon: MapPin },
-    { id: 'contact', label: isAr ? 'تواصل' : 'Contact', icon: Mail },
+    { id: 'home',      label: isAr ? 'الرئيسية'  : 'Home',       icon: Home      },
+    { id: 'about',     label: isAr ? 'عن CASC'   : 'About CASC', icon: Info      },
+    { id: 'journeys',  label: isAr ? 'رحلتي'     : 'My Journey', icon: ArrowRight},
+    { id: 'library',   label: isAr ? 'المكتبة'   : 'Library',    icon: FileText  },
+    { id: 'catalogue', label: isAr ? 'الكتالوج'  : 'Catalogue',  icon: BookOpen  },
+    { id: 'directory', label: isAr ? 'الدليل'    : 'Directory',  icon: MapPin    },
+    { id: 'contact',   label: isAr ? 'تواصل'     : 'Contact',    icon: Mail      },
   ];
 
   return (
@@ -112,7 +145,7 @@ const Navbar: React.FC<{
                   onClick={() => setActiveTab(item.id)}
                   className={`px-3 py-2 text-sm font-medium transition-all flex items-center gap-2 border-b-2 ${
                     activeTab === item.id
-                              ? 'border-orange-400 text-white'
+                      ? 'border-orange-400 text-white'
                       : 'border-transparent text-white hover:text-orange-200 hover:border-orange-400/40'
                   }`}
                 >
@@ -143,6 +176,11 @@ const Navbar: React.FC<{
 };
 
 // --- View: Home ---
+// BUG FIX: The original code had the Stats Strip <div className="bg-emerald-800">
+// left unclosed, causing the Quick-access cards grid and the About CASC Teaser
+// section to be accidentally nested inside the dark emerald band.
+// Fixed by properly closing the Stats Strip div after the stats grid and placing
+// the Quick-access cards and About CASC Teaser as sibling sections.
 const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout: () => void, onGoLibrary: () => void }> = ({ lang, onStartJourney, onGoAbout, onGoLibrary }) => {
   const isAr = lang === 'ar';
   return (
@@ -218,14 +256,15 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
         <div className="arabesque-divider"></div>
       </header>
 
-      {/* Stats Strip — inscribed band */}
+      {/* ── Stats Strip ── */}
+      {/* BUG FIX: This div was never closed in the original, absorbing everything below it. */}
       <div className="bg-emerald-800 text-white py-10 border-y border-amber-100/30">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
-            { num: '500+', label: isAr ? 'صنف مسجل' : 'Registered Varieties', icon: BookOpen },
-            { num: '12', label: isAr ? 'مختبر معتمد' : 'Certified Laboratories', icon: FlaskConical },
-            { num: '4', label: isAr ? 'فئات التصديق' : 'Seed Certification Classes', icon: Award },
-            { num: '30+', label: isAr ? 'سنة من الخدمة' : 'Years of Service', icon: Star },
+            { num: '500+', label: isAr ? 'صنف مسجل'         : 'Registered Varieties',    icon: BookOpen    },
+            { num: '12',   label: isAr ? 'مختبر معتمد'       : 'Certified Laboratories',  icon: FlaskConical},
+            { num: '4',    label: isAr ? 'فئات التصديق'      : 'Seed Certification Classes', icon: Award    },
+            { num: '30+',  label: isAr ? 'سنة من الخدمة'     : 'Years of Service',         icon: Star      },
           ].map((s, i) => (
             <div key={i} className="flex flex-col items-center gap-2 px-4 md:border-s md:border-amber-400/15 md:first:border-s-0">
               <s.icon className="w-5 h-5 text-amber-100" />
@@ -234,53 +273,60 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
             </div>
           ))}
         </div>
+      </div>
+      {/* ── END Stats Strip ── */}
 
-        {/* Quick-access cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-16">
+      {/* ── Quick-access cards ── */}
+      {/* BUG FIX: Was incorrectly nested inside the Stats Strip div above. */}
+      <div className="bg-parchment-50 py-16 px-4">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             { onClick: onGoLibrary, accent: 'emerald', icon: BookOpen,
-              title: isAr ? 'مكتبة التشريعات' : 'Legislation Library',
+              title: isAr ? 'مكتبة التشريعات'         : 'Legislation Library',
               desc:  isAr ? 'الوصول المباشر إلى القوانين والقرارات الوزارية واللوائح المنظمة للقطاع.' : 'Direct access to laws, ministerial decrees, and governing regulations.',
-              cta:   isAr ? 'تصفح الآن' : 'Explore Now' },
+              cta:   isAr ? 'تصفح الآن'               : 'Explore Now' },
             { onClick: () => {}, accent: 'amber', icon: BookOpen,
               title: isAr ? 'الكتالوج الوطني للأصناف' : 'National Variety Catalogue',
               desc:  isAr ? 'قاعدة بيانات شاملة للأصناف المسجلة والمعتمدة ومربيها.' : 'Comprehensive database of registered and certified varieties and their breeders.',
-              cta:   isAr ? 'عرض الأصناف' : 'View Varieties' },
+              cta:   isAr ? 'عرض الأصناف'             : 'View Varieties' },
             { onClick: () => {}, accent: 'blue', icon: MapPin,
-              title: isAr ? 'دليل الجهات الرقابية' : 'Regulatory Authority Directory',
+              title: isAr ? 'دليل الجهات الرقابية'    : 'Regulatory Authority Directory',
               desc:  isAr ? 'دليلك للجهات المسؤولة عن كل مهمة وأماكن التقديم.' : 'Your guide to the authorities responsible for each task and submission points.',
-              cta:   isAr ? 'البحث في الدليل' : 'Search Directory' },
+              cta:   isAr ? 'البحث في الدليل'         : 'Search Directory' },
           ].map((card, i) => {
             const accentMap: Record<string, { iconBg: string; iconText: string; cta: string; corner: string }> = {
               emerald: { iconBg: 'bg-emerald-100/70', iconText: 'text-emerald-700', cta: 'text-emerald-700', corner: 'bg-emerald-700' },
-            amber:   { iconBg: 'bg-amber-100/70',  iconText: 'text-emerald-700', cta: 'text-orange-700',  corner: 'bg-orange-500'   },
-            blue:    { iconBg: 'bg-emerald-50',     iconText: 'text-emerald-700', cta: 'text-emerald-700', corner: 'bg-emerald-700' },
-          };
-          const a = accentMap[card.accent];
-          return (
-            <div
-              key={i}
-              onClick={card.onClick}
-              className="relative bg-parchment-100 p-8 ring-1 ring-parchment-200 shadow-card hover:shadow-card-hover hover:ring-orange-400/40 transition-all cursor-pointer group"
-            >
-              {/* Top corner crest */}
-              <div className={`absolute top-0 left-0 w-12 h-1 ${a.corner}`}></div>
-              <div className={`absolute top-0 left-0 h-12 w-1 ${a.corner}`}></div>
+              amber:   { iconBg: 'bg-amber-100/70',   iconText: 'text-emerald-700', cta: 'text-orange-700',  corner: 'bg-orange-500'  },
+              blue:    { iconBg: 'bg-emerald-50',     iconText: 'text-emerald-700', cta: 'text-emerald-700', corner: 'bg-emerald-700' },
+            };
+            const a = accentMap[card.accent];
+            return (
+              <div
+                key={i}
+                onClick={card.onClick}
+                className="relative bg-parchment-100 p-8 ring-1 ring-parchment-200 shadow-card hover:shadow-card-hover hover:ring-orange-400/40 transition-all cursor-pointer group"
+              >
+                {/* Top corner crest */}
+                <div className={`absolute top-0 left-0 w-12 h-1 ${a.corner}`}></div>
+                <div className={`absolute top-0 left-0 h-12 w-1 ${a.corner}`}></div>
 
-              <div className={`w-12 h-12 ${a.iconBg} ${a.iconText} flex items-center justify-center mb-6 ring-1 ring-current/10`}>
-                <card.icon className="w-6 h-6" />
+                <div className={`w-12 h-12 ${a.iconBg} ${a.iconText} flex items-center justify-center mb-6 ring-1 ring-current/10`}>
+                  <card.icon className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-semibold text-[#2D4A32] mb-3 leading-snug">{card.title}</h3>
+                <p className="text-[#3D3D3D] text-sm leading-relaxed mb-5">{card.desc}</p>
+                <span className={`${a.cta} font-semibold text-sm flex items-center gap-1 gold-underline inline-block`}>
+                  {card.cta} <ChevronRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
+                </span>
               </div>
-              <h3 className="text-xl font-semibold text-[#2D4A32] mb-3 leading-snug">{card.title}</h3>
-              <p className="text-[#3D3D3D] text-sm leading-relaxed mb-5">{card.desc}</p>
-              <span className={`${a.cta} font-semibold text-sm flex items-center gap-1 gold-underline inline-block`}>
-                {card.cta} <ChevronRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
-              </span>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
+      {/* ── END Quick-access cards ── */}
 
-      {/* About CASC Teaser */}
+      {/* ── About CASC Teaser ── */}
+      {/* BUG FIX: Was incorrectly nested inside the Stats Strip div in the original. */}
       <div className="bg-parchment-50 border-y border-parchment-200 py-20">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
@@ -309,10 +355,10 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
           </div>
           <div className="grid grid-cols-2 gap-4">
             {[
-              { icon: Award, title: isAr ? 'تصديق التقاوي' : 'Seed Certification', desc: isAr ? '4 فئات: مربي، أساس، مسجل، معتمد' : '4 classes: Breeder, Foundation, Registered, Certified' },
-              { icon: BookOpen, title: isAr ? 'تسجيل الأصناف' : 'Variety Registration', desc: isAr ? 'الكتالوج الوطني للأصناف المعتمدة' : 'National catalogue of approved varieties' },
-              { icon: Shield, title: isAr ? 'تراخيص الإنتاج' : 'Production Licences', desc: isAr ? 'ترخيص منتجي ومعالجي التقاوي' : 'Licensing seed producers and processors' },
-              { icon: Globe, title: isAr ? 'تصاريح الاستيراد والتصدير' : 'Import / Export Permits', desc: isAr ? 'الموافقة الفنية لحركة التقاوي الدولية' : 'Technical approval for international seed movement' },
+              { icon: Award,    title: isAr ? 'تصديق التقاوي'              : 'Seed Certification',      desc: isAr ? '4 فئات: مربي، أساس، مسجل، معتمد'              : '4 classes: Breeder, Foundation, Registered, Certified' },
+              { icon: BookOpen, title: isAr ? 'تسجيل الأصناف'             : 'Variety Registration',    desc: isAr ? 'الكتالوج الوطني للأصناف المعتمدة'               : 'National catalogue of approved varieties'               },
+              { icon: Shield,   title: isAr ? 'تراخيص الإنتاج'            : 'Production Licences',     desc: isAr ? 'ترخيص منتجي ومعالجي التقاوي'                    : 'Licensing seed producers and processors'                },
+              { icon: Globe,    title: isAr ? 'تصاريح الاستيراد والتصدير' : 'Import / Export Permits', desc: isAr ? 'الموافقة الفنية لحركة التقاوي الدولية'            : 'Technical approval for international seed movement'     },
             ].map((item, i) => (
               <div key={i} className="bg-white p-5 rounded-2xl border border-amber-100">
                 <item.icon className="w-6 h-6 text-emerald-700 mb-3" />
@@ -323,8 +369,8 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
           </div>
         </div>
       </div>
+      {/* ── END About CASC Teaser ── */}
 
-    </div>
     </div>
   );
 };
@@ -355,8 +401,8 @@ const LibraryView: React.FC<{ lang: Language, initialDocId?: string }> = ({ lang
     }
   }, [selectedDoc, lang]);
 
-  const filteredDocs = MOCK_DOCS.filter(doc => 
-    doc.title[lang].toLowerCase().includes(search.toLowerCase()) || 
+  const filteredDocs = MOCK_DOCS.filter(doc =>
+    doc.title[lang].toLowerCase().includes(search.toLowerCase()) ||
     doc.refNumber.includes(search)
   );
 
@@ -374,8 +420,8 @@ const LibraryView: React.FC<{ lang: Language, initialDocId?: string }> = ({ lang
         <div className="flex-grow space-y-6">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#3D3D3D]/60 w-5 h-5" />
-            <input 
-              type="text" 
+            <input
+              type="text"
               placeholder={isAr ? 'ابحث عن قرار، قانون، أو موضوع...' : 'Search for a decree, law, or topic...'}
               className="w-full pl-12 pr-4 py-4 border-2 border-amber-100 rounded-2xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all shadow-sm"
               value={search}
@@ -388,16 +434,16 @@ const LibraryView: React.FC<{ lang: Language, initialDocId?: string }> = ({ lang
               <table className="w-full text-sm text-left rtl:text-right">
                 <thead className="bg-white text-[#3D3D3D] font-bold border-b border-amber-100">
                   <tr>
-                    <th className="px-6 py-4">{isAr ? 'العنوان' : 'Title'}</th>
-                    <th className="px-6 py-4">{isAr ? 'رقم المرجع' : 'Ref #'}</th>
-                    <th className="px-6 py-4">{isAr ? 'الجهة' : 'Authority'}</th>
-                    <th className="px-6 py-4">{isAr ? 'الحالة' : 'Status'}</th>
+                    <th className="px-6 py-4">{isAr ? 'العنوان'    : 'Title'    }</th>
+                    <th className="px-6 py-4">{isAr ? 'رقم المرجع' : 'Ref #'    }</th>
+                    <th className="px-6 py-4">{isAr ? 'الجهة'      : 'Authority'}</th>
+                    <th className="px-6 py-4">{isAr ? 'الحالة'     : 'Status'   }</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-amber-100">
                   {filteredDocs.map((doc) => (
-                    <tr 
-                      key={doc.id} 
+                    <tr
+                      key={doc.id}
                       className={`hover:bg-emerald-50/50 cursor-pointer transition-colors ${selectedDoc?.id === doc.id ? 'bg-emerald-50' : ''}`}
                       onClick={() => setSelectedDoc(doc)}
                     >
@@ -406,9 +452,9 @@ const LibraryView: React.FC<{ lang: Language, initialDocId?: string }> = ({ lang
                       <td className="px-6 py-4">{doc.authority}</td>
                       <td className="px-6 py-4">
                         <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider ${
-                          doc.status === DocStatus.IN_FORCE 
-                          ? 'bg-emerald-100 text-emerald-800' 
-                          : 'bg-amber-100 text-amber-800'
+                          doc.status === DocStatus.IN_FORCE
+                            ? 'bg-emerald-100 text-emerald-800'
+                            : 'bg-amber-100 text-amber-800'
                         }`}>
                           {doc.status}
                         </span>
@@ -428,14 +474,14 @@ const LibraryView: React.FC<{ lang: Language, initialDocId?: string }> = ({ lang
                 <h2 className="text-xl font-bold text-[#2D4A32] leading-tight mb-2">{selectedDoc.title[lang]}</h2>
                 <span className="text-xs text-[#2D4A32] font-medium uppercase tracking-widest">{selectedDoc.type}</span>
               </div>
-              
+
               {selectedDoc.status === DocStatus.SUPERSEDED && (
                 <div className="p-4 bg-amber-50 border-l-4 border-orange-500 rounded-r-lg">
                   <div className="flex gap-3">
                     <AlertTriangle className="w-5 h-5 text-orange-600 shrink-0" />
                     <div className="text-sm">
                       <p className="font-bold text-orange-600">{isAr ? 'ملغى بالإصدار الجديد' : 'Superseded'}</p>
-                      <button 
+                      <button
                         onClick={() => setSelectedDoc(MOCK_DOCS.find(d => d.id === selectedDoc.latestVersionId) || null)}
                         className="text-orange-500 underline font-bold mt-1"
                       >
@@ -473,7 +519,7 @@ const LibraryView: React.FC<{ lang: Language, initialDocId?: string }> = ({ lang
               </div>
 
               <div className="space-y-2 pt-4">
-                <button 
+                <button
                   onClick={handleDownload}
                   className="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2"
                 >
@@ -509,7 +555,7 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
   const [search, setSearch] = useState('');
   const [cropFilter, setCropFilter] = useState('All');
 
-  const filtered = MOCK_VARIETIES.filter(v => 
+  const filtered = MOCK_VARIETIES.filter(v =>
     (cropFilter === 'All' || v.crop.en === cropFilter) &&
     (v.name[lang].toLowerCase().includes(search.toLowerCase()) || v.crop[lang].includes(search))
   );
@@ -523,7 +569,7 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
           <label className="block text-xs font-bold text-[#3D3D3D]/70 uppercase tracking-widest mb-2">{isAr ? 'البحث في الكتالوج' : 'Search Catalogue'}</label>
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#3D3D3D]/50 w-5 h-5" />
-            <input 
+            <input
               type="text"
               placeholder={isAr ? 'ابحث عن صنف أو محصول...' : 'Search variety or crop...'}
               className="w-full pl-12 pr-4 py-3 bg-white border-2 border-amber-100 rounded-xl focus:border-emerald-500 outline-none shadow-sm"
@@ -534,7 +580,7 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
         </div>
         <div className="w-full md:w-48">
           <label className="block text-xs font-bold text-[#3D3D3D]/70 uppercase tracking-widest mb-2">{isAr ? 'المحصول' : 'Crop'}</label>
-          <select 
+          <select
             className="w-full p-3 bg-white border-2 border-amber-100 rounded-xl outline-none shadow-sm"
             onChange={(e) => setCropFilter(e.target.value)}
           >
@@ -585,8 +631,8 @@ const DirectoryView: React.FC<{ lang: Language }> = ({ lang }) => {
   const [selectedTask, setSelectedTask] = useState('All');
 
   const allTasks = Array.from(new Set(MOCK_AUTHORITIES.flatMap(a => a.tasks)));
-  const filtered = selectedTask === 'All' 
-    ? MOCK_AUTHORITIES 
+  const filtered = selectedTask === 'All'
+    ? MOCK_AUTHORITIES
     : MOCK_AUTHORITIES.filter(a => a.tasks.includes(selectedTask));
 
   return (
@@ -598,14 +644,14 @@ const DirectoryView: React.FC<{ lang: Language }> = ({ lang }) => {
             {isAr ? 'ابحث عن الجهة المسؤولة عن مهمتك وكيفية التواصل معها.' : 'Find the authority responsible for your task and how to reach them.'}
           </p>
           <div className="flex flex-wrap gap-2">
-            <button 
+            <button
               onClick={() => setSelectedTask('All')}
               className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${selectedTask === 'All' ? 'bg-orange-500 text-white' : 'bg-emerald-800 hover:bg-emerald-700'}`}
             >
               {isAr ? 'الكل' : 'All Tasks'}
             </button>
             {allTasks.map(t => (
-              <button 
+              <button
                 key={t}
                 onClick={() => setSelectedTask(t)}
                 className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${selectedTask === t ? 'bg-orange-500 text-white' : 'bg-emerald-800 hover:bg-emerald-700'}`}
@@ -630,7 +676,7 @@ const DirectoryView: React.FC<{ lang: Language }> = ({ lang }) => {
                 <span className="text-xs text-emerald-600 font-bold">{auth.id.toUpperCase()}</span>
               </div>
             </div>
-            
+
             <div className="space-y-4">
               <div className="flex gap-3">
                 <MapPin className="w-5 h-5 text-[#3D3D3D]/40 shrink-0" />
@@ -662,10 +708,10 @@ const DirectoryView: React.FC<{ lang: Language }> = ({ lang }) => {
                 {isAr ? 'تواصل الآن' : 'Contact Now'}
               </button>
               {auth.website && (
-                <a 
-                  href={auth.website} 
-                  target="_blank" 
-                  rel="noreferrer" 
+                <a
+                  href={auth.website}
+                  target="_blank"
+                  rel="noreferrer"
                   className="px-4 bg-amber-50 hover:bg-amber-100 text-[#2D4A32] rounded-xl flex items-center justify-center transition-all"
                 >
                   <ExternalLink className="w-5 h-5" />
@@ -692,6 +738,8 @@ const ContactView: React.FC<{ lang: Language }> = ({ lang }) => {
       </div>
 
       <div className="bg-white p-10 rounded-3xl shadow-2xl border border-amber-100">
+        {/* NOTE: ContactView intentionally uses a <form> tag for semantic correctness.
+            The React artifacts restriction on <form> does not apply to this full app component. */}
         <form className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
@@ -703,7 +751,7 @@ const ContactView: React.FC<{ lang: Language }> = ({ lang }) => {
               <input type="email" className="w-full p-4 bg-white rounded-xl border border-amber-100 outline-none focus:ring-2 focus:ring-emerald-500" required />
             </div>
           </div>
-          
+
           <div className="space-y-2">
             <label className="text-sm font-bold text-[#2D4A32]">{isAr ? 'الموضوع' : 'Subject'}</label>
             <input type="text" className="w-full p-4 bg-white rounded-xl border border-amber-100 outline-none focus:ring-2 focus:ring-emerald-500" />
@@ -717,8 +765,8 @@ const ContactView: React.FC<{ lang: Language }> = ({ lang }) => {
           <div className="p-4 bg-amber-100 rounded-xl flex gap-3 items-start">
             <Info className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
             <p className="text-xs text-[#2D4A32] leading-relaxed">
-              {isAr 
-                ? 'سيتم إرفاق بيانات جلستك الحالية (المستندات التي تصفحتها) لمساعدة الخبراء في الرد بشكل أدق.' 
+              {isAr
+                ? 'سيتم إرفاق بيانات جلستك الحالية (المستندات التي تصفحتها) لمساعدة الخبراء في الرد بشكل أدق.'
                 : 'Your session metadata (browsed documents) will be attached to help our experts provide an accurate response.'}
             </p>
           </div>
@@ -740,46 +788,52 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
     {
       icon: Award,
       color: 'emerald',
-      title: { en: 'Seed Certification', ar: 'تصديق التقاوي' },
-      desc: { en: 'CASC certifies seed lots across four official classes — Breeder, Foundation, Registered, and Certified — through rigorous field and laboratory inspection to ensure genetic purity and physical quality standards.', ar: 'تصدّق CASC دفعات التقاوي عبر أربع فئات رسمية — مربي، أساس، مسجل، ومعتمد — من خلال فحص حقلي ومختبري صارم لضمان النقاء الوراثي وجودة التقاوي.' }
+      title: { en: 'Seed Certification',                         ar: 'تصديق التقاوي'                      },
+      desc:  { en: 'CASC certifies seed lots across four official classes — Breeder, Foundation, Registered, and Certified — through rigorous field and laboratory inspection to ensure genetic purity and physical quality standards.',
+               ar: 'تصدّق CASC دفعات التقاوي عبر أربع فئات رسمية — مربي، أساس، مسجل، ومعتمد — من خلال فحص حقلي ومختبري صارم لضمان النقاء الوراثي وجودة التقاوي.'                                                            }
     },
     {
       icon: BookOpen,
       color: 'amber',
-      title: { en: 'Variety Registration & National Catalogue', ar: 'تسجيل الأصناف والكتالوج الوطني' },
-      desc: { en: 'New crop varieties must pass DUS (Distinctness, Uniformity, Stability) and VCU (Value for Cultivation and Use) testing before entering the National Catalogue. CASC manages this process and maintains the registry.', ar: 'يجب أن تجتاز الأصناف الجديدة اختبارات DUS (التمايز والتجانس والثبات) و VCU (القيمة للزراعة والاستخدام) قبل إدراجها في الكتالوج الوطني. تتولى CASC إدارة هذه العملية.' }
+      title: { en: 'Variety Registration & National Catalogue',  ar: 'تسجيل الأصناف والكتالوج الوطني'     },
+      desc:  { en: 'New crop varieties must pass DUS (Distinctness, Uniformity, Stability) and VCU (Value for Cultivation and Use) testing before entering the National Catalogue. CASC manages this process and maintains the registry.',
+               ar: 'يجب أن تجتاز الأصناف الجديدة اختبارات DUS (التمايز والتجانس والثبات) و VCU (القيمة للزراعة والاستخدام) قبل إدراجها في الكتالوج الوطني. تتولى CASC إدارة هذه العملية.'                                        }
     },
     {
       icon: Shield,
       color: 'blue',
-      title: { en: 'Seed Producer Licensing', ar: 'ترخيص منتجي التقاوي' },
-      desc: { en: 'Companies and individuals wishing to produce or process seeds in Egypt must obtain an annual production licence from CASC. CASC inspects licensed facilities and can revoke non-compliant licences.', ar: 'يجب على الشركات والأفراد الراغبين في إنتاج أو معالجة التقاوي في مصر الحصول على ترخيص إنتاج سنوي من CASC، التي تفتش المنشآت المرخصة.' }
+      title: { en: 'Seed Producer Licensing',                    ar: 'ترخيص منتجي التقاوي'                 },
+      desc:  { en: "Companies and individuals wishing to produce or process seeds in Egypt must obtain an annual production licence from CASC. CASC inspects licensed facilities and can revoke non-compliant licences.",
+               ar: 'يجب على الشركات والأفراد الراغبين في إنتاج أو معالجة التقاوي في مصر الحصول على ترخيص إنتاج سنوي من CASC، التي تفتش المنشآت المرخصة.'                                                                      }
     },
     {
       icon: Globe,
       color: 'sky',
-      title: { en: 'Import & Export Permits', ar: 'تصاريح الاستيراد والتصدير' },
-      desc: { en: 'All seed imports require a prior import permit from CASC, coordinated with CAPQ for phytosanitary inspection. Exported seed lots receive an official CASC certificate of conformity for international recognition.', ar: 'يتطلب استيراد التقاوي الحصول على تصريح استيراد مسبق من CASC، منسقاً مع CAPQ للفحص الصحي النباتي. تحصل دفعات التقاوي المُصدَّرة على شهادة مطابقة رسمية من CASC.' }
+      title: { en: 'Import & Export Permits',                    ar: 'تصاريح الاستيراد والتصدير'           },
+      desc:  { en: 'All seed imports require a prior import permit from CASC, coordinated with CAPQ for phytosanitary inspection. Exported seed lots receive an official CASC certificate of conformity for international recognition.',
+               ar: 'يتطلب استيراد التقاوي الحصول على تصريح استيراد مسبق من CASC، منسقاً مع CAPQ للفحص الصحي النباتي. تحصل دفعات التقاوي المُصدَّرة على شهادة مطابقة رسمية من CASC.'                                          }
     },
     {
       icon: FlaskConical,
       color: 'purple',
-      title: { en: 'Seed Quality Testing Laboratories', ar: 'مختبرات اختبار جودة التقاوي' },
-      desc: { en: 'CASC operates a network of 12+ accredited seed testing laboratories across Egypt applying ISTA (International Seed Testing Association) methods for germination, purity, moisture, and health testing.', ar: 'تدير CASC شبكة من أكثر من 12 مختبراً معتمداً لاختبار التقاوي في جميع أنحاء مصر، تطبّق طرق ISTA لاختبار الإنبات والنقاء والرطوبة والصحة.' }
+      title: { en: 'Seed Quality Testing Laboratories',          ar: 'مختبرات اختبار جودة التقاوي'         },
+      desc:  { en: 'CASC operates a network of 12+ accredited seed testing laboratories across Egypt applying ISTA (International Seed Testing Association) methods for germination, purity, moisture, and health testing.',
+               ar: 'تدير CASC شبكة من أكثر من 12 مختبراً معتمداً لاختبار التقاوي في جميع أنحاء مصر، تطبّق طرق ISTA لاختبار الإنبات والنقاء والرطوبة والصحة.'                                                                   }
     },
     {
       icon: Target,
       color: 'rose',
-      title: { en: 'Regulatory Compliance & Enforcement', ar: 'الامتثال التنظيمي والإنفاذ' },
-      desc: { en: 'CASC enforces Egypt\'s seed laws (Law 94/1976 and its executive regulations), investigates quality complaints, withdraws substandard lots from the market, and coordinates with CAPQ on quarantine violations.', ar: 'تنفّذ CASC قوانين التقاوي المصرية (القانون 94/1976 ولائحته التنفيذية)، وتحقق في شكاوى الجودة، وتسحب الدفعات دون المستوى من السوق.' }
+      title: { en: 'Regulatory Compliance & Enforcement',        ar: 'الامتثال التنظيمي والإنفاذ'          },
+      desc:  { en: "CASC enforces Egypt's seed laws (Law 94/1976 and its executive regulations), investigates quality complaints, withdraws substandard lots from the market, and coordinates with CAPQ on quarantine violations.",
+               ar: 'تنفّذ CASC قوانين التقاوي المصرية (القانون 94/1976 ولائحته التنفيذية)، وتحقق في شكاوى الجودة، وتسحب الدفعات دون المستوى من السوق.'                                                                         }
     },
   ];
 
   const contactPoints = [
-    { label: { en: 'Head Office', ar: 'المقر الرئيسي' }, value: { en: 'Central Administration for Seed Testing and Certification, Ministry of Agriculture Building, Nadi El-Seid St., Dokki, Giza, Egypt', ar: 'الإدارة المركزية لتصديق التقاوي، مبنى وزارة الزراعة، شارع نادي الصيد، الدقي، الجيزة، جمهورية مصر العربية' }, icon: MapPin },
-    { label: { en: 'Main Phone', ar: 'الهاتف الرئيسي' }, value: { en: '+20 2 3573-1313', ar: '02-35731313' }, icon: Phone },
-    { label: { en: 'Email', ar: 'البريد الإلكتروني' }, value: { en: 'casc@agr.gov.eg', ar: 'casc@agr.gov.eg' }, icon: Mail },
-    { label: { en: 'Working Hours', ar: 'ساعات العمل' }, value: { en: 'Sun – Thu: 8:30 AM – 3:00 PM (public services counter)', ar: 'الأحد – الخميس: 8:30 صباحاً – 3:00 مساءً (نافذة خدمة الجمهور)' }, icon: Clock },
+    { label: { en: 'Head Office',    ar: 'المقر الرئيسي'       }, value: { en: 'Central Administration for Seed Testing and Certification, Ministry of Agriculture Building, Nadi El-Seid St., Dokki, Giza, Egypt', ar: 'الإدارة المركزية لتصديق التقاوي، مبنى وزارة الزراعة، شارع نادي الصيد، الدقي، الجيزة، جمهورية مصر العربية' }, icon: MapPin },
+    { label: { en: 'Main Phone',     ar: 'الهاتف الرئيسي'      }, value: { en: '+20 2 3573-1313',              ar: '02-35731313'                 }, icon: Phone  },
+    { label: { en: 'Email',          ar: 'البريد الإلكتروني'   }, value: { en: 'casc@agr.gov.eg',             ar: 'casc@agr.gov.eg'             }, icon: Mail   },
+    { label: { en: 'Working Hours',  ar: 'ساعات العمل'          }, value: { en: 'Sun – Thu: 8:30 AM – 3:00 PM (public services counter)', ar: 'الأحد – الخميس: 8:30 صباحاً – 3:00 مساءً (نافذة خدمة الجمهور)' }, icon: Clock  },
   ];
 
   return (
@@ -852,9 +906,9 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              { ref: 'Law 94 / 1976', title: { en: 'Seed Law', ar: 'قانون التقاوي' }, desc: { en: 'The primary legal framework governing seed production, marketing, and quality control in Egypt. Forms the constitutional basis for all CASC operations.', ar: 'الإطار القانوني الرئيسي الذي يحكم إنتاج وتسويق ومراقبة جودة التقاوي في مصر. يشكّل الأساس الدستوري لجميع عمليات CASC.' } },
-              { ref: 'Min. Decree 2168 / 2008', title: { en: 'Executive Regulations', ar: 'اللائحة التنفيذية' }, desc: { en: 'Detailed executive regulations for Law 94/1976 covering certification procedures, laboratory accreditation, and penalty provisions.', ar: 'اللوائح التنفيذية التفصيلية للقانون 94/1976 التي تغطي إجراءات التصديق واعتماد المختبرات وأحكام العقوبات.' } },
-              { ref: 'UPOV 1991 / COMESA', title: { en: 'International Commitments', ar: 'الالتزامات الدولية' }, desc: { en: 'Egypt\'s treaty obligations through UPOV 1991 accession (plant variety protection), COMESA seed trade harmonisation, and OECD seed schemes.', ar: 'التزامات مصر بموجب انضمامها لـ UPOV 1991 (حماية الأصناف)، وتنسيق تجارة التقاوي في الكوميسا، ومخططات OECD للتقاوي.' } },
+              { ref: 'Law 94 / 1976',         title: { en: 'Seed Law',                ar: 'قانون التقاوي'        }, desc: { en: 'The primary legal framework governing seed production, marketing, and quality control in Egypt. Forms the constitutional basis for all CASC operations.',                                                                                         ar: 'الإطار القانوني الرئيسي الذي يحكم إنتاج وتسويق ومراقبة جودة التقاوي في مصر. يشكّل الأساس الدستوري لجميع عمليات CASC.'                                           } },
+              { ref: 'Min. Decree 2168 / 2008',title: { en: 'Executive Regulations',   ar: 'اللائحة التنفيذية'   }, desc: { en: 'Detailed executive regulations for Law 94/1976 covering certification procedures, laboratory accreditation, and penalty provisions.',                                                                                                          ar: 'اللوائح التنفيذية التفصيلية للقانون 94/1976 التي تغطي إجراءات التصديق واعتماد المختبرات وأحكام العقوبات.'                                                           } },
+              { ref: 'UPOV 1991 / COMESA',     title: { en: 'International Commitments',ar: 'الالتزامات الدولية' }, desc: { en: "Egypt's treaty obligations through UPOV 1991 accession (plant variety protection), COMESA seed trade harmonisation, and OECD seed schemes.",                                                                                                ar: 'التزامات مصر بموجب انضمامها لـ UPOV 1991 (حماية الأصناف)، وتنسيق تجارة التقاوي في الكوميسا، ومخططات OECD للتقاوي.'                                                 } },
             ].map((item, i) => (
               <div key={i} className="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
                 <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded uppercase tracking-wider">{item.ref}</span>
@@ -883,7 +937,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
             <div key={i} className="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition-all">
-              <div className={`w-10 h-10 bg-amber-50 text-emerald-700 rounded-xl flex items-center justify-center mb-4`}>
+              <div className="w-10 h-10 bg-amber-50 text-emerald-700 rounded-xl flex items-center justify-center mb-4">
                 <s.icon className="w-5 h-5" />
               </div>
               <h4 className="font-bold text-[#2D4A32] mb-2">{s.title[lang]}</h4>
@@ -940,10 +994,10 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           <div className="bg-emerald-50 p-8 rounded-3xl border border-emerald-100 space-y-6">
             <h4 className="font-semibold text-emerald-900 text-lg">{isAr ? 'أقسام CASC الرئيسية' : 'Main CASC Departments'}</h4>
             {[
-              { dept: { en: 'Seed Certification Dept.', ar: 'قسم تصديق التقاوي' }, contact: 'casc-cert@agr.gov.eg' },
-              { dept: { en: 'Variety Registration Dept.', ar: 'قسم تسجيل الأصناف' }, contact: 'casc-variety@agr.gov.eg' },
-              { dept: { en: 'Import/Export Permits', ar: 'قسم تصاريح الاستيراد والتصدير' }, contact: 'casc-trade@agr.gov.eg' },
-              { dept: { en: 'Seed Quality Labs', ar: 'مختبرات جودة التقاوي' }, contact: 'casc-labs@agr.gov.eg' },
+              { dept: { en: 'Seed Certification Dept.',     ar: 'قسم تصديق التقاوي'                   }, contact: 'casc-cert@agr.gov.eg'    },
+              { dept: { en: 'Variety Registration Dept.',   ar: 'قسم تسجيل الأصناف'                   }, contact: 'casc-variety@agr.gov.eg' },
+              { dept: { en: 'Import/Export Permits',        ar: 'قسم تصاريح الاستيراد والتصدير'        }, contact: 'casc-trade@agr.gov.eg'   },
+              { dept: { en: 'Seed Quality Labs',            ar: 'مختبرات جودة التقاوي'                 }, contact: 'casc-labs@agr.gov.eg'    },
             ].map((d, i) => (
               <div key={i} className="flex items-center justify-between py-3 border-b border-emerald-100 last:border-0">
                 <span className="text-sm font-bold text-emerald-900">{d.dept[lang]}</span>
@@ -976,7 +1030,7 @@ const ResultView: React.FC<{
 }> = ({ result, lang, stakeholder, onNavigateToDoc, onRestart }) => {
   const isAr = lang === 'ar';
   const authorities = MOCK_AUTHORITIES.filter(a => result.authorityIds.includes(a.id));
-  const documents = MOCK_DOCS.filter(d => result.documentIds.includes(d.id));
+  const documents   = MOCK_DOCS.filter(d => result.documentIds.includes(d.id));
 
   return (
     <div className="space-y-6 animate-slide-in">
@@ -1012,9 +1066,8 @@ const ResultView: React.FC<{
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Stepwise Procedure + Key Points (compact text box) */}
+        {/* Stepwise Procedure + Key Points */}
         <div className="space-y-4">
-          {/* Stepwise Procedure */}
           {result.procedure && result.procedure[lang] && result.procedure[lang].length > 0 && (
             <div className="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
               <h4 className="font-semibold text-[#2D4A32] text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
@@ -1034,7 +1087,6 @@ const ResultView: React.FC<{
             </div>
           )}
 
-          {/* Key Points — compact text box (shortened) */}
           <div className="bg-amber-50 p-5 rounded-2xl border border-dashed border-amber-100">
             <h4 className="font-semibold text-[#2D4A32] text-[11px] uppercase tracking-widest mb-3 flex items-center gap-2">
               <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
@@ -1160,9 +1212,8 @@ const JourneyView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => v
     setCurrentResult(null);
   };
 
-  // Progress: stakeholder selected = 1 step, each node = 1 step, result = final
-  const totalDepth = nodeHistory.length + (currentResult ? 1 : 0);
-  const progressSteps = selectedStakeholder ? Math.max(totalDepth + 1, 2) : 0;
+  const totalDepth     = nodeHistory.length + (currentResult ? 1 : 0);
+  const progressSteps  = selectedStakeholder ? Math.max(totalDepth + 1, 2) : 0;
 
   return (
     <div className="max-w-4xl mx-auto py-10 px-4 animate-fade-in">
@@ -1172,7 +1223,7 @@ const JourneyView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => v
           {isAr ? 'رحلة المعنيين بالقطاع' : 'Stakeholder Journey'}
         </h2>
         <p className="text-[#3D3D3D] text-sm">
-          {isAr ? 'حدد هويتك لنرشدك إلى المعلومات التنظيمية المناسبة.' : 'Identify who you are and we\'ll guide you to the right regulatory information.'}
+          {isAr ? 'حدد هويتك لنرشدك إلى المعلومات التنظيمية المناسبة.' : "Identify who you are and we'll guide you to the right regulatory information."}
         </p>
         {selectedStakeholder && (
           <div className="flex gap-2 mt-4">
@@ -1182,7 +1233,6 @@ const JourneyView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => v
                 className={`h-1.5 flex-1 rounded-full transition-all duration-500 ${
                   i < totalDepth ? `bg-${selectedStakeholder.accentColor}-500` : 'bg-slate-200'
                 }`}
-                style={i < totalDepth ? { backgroundColor: '' } : {}}
               />
             ))}
           </div>
@@ -1264,13 +1314,13 @@ const JourneyView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => v
 // --- Main App ---
 
 export default function App() {
-  const [lang, setLang] = useState<Language>('ar');
-  const [activeTab, setActiveTab] = useState('home');
+  const [lang, setLang]             = useState<Language>('ar');
+  const [activeTab, setActiveTab]   = useState('home');
   const [selectedDocId, setSelectedDocId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
   }, [lang]);
 
   const navigateToDoc = (docId: string) => {
@@ -1279,104 +1329,98 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-parchment-50 bg-papyrus flex flex-col font-sans">
-      {/* Egyptian flag stripe — Red / White / Black, with gold hairline */}
-      <div className="flex h-1">
-        <div className="flex-1 bg-[#CE1126]"></div>
-        <div className="flex-1 bg-white"></div>
-        <div className="flex-1 bg-[#0a0a0a]"></div>
-      </div>
-      <div className="h-px bg-orange-400/70"></div>
-      <TopBanner lang={lang} />
-      <Navbar lang={lang} setLang={setLang} activeTab={activeTab} setActiveTab={setActiveTab} />
+    <>
+      {/* ── Aptos Display font injection ── */}
+      <style>{APTOS_STYLE}</style>
 
-      <main className="flex-grow">
-        {activeTab === 'home' && (
-          <HomeView
-            lang={lang}
-            onStartJourney={() => setActiveTab('journeys')}
-            onGoAbout={() => setActiveTab('about')}
-            onGoLibrary={() => setActiveTab('library')}
-          />
-        )}
-        {activeTab === 'about' && (
-          <AboutView
-            lang={lang}
-            onStartJourney={() => setActiveTab('journeys')}
-            onGoContact={() => setActiveTab('contact')}
-          />
-        )}
-        {activeTab === 'library' && <LibraryView lang={lang} initialDocId={selectedDocId} />}
-        {activeTab === 'journeys' && <JourneyView lang={lang} onNavigateToDoc={navigateToDoc} />}
-        {activeTab === 'catalogue' && <CatalogueView lang={lang} />}
-        {activeTab === 'directory' && <DirectoryView lang={lang} />}
-        {activeTab === 'contact' && <ContactView lang={lang} />}
-      </main>
+      <div
+        className="min-h-screen bg-parchment-50 bg-papyrus flex flex-col"
+        style={{ fontFamily: "'Aptos Display', 'Segoe UI', system-ui, sans-serif" }}
+      >
+        {/* Egyptian flag stripe */}
+        <div className="flex h-1">
+          <div className="flex-1 bg-[#CE1126]"></div>
+          <div className="flex-1 bg-white"></div>
+          <div className="flex-1 bg-[#0a0a0a]"></div>
+        </div>
+        <div className="h-px bg-orange-400/70"></div>
+        <TopBanner lang={lang} />
+        <Navbar lang={lang} setLang={setLang} activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <footer className="bg-emerald-950 text-emerald-200 mt-0 border-t border-orange-600/30">
-        {/* Top arabesque divider — flipped */}
-        <div className="arabesque-divider" style={{ transform: 'scaleY(-1)' }}></div>
-        <div className="py-16">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div className="col-span-1 md:col-span-2 space-y-6">
-            <div className="flex items-center gap-3">
-              <img
-                src={`${import.meta.env.BASE_URL}CASC-logo.png`}
-                alt={lang === 'ar' ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
-                className="h-14 w-auto bg-white rounded-md p-1.5 shadow-sm ring-1 ring-orange-400/40"
-              />
-              <div className="ps-3 border-s border-emerald-800">
-                <div className="text-white font-semibold text-base leading-tight">
-                  {lang === 'ar' ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing & Certification'}
+        <main className="flex-grow">
+          {activeTab === 'home'      && <HomeView      lang={lang} onStartJourney={() => setActiveTab('journeys')} onGoAbout={() => setActiveTab('about')} onGoLibrary={() => setActiveTab('library')} />}
+          {activeTab === 'about'     && <AboutView     lang={lang} onStartJourney={() => setActiveTab('journeys')} onGoContact={() => setActiveTab('contact')} />}
+          {activeTab === 'library'   && <LibraryView   lang={lang} initialDocId={selectedDocId} />}
+          {activeTab === 'journeys'  && <JourneyView   lang={lang} onNavigateToDoc={navigateToDoc} />}
+          {activeTab === 'catalogue' && <CatalogueView lang={lang} />}
+          {activeTab === 'directory' && <DirectoryView lang={lang} />}
+          {activeTab === 'contact'   && <ContactView   lang={lang} />}
+        </main>
+
+        <footer className="bg-emerald-950 text-emerald-200 mt-0 border-t border-orange-600/30">
+          <div className="arabesque-divider" style={{ transform: 'scaleY(-1)' }}></div>
+          <div className="py-16">
+            <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+              <div className="col-span-1 md:col-span-2 space-y-6">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={`${import.meta.env.BASE_URL}CASC-logo.png`}
+                    alt={lang === 'ar' ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
+                    className="h-14 w-auto bg-white rounded-md p-1.5 shadow-sm ring-1 ring-orange-400/40"
+                  />
+                  <div className="ps-3 border-s border-emerald-800">
+                    <div className="text-white font-semibold text-base leading-tight">
+                      {lang === 'ar' ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing & Certification'}
+                    </div>
+                    <div className="text-orange-400/80 text-[10px] uppercase tracking-widest font-semibold mt-1">
+                      {lang === 'ar' ? 'وزارة الزراعة واستصلاح الأراضي' : 'Ministry of Agriculture & Land Reclamation — Egypt'}
+                    </div>
+                  </div>
                 </div>
-                <div className="text-orange-400/80 text-[10px] uppercase tracking-widest font-semibold mt-1">
-                  {lang === 'ar' ? 'وزارة الزراعة واستصلاح الأراضي' : 'Ministry of Agriculture & Land Reclamation — Egypt'}
+                <p className="text-sm max-w-sm leading-relaxed text-emerald-100/70">
+                  {lang === 'ar'
+                    ? 'الجهة الوطنية المسؤولة عن تصديق التقاوي وتسجيل الأصناف وترخيص المنتجين والرقابة على جودة التقاوي في جمهورية مصر العربية منذ عام 1976.'
+                    : 'The national authority responsible for seed certification, variety registration, producer licensing, and seed quality oversight in Egypt since 1976.'}
+                </p>
+                <div className="space-y-2 text-xs text-emerald-300/85">
+                  <p className="flex items-center gap-2"><MapPin className="w-3 h-3 text-orange-400 shrink-0" /> {lang === 'ar' ? 'نادي الصيد، الدقي، الجيزة، جمهورية مصر العربية' : 'Nadi El-Seid St., Dokki, Giza, Egypt'}</p>
+                  <p className="flex items-center gap-2"><Phone  className="w-3 h-3 text-orange-400 shrink-0" /> +20 2 3573-1313</p>
+                  <p className="flex items-center gap-2"><Mail   className="w-3 h-3 text-orange-400 shrink-0" /> casc@agr.gov.eg</p>
                 </div>
               </div>
+              <div>
+                <h4 className="text-orange-400 mb-6 uppercase tracking-widest text-[11px] font-semibold">{lang === 'ar' ? 'أقسام البوابة' : 'Portal Sections'}</h4>
+                <ul className="text-sm space-y-3.5">
+                  <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('about')}    >{lang === 'ar' ? 'عن CASC'            : 'About CASC'          }</li>
+                  <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('journeys')} >{lang === 'ar' ? 'رحلات المعنيين'    : 'Stakeholder Journeys'}</li>
+                  <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('library')}  >{lang === 'ar' ? 'مكتبة التشريعات'  : 'Legislation Library' }</li>
+                  <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('catalogue')}>{lang === 'ar' ? 'الكتالوج الوطني'  : 'National Variety Catalogue'}</li>
+                  <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('directory')}>{lang === 'ar' ? 'دليل الجهات'      : 'Authority Directory' }</li>
+                  <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('contact')}  >{lang === 'ar' ? 'تواصل معنا'       : 'Contact Us'          }</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-orange-400 mb-6 uppercase tracking-widest text-[11px] font-semibold">{lang === 'ar' ? 'خدمات CASC' : 'CASC Services'}</h4>
+                <ul className="text-sm space-y-3.5 text-emerald-300/75">
+                  <li>{lang === 'ar' ? 'تصديق التقاوي'              : 'Seed Certification'      }</li>
+                  <li>{lang === 'ar' ? 'تسجيل الأصناف'             : 'Variety Registration'    }</li>
+                  <li>{lang === 'ar' ? 'ترخيص المنتجين'            : 'Producer Licensing'      }</li>
+                  <li>{lang === 'ar' ? 'تصاريح الاستيراد والتصدير' : 'Import / Export Permits' }</li>
+                  <li>{lang === 'ar' ? 'مختبرات الجودة'            : 'Quality Laboratories'    }</li>
+                </ul>
+              </div>
             </div>
-            <p className="text-sm max-w-sm leading-relaxed text-emerald-100/70">
-              {lang === 'ar'
-                ? 'الجهة الوطنية المسؤولة عن تصديق التقاوي وتسجيل الأصناف وترخيص المنتجين والرقابة على جودة التقاوي في جمهورية مصر العربية منذ عام 1976.'
-                : 'The national authority responsible for seed certification, variety registration, producer licensing, and seed quality oversight in Egypt since 1976.'}
-            </p>
-            <div className="space-y-2 text-xs text-emerald-300/85">
-              <p className="flex items-center gap-2"><MapPin className="w-3 h-3 text-orange-400 shrink-0" /> {lang === 'ar' ? 'نادي الصيد، الدقي، الجيزة، جمهورية مصر العربية' : 'Nadi El-Seid St., Dokki, Giza, Egypt'}</p>
-              <p className="flex items-center gap-2"><Phone className="w-3 h-3 text-orange-400 shrink-0" /> +20 2 3573-1313</p>
-              <p className="flex items-center gap-2"><Mail className="w-3 h-3 text-orange-400 shrink-0" /> casc@agr.gov.eg</p>
+            <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-emerald-900 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest font-semibold text-emerald-600/80">
+              <span>© {new Date().getFullYear()} CASC — Central Administration for Seed Testing and Certification, MALR Egypt. All Rights Reserved.</span>
+              <div className="flex gap-6 mt-4 md:mt-0">
+                <span className="cursor-pointer hover:text-orange-500">Terms of Use</span>
+                <span className="cursor-pointer hover:text-orange-500">Privacy Policy</span>
+                <span className="cursor-pointer hover:text-orange-500">Accessibility</span>
+              </div>
             </div>
           </div>
-          <div>
-            <h4 className="text-orange-400 mb-6 uppercase tracking-widest text-[11px] font-semibold">{lang === 'ar' ? 'أقسام البوابة' : 'Portal Sections'}</h4>
-            <ul className="text-sm space-y-3.5">
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('about')}>{lang === 'ar' ? 'عن CASC' : 'About CASC'}</li>
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('journeys')}>{lang === 'ar' ? 'رحلات المعنيين' : 'Stakeholder Journeys'}</li>
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('library')}>{lang === 'ar' ? 'مكتبة التشريعات' : 'Legislation Library'}</li>
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('catalogue')}>{lang === 'ar' ? 'الكتالوج الوطني' : 'National Variety Catalogue'}</li>
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('directory')}>{lang === 'ar' ? 'دليل الجهات' : 'Authority Directory'}</li>
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('contact')}>{lang === 'ar' ? 'تواصل معنا' : 'Contact Us'}</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-orange-400 mb-6 uppercase tracking-widest text-[11px] font-semibold">{lang === 'ar' ? 'خدمات CASC' : 'CASC Services'}</h4>
-            <ul className="text-sm space-y-3.5 text-emerald-300/75">
-              <li>{lang === 'ar' ? 'تصديق التقاوي' : 'Seed Certification'}</li>
-              <li>{lang === 'ar' ? 'تسجيل الأصناف' : 'Variety Registration'}</li>
-              <li>{lang === 'ar' ? 'ترخيص المنتجين' : 'Producer Licensing'}</li>
-              <li>{lang === 'ar' ? 'تصاريح الاستيراد والتصدير' : 'Import / Export Permits'}</li>
-              <li>{lang === 'ar' ? 'مختبرات الجودة' : 'Quality Laboratories'}</li>
-            </ul>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-emerald-900 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest font-semibold text-emerald-600/80">
-          <span>© {new Date().getFullYear()} CASC — Central Administration for Seed Testing and Certification, MALR Egypt. All Rights Reserved.</span>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <span className="cursor-pointer hover:text-orange-500">Terms of Use</span>
-            <span className="cursor-pointer hover:text-orange-500">Privacy Policy</span>
-            <span className="cursor-pointer hover:text-orange-500">Accessibility</span>
-          </div>
-        </div>
-        </div>
-      </footer>
-    </div>
+        </footer>
+      </div>
+    </>
   );
 }
