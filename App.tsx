@@ -201,14 +201,14 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
           <div className="flex flex-wrap justify-center gap-4 pt-6">
             <button
               onClick={onStartJourney}
-              className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3.5 font-semibold tracking-wide flex items-center gap-3 transition-all shadow-minted"
+              className="bg-[#DF6D2D] hover:bg-[#C84C05] text-white px-8 py-3.5 font-semibold tracking-wide flex items-center gap-3 transition-all shadow-lg"
             >
               {isAr ? 'ابدأ رحلتك كمعني بالقطاع' : 'Start Stakeholder Journey'}
               <ArrowRight className={`w-5 h-5 ${isAr ? 'rotate-180' : ''}`} />
             </button>
             <button
               onClick={onGoLibrary}
-              className="bg-transparent border border-orange-600/60 hover:border-orange-500 hover:bg-emerald-800/15 text-orange-600 hover:text-orange-500 px-8 py-3.5 font-semibold tracking-wide transition-all"
+              className="bg-transparent border-2 border-white hover:bg-white hover:text-[#638C6D] text-white px-8 py-3.5 font-semibold tracking-wide transition-all"
             >
               {isAr ? 'تصفح المكتبة' : 'Browse Library'}
             </button>
@@ -227,16 +227,16 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
             { num: '4', label: isAr ? 'فئات التصديق' : 'Seed Certification Classes', icon: Award },
             { num: '30+', label: isAr ? 'سنة من الخدمة' : 'Years of Service', icon: Star },
           ].map((s, i) => (
-            <div key={i} className="flex flex-col items-center gap-2 px-4 md:border-s md:border-amber-400/15 md:first:border-s-0">
-              <s.icon className="w-5 h-5 text-amber-100" />
-              <span className="text-4xl font-semibold text-amber-100">{s.num}</span>
-              <span className="text-white/75 text-[11px] font-light uppercase">{s.label}</span>
+            <div key={i} className="flex flex-col items-center gap-2 px-4 md:border-s md:border-white/15 md:first:border-s-0">
+              <s.icon className="w-5 h-5 text-white/80" />
+              <span className="text-4xl font-semibold text-white">{s.num}</span>
+              <span className="text-white/70 text-[11px] font-light uppercase">{s.label}</span>
             </div>
           ))}
         </div>
 
         {/* Quick-access cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-16 px-4 max-w-6xl mx-auto">
           {[
             { onClick: onGoLibrary, accent: 'emerald', icon: BookOpen,
               title: isAr ? 'مكتبة التشريعات' : 'Legislation Library',
@@ -252,16 +252,16 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
               cta:   isAr ? 'البحث في الدليل' : 'Search Directory' },
           ].map((card, i) => {
             const accentMap: Record<string, { iconBg: string; iconText: string; cta: string; corner: string }> = {
-              emerald: { iconBg: 'bg-emerald-100/70', iconText: 'text-emerald-700', cta: 'text-emerald-700', corner: 'bg-emerald-700' },
-            amber:   { iconBg: 'bg-amber-100/70',  iconText: 'text-emerald-700', cta: 'text-orange-700',  corner: 'bg-orange-500'   },
-            blue:    { iconBg: 'bg-emerald-50',     iconText: 'text-emerald-700', cta: 'text-emerald-700', corner: 'bg-emerald-700' },
+              emerald: { iconBg: 'bg-[#E7FBB4]', iconText: 'text-[#638C6D]', cta: 'text-[#DF6D2D]', corner: 'bg-[#638C6D]' },
+            amber:   { iconBg: 'bg-[#E7FBB4]',  iconText: 'text-[#638C6D]', cta: 'text-[#DF6D2D]', corner: 'bg-[#DF6D2D]' },
+            blue:    { iconBg: 'bg-[#E7FBB4]',  iconText: 'text-[#638C6D]', cta: 'text-[#DF6D2D]', corner: 'bg-[#638C6D]' },
           };
           const a = accentMap[card.accent];
           return (
             <div
               key={i}
               onClick={card.onClick}
-              className="relative bg-parchment-100 p-8 ring-1 ring-parchment-200 shadow-card hover:shadow-card-hover hover:ring-orange-400/40 transition-all cursor-pointer group"
+              className="relative bg-white p-8 rounded-2xl shadow-md hover:shadow-xl border border-[#638C6D]/15 hover:border-[#638C6D]/30 transition-all duration-200 cursor-pointer group hover:-translate-y-1"
             >
               {/* Top corner crest */}
               <div className={`absolute top-0 left-0 w-12 h-1 ${a.corner}`}></div>
