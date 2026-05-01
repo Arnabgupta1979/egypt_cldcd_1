@@ -325,6 +325,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
       </div>
 
     </div>
+    </div>
   );
 };
 
