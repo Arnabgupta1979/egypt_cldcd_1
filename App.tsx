@@ -747,43 +747,43 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
   const services = [
     {
       icon: Award,
-      color: 'emerald',
+      image: 'Seedcertification.png',
       title: { en: 'Seed Certification', ar: 'تصديق التقاوي' },
       desc: { en: 'CASC certifies seed lots across four official classes — Breeder, Foundation, Registered, and Certified — through rigorous field and laboratory inspection to ensure genetic purity and physical quality standards.', ar: 'تصدّق CASC دفعات التقاوي عبر أربع فئات رسمية — مربي، أساس، مسجل، ومعتمد — من خلال فحص حقلي ومختبري صارم لضمان النقاء الوراثي وجودة التقاوي.' }
     },
     {
       icon: BookOpen,
-      color: 'amber',
+      image: 'Variety_registration.png',
       title: { en: 'Variety Registration & National Catalogue', ar: 'تسجيل الأصناف والكتالوج الوطني' },
       desc: { en: 'New crop varieties must pass DUS (Distinctness, Uniformity, Stability) and VCU (Value for Cultivation and Use) testing before entering the National Catalogue. CASC manages this process and maintains the registry.', ar: 'يجب أن تجتاز الأصناف الجديدة اختبارات DUS (التمايز والتجانس والثبات) و VCU (القيمة للزراعة والاستخدام) قبل إدراجها في الكتالوج الوطني. تتولى CASC إدارة هذه العملية.' }
     },
     {
       icon: Shield,
-      color: 'blue',
+      image: 'Seed_producer_licensing.png',
       title: { en: 'Seed Producer Licensing', ar: 'ترخيص منتجي التقاوي' },
       desc: { en: 'Companies and individuals wishing to produce or process seeds in Egypt must obtain an annual production licence from CASC. CASC inspects licensed facilities and can revoke non-compliant licences.', ar: 'يجب على الشركات والأفراد الراغبين في إنتاج أو معالجة التقاوي في مصر الحصول على ترخيص إنتاج سنوي من CASC، التي تفتش المنشآت المرخصة.' }
     },
     {
       icon: Users,
-      color: 'emerald',
+      image: 'Public_seed_production.png',
       title: { en: 'Public Seed Production', ar: 'إنتاج التقاوي العامة' },
       desc: { en: 'CASP supplies certified wheat, rice and strategic crop seed through state multiplication farms and licensed cooperatives, turning ARC foundation seed into blue-tagged farmer-ready lots.', ar: 'CASP تزود التقاوي المعتمدة للقمح والأرز والمحاصيل الاستراتيجية من خلال مزارع التكاثر الحكومية والجمعيات التعاونية المرخصة، محولة تقاوي ARC الأساسية إلى دفعات جاهزة للمزارعين بعلامة زرقاء.' }
     },
     {
       icon: Globe,
-      color: 'sky',
+      image: 'Import_export_permit.png',
       title: { en: 'Import & Export Permits', ar: 'تصاريح الاستيراد والتصدير' },
       desc: { en: 'All seed imports require a prior import permit from CASC, coordinated with CAPQ for phytosanitary inspection. Exported seed lots receive an official CASC certificate of conformity for international recognition.', ar: 'يتطلب استيراد التقاوي الحصول على تصريح استيراد مسبق من CASC، منسقاً مع CAPQ للفحص الصحي النباتي. تحصل دفعات التقاوي المُصدَّرة على شهادة مطابقة رسمية من CASC.' }
     },
     {
       icon: FlaskConical,
-      color: 'purple',
+      image: 'Seedlab.png',
       title: { en: 'Seed Quality Testing Laboratories', ar: 'مختبرات اختبار جودة التقاوي' },
       desc: { en: 'CASC operates a network of 12+ accredited seed testing laboratories across Egypt applying ISTA (International Seed Testing Association) methods for germination, purity, moisture, and health testing.', ar: 'تدير CASC شبكة من أكثر من 12 مختبراً معتمداً لاختبار التقاوي في جميع أنحاء مصر، تطبّق طرق ISTA لاختبار الإنبات والنقاء والرطوبة والصحة.' }
     },
     {
       icon: Target,
-      color: 'rose',
+      image: 'Regulatory_compliance.png',
       title: { en: 'Regulatory Compliance & Enforcement', ar: 'الامتثال التنظيمي والإنفاذ' },
       desc: { en: 'CASC enforces Egypt\'s seed laws (Law 94/1976 and its executive regulations), investigates quality complaints, withdraws substandard lots from the market, and coordinates with CAPQ on quarantine violations.', ar: 'تنفّذ CASC قوانين التقاوي المصرية (القانون 94/1976 ولائحته التنفيذية)، وتحقق في شكاوى الجودة، وتسحب الدفعات دون المستوى من السوق.' }
     },
@@ -896,12 +896,24 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
-            <div key={i} className="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition-all">
-              <div className={`w-10 h-10 bg-amber-50 text-emerald-700 rounded-xl flex items-center justify-center mb-4`}>
-                <s.icon className="w-5 h-5" />
+            <div key={i} className="relative overflow-hidden rounded-3xl shadow-lg group min-h-[320px]">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${s.image})` }}
+              />
+              <div className="absolute inset-0 bg-emerald-950/60" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_transparent_45%)] pointer-events-none" />
+              <div className="relative h-full flex flex-col justify-end p-6">
+                <div className="bg-white/90 backdrop-blur-sm border border-white/80 rounded-3xl p-5 shadow-xl shadow-emerald-950/10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-11 h-11 rounded-2xl bg-emerald-50 text-emerald-800 flex items-center justify-center">
+                      <s.icon className="w-5 h-5" />
+                    </div>
+                    <h4 className="text-lg font-bold text-[#2D4A32] leading-tight">{s.title[lang]}</h4>
+                  </div>
+                  <p className="text-[#3D3D3D] text-sm leading-relaxed">{s.desc[lang]}</p>
+                </div>
               </div>
-              <h4 className="font-bold text-[#2D4A32] mb-2">{s.title[lang]}</h4>
-              <p className="text-[#3D3D3D] text-xs leading-relaxed">{s.desc[lang]}</p>
             </div>
           ))}
         </div>
