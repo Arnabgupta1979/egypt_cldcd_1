@@ -896,17 +896,19 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   {services.map((s, i) => (
-    <div key={i} className="group relative overflow-hidden rounded-[32px] shadow-2xl bg-slate-950 flex flex-col">
-      {/* Image — fixed height, zoom on hover */}
+    <div key={i} className="group relative overflow-hidden rounded-[32px] shadow-2xl min-h-[460px]">
+      {/* Background image — fills entire card */}
       <div
-        className="w-full h-64 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 shrink-0"
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
         style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${s.image})` }}
       />
-      {/* Frosted glass overlay pill — sits below the image, fully visible */}
-      <div className="relative z-10 -mt-10 mx-6 mb-6">
-        <div className="rounded-[28px] bg-white/60 border border-white/70 backdrop-blur-xl p-5 shadow-xl shadow-slate-950/10">
-          <h4 className="text-lg font-semibold text-[#1f3d2f] mb-2">{s.title[lang]}</h4>
-          <p className="text-sm text-slate-700 leading-relaxed">{s.desc[lang]}</p>
+      {/* Gradient scrim at bottom for readability */}
+      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+      {/* Text box pinned to bottom */}
+      <div className="absolute inset-x-5 bottom-5 z-10">
+        <div className="rounded-2xl bg-white/75 backdrop-blur-md p-5 shadow-lg">
+          <h4 className="text-base font-semibold text-[#1f3d2f] mb-1.5">{s.title[lang]}</h4>
+          <p className="text-sm text-slate-800 leading-relaxed">{s.desc[lang]}</p>
         </div>
       </div>
     </div>
