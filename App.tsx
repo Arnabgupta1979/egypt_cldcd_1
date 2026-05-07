@@ -896,22 +896,16 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
-            <div key={i} className="relative overflow-hidden rounded-3xl shadow-lg group min-h-[320px]">
+            <div key={i} className="group relative overflow-hidden rounded-[32px] shadow-2xl min-h-[360px] bg-slate-950">
               <div
-                className="absolute inset-0 bg-cover bg-center"
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
                 style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${s.image})` }}
               />
-              <div className="absolute inset-0 bg-emerald-950/60" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_transparent_45%)] pointer-events-none" />
-              <div className="relative h-full flex flex-col justify-end p-6">
-                <div className="bg-white/90 backdrop-blur-sm border border-white/80 rounded-3xl p-5 shadow-xl shadow-emerald-950/10">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-11 h-11 rounded-2xl bg-emerald-50 text-emerald-800 flex items-center justify-center">
-                      <s.icon className="w-5 h-5" />
-                    </div>
-                    <h4 className="text-lg font-bold text-[#2D4A32] leading-tight">{s.title[lang]}</h4>
-                  </div>
-                  <p className="text-[#3D3D3D] text-sm leading-relaxed">{s.desc[lang]}</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+              <div className="relative flex h-full items-center justify-center p-6">
+                <div className="w-full max-w-2xl rounded-[32px] bg-white/90 border border-white/80 px-8 py-10 shadow-xl shadow-slate-950/10 backdrop-blur-xl">
+                  <h4 className="text-2xl md:text-3xl font-semibold text-[#1f3d2f] mb-4">{s.title[lang]}</h4>
+                  <p className="text-sm md:text-base text-slate-700 leading-relaxed">{s.desc[lang]}</p>
                 </div>
               </div>
             </div>
