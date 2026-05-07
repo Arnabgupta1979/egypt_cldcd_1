@@ -160,21 +160,29 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
         </div>
       </div>
 
-      {/* Hero — deep emerald authoritative band */}
-      <header className="relative overflow-hidden bg-emerald-700 text-white border-b border-amber-100/50">
+      {/* Hero — image background with overlay */}
+      <header className="relative overflow-hidden text-white border-b border-amber-100/50" 
+        style={{
+          backgroundImage: `url(${import.meta.env.BASE_URL}egypt-field-workers.jpg)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          minHeight: '620px',
+        }}>
+        {/* Dark gradient overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/75 via-emerald-900/70 to-emerald-950/80"></div>
+        
         {/* Decorative arabesque corner ornaments */}
-        <svg className="absolute top-6 left-6 w-20 h-20 text-amber-100/50 hidden md:block" viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1">
+        <svg className="absolute top-6 left-6 w-20 h-20 text-amber-100/40 hidden md:block" viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1">
           <path d="M2 2 L26 2 M2 2 L2 26" />
           <path d="M2 14 Q14 14 14 2" />
           <circle cx="22" cy="22" r="2.5" />
         </svg>
-        <svg className="absolute top-6 right-6 w-20 h-20 text-amber-100/50 hidden md:block" viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1">
+        <svg className="absolute top-6 right-6 w-20 h-20 text-amber-100/40 hidden md:block" viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1">
           <path d="M78 2 L54 2 M78 2 L78 26" />
           <path d="M78 14 Q66 14 66 2" />
           <circle cx="58" cy="22" r="2.5" />
         </svg>
-        {/* Subtle radial atmosphere */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(231,251,180,0.10),transparent_70%)] pointer-events-none"></div>
 
         <div className="relative max-w-5xl mx-auto text-center space-y-5 px-4 pt-16 pb-14">
           <div className="inline-flex items-center gap-2 bg-amber-100/95 text-[#2D4A32] px-4 py-1.5 rounded-sm text-xs font-medium uppercase border border-amber-100">
