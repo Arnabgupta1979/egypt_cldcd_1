@@ -895,22 +895,23 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((s, i) => (
-            <div key={i} className="group relative overflow-hidden rounded-[32px] shadow-2xl min-h-[420px] bg-slate-950">
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${s.image})` }}
-              />
-              <div className="absolute inset-0 bg-slate-950/15" />
-              <div className="absolute inset-x-10 bottom-6">
-                <div className="mx-auto max-w-[80%] rounded-[28px] bg-white/50 border border-white/60 backdrop-blur-xl p-4 shadow-xl shadow-slate-950/10" style={{ maxHeight: '28vh' }}>
-                  <h4 className="text-lg md:text-xl font-semibold text-[#1f3d2f] mb-2">{s.title[lang]}</h4>
-                  <p className="text-sm md:text-[0.95rem] text-slate-700 leading-relaxed">{s.desc[lang]}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+  {services.map((s, i) => (
+    <div key={i} className="group relative overflow-hidden rounded-[32px] shadow-2xl bg-slate-950 flex flex-col">
+      {/* Image — fixed height, zoom on hover */}
+      <div
+        className="w-full h-64 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 shrink-0"
+        style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${s.image})` }}
+      />
+      {/* Frosted glass overlay pill — sits below the image, fully visible */}
+      <div className="relative z-10 -mt-10 mx-6 mb-6">
+        <div className="rounded-[28px] bg-white/60 border border-white/70 backdrop-blur-xl p-5 shadow-xl shadow-slate-950/10">
+          <h4 className="text-lg font-semibold text-[#1f3d2f] mb-2">{s.title[lang]}</h4>
+          <p className="text-sm text-slate-700 leading-relaxed">{s.desc[lang]}</p>
         </div>
+      </div>
+    </div>
+  ))}
+</div>
       </div>
 
       {/* Stakeholder Journey CTA */}
