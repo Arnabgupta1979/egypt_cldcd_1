@@ -902,10 +902,10 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
                 style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${s.image})` }}
               />
               <div className="absolute inset-0 bg-slate-950/15" />
-              <div className="absolute inset-x-6 bottom-6">
-                <div className="max-w-full rounded-[28px] bg-white/90 border border-white/80 backdrop-blur-xl p-5 shadow-xl shadow-slate-950/10" style={{ maxHeight: '30vh' }}>
-                  <h4 className="text-xl font-semibold text-[#1f3d2f] mb-2">{s.title[lang]}</h4>
-                  <p className="text-sm text-slate-700 leading-relaxed">{s.desc[lang]}</p>
+              <div className="absolute inset-x-10 bottom-6">
+                <div className="mx-auto max-w-[80%] rounded-[28px] bg-white/50 border border-white/60 backdrop-blur-xl p-4 shadow-xl shadow-slate-950/10" style={{ maxHeight: '28vh' }}>
+                  <h4 className="text-lg md:text-xl font-semibold text-[#1f3d2f] mb-2">{s.title[lang]}</h4>
+                  <p className="text-sm md:text-[0.95rem] text-slate-700 leading-relaxed">{s.desc[lang]}</p>
                 </div>
               </div>
             </div>
