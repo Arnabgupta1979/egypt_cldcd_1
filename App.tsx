@@ -801,7 +801,15 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
 
       {/* Hero */}
       <div className="relative bg-emerald-950 text-white py-20 px-4 border-b border-orange-400/30 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(218,216,135,0.08),transparent_70%)] pointer-events-none"></div>
+  {/* Seed store background image — zoomed to fill, lightly visible over dark green */}
+  <div
+    className="absolute inset-0 bg-cover bg-center scale-105"
+    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}Seed_store.png)` }}
+  />
+  {/* Dark green tint — 82% opacity keeps brand colour dominant, image visible subtly */}
+  <div className="absolute inset-0 bg-emerald-950/82" />
+  {/* Radial highlight retained, sits on top */}
+  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(218,216,135,0.06),transparent_70%)] pointer-events-none"></div>
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <img
             src={`${import.meta.env.BASE_URL}CASC-logo.png`}
