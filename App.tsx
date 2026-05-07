@@ -896,16 +896,16 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
-            <div key={i} className="group relative overflow-hidden rounded-[32px] shadow-2xl min-h-[360px] bg-slate-950">
+            <div key={i} className="group relative overflow-hidden rounded-[32px] shadow-2xl min-h-[420px] bg-slate-950">
               <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                 style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${s.image})` }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
-              <div className="relative flex h-full items-center justify-center p-6">
-                <div className="w-full max-w-2xl rounded-[32px] bg-white/90 border border-white/80 px-8 py-10 shadow-xl shadow-slate-950/10 backdrop-blur-xl">
-                  <h4 className="text-2xl md:text-3xl font-semibold text-[#1f3d2f] mb-4">{s.title[lang]}</h4>
-                  <p className="text-sm md:text-base text-slate-700 leading-relaxed">{s.desc[lang]}</p>
+              <div className="absolute inset-0 bg-slate-950/15" />
+              <div className="absolute inset-x-6 bottom-6">
+                <div className="max-w-full rounded-[28px] bg-white/90 border border-white/80 backdrop-blur-xl p-5 shadow-xl shadow-slate-950/10" style={{ maxHeight: '30vh' }}>
+                  <h4 className="text-xl font-semibold text-[#1f3d2f] mb-2">{s.title[lang]}</h4>
+                  <p className="text-sm text-slate-700 leading-relaxed">{s.desc[lang]}</p>
                 </div>
               </div>
             </div>
