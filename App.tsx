@@ -689,7 +689,7 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
       </div>
 
       {/* Results grid */}
-      {paginated.length === 0 ? (
+      {displayedCards.length === 0 ? (
         <div className="text-center py-16 text-[#3D3D3D]/50">
           <Search className="w-10 h-10 mx-auto mb-3 opacity-30" />
           <p className="text-sm">{isAr ? 'لا توجد نتائج مطابقة' : 'No matching varieties found'}</p>
