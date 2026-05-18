@@ -538,8 +538,11 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
     return matchCat && matchCrop && matchSearch;
   });
 
+  const isSearchActive = search !== '' || categoryFilter !== 'All' || cropFilter !== 'All';
+  const displayedCards = isSearchActive
+    ? filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+    : filtered.slice(0, 6);
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
-  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   const handleCategoryChange = (cat: string) => {
     setCategoryFilter(cat);
@@ -693,7 +696,7 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {paginated.map(v => (
+          {displayedCards.map(v => (
             <button
               key={v.id}
               onClick={() => setSelectedVariety(v)}
@@ -733,7 +736,7 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
       )}
 
       {/* Pagination */}
-      {totalPages > 1 && (
+      {isSearchActive && totalPages > 1 && (
         <div className="flex justify-center items-center gap-3 pt-4">
           <button
             onClick={() => setPage(p => Math.max(1, p - 1))}
@@ -755,7 +758,7 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
         </div>
       )}
 
-      {/* Variety Registration Flowchart */}
+      {/* Variety Registration Flowchart + Forms — always visible */}
       <div className="mt-8 bg-white rounded-3xl border border-amber-100 shadow-sm overflow-hidden">
         <div className="px-8 py-6 border-b border-amber-50 flex items-center gap-3">
           <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
