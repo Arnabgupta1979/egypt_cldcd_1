@@ -1067,7 +1067,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
             <p className="text-xs text-amber-800 leading-relaxed">
               {isAr
                 ? 'ضمّت الإدارة المركزية لفحص واعتماد التقاوي مكتب حماية أصناف النباتات منذ عام 2003 حتى 2025، حيث أُنشئ بموجب قرار رئيس الوزراء رقم 492 لسنة 2003 والقرار الوزاري رقم 2341 لسنة 2003 (استناداً إلى قانون حماية الملكية الفكرية رقم 82 لسنة 2002، الفصل الرابع). شهدت الإدارة انضمام مصر إلى الاتحاد الدولي لحماية الأصناف النباتية الجديدة (UPOV) في ديسمبر 2019. وقد نُقل المكتب مؤخراً إلى هيئة مستقلة للملكية الفكرية تُسمى الجهاز المصري للملكية الفكرية (EGIPA) منذ مارس 2025.'
-                : 'CASC included the Plant Variety Protection Office (PVPO) from 2003 until 2025, established by Prime Minister Decision No. 492 of 2003 and Ministerial Decree No. 2341 of 2003 (based on the Intellectual Property Protection Law No. 82 of 2002, Chapter Four). CASC witnessed Egypt's accession to UPOV in December 2019. The office was transferred to an independent intellectual property authority — the Egyptian Intellectual Property Authority (EGIPA) — in March 2025.'}
+                : "CASC included the Plant Variety Protection Office (PVPO) from 2003 until 2025, established by Prime Minister Decision No. 492 of 2003 and Ministerial Decree No. 2341 of 2003 (based on the Intellectual Property Protection Law No. 82 of 2002, Chapter Four). CASC witnessed Egypt's accession to UPOV in December 2019. The office was transferred to an independent intellectual property authority — the Egyptian Intellectual Property Authority (EGIPA) — in March 2025."}
             </p>
           </div>
         </div>
