@@ -305,6 +305,15 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
 
   producer_q2_variety: {
     id: 'producer_q2_variety',
+    question: { en: 'Is this a locally bred variety or an imported variety?', ar: 'هل الصنف محلي المنشأ أم مستورد؟' },
+    options: [
+      { id: 'local_var', label: { en: 'Local variety (bred in Egypt)', ar: 'صنف محلي (تم تربيته في مصر)' }, nextNodeId: 'producer_q3_local' },
+      { id: 'imported_var', label: { en: 'Imported variety (foreign origin)', ar: 'صنف مستورد (منشأ أجنبي)' }, nextNodeId: 'producer_q3_imported' },
+    ],
+  },
+
+  producer_q3_local: {
+    id: 'producer_q3_local',
     question: { en: 'What type of crop is the new variety?', ar: 'ما نوع المحصول للصنف الجديد؟' },
     options: [
       { id: 'vegetables_var', label: { en: 'Vegetables', ar: 'خضروات' },
@@ -313,23 +322,17 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
           summary: { en: 'Vegetable varieties enjoy an expedited registration path: they are exempt from VCU (Value for Cultivation & Use) testing. Only DUS (Distinctness, Uniformity, Stability) testing is required.', ar: 'تتمتع أصناف الخضروات بمسار تسجيل سريع: فهي معفاة من اختبار VCU. يُطلب فقط اختبار DUS.' },
           keyPoints: { en: ['Vegetables are exempt from VCU — only DUS testing required', 'Onion is the exception and still needs VCU (3 years)', '60-day opposition period after gazette publication precedes the grant'], ar: ['الخضروات معفاة من اختبار VCU — فقط اختبار DUS مطلوب', 'البصل استثناء ولا يزال يحتاج VCU (3 سنوات)', 'فترة اعتراض 60 يوماً بعد النشر في الجريدة قبل المنح'] },
           procedure: { en: [
-            'Step 1 — All procedures must be completed through a licensed Egyptian agent or a registered branch of the foreign company. All documents must be in Arabic, except the authorisation letter and the DUS report.',
-            'Step 2 — Submit the official application form to the Technical Secretariat of the Seed Registration Committee at CASC.',
-            'Step 3 — For imported varieties: submit a valid certified formal authorisation letter, certified by the Egyptian Embassy in the country of origin.',
-            'Step 4 — Submit the import approval document.',
-            'Step 5 — Complete and submit the Technical Questionnaire for the variety (specific form for vegetable varieties).',
-            'Step 6 — DUS examination (Distinctness, Uniformity, Stability) against UPOV Test Guidelines. Note: vegetable varieties are exempt from VCU testing — except onion, which still requires VCU (3 years).',
-            'Step 7 — Acceptance is published in the monthly gazette; a 60-day opposition window opens.',
-            'Step 8 — Final grant by ministerial decision. Download printable registration forms from the portal: Application Form, Technical Questionnaire, Extension Form, Certificate Request Form.'
+            'Step 1 — Submit the official application form to the Technical Secretariat of the Seed Registration Committee at CASC.',
+            'Step 2 — Complete and submit the Technical Questionnaire for local vegetable varieties.',
+            'Step 3 — DUS examination (Distinctness, Uniformity, Stability) against UPOV Test Guidelines. Note: vegetable varieties are exempt from VCU testing — except onion, which still requires VCU (3 years).',
+            'Step 4 — Acceptance is published in the monthly gazette; a 60-day opposition window opens.',
+            'Step 5 — Final grant by ministerial decision. Printable forms available: Application Form, Technical Questionnaire for Local Variety, Extension Form, Certificate Request Form.'
           ], ar: [
-            'الخطوة 1 — تُستكمل جميع الإجراءات من خلال وكيل مصري مرخص أو فرع مسجل للشركة الأجنبية. تُملأ جميع المستندات بالعربية باستثناء خطاب التفويض وتقرير DUS.',
-            'الخطوة 2 — تقديم نموذج الطلب الرسمي إلى الأمانة الفنية للجنة تسجيل الأصناف في CASC.',
-            'الخطوة 3 — للأصناف المستوردة: تقديم تفويض رسمي مصدّق وساري المفعول، معتمد من السفارة المصرية في بلد المنشأ.',
-            'الخطوة 4 — تقديم وثيقة الموافقة على الاستيراد.',
-            'الخطوة 5 — تعبئة وتقديم الاستبيان الفني للصنف (نموذج خاص بأصناف الخضروات).',
-            'الخطوة 6 — فحص DUS (التميز، التجانس، الاستقرار) وفق إرشادات UPOV. ملاحظة: الخضروات معفاة من اختبار VCU — باستثناء البصل الذي يستلزم VCU (3 سنوات).',
-            'الخطوة 7 — نشر القبول في الجريدة الشهرية وفتح فترة اعتراض 60 يوماً.',
-            'الخطوة 8 — المنح النهائي بقرار وزاري. يمكن تحميل النماذج القابلة للطباعة من البوابة: نموذج الطلب، الاستبيان الفني، نموذج التمديد، نموذج طلب شهادة.'
+            'الخطوة 1 — تقديم نموذج الطلب الرسمي إلى الأمانة الفنية للجنة تسجيل الأصناف في CASC.',
+            'الخطوة 2 — تعبئة وتقديم الاستبيان الفني لأصناف الخضروات المحلية.',
+            'الخطوة 3 — فحص DUS (التميز، التجانس، الاستقرار) وفق إرشادات UPOV. ملاحظة: الخضروات معفاة من VCU — باستثناء البصل (3 سنوات).',
+            'الخطوة 4 — نشر القبول في الجريدة الشهرية وفتح فترة اعتراض 60 يوماً.',
+            'الخطوة 5 — المنح النهائي بقرار وزاري. النماذج القابلة للطباعة: نموذج الطلب، الاستبيان الفني للصنف المحلي، نموذج التمديد، نموذج طلب الشهادة.'
           ] },
           authorityIds: ['pvpo', 'casc'],
           documentIds: ['law-82-2002'],
@@ -343,8 +346,8 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
           procedure: { en: [
             'Step 1 — All procedures must be completed through a licensed Egyptian agent or a registered branch of the foreign company. All documents must be in Arabic, except the authorisation letter and the DUS report.',
             'Step 2 — Submit the official application form to the Technical Secretariat of the Seed Registration Committee at CASC.',
-            'Step 3 — For imported varieties: submit a valid certified formal authorisation letter, certified by the Egyptian Embassy in the country of origin.',
-            'Step 4 — Submit the import approval document and complete the Technical Questionnaire for maize.',
+            'Step 3 — Complete and submit the Technical Questionnaire for local maize varieties.',
+            'Step 4 — DUS examination against UPOV Test Guidelines by CASC (or designated third party).',
             'Step 5 — DUS examination against UPOV Test Guidelines by CASC (or designated third party).',
             'Step 6 — VCU testing: 2 years (expedited for maize) across multiple agro-ecological zones, compared to commercial check varieties for yield, disease resistance, and quality.',
             'Step 7 — Gazette publication of acceptance, 60-day opposition window, then final ministerial grant.',
@@ -352,9 +355,8 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
           ], ar: [
             'الخطوة 1 — تُستكمل جميع الإجراءات من خلال وكيل مصري مرخص أو فرع مسجل للشركة الأجنبية. تُملأ جميع المستندات بالعربية باستثناء خطاب التفويض وتقرير DUS.',
             'الخطوة 2 — تقديم نموذج الطلب الرسمي إلى الأمانة الفنية للجنة تسجيل الأصناف في CASC.',
-            'الخطوة 3 — للأصناف المستوردة: تقديم تفويض رسمي مصدّق وساري المفعول، معتمد من السفارة المصرية في بلد المنشأ.',
-            'الخطوة 4 — تقديم وثيقة الموافقة على الاستيراد وتعبئة الاستبيان الفني للذرة.',
-            'الخطوة 5 — فحص DUS وفق إرشادات UPOV من CASC (أو جهة ثالثة معتمدة).',
+            'الخطوة 3 — تعبئة وتقديم الاستبيان الفني لأصناف الذرة المحلية.',
+            'الخطوة 4 — فحص DUS وفق إرشادات UPOV من CASC (أو جهة ثالثة معتمدة).',
             'الخطوة 6 — اختبار VCU: سنتان (مسار مختصر للذرة) عبر مناطق بيئية-زراعية متعددة ومقارنة مع الأصناف المرجعية.',
             'الخطوة 7 — النشر في الجريدة، فترة اعتراض 60 يوماً، ثم المنح الوزاري النهائي.',
             'الخطوة 8 — اختياري: التقدم للتسجيل الإقليمي في كتالوج أصناف COMESA بعد المنح الوطني.'
@@ -371,23 +373,110 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
           procedure: { en: [
             'Step 1 — All procedures must be completed through a licensed Egyptian agent or a registered branch of the foreign company. All documents must be in Arabic, except the authorisation letter and the DUS report.',
             'Step 2 — Submit the official application form to the Technical Secretariat of the Seed Registration Committee at CASC.',
-            'Step 3 — For imported varieties: submit a valid certified formal authorisation letter, certified by the Egyptian Embassy in the country of origin.',
-            'Step 4 — Submit the import approval document.',
-            'Step 5 — Complete and submit the Technical Questionnaire for field crop varieties.',
-            'Step 6 — DUS examination against UPOV Test Guidelines (Distinctness, Uniformity, Stability — two cycles).',
-            'Step 7 — VCU trials: 3 years across multiple agro-ecological zones, compared with commercial check varieties for yield, disease resistance, and quality. The Variety Registration Committee (VRC) reviews and recommends grant.',
-            'Step 8 — Publication in gazette, 60-day opposition window, then ministerial grant. Download printable forms from the portal: Application Form, Technical Questionnaire, Extension Form, Certificate Request Form.'
+            'Step 3 — Complete and submit the Technical Questionnaire for local field crop varieties.',
+            'Step 4 — DUS examination against UPOV Test Guidelines (Distinctness, Uniformity, Stability — two cycles).',
+            'Step 5 — VCU trials: 3 years across multiple agro-ecological zones, compared with commercial check varieties for yield, disease resistance, and quality. The Variety Registration Committee (VRC) reviews and recommends grant.',
+            'Step 6 — Publication in gazette, 60-day opposition window, then ministerial grant. Printable forms available: Application Form, Technical Questionnaire for Local Variety, Extension Form, Certificate Request Form.'
           ], ar: [
             'الخطوة 1 — تُستكمل جميع الإجراءات من خلال وكيل مصري مرخص أو فرع مسجل للشركة الأجنبية. تُملأ جميع المستندات بالعربية باستثناء خطاب التفويض وتقرير DUS.',
             'الخطوة 2 — تقديم نموذج الطلب الرسمي إلى الأمانة الفنية للجنة تسجيل الأصناف في CASC.',
-            'الخطوة 3 — للأصناف المستوردة: تقديم تفويض رسمي مصدّق وساري المفعول، معتمد من السفارة المصرية في بلد المنشأ.',
-            'الخطوة 4 — تقديم وثيقة الموافقة على الاستيراد.',
-            'الخطوة 5 — تعبئة وتقديم الاستبيان الفني لأصناف المحاصيل الحقلية.',
-            'الخطوة 6 — فحص DUS وفق إرشادات UPOV (التميز، التجانس، الاستقرار — دورتان).',
-            'الخطوة 7 — تجارب VCU: 3 سنوات عبر مناطق بيئية-زراعية متعددة ومقارنة مع الأصناف المرجعية. تراجع لجنة تسجيل الأصناف (VRC) النتائج وتوصي بالمنح.',
-            'الخطوة 8 — النشر في الجريدة، فترة اعتراض 60 يوماً، ثم المنح الوزاري. يمكن تحميل النماذج القابلة للطباعة من البوابة: نموذج الطلب، الاستبيان الفني، نموذج التمديد، نموذج طلب شهادة.'
+            'الخطوة 3 — تعبئة وتقديم الاستبيان الفني لأصناف المحاصيل الحقلية المحلية.',
+            'الخطوة 4 — فحص DUS وفق إرشادات UPOV (التميز، التجانس، الاستقرار — دورتان).',
+            'الخطوة 5 — تجارب VCU: 3 سنوات عبر مناطق بيئية-زراعية متعددة ومقارنة مع الأصناف المرجعية. تراجع لجنة تسجيل الأصناف (VRC) وتوصي بالمنح.',
+            'الخطوة 6 — النشر في الجريدة، فترة اعتراض 60 يوماً، ثم المنح الوزاري. النماذج القابلة للطباعة: نموذج الطلب، الاستبيان الفني للصنف المحلي، نموذج التمديد، نموذج طلب الشهادة.'
           ] },
           authorityIds: ['pvpo', 'casc'],
+          documentIds: ['law-82-2002', 'law-53-1966'],
+        }
+      },
+    ],
+  },
+
+  producer_q3_imported: {
+    id: 'producer_q3_imported',
+    question: { en: 'What type of crop is the imported variety?', ar: 'ما نوع المحصول للصنف المستورد؟' },
+    options: [
+      { id: 'vegetables_var_imp', label: { en: 'Vegetables', ar: 'خضروات' },
+        result: {
+          title: { en: 'Registering an Imported Vegetable Variety', ar: 'تسجيل صنف خضروات مستورد' },
+          summary: { en: 'Imported vegetable varieties must be registered through a licensed Egyptian agent or a branch of the foreign company. All documents must be in Arabic, except the authorisation letter and the DUS report. Vegetable varieties are exempt from VCU testing.', ar: 'تُسجَّل أصناف الخضروات المستوردة من خلال وكيل مصري مرخص أو فرع للشركة الأجنبية. جميع المستندات بالعربية باستثناء خطاب التفويض وتقرير DUS. الخضروات معفاة من اختبار VCU.' },
+          keyPoints: { en: ['Egyptian agent or registered foreign branch required', 'Valid certified authorisation from Egyptian Embassy in country of origin', 'Documents in Arabic except authorisation letter and DUS report', 'Vegetables exempt from VCU — only DUS testing required (except onion)'], ar: ['وكيل مصري أو فرع أجنبي مسجل إلزامي', 'تفويض رسمي مصدّق من السفارة المصرية في بلد المنشأ', 'جميع المستندات بالعربية باستثناء خطاب التفويض وتقرير DUS', 'الخضروات معفاة من VCU — فقط اختبار DUS مطلوب (باستثناء البصل)'] },
+          procedure: { en: [
+            'Step 1 — Engage a licensed Egyptian agent or register a branch of the foreign company in Egypt.',
+            'Step 2 — Submit the official application form to the Technical Secretariat of the Seed Registration Committee at CASC.',
+            'Step 3 — Submit a valid certified formal authorisation letter, certified by the Egyptian Embassy in the country of origin.',
+            'Step 4 — Submit the import approval document.',
+            'Step 5 — Complete and submit the Technical Questionnaire for imported vegetable varieties.',
+            'Step 6 — DUS examination (Distinctness, Uniformity, Stability). Vegetable varieties are exempt from VCU — except onion (3 years VCU).',
+            'Step 7 — Acceptance published in gazette; 60-day opposition window opens.',
+            'Step 8 — Final ministerial grant. Printable forms available: Application Form, Technical Questionnaire for Imported Variety, Extension Form, Certificate Request Form.'
+          ], ar: [
+            'الخطوة 1 — التعاقد مع وكيل مصري مرخص أو تسجيل فرع للشركة الأجنبية في مصر.',
+            'الخطوة 2 — تقديم نموذج الطلب الرسمي إلى الأمانة الفنية للجنة تسجيل الأصناف في CASC.',
+            'الخطوة 3 — تقديم تفويض رسمي مصدّق وساري المفعول، معتمد من السفارة المصرية في بلد المنشأ.',
+            'الخطوة 4 — تقديم وثيقة الموافقة على الاستيراد.',
+            'الخطوة 5 — تعبئة وتقديم الاستبيان الفني لأصناف الخضروات المستوردة.',
+            'الخطوة 6 — فحص DUS (التميز، التجانس، الاستقرار). الخضروات معفاة من VCU — باستثناء البصل (3 سنوات).',
+            'الخطوة 7 — نشر القبول في الجريدة وفتح فترة اعتراض 60 يوماً.',
+            'الخطوة 8 — المنح الوزاري النهائي. النماذج القابلة للطباعة: نموذج الطلب، الاستبيان الفني للصنف المستورد، نموذج التمديد، نموذج طلب الشهادة.'
+          ] },
+          authorityIds: ['casc'],
+          documentIds: ['law-82-2002'],
+        }
+      },
+      { id: 'maize_var_imp', label: { en: 'Maize', ar: 'ذرة' },
+        result: {
+          title: { en: 'Registering an Imported Maize Variety', ar: 'تسجيل صنف ذرة مستورد' },
+          summary: { en: 'Imported maize varieties follow the standard imported variety registration path with an expedited VCU timeline of 2 years. An Egyptian agent or registered branch is required.', ar: 'تتبع أصناف الذرة المستوردة مسار التسجيل القياسي مع جدول VCU مختصر لمدة سنتين. يشترط وجود وكيل مصري أو فرع مسجل.' },
+          keyPoints: { en: ['Egyptian agent or registered foreign branch required', 'Authorisation from Egyptian Embassy mandatory', 'VCU expedited to 2 years for maize', 'COMESA regional registration available after national grant'], ar: ['وكيل مصري أو فرع أجنبي مسجل إلزامي', 'تفويض من السفارة المصرية إلزامي', 'VCU مختصر لسنتين للذرة', 'التسجيل الإقليمي في COMESA متاح بعد المنح الوطني'] },
+          procedure: { en: [
+            'Step 1 — Engage a licensed Egyptian agent or register a branch of the foreign company in Egypt.',
+            'Step 2 — Submit the official application form to the Technical Secretariat of the Seed Registration Committee at CASC.',
+            'Step 3 — Submit a valid certified formal authorisation letter, certified by the Egyptian Embassy in the country of origin.',
+            'Step 4 — Submit the import approval document and complete the Technical Questionnaire for imported maize varieties.',
+            'Step 5 — DUS examination against UPOV Test Guidelines.',
+            'Step 6 — VCU testing: 2 years (expedited for maize) across multiple agro-ecological zones.',
+            'Step 7 — Gazette publication, 60-day opposition window, then final ministerial grant.',
+            'Step 8 — Optional: apply for COMESA Variety Catalogue registration after national grant.'
+          ], ar: [
+            'الخطوة 1 — التعاقد مع وكيل مصري مرخص أو تسجيل فرع للشركة الأجنبية في مصر.',
+            'الخطوة 2 — تقديم نموذج الطلب الرسمي إلى الأمانة الفنية للجنة تسجيل الأصناف في CASC.',
+            'الخطوة 3 — تقديم تفويض رسمي مصدّق من السفارة المصرية في بلد المنشأ.',
+            'الخطوة 4 — تقديم وثيقة الموافقة على الاستيراد وتعبئة الاستبيان الفني لأصناف الذرة المستوردة.',
+            'الخطوة 5 — فحص DUS وفق إرشادات UPOV.',
+            'الخطوة 6 — اختبار VCU: سنتان (مسار مختصر للذرة) عبر مناطق بيئية-زراعية متعددة.',
+            'الخطوة 7 — النشر في الجريدة، فترة اعتراض 60 يوماً، ثم المنح الوزاري النهائي.',
+            'الخطوة 8 — اختياري: التسجيل في كتالوج أصناف COMESA بعد المنح الوطني.'
+          ] },
+          authorityIds: ['casc'],
+          documentIds: ['law-82-2002', 'law-53-1966'],
+        }
+      },
+      { id: 'field_var_imp', label: { en: 'Other field crops (wheat, cotton, rice, etc.)', ar: 'محاصيل حقلية أخرى (قمح، قطن، أرز، إلخ)' },
+        result: {
+          title: { en: 'Registering an Imported Field Crop Variety', ar: 'تسجيل صنف محصول حقلي مستورد' },
+          summary: { en: 'Imported field crop varieties require 3 years of VCU testing and DUS testing. All procedures must go through a licensed Egyptian agent or registered branch of the foreign company.', ar: 'تستلزم أصناف المحاصيل الحقلية المستوردة 3 سنوات من اختبار VCU واختبار DUS. جميع الإجراءات عبر وكيل مصري مرخص أو فرع مسجل للشركة الأجنبية.' },
+          keyPoints: { en: ['Egyptian agent or registered foreign branch required', 'Authorisation from Egyptian Embassy mandatory', 'Full 3-year VCU + DUS cycle required', 'Protection: 20 years (25 for trees and vines)'], ar: ['وكيل مصري أو فرع أجنبي مسجل إلزامي', 'تفويض من السفارة المصرية إلزامي', 'دورة VCU كاملة 3 سنوات + DUS مطلوبة', 'مدة الحماية: 20 سنة (25 للأشجار والكروم)'] },
+          procedure: { en: [
+            'Step 1 — Engage a licensed Egyptian agent or register a branch of the foreign company in Egypt.',
+            'Step 2 — Submit the official application form to the Technical Secretariat of the Seed Registration Committee at CASC.',
+            'Step 3 — Submit a valid certified formal authorisation letter, certified by the Egyptian Embassy in the country of origin.',
+            'Step 4 — Submit the import approval document and complete the Technical Questionnaire for imported field crop varieties.',
+            'Step 5 — DUS examination against UPOV Test Guidelines (two cycles).',
+            'Step 6 — VCU trials: 3 years across multiple agro-ecological zones, compared with commercial check varieties. The Variety Registration Committee (VRC) reviews and recommends grant.',
+            'Step 7 — Gazette publication, 60-day opposition window, then ministerial grant. Protection runs 20 years (25 for trees/vines).',
+            'Step 8 — Printable forms available: Application Form, Technical Questionnaire for Imported Variety, Extension Form, Certificate Request Form.'
+          ], ar: [
+            'الخطوة 1 — التعاقد مع وكيل مصري مرخص أو تسجيل فرع للشركة الأجنبية في مصر.',
+            'الخطوة 2 — تقديم نموذج الطلب الرسمي إلى الأمانة الفنية للجنة تسجيل الأصناف في CASC.',
+            'الخطوة 3 — تقديم تفويض رسمي مصدّق من السفارة المصرية في بلد المنشأ.',
+            'الخطوة 4 — تقديم وثيقة الموافقة على الاستيراد وتعبئة الاستبيان الفني لأصناف المحاصيل الحقلية المستوردة.',
+            'الخطوة 5 — فحص DUS وفق إرشادات UPOV (دورتان).',
+            'الخطوة 6 — تجارب VCU: 3 سنوات عبر مناطق بيئية-زراعية متعددة ومقارنة مع الأصناف المرجعية. تراجع لجنة تسجيل الأصناف (VRC) وتوصي بالمنح.',
+            'الخطوة 7 — النشر في الجريدة، فترة اعتراض 60 يوماً، ثم المنح الوزاري. مدة الحماية 20 سنة (25 للأشجار/الكروم).',
+            'الخطوة 8 — النماذج القابلة للطباعة: نموذج الطلب، الاستبيان الفني للصنف المستورد، نموذج التمديد، نموذج طلب الشهادة.'
+          ] },
+          authorityIds: ['casc'],
           documentIds: ['law-82-2002', 'law-53-1966'],
         }
       },

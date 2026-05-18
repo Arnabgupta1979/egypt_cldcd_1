@@ -754,6 +754,85 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
           </button>
         </div>
       )}
+
+      {/* Variety Registration Flowchart */}
+      <div className="mt-8 bg-white rounded-3xl border border-amber-100 shadow-sm overflow-hidden">
+        <div className="px-8 py-6 border-b border-amber-50 flex items-center gap-3">
+          <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
+            <BookOpen className="w-5 h-5 text-emerald-700" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-[#2D4A32] text-lg">
+              {isAr ? 'كيفية تسجيل صنف في مصر' : 'How to Register a Variety in Egypt'}
+            </h3>
+            <p className="text-xs text-[#3D3D3D]/60 mt-0.5">
+              {isAr ? 'المسار الكامل — من التقديم إلى الإدراج في القائمة الوطنية' : 'Full pathway — from application to national list inclusion'}
+            </p>
+          </div>
+        </div>
+        <div className="p-4">
+          <img
+            src={`${import.meta.env.BASE_URL}var_reg.png`}
+            alt={isAr ? 'مخطط تدفق تسجيل الأصناف في مصر' : 'Variety Registration in Egypt flowchart'}
+            className="w-full rounded-2xl"
+          />
+        </div>
+      </div>
+
+      {/* Downloadable Registration Forms */}
+      <div className="bg-white rounded-3xl border border-amber-100 shadow-sm p-8">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
+            <Download className="w-5 h-5 text-emerald-700" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-[#2D4A32] text-lg">
+              {isAr ? 'نماذج التسجيل القابلة للطباعة' : 'Printable Registration Forms'}
+            </h3>
+            <p className="text-xs text-[#3D3D3D]/60 mt-0.5">
+              {isAr ? 'النماذج الرسمية المطلوبة للتقديم — تُملأ وتُقدَّم بالعربية' : 'Official forms required for submission — to be completed and submitted in Arabic'}
+            </p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { name: { en: 'Application Form', ar: 'نموذج الطلب' }, file: null },
+            { name: { en: 'Technical Questionnaire — Local Variety', ar: 'الاستبيان الفني — صنف محلي' }, file: null },
+            { name: { en: 'Technical Questionnaire — Imported Variety', ar: 'الاستبيان الفني — صنف مستورد' }, file: null },
+            { name: { en: 'Form for Extending Registration of a Plant Variety', ar: 'نموذج تمديد تسجيل الصنف النباتي' }, file: null },
+            { name: { en: 'Form for Requesting a Certificate of a Registered Plant Variety', ar: 'نموذج طلب شهادة صنف نباتي مسجل' }, file: null },
+          ].map((form, i) => (
+            <div key={i} className="flex items-center justify-between p-4 bg-amber-50 rounded-xl border border-amber-100">
+              <div className="flex items-center gap-3">
+                <FileText className="w-5 h-5 text-emerald-600 shrink-0" />
+                <span className="text-sm font-medium text-[#2D4A32]">{form.name[lang]}</span>
+              </div>
+              {form.file ? (
+                <a
+                  href={`${import.meta.env.BASE_URL}${form.file}`}
+                  download
+                  className="ml-3 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-all flex items-center gap-1 shrink-0"
+                >
+                  <Download className="w-3 h-3" />
+                  {isAr ? 'تحميل' : 'Download'}
+                </a>
+              ) : (
+                <span className="ml-3 px-3 py-1.5 bg-amber-100 text-amber-700 text-xs font-semibold rounded-lg shrink-0">
+                  {isAr ? 'قريباً' : 'Coming soon'}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 p-4 bg-emerald-50 rounded-xl flex gap-3 items-start">
+          <Info className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+          <p className="text-xs text-emerald-800">
+            {isAr
+              ? 'جميع المستندات تُقدَّم باليد وباللغة العربية، باستثناء خطاب التفويض وتقرير DUS. الإضافات والحذف والتعديلات مسموح بها فقط من قِبل لجنة التسجيل. للاستفسار: casc.egypt@hotmail.com'
+              : 'All documents are submitted by hand and in Arabic language, except the authorisation letter and the DUS report. Additions, deletions, and modifications are permitted only by the Registration Committee. For enquiries: casc.egypt@hotmail.com'}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
