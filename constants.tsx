@@ -583,9 +583,9 @@ export const MOCK_AUTHORITIES: Authority[] = [
     id: 'casc',
     name: { ar: 'الإدارة المركزية لفحص واعتماد التقاوي (CASC)', en: 'Central Administration for Seed Testing and Certification (CASC)' },
     shortName: 'CASC',
-    tasks: ['Variety Registration', 'Seed Certification', 'Licensing Seed Dealers'],
-    address: { ar: 'مبنى وزارة الزراعة، الجيزة، مصر', en: 'Ministry of Agriculture Bldg, Giza, Egypt' },
-    email: 'info@casc.gov.eg',
+    tasks: ['Variety Registration', 'Seed Certification', 'Seed Export Permits', 'Seed Import Permits', 'Field Inspection', 'OECD Certificates', 'Trade & Production Licensing', 'Seed Testing'],
+    address: { ar: '8 شارع الجامعة، الجيزة، جمهورية مصر العربية', en: '8 Gamaa Street, Giza, Arab Republic of Egypt' },
+    email: 'casc.egypt@hotmail.com',
     phone: '+20 2 35720831',
     channels: ['Physical Submission', 'Official Portal']
   },
@@ -612,13 +612,14 @@ export const MOCK_AUTHORITIES: Authority[] = [
   },
   {
     id: 'pvpo',
-    name: { ar: 'مكتب حماية الأصناف النباتية (PVPO)', en: 'Plant Variety Protection Office (PVPO)' },
-    shortName: 'PVPO',
-    tasks: ['PVP Applications', 'Breeder Rights Registration'],
-    address: { ar: 'داخل مقر CASC، الجيزة', en: 'Within CASC HQ, Giza' },
-    email: 'pvp.office@casc.gov.eg',
-    phone: '+20 2 35720831',
-    channels: ['Physical Submission']
+    name: { ar: 'الجهاز المصري للملكية الفكرية — قسم حماية أصناف النباتات (EGIPA/PVPO)', en: 'Egyptian Intellectual Property Authority — Plant Variety Protection (EGIPA/PVPO)' },
+    shortName: 'EGIPA',
+    tasks: ['PVP Applications', 'Breeder Rights Registration', 'UPOV Compliance'],
+    address: { ar: '101 شارع القصر العيني، القاهرة، جمهورية مصر العربية — ص.ب. 11516', en: '101 Qasr El Aini Street, Cairo, Arab Republic of Egypt — P.O. Box 11516' },
+    email: 'http://www.egypo.gov.eg',
+    phone: '(202) 279-21291 — (202) 279-21274',
+    channels: ['Physical Submission'],
+    website: 'http://www.egypo.gov.eg'
   },
   {
     id: 'ngb',

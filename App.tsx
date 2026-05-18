@@ -32,6 +32,7 @@ import {
 } from 'lucide-react';
 import { Language, Document, DocStatus, Variety, Authority, Stakeholder, JourneyNode, JourneyResult } from './types';
 import { MOCK_DOCS, MOCK_VARIETIES, MOCK_AUTHORITIES, STAKEHOLDERS, JOURNEY_NODES } from './constants';
+import { VARIETY_DATA, VARIETY_CATEGORIES, getCropsForCategory, VarietyRecord } from './varietyData';
 import { getDocumentSummary } from './geminiService';
 
 // --- Components ---
@@ -59,7 +60,7 @@ const TopBanner: React.FC<{ lang: Language }> = ({ lang }) => {
           </span>
           <span className="flex items-center gap-1 text-[#2D4A32]">
             <Mail className="w-3 h-3 text-[#2D4A32]" />
-            casc@agr.gov.eg
+            casc.egypt@hotmail.com
           </span>
         </div>
       </div>
@@ -515,74 +516,244 @@ const LibraryView: React.FC<{ lang: Language, initialDocId?: string }> = ({ lang
 const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
   const isAr = lang === 'ar';
   const [search, setSearch] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('All');
   const [cropFilter, setCropFilter] = useState('All');
+  const [selectedVariety, setSelectedVariety] = useState<VarietyRecord | null>(null);
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 24;
 
-  const filtered = MOCK_VARIETIES.filter(v => 
-    (cropFilter === 'All' || v.crop.en === cropFilter) &&
-    (v.name[lang].toLowerCase().includes(search.toLowerCase()) || v.crop[lang].includes(search))
-  );
+  const crops = getCropsForCategory(categoryFilter);
 
-  const crops = Array.from(new Set(MOCK_VARIETIES.map(v => v.crop.en)));
+  const filtered = VARIETY_DATA.filter(v => {
+    const matchCat = categoryFilter === 'All' || v.category === categoryFilter;
+    const matchCrop = cropFilter === 'All' || v.cropEn === cropFilter;
+    const q = search.toLowerCase();
+    const matchSearch = !q || 
+      v.nameEn.toLowerCase().includes(q) ||
+      v.nameAr.includes(search) ||
+      v.cropEn.toLowerCase().includes(q) ||
+      v.cropAr.includes(search) ||
+      v.applicant.includes(search) ||
+      v.decree.toLowerCase().includes(q);
+    return matchCat && matchCrop && matchSearch;
+  });
+
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  const handleCategoryChange = (cat: string) => {
+    setCategoryFilter(cat);
+    setCropFilter('All');
+    setPage(1);
+  };
+
+  const handleCropChange = (crop: string) => {
+    setCropFilter(crop);
+    setPage(1);
+  };
+
+  const handleSearch = (q: string) => {
+    setSearch(q);
+    setPage(1);
+  };
+
+  const categoryLabels: Record<string, { en: string; ar: string }> = {
+    'All': { en: 'All Categories', ar: 'جميع الفئات' },
+    'Vegetables': { en: 'Vegetables', ar: 'خضروات' },
+    'Field Crops': { en: 'Field Crops', ar: 'محاصيل حقلية' },
+    'Fodder Crops': { en: 'Fodder Crops', ar: 'محاصيل علفية' },
+    'Fruits & Ornamentals': { en: 'Fruits & Ornamentals', ar: 'فواكه ونباتات زينة' },
+    'Herbs & Spices': { en: 'Herbs & Spices', ar: 'أعشاب وتوابل' },
+  };
+
+  if (selectedVariety) {
+    return (
+      <div className="py-8 max-w-3xl mx-auto px-4 animate-fade-in">
+        <button
+          onClick={() => setSelectedVariety(null)}
+          className="flex items-center gap-2 text-[#3D3D3D]/70 hover:text-[#2D4A32] font-bold text-sm mb-6 transition-colors"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          {isAr ? 'العودة إلى الكتالوج' : 'Back to Catalogue'}
+        </button>
+        <div className="bg-white rounded-3xl border border-amber-100 shadow-lg overflow-hidden">
+          <div className="bg-emerald-700 text-white px-8 py-6">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-200 mb-2 block">{selectedVariety.category}</span>
+            <h2 className="text-2xl font-semibold mb-1">
+              {selectedVariety.nameEn || selectedVariety.nameAr}
+            </h2>
+            {selectedVariety.nameAr && selectedVariety.nameEn && (
+              <p className="text-emerald-200 text-sm">{selectedVariety.nameAr}</p>
+            )}
+          </div>
+          <div className="p-8 space-y-4">
+            {[
+              { label: { en: 'Crop', ar: 'المحصول' }, value: `${selectedVariety.cropEn} — ${selectedVariety.cropAr}` },
+              { label: { en: 'Variety Name (English)', ar: 'اسم الصنف بالإنجليزية' }, value: selectedVariety.nameEn || '—' },
+              { label: { en: 'Variety Name (Arabic)', ar: 'اسم الصنف بالعربية' }, value: selectedVariety.nameAr || '—' },
+              { label: { en: 'Applicant / Registrant', ar: 'الجهة الطالبة للتسجيل' }, value: selectedVariety.applicant || '—' },
+              { label: { en: 'Ministerial Decree No. & Date', ar: 'رقم وتاريخ القرار الوزاري' }, value: selectedVariety.decree || '—' },
+              { label: { en: 'Registration Expiry Date', ar: 'تاريخ انتهاء التسجيل' }, value: selectedVariety.expiryDate || '—' },
+              { label: { en: 'Notes', ar: 'ملاحظات' }, value: selectedVariety.notes || '—' },
+            ].map((row, i) => (
+              <div key={i} className="flex flex-col sm:flex-row sm:justify-between py-3 border-b border-amber-50 last:border-0 gap-1">
+                <span className="text-xs font-semibold text-[#3D3D3D]/60 uppercase tracking-wider">{row.label[lang]}</span>
+                <span className="text-sm text-[#2D4A32] font-medium sm:text-right max-w-xs">{row.value}</span>
+              </div>
+            ))}
+          </div>
+          <div className="px-8 pb-8">
+            <div className="bg-amber-50 rounded-xl p-4 flex gap-3 items-start">
+              <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              <p className="text-xs text-amber-800">
+                {isAr
+                  ? 'هذه البيانات مستخرجة من السجل الرسمي للأصناف المسجلة لدى الإدارة المركزية لفحص واعتماد التقاوي (CASC). للتحقق أو الاستفسار، تواصل مع الأمانة الفنية للجنة تسجيل الأصناف.'
+                  : 'This data is extracted from the official CASC National Registered Variety List. For verification or enquiries, contact the Technical Secretariat of the Seed Registration Committee at casc.egypt@hotmail.com.'}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="py-8 max-w-7xl mx-auto px-4 space-y-8 animate-fade-in">
-      <div className="flex flex-col md:flex-row gap-4 items-end">
-        <div className="flex-grow">
-          <label className="block text-xs font-bold text-[#3D3D3D]/70 uppercase tracking-widest mb-2">{isAr ? 'البحث في الكتالوج' : 'Search Catalogue'}</label>
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#3D3D3D]/50 w-5 h-5" />
-            <input 
-              type="text"
-              placeholder={isAr ? 'ابحث عن صنف أو محصول...' : 'Search variety or crop...'}
-              className="w-full pl-12 pr-4 py-3 bg-white border-2 border-amber-100 rounded-xl focus:border-emerald-500 outline-none shadow-sm"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
+    <div className="py-8 max-w-7xl mx-auto px-4 space-y-6 animate-fade-in">
+
+      {/* Header */}
+      <div className="bg-emerald-900 text-white p-8 rounded-3xl relative overflow-hidden shadow-xl">
+        <div className="relative z-10">
+          <h2 className="text-2xl font-bold mb-1">{isAr ? 'الكتالوج الوطني للأصناف المسجلة' : 'National Registered Variety Catalogue'}</h2>
+          <p className="text-emerald-200 text-sm mb-4">
+            {isAr
+              ? `${VARIETY_DATA.length.toLocaleString()} صنفاً مسجلاً رسمياً — المصدر: الإدارة المركزية لفحص واعتماد التقاوي (CASC)`
+              : `${VARIETY_DATA.length.toLocaleString()} officially registered varieties — Source: CASC National Registry`}
+          </p>
+          <p className="text-emerald-300 text-xs">
+            {isAr
+              ? '⚠️ هذه القائمة تخضع للتحديث والمراجعة المستمرة. تاريخ انتهاء التسجيل خاضع للتغيير.'
+              : '⚠️ This list is subject to continuous updating and revision. Registration expiry dates are subject to change.'}
+          </p>
         </div>
-        <div className="w-full md:w-48">
-          <label className="block text-xs font-bold text-[#3D3D3D]/70 uppercase tracking-widest mb-2">{isAr ? 'المحصول' : 'Crop'}</label>
-          <select 
-            className="w-full p-3 bg-white border-2 border-amber-100 rounded-xl outline-none shadow-sm"
-            onChange={(e) => setCropFilter(e.target.value)}
-          >
-            <option value="All">{isAr ? 'الكل' : 'All Crops'}</option>
-            {crops.map(c => <option key={c} value={c}>{c}</option>)}
-          </select>
+        <BookOpen className="absolute -right-6 -bottom-6 w-40 h-40 text-white/5" />
+      </div>
+
+      {/* Filters */}
+      <div className="bg-white rounded-2xl border border-amber-100 p-6 shadow-sm space-y-4">
+        {/* Search */}
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#3D3D3D]/40 w-5 h-5" />
+          <input
+            type="text"
+            placeholder={isAr ? 'ابحث باسم الصنف أو المحصول أو الجهة الطالبة...' : 'Search by variety name, crop, or applicant...'}
+            className="w-full pl-12 pr-4 py-3 bg-amber-50 border border-amber-100 rounded-xl focus:border-emerald-500 outline-none text-sm"
+            value={search}
+            onChange={(e) => handleSearch(e.target.value)}
+          />
+        </div>
+
+        {/* Category + Crop filters */}
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1">
+            <label className="block text-[10px] font-bold text-[#3D3D3D]/60 uppercase tracking-widest mb-1.5">{isAr ? 'الفئة' : 'Category'}</label>
+            <select
+              className="w-full p-3 bg-amber-50 border border-amber-100 rounded-xl outline-none text-sm"
+              value={categoryFilter}
+              onChange={(e) => handleCategoryChange(e.target.value)}
+            >
+              {VARIETY_CATEGORIES.map(c => (
+                <option key={c} value={c}>{isAr ? categoryLabels[c]?.ar : categoryLabels[c]?.en || c}</option>
+              ))}
+            </select>
+          </div>
+          <div className="flex-1">
+            <label className="block text-[10px] font-bold text-[#3D3D3D]/60 uppercase tracking-widest mb-1.5">{isAr ? 'المحصول' : 'Crop'}</label>
+            <select
+              className="w-full p-3 bg-amber-50 border border-amber-100 rounded-xl outline-none text-sm"
+              value={cropFilter}
+              onChange={(e) => handleCropChange(e.target.value)}
+            >
+              <option value="All">{isAr ? 'جميع المحاصيل' : 'All Crops'}</option>
+              {crops.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
+          <div className="flex items-end">
+            <span className="text-xs text-[#3D3D3D]/60 pb-3">
+              {filtered.length.toLocaleString()} {isAr ? 'نتيجة' : 'results'}
+            </span>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map(v => (
-          <div key={v.id} className="bg-white p-6 rounded-2xl shadow-sm border border-amber-100 hover:shadow-md transition-all">
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <span className="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase mb-1 inline-block">
-                  {v.crop[lang]}
+      {/* Results grid */}
+      {paginated.length === 0 ? (
+        <div className="text-center py-16 text-[#3D3D3D]/50">
+          <Search className="w-10 h-10 mx-auto mb-3 opacity-30" />
+          <p className="text-sm">{isAr ? 'لا توجد نتائج مطابقة' : 'No matching varieties found'}</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {paginated.map(v => (
+            <button
+              key={v.id}
+              onClick={() => setSelectedVariety(v)}
+              className="bg-white p-5 rounded-2xl border border-amber-100 hover:border-emerald-300 hover:shadow-md transition-all text-left group"
+            >
+              <div className="flex justify-between items-start mb-3">
+                <span className="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase">
+                  {isAr ? v.cropAr : v.cropEn}
                 </span>
-                <h3 className="text-xl font-semibold text-[#2D4A32]">{v.name[lang]}</h3>
+                <ChevronRight className="w-4 h-4 text-[#3D3D3D]/30 group-hover:text-emerald-600 shrink-0" />
               </div>
-              <span className={`px-2 py-1 rounded text-[10px] font-medium uppercase ${v.status === 'Active' ? 'text-emerald-600 bg-emerald-50' : 'text-[#3D3D3D]/70 bg-amber-50'}`}>
-                {v.status}
-              </span>
-            </div>
-            <div className="space-y-3 mb-6">
-              <div className="flex justify-between text-xs">
-                <span className="text-[#3D3D3D]/70">{isAr ? 'المربي/المسجل' : 'Maintainer'}</span>
-                <span className="text-[#3D3D3D] font-medium">{v.maintainer[lang]}</span>
+              <h3 className="text-base font-semibold text-[#2D4A32] leading-snug mb-1">
+                {v.nameEn || v.nameAr}
+              </h3>
+              {v.nameAr && v.nameEn && (
+                <p className="text-xs text-[#3D3D3D]/60 mb-3">{v.nameAr}</p>
+              )}
+              <div className="space-y-1.5 mt-3 pt-3 border-t border-amber-50">
+                <div className="flex justify-between text-xs">
+                  <span className="text-[#3D3D3D]/50">{isAr ? 'الجهة الطالبة' : 'Applicant'}</span>
+                  <span className="text-[#3D3D3D] font-medium truncate max-w-[140px]">{v.applicant || '—'}</span>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-[#3D3D3D]/50">{isAr ? 'قرار التسجيل' : 'Decree'}</span>
+                  <span className="text-[#3D3D3D] font-medium font-mono">{v.decree || '—'}</span>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-[#3D3D3D]/50">{isAr ? 'انتهاء التسجيل' : 'Expires'}</span>
+                  <span className={`font-medium ${v.expiryDate && v.expiryDate < new Date().toISOString().slice(0,10) ? 'text-red-500' : 'text-emerald-600'}`}>
+                    {v.expiryDate || '—'}
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between text-xs">
-                <span className="text-[#3D3D3D]/70">{isAr ? 'تاريخ التسجيل' : 'Registered On'}</span>
-                <span className="text-[#3D3D3D] font-medium">{v.registrationDate}</span>
-              </div>
-            </div>
-            <button className="w-full bg-amber-50 hover:bg-emerald-50 text-emerald-700 text-xs font-semibold py-2 rounded-lg transition-all flex items-center justify-center gap-2">
-              <FileText className="w-4 h-4" />
-              {isAr ? 'عرض قرار التسجيل' : 'View Registration Decree'}
             </button>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center gap-3 pt-4">
+          <button
+            onClick={() => setPage(p => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className="px-4 py-2 rounded-xl bg-white border border-amber-100 text-sm font-semibold disabled:opacity-40 hover:border-emerald-400 transition-all"
+          >
+            {isAr ? 'السابق' : 'Prev'}
+          </button>
+          <span className="text-sm text-[#3D3D3D]/70">
+            {isAr ? `صفحة ${page} من ${totalPages}` : `Page ${page} of ${totalPages}`}
+          </span>
+          <button
+            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            className="px-4 py-2 rounded-xl bg-white border border-amber-100 text-sm font-semibold disabled:opacity-40 hover:border-emerald-400 transition-all"
+          >
+            {isAr ? 'التالي' : 'Next'}
+          </button>
+        </div>
+      )}
     </div>
   );
 };
@@ -746,53 +917,73 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
 
   const services = [
     {
-      icon: Award,
-      image: 'Seedcertification.png',
-      title: { en: 'Seed Certification', ar: 'تصديق التقاوي' },
-      desc: { en: 'CASC certifies seed lots across four official classes — Breeder, Foundation, Registered, and Certified — through rigorous field and laboratory inspection to ensure genetic purity and physical quality standards.', ar: 'تصدّق CASC دفعات التقاوي عبر أربع فئات رسمية — مربي، أساس، مسجل، ومعتمد — من خلال فحص حقلي ومختبري صارم لضمان النقاء الوراثي وجودة التقاوي.' }
+      icon: Globe,
+      image: 'Import_export_permit.png',
+      title: { en: 'Seed Export', ar: 'تصدير التقاوي' },
+      desc: {
+        en: 'Seed export requires: export form from the Seed Committee (+ 2 copies), Form No. 5 export (+ 2 copies), application to the Committee Chairman specifying quantities, varieties and price, copy of seed trading licence, copy of exporters register, inspection certificate or proof seeds are under inspection, and payment of stated fees. After receiving approval, the application is certified by the Ministry of Agriculture — Seed Committee Secretariat.',
+        ar: 'يتطلب تصدير التقاوي: نموذج التصدير من لجنة التقاوي (+2 صورة)، نموذج رقم (5) تصدير (+2 صورة)، طلب باسم رئيس اللجنة مستوفى فيه الكميات والأصناف والسعر، صورة ترخيص الاتجار في التقاوي، صورة سجل المصدرين، شهادة الفحص أو ما يفيد أن التقاوي تحت الفحص، وسداد الرسوم المقررة. بعد استلام الموافقة تُعتمد من وزارة الزراعة — أمانة لجنة التقاوي.'
+      }
     },
     {
       icon: BookOpen,
       image: 'Variety_registration.png',
-      title: { en: 'Variety Registration & National Catalogue', ar: 'تسجيل الأصناف والكتالوج الوطني' },
-      desc: { en: 'New crop varieties must pass DUS (Distinctness, Uniformity, Stability) and VCU (Value for Cultivation and Use) testing before entering the National Catalogue. CASC manages this process and maintains the registry.', ar: 'يجب أن تجتاز الأصناف الجديدة اختبارات DUS (التمايز والتجانس والثبات) و VCU (القيمة للزراعة والاستخدام) قبل إدراجها في الكتالوج الوطني. تتولى CASC إدارة هذه العملية.' }
+      title: { en: 'Seed Import', ar: 'استيراد التقاوي' },
+      desc: {
+        en: 'Seed import requires: import form (+ 2 copies), application to the Committee Chairman specifying quantities, types and prices (+ 2 copies), proforma invoice (+ 5 copies), copy of importers register, copy of seed trading licence, copy of registered varieties for each application from the Variety Registration Committee, copy of origin statement for each variety from Agricultural Quarantine, and payment of fees.',
+        ar: 'يتطلب استيراد التقاوي: نموذج الاستيراد (+2 صورة)، طلب باسم رئيس اللجنة مستوفى بالكميات والأصناف والسعر (+2 صورة)، فاتورة مبدئية (+5 صور)، صورة سجل المستوردين، صورة ترخيص الاتجار في التقاوي، صورة من الأصناف المسجلة لكل طلب من لجنة تسجيل الأصناف، صورة من بيان المنشأ لكل صنف من الحجر الزراعي، وسداد الرسوم.'
+      }
     },
     {
       icon: Shield,
       image: 'Seed_producer_licensing.png',
-      title: { en: 'Seed Producer Licensing', ar: 'ترخيص منتجي التقاوي' },
-      desc: { en: 'Companies and individuals wishing to produce or process seeds in Egypt must obtain an annual production licence from CASC. CASC inspects licensed facilities and can revoke non-compliant licences.', ar: 'يجب على الشركات والأفراد الراغبين في إنتاج أو معالجة التقاوي في مصر الحصول على ترخيص إنتاج سنوي من CASC، التي تفتش المنشآت المرخصة.' }
+      title: { en: 'Field Inspection', ar: 'التفتيش الحقلي' },
+      desc: {
+        en: 'Field inspection aims to ensure the stability of the variety\'s characteristics during its propagation period and to verify the source of seeds. CASC field inspectors conduct official visits to registered seed production fields to verify isolation distances, off-type removal, crop purity, and compliance with certification class requirements.',
+        ar: 'يهدف التفتيش الحقلي إلى ضمان ثبات صفات الصنف خلال فترة تكاثره والتحقق من مصدر التقاوي. يجري مفتشو CASC الحقليون زيارات رسمية للحقول الإنتاجية المسجلة للتحقق من مسافات العزل وإزالة الأصناف الدخيلة ونقاء المحصول والامتثال لمتطلبات فئة الاعتماد.'
+      }
     },
     {
-      icon: Users,
-      image: 'Public_seed_production.png',
-      title: { en: 'Public Seed Production', ar: 'إنتاج التقاوي العامة' },
-      desc: { en: 'CASP supplies certified wheat, rice and strategic crop seed through state multiplication farms and licensed cooperatives, turning ARC foundation seed into blue-tagged farmer-ready lots.', ar: 'CASP تزود التقاوي المعتمدة للقمح والأرز والمحاصيل الاستراتيجية من خلال مزارع التكاثر الحكومية والجمعيات التعاونية المرخصة، محولة تقاوي ARC الأساسية إلى دفعات جاهزة للمزارعين بعلامة زرقاء.' }
-    },
-    {
-      icon: Globe,
-      image: 'Import_export_permit.png',
-      title: { en: 'Import & Export Permits', ar: 'تصاريح الاستيراد والتصدير' },
-      desc: { en: 'All seed imports require a prior import permit from CASC, coordinated with CAPQ for phytosanitary inspection. Exported seed lots receive an official CASC certificate of conformity for international recognition.', ar: 'يتطلب استيراد التقاوي الحصول على تصريح استيراد مسبق من CASC، منسقاً مع CAPQ للفحص الصحي النباتي. تحصل دفعات التقاوي المُصدَّرة على شهادة مطابقة رسمية من CASC.' }
+      icon: Award,
+      image: 'Seedcertification.png',
+      title: { en: 'Variety Registration', ar: 'تسجيل الأصناف' },
+      desc: {
+        en: 'All procedures for variety registration are completed through an Egyptian agent or a branch of the foreign company. Documents must be submitted in Arabic (except the authorisation letter and DUS report). The applicant submits an application form to the Technical Secretariat of the Seed Registration Committee, along with a valid certified authorisation from the Egyptian Embassy (for imported varieties), the import approval, and the completed Technical Questionnaire.',
+        ar: 'تُستكمل جميع إجراءات تسجيل الأصناف من خلال وكيل مصري أو فرع للشركة الأجنبية، وتُملأ المستندات بالعربية باستثناء خطاب التفويض وتقرير DUS. يُقدّم المتقدم طلباً للأمانة الفنية للجنة تسجيل الأصناف مع تفويض رسمي مصدّق من السفارة المصرية (للأصناف المستوردة) وتصريح الاستيراد والاستبيان الفني.'
+      }
     },
     {
       icon: FlaskConical,
       image: 'Seedlab.png',
-      title: { en: 'Seed Quality Testing Laboratories', ar: 'مختبرات اختبار جودة التقاوي' },
-      desc: { en: 'CASC operates a network of 12+ accredited seed testing laboratories across Egypt applying ISTA (International Seed Testing Association) methods for germination, purity, moisture, and health testing.', ar: 'تدير CASC شبكة من أكثر من 12 مختبراً معتمداً لاختبار التقاوي في جميع أنحاء مصر، تطبّق طرق ISTA لاختبار الإنبات والنقاء والرطوبة والصحة.' }
+      title: { en: 'ISTA & OECD Certificates', ar: 'شهادات ISTA وOECD' },
+      desc: {
+        en: 'CASC issues OECD certificates for eligible seed lots. Procedure: submit attached inspection documents (inspection approval and accreditation approval), submit testing request, sampling and testing are carried out, if lots are accepted all necessary certificates are issued, submit a request to the Head of CASC for the OECD certificate, and pay all fees. The Central Seed Testing Laboratory is an accredited ISTA member operating under a comprehensive Quality Assurance System, with 12 testing stations across governorates.',
+        ar: 'تُصدر CASC شهادات OECD للدفعات المؤهلة. الإجراءات: تقديم أوراق التفتيش (موافقة التفتيش وموافقة الاعتماد)، تقديم طلب الفحص، إجراء السحب والفحص، في حالة قبول اللوطات تُستخرج جميع الشهادات، تقديم طلب لرئيس الإدارة لإصدار شهادة OECD، ودفع المصروفات. المختبر المركزي عضو معتمد في ISTA ويعمل وفق نظام شامل لضمان الجودة مع 12 محطة فحص بالمحافظات.'
+      }
     },
     {
       icon: Target,
       image: 'Regulatory_compliance.png',
-      title: { en: 'Regulatory Compliance & Enforcement', ar: 'الامتثال التنظيمي والإنفاذ' },
-      desc: { en: 'CASC enforces Egypt\'s seed laws (Law 94/1976 and its executive regulations), investigates quality complaints, withdraws substandard lots from the market, and coordinates with CAPQ on quarantine violations.', ar: 'تنفّذ CASC قوانين التقاوي المصرية (القانون 94/1976 ولائحته التنفيذية)، وتحقق في شكاوى الجودة، وتسحب الدفعات دون المستوى من السوق.' }
+      title: { en: 'Trade & Production Licensing', ar: 'ترخيص الاتجار والإنتاج' },
+      desc: {
+        en: 'CASC issues licences for seed trading and production to companies and individuals wishing to operate in Egypt\'s seed sector. CASC inspects licensed facilities and can revoke non-compliant licences. Licence holders are required to comply with all seed quality standards and submit to regular CASC field and facility inspections.',
+        ar: 'تُصدر CASC تراخيص الاتجار والإنتاج للشركات والأفراد الراغبين في العمل في قطاع التقاوي المصري. تفتش CASC المنشآت المرخصة ويمكنها سحب التراخيص عند عدم الامتثال. يُلزَم حاملو التراخيص بالامتثال لمعايير جودة التقاوي والخضوع لفحوصات CASC الدورية.'
+      }
+    },
+    {
+      icon: Users,
+      image: 'Public_seed_production.png',
+      title: { en: 'Seed Testing', ar: 'فحص التقاوي' },
+      desc: {
+        en: 'In cases of seed import or export, a sample is drawn by an official committee and sent to the Central Seed Testing Laboratory at CASC to be tested, completing procedures for either importation or exportation. Testing covers germination, purity, moisture content, and seed health according to ISTA standards.',
+        ar: 'في حالات استيراد أو تصدير التقاوي، تسحب لجنة رسمية عينة وترسلها إلى المختبر المركزي لفحص التقاوي في CASC لإجراء الاختبارات اللازمة لاستكمال إجراءات الاستيراد أو التصدير. يشمل الفحص الإنبات والنقاء والرطوبة وصحة التقاوي وفق معايير ISTA.'
+      }
     },
   ];
 
   const contactPoints = [
-    { label: { en: 'Head Office', ar: 'المقر الرئيسي' }, value: { en: 'Central Administration for Seed Testing and Certification, Ministry of Agriculture Building, Nadi El-Seid St., Dokki, Giza, Egypt', ar: 'الإدارة المركزية لتصديق التقاوي، مبنى وزارة الزراعة، شارع نادي الصيد، الدقي، الجيزة، جمهورية مصر العربية' }, icon: MapPin },
-    { label: { en: 'Main Phone', ar: 'الهاتف الرئيسي' }, value: { en: '+20 2 3573-1313', ar: '02-35731313' }, icon: Phone },
-    { label: { en: 'Email', ar: 'البريد الإلكتروني' }, value: { en: 'casc@agr.gov.eg', ar: 'casc@agr.gov.eg' }, icon: Mail },
+    { label: { en: 'Head Office', ar: 'المقر الرئيسي' }, value: { en: '8 Gamaa Street, Giza, Arab Republic of Egypt', ar: '8 شارع الجامعة، الجيزة، جمهورية مصر العربية' }, icon: MapPin },
+    { label: { en: 'Email', ar: 'البريد الإلكتروني' }, value: { en: 'casc.egypt@hotmail.com', ar: 'casc.egypt@hotmail.com' }, icon: Mail },
     { label: { en: 'Working Hours', ar: 'ساعات العمل' }, value: { en: 'Sun – Thu: 8:30 AM – 3:00 PM (public services counter)', ar: 'الأحد – الخميس: 8:30 صباحاً – 3:00 مساءً (نافذة خدمة الجمهور)' }, icon: Clock },
   ];
 
@@ -829,8 +1020,8 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           </p>
           <p className="text-emerald-100/80 max-w-2xl mx-auto leading-relaxed text-sm">
             {isAr
-              ? 'الجهة الرسمية المنوط بها تنظيم قطاع التقاوي في مصر: التصديق، التسجيل، الترخيص، والرقابة على الجودة منذ عام 1976.'
-              : "The official national body mandated to regulate Egypt's seed sector: certification, variety registration, producer licensing, and quality control since 1976."}
+              ? 'الإدارة المركزية لفحص واعتماد التقاوي هيئة حكومية رسمية محايدة لا تقوم بتطوير أو تربية أو إنتاج أو تسويق أو بيع أو تخزين التقاوي. وهي الجهة المفوضة من وزارة الزراعة للقيام بجميع المهام التي تتطلب الحياد، بما في ذلك تسجيل التقاوي وفحصها واختبارها واعتمادها ومراقبتها. تضم الإدارة هيكلاً تنظيمياً قوياً يشمل إدارات عامة تخدم جميع الأنشطة المتعلقة بالتقاوي، بالإضافة إلى مختبر مركزي معتمد من ISTA و12 محطة فحص موزعة على المحافظات.'
+              : 'CASC is a neutral, official government body that does not develop, breed, produce, market, sell, or store seeds. It is authorised by the Ministry of Agriculture to carry out all tasks requiring neutrality in this field, including seed registration, inspection, testing, certification, and monitoring. CASC has a strong organisational structure including general administrations serving all seed-related activities, an ISTA-accredited Central Seed Testing Laboratory, and 12 testing stations across governorates.'}
           </p>
         </div>
       </div>
@@ -862,6 +1053,23 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
               ? 'أن تكون مصر مركزاً إقليمياً رائداً في إنتاج التقاوي وتجارتها بحلول عام 2030، من خلال نظام تنظيمي رقمي متكامل يضع CASC في مقدمة مؤسسات تصديق التقاوي الأفريقية والشرق أوسطية.'
               : 'For Egypt to become a leading regional hub for seed production and trade by 2030, through an integrated digital regulatory system that positions CASC at the forefront of African and Middle Eastern seed certification institutions.'}
           </p>
+        </div>
+      </div>
+
+      {/* PVPO Historical Note */}
+      <div className="max-w-6xl mx-auto px-4 pb-4">
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 flex gap-4 items-start">
+          <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-semibold text-amber-900 mb-1">
+              {isAr ? 'ملاحظة: مكتب حماية أصناف النباتات (PVPO)' : 'Note: Plant Variety Protection Office (PVPO)'}
+            </p>
+            <p className="text-xs text-amber-800 leading-relaxed">
+              {isAr
+                ? 'ضمّت الإدارة المركزية لفحص واعتماد التقاوي مكتب حماية أصناف النباتات منذ عام 2003 حتى 2025، حيث أُنشئ بموجب قرار رئيس الوزراء رقم 492 لسنة 2003 والقرار الوزاري رقم 2341 لسنة 2003 (استناداً إلى قانون حماية الملكية الفكرية رقم 82 لسنة 2002، الفصل الرابع). شهدت الإدارة انضمام مصر إلى الاتحاد الدولي لحماية الأصناف النباتية الجديدة (UPOV) في ديسمبر 2019. وقد نُقل المكتب مؤخراً إلى هيئة مستقلة للملكية الفكرية تُسمى الجهاز المصري للملكية الفكرية (EGIPA) منذ مارس 2025.'
+                : 'CASC included the Plant Variety Protection Office (PVPO) from 2003 until 2025, established by Prime Minister Decision No. 492 of 2003 and Ministerial Decree No. 2341 of 2003 (based on the Intellectual Property Protection Law No. 82 of 2002, Chapter Four). CASC witnessed Egypt's accession to UPOV in December 2019. The office was transferred to an independent intellectual property authority — the Egyptian Intellectual Property Authority (EGIPA) — in March 2025.'}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -971,11 +1179,11 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           <div className="bg-emerald-50 p-8 rounded-3xl border border-emerald-100 space-y-6">
             <h4 className="font-semibold text-emerald-900 text-lg">{isAr ? 'الأقسام الرئيسية في CASC / CASP' : 'Main CASC / CASP Departments'}</h4>
             {[
-              { dept: { en: 'Seed Certification Dept.', ar: 'قسم تصديق التقاوي' }, contact: 'casc-cert@agr.gov.eg' },
-              { dept: { en: 'Variety Registration Dept.', ar: 'قسم تسجيل الأصناف' }, contact: 'casc-variety@agr.gov.eg' },
-              { dept: { en: 'Import/Export Permits', ar: 'قسم تصاريح الاستيراد والتصدير' }, contact: 'casc-trade@agr.gov.eg' },
-              { dept: { en: 'Seed Quality Labs', ar: 'مختبرات جودة التقاوي' }, contact: 'casc-labs@agr.gov.eg' },
-              { dept: { en: 'Seed Production Dept.', ar: 'قسم إنتاج التقاوي' }, contact: '+20 2 35694060 / +20 2 35725986' },
+              { dept: { en: 'Seed Registration Committee — Technical Secretariat', ar: 'لجنة تسجيل الأصناف — الأمانة الفنية' }, contact: 'casc.egypt@hotmail.com' },
+              { dept: { en: 'Import / Export Permits (Seed Committee)', ar: 'تصاريح الاستيراد والتصدير — لجنة التقاوي' }, contact: 'casc.egypt@hotmail.com' },
+              { dept: { en: 'Central Seed Testing Laboratory (ISTA)', ar: 'المختبر المركزي لفحص التقاوي (ISTA)' }, contact: 'casc.egypt@hotmail.com' },
+              { dept: { en: 'Field Inspection & Certification', ar: 'التفتيش الحقلي والاعتماد' }, contact: 'casc.egypt@hotmail.com' },
+              { dept: { en: 'PVPO / EGIPA (Plant Variety Protection)', ar: 'الجهاز المصري للملكية الفكرية (EGIPA) — حماية أصناف النباتات' }, contact: 'http://www.egypo.gov.eg' },
             ].map((d, i) => (
               <div key={i} className="flex items-center justify-between py-3 border-b border-emerald-100 last:border-0">
                 <span className="text-sm font-bold text-emerald-900">{d.dept[lang]}</span>
@@ -1372,9 +1580,9 @@ export default function App() {
                 : 'The national authority responsible for seed certification, variety registration, producer licensing, and seed quality oversight in Egypt since 1976.'}
             </p>
             <div className="space-y-2 text-xs text-emerald-300/85">
-              <p className="flex items-center gap-2"><MapPin className="w-3 h-3 text-orange-400 shrink-0" /> {lang === 'ar' ? 'نادي الصيد، الدقي، الجيزة، جمهورية مصر العربية' : 'Nadi El-Seid St., Dokki, Giza, Egypt'}</p>
+              <p className="flex items-center gap-2"><MapPin className="w-3 h-3 text-orange-400 shrink-0" /> {lang === 'ar' ? '8 شارع الجامعة، الجيزة، جمهورية مصر العربية' : '8 Gamaa Street, Giza, Egypt'}</p>
               <p className="flex items-center gap-2"><Phone className="w-3 h-3 text-orange-400 shrink-0" /> +20 2 3573-1313</p>
-              <p className="flex items-center gap-2"><Mail className="w-3 h-3 text-orange-400 shrink-0" /> casc@agr.gov.eg</p>
+              <p className="flex items-center gap-2"><Mail className="w-3 h-3 text-orange-400 shrink-0" /> casc.egypt@hotmail.com</p>
             </div>
           </div>
           <div>
