@@ -154,7 +154,29 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
           title: { en: 'Field Crop Seed Import Procedure', ar: 'إجراءات استيراد تقاوي المحاصيل الحقلية' },
           summary: { en: 'Importing field crop seed into Egypt requires pre-approval from CASC and an import license from CAPQ, plus coordination through the Nafeza single-window system for customs.', ar: 'يستلزم استيراد تقاوي المحاصيل الحقلية الحصول على موافقة مسبقة من CASC وترخيص استيراد من CAPQ، إضافة إلى التنسيق عبر نظام نافذة نافيزا للجمارك.' },
           keyPoints: { en: ['Dual clearance required: CASC pre-approval + CAPQ import licence', 'ISTA seed-testing certificate and phytosanitary certificate mandatory', 'All paperwork routed through the Nafeza single window (ACI 48 h prior)'], ar: ['تصريح مزدوج مطلوب: موافقة CASC المسبقة + ترخيص CAPQ', 'شهادة اختبار معتمدة من ISTA وشهادة صحة نباتية إلزامية', 'تُقدَّم كل المستندات عبر نافذة نافيزا (ACI قبل 48 ساعة)'] },
-          procedure: { en: ['Step 1 — Obtain pre-shipment approval from CASC for the specific variety and quantity.', 'Step 2 — Apply to CAPQ for the Seed Import Licence (EGP 500; valid 3 months).', 'Step 3 — Secure an ISTA-accredited seed testing certificate from the exporting country (purity, germination, seed health).', 'Step 4 — Gather documents: Phytosanitary Certificate, Certificate of Origin, Commercial Invoice, Bill of Lading, Packing List; obtain ACI/ACID on Nafeza 48 hours before arrival.', 'Step 5 — On arrival, CAPQ inspectors conduct zigzag sampling and quarantine-pest testing at the port of entry.', 'Step 6 — On clearance, customs releases the consignment and CAPQ endorses the Phytosanitary Certificate for traceability.'], ar: ['الخطوة 1 — الحصول على موافقة مسبقة للشحن من CASC للصنف والكمية المحددَين.', 'الخطوة 2 — التقدم لـCAPQ للحصول على ترخيص استيراد التقاوي (500 جنيه؛ صالح 3 أشهر).', 'الخطوة 3 — استصدار شهادة اختبار بذور معتمدة من ISTA من بلد التصدير (نقاء، إنبات، صحة).', 'الخطوة 4 — تجهيز الوثائق: شهادة صحة نباتية، شهادة منشأ، فاتورة تجارية، بوليصة شحن، قائمة التعبئة؛ واستخراج ACI/ACID عبر نافيزا قبل 48 ساعة من الوصول.', 'الخطوة 5 — عند الوصول، يقوم مفتشو CAPQ بأخذ عينات وفحصها للكشف عن الآفات الحجرية في الميناء.', 'الخطوة 6 — عند الإفراج، يفرج الجمرك عن الشحنة ويعتمد CAPQ شهادة الصحة النباتية للتتبع.'] },
+          procedure: { en: [
+            'Step 1 — Obtain the import form from the Seed Committee Secretariat (+ 2 copies).',
+            'Step 2 — Submit a written application to the Chairman of the Seed Committee (+ 2 copies) specifying quantities, types, and prices.',
+            'Step 3 — Prepare a proforma invoice (+ 5 copies).',
+            'Step 4 — Attach a copy of the importers register and a copy of the seed trading licence.',
+            'Step 5 — Attach a copy of the registered varieties list for each application, obtained from the Variety Registration Committee at CASC.',
+            'Step 6 — Attach a copy of the origin statement for each variety, obtained from the Agricultural Quarantine (CAPQ).',
+            'Step 7 — Attach the Agricultural Professions Syndicate stamp (EGP 10) and the Martyr stamp.',
+            'Step 8 — Pay the Committee fees: EGP 2 per ton of invoice value at the Ministry of Agriculture — Seed Committee Secretariat.',
+            'Step 9 — CAPQ conducts port-of-entry inspection: zigzag sampling and quarantine-pest laboratory testing.',
+            'Step 10 — Upon receiving approval, the application is certified by the Ministry of Agriculture — Seed Committee Secretariat.'
+          ], ar: [
+            'الخطوة 1 — استلام نموذج الاستيراد من أمانة لجنة التقاوي (+2 صورة).',
+            'الخطوة 2 — تقديم طلب مكتوب باسم رئيس لجنة التقاوي (+2 صورة) مستوفى فيه الكميات والأصناف والسعر.',
+            'الخطوة 3 — إعداد فاتورة مبدئية (+5 صور).',
+            'الخطوة 4 — إرفاق صورة سجل المستوردين وصورة ترخيص الاتجار في التقاوي.',
+            'الخطوة 5 — إرفاق صورة من الأصناف المسجلة لكل طلب، تُستخرج من لجنة تسجيل الأصناف في CASC.',
+            'الخطوة 6 — إرفاق صورة من بيان المنشأ لكل صنف، تُستخرج من الحجر الزراعي (CAPQ).',
+            'الخطوة 7 — إرفاق دمغة نقابة المهن الزراعية (10 جنيهات) ودمغة طابع الشهيد.',
+            'الخطوة 8 — سداد رسوم اللجنة 2 جنيه للطن من قيمة الفاتورة في وزارة الزراعة — أمانة لجنة التقاوي.',
+            'الخطوة 9 — يُجري CAPQ فحص الميناء: أخذ عينات زجزاجية واختبار مخبري للآفات الحجرية.',
+            'الخطوة 10 — عند استلام الموافقة تُعتمد من وزارة الزراعة — أمانة لجنة التقاوي.'
+          ] },
           authorityIds: ['capq', 'casc'],
           documentIds: ['res-562-2019', 'law-53-1966'],
         }
@@ -164,7 +186,29 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
           title: { en: 'Vegetable Seed Import Procedure', ar: 'إجراءات استيراد بذور الخضروات' },
           summary: { en: 'Vegetable seed imports follow the standard 6-step import process. Vegetable varieties are exempt from VCU testing, making market entry faster. Customs clearance requires the Nafeza platform.', ar: 'يتبع استيراد بذور الخضروات الإجراء القياسي من 6 خطوات. أصناف الخضروات معفاة من اختبار VCU مما يجعل دخول السوق أسرع.' },
           keyPoints: { en: ['Same 6-step import process as field crops', 'VCU testing not required for vegetables — only DUS applies', 'Arabic labels with variety, purity, germination, origin and lot are mandatory'], ar: ['تنطبق نفس خطوات الاستيراد الست كالمحاصيل الحقلية', 'لا يُشترط اختبار VCU للخضروات — فقط DUS', 'الملصقات العربية بالصنف والنقاء والإنبات والأصل والدفعة إلزامية'] },
-          procedure: { en: ['Step 1 — Obtain CASC pre-shipment approval for the target vegetable variety.', 'Step 2 — Apply to CAPQ for the Seed Import Licence (valid 3 months; EGP 500 fee).', 'Step 3 — Obtain ISTA-accredited seed testing certificate from origin (purity, germination, health).', 'Step 4 — Submit full document set via Nafeza (Phytosanitary, Origin, Invoice, BL, Packing List) and obtain ACI/ACID 48 h before arrival.', 'Step 5 — CAPQ physical inspection and sampling at port; vegetable lots may face extra quality-assurance checks.', 'Step 6 — Customs release; Arabic relabelling must be completed before domestic distribution.'], ar: ['الخطوة 1 — الحصول على موافقة CASC المسبقة لصنف الخضار المستهدف.', 'الخطوة 2 — التقدم لـCAPQ لترخيص الاستيراد (صالح 3 أشهر؛ رسم 500 جنيه).', 'الخطوة 3 — استصدار شهادة اختبار معتمدة من ISTA من بلد المنشأ (نقاء، إنبات، صحة).', 'الخطوة 4 — تقديم الوثائق كاملة عبر نافيزا (صحة نباتية، منشأ، فاتورة، بوليصة، قائمة تعبئة) واستخراج ACI/ACID قبل 48 ساعة.', 'الخطوة 5 — الفحص وأخذ العينات من قِبل CAPQ في الميناء؛ قد تخضع الخضروات لفحوصات جودة إضافية.', 'الخطوة 6 — الإفراج الجمركي؛ يجب إعادة الوسم باللغة العربية قبل التوزيع المحلي.'] },
+          procedure: { en: [
+            'Step 1 — Obtain the import form from the Seed Committee Secretariat (+ 2 copies).',
+            'Step 2 — Submit a written application to the Chairman of the Seed Committee (+ 2 copies) specifying quantities, varieties, and prices.',
+            'Step 3 — Prepare a proforma invoice (+ 5 copies).',
+            'Step 4 — Attach a copy of the importers register and a copy of the seed trading licence.',
+            'Step 5 — Attach a copy of the registered varieties list for each application from the Variety Registration Committee at CASC. Note: vegetable varieties are exempt from VCU testing — only DUS applies.',
+            'Step 6 — Attach a copy of the origin statement for each variety from the Agricultural Quarantine (CAPQ).',
+            'Step 7 — Attach the Agricultural Professions Syndicate stamp (EGP 10) and the Martyr stamp.',
+            'Step 8 — Pay the Committee fees: EGP 2 per ton of invoice value at the Ministry of Agriculture — Seed Committee Secretariat.',
+            'Step 9 — CAPQ conducts port-of-entry inspection and sampling; vegetable lots may face additional quality-assurance checks.',
+            'Step 10 — Upon receiving approval, the application is certified by the Ministry of Agriculture — Seed Committee Secretariat. Ensure Arabic relabelling is completed before domestic distribution.'
+          ], ar: [
+            'الخطوة 1 — استلام نموذج الاستيراد من أمانة لجنة التقاوي (+2 صورة).',
+            'الخطوة 2 — تقديم طلب مكتوب باسم رئيس لجنة التقاوي (+2 صورة) مستوفى بالكميات والأصناف والسعر.',
+            'الخطوة 3 — إعداد فاتورة مبدئية (+5 صور).',
+            'الخطوة 4 — إرفاق صورة سجل المستوردين وصورة ترخيص الاتجار في التقاوي.',
+            'الخطوة 5 — إرفاق صورة من الأصناف المسجلة لكل طلب من لجنة تسجيل الأصناف في CASC. ملاحظة: أصناف الخضروات معفاة من اختبار VCU — يُطبق فقط اختبار DUS.',
+            'الخطوة 6 — إرفاق صورة من بيان المنشأ لكل صنف من الحجر الزراعي (CAPQ).',
+            'الخطوة 7 — إرفاق دمغة نقابة المهن الزراعية (10 جنيهات) ودمغة طابع الشهيد.',
+            'الخطوة 8 — سداد رسوم اللجنة 2 جنيه للطن من قيمة الفاتورة في وزارة الزراعة — أمانة لجنة التقاوي.',
+            'الخطوة 9 — يُجري CAPQ فحص الميناء وأخذ العينات؛ قد تخضع الخضروات لفحوصات جودة إضافية.',
+            'الخطوة 10 — عند استلام الموافقة تُعتمد من وزارة الزراعة — أمانة لجنة التقاوي. يجب إعادة الوسم بالعربية قبل التوزيع المحلي.'
+          ] },
           authorityIds: ['capq', 'casc'],
           documentIds: ['res-562-2019'],
         }
@@ -232,7 +276,25 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
           title: { en: 'Seed Certification Process in Egypt', ar: 'عملية اعتماد التقاوي في مصر' },
           summary: { en: 'Egypt follows an AOSCA-type 4-class certification system. Each class carries a distinct color-coded label. CASC manages the full process from field inspection to laboratory testing.', ar: 'تتبع مصر نظام اعتماد من 4 درجات على غرار AOSCA. كل درجة تحمل علامة ملونة مميزة.' },
           keyPoints: { en: ['Four classes: Breeder, Foundation (white), Registered (purple), Certified (blue)', 'Both CASC field inspection and ISTA laboratory testing must pass', 'Certified Seed requires ≥99% genetic purity and the crop-specific germination rate'], ar: ['أربع درجات: مربي، أساس (أبيض)، مسجل (بنفسجي)، معتمد (أزرق)', 'يجب اجتياز كلٍّ من الفحص الحقلي لـCASC والاختبار المخبري بـISTA', 'التقاوي المعتمدة تتطلب ≥99% نقاء جيني ومعدل إنبات محدد لكل محصول'] },
-          procedure: { en: ['Step 1 — Register the production field with CASC before planting, declaring the variety, class, and parent seed source.', 'Step 2 — Plant using the correct upstream class (Breeder → Foundation → Registered → Certified) and apply mandatory isolation distances.', 'Step 3 — CASC field inspectors visit during the growing season to verify isolation, rogueing, off-types, and crop purity.', 'Step 4 — On passing the field inspection, harvest, process, and bag the seed under CASC oversight.', 'Step 5 — Submit sealed samples to an ISTA-accredited CASC lab for purity, germination (4 × 100 seeds), moisture, and seed-health analysis.', 'Step 6 — If both field and lab results pass, CASC issues the official colour-coded tag (white/purple/blue) and the lot is cleared for sale.', 'Step 7 — Maintain the seed lot records and keep post-control samples for the statutory retention period.'], ar: ['الخطوة 1 — سجّل الحقل الإنتاجي في CASC قبل الزراعة مع بيان الصنف والدرجة ومصدر بذور الآباء.', 'الخطوة 2 — ازرع بالدرجة الأعلى الصحيحة (مربي → أساس → مسجل → معتمد) مع تطبيق مسافات العزل الإلزامية.', 'الخطوة 3 — يزور مفتشو CASC الحقل خلال موسم النمو للتحقق من العزل والتنقية وخلط الأصناف ونقاء المحصول.', 'الخطوة 4 — عند اجتياز الفحص الحقلي، احصد وعالج وعبّئ البذور تحت إشراف CASC.', 'الخطوة 5 — قدّم عينات مختومة لمختبر معتمد من ISTA لاختبارات النقاء والإنبات (4×100 بذرة) والرطوبة وصحة البذور.', 'الخطوة 6 — عند اجتياز الفحصين الحقلي والمخبري، يصدر CASC العلامة الرسمية الملونة (أبيض/بنفسجي/أزرق) وتفرج الدفعة للبيع.', 'الخطوة 7 — احتفظ بسجلات الدفعة وعينات الرقابة البعدية خلال الفترة القانونية.'] },
+          procedure: { en: [
+            'Step 1 — Register the production field with CASC before planting, declaring the variety, certification class, and parent seed source.',
+            'Step 2 — Plant using the correct upstream class (Breeder → Foundation → Registered → Certified) and apply mandatory isolation distances.',
+            'Step 3 — CASC field inspectors visit during the growing season to verify isolation, rogueing, off-types, and crop purity. Red accreditation cards are issued upon passing field inspection.',
+            'Step 4 — On passing the field inspection, harvest, process, and bag the seed under CASC oversight.',
+            'Step 5 — Submit sealed samples to the CASC Central Seed Testing Laboratory (ISTA-accredited) for purity, germination (4 × 100 seeds), moisture, and seed-health analysis.',
+            'Step 6 — If both field and lab results pass, CASC issues the official colour-coded tag (white/purple/blue) and the lot is cleared for sale.',
+            'Step 7 — For OECD certificates (export): submit inspection documents and accreditation approval, submit testing request, CASC carries out sampling and testing, submit request to Head of CASC for OECD certificate issuance, and pay all fees.',
+            'Step 8 — Maintain seed lot records and keep post-control samples for the statutory retention period.'
+          ], ar: [
+            'الخطوة 1 — تسجيل الحقل الإنتاجي في CASC قبل الزراعة مع بيان الصنف وفئة الاعتماد ومصدر بذور الآباء.',
+            'الخطوة 2 — الزراعة بالدرجة الأعلى الصحيحة (مربي → أساس → مسجل → معتمد) مع تطبيق مسافات العزل الإلزامية.',
+            'الخطوة 3 — يزور مفتشو CASC الحقل خلال موسم النمو للتحقق من العزل والتنقية وخلط الأصناف ونقاء المحصول. تُصدر بطاقات الاعتماد الحمراء عند اجتياز الفحص الحقلي.',
+            'الخطوة 4 — عند اجتياز الفحص الحقلي، الحصاد والمعالجة والتعبئة تحت إشراف CASC.',
+            'الخطوة 5 — تقديم عينات مختومة للمختبر المركزي لفحص التقاوي في CASC (معتمد ISTA) لاختبارات النقاء والإنبات (4×100 بذرة) والرطوبة وصحة البذور.',
+            'الخطوة 6 — عند اجتياز الفحصين الحقلي والمخبري، يصدر CASC العلامة الرسمية الملونة (أبيض/بنفسجي/أزرق) وتُفرج الدفعة للبيع.',
+            'الخطوة 7 — لشهادات OECD (التصدير): تقديم أوراق التفتيش وموافقة الاعتماد، تقديم طلب الفحص، إجراء CASC للسحب والفحص، تقديم طلب لرئيس الإدارة لإصدار شهادة OECD، ودفع جميع المصروفات.',
+            'الخطوة 8 — الاحتفاظ بسجلات الدفعة وعينات الرقابة البعدية خلال الفترة القانونية.'
+          ] },
           authorityIds: ['casc'],
           documentIds: ['law-53-1966'],
         }
@@ -250,7 +312,25 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
           title: { en: 'Registering a Vegetable Variety', ar: 'تسجيل صنف خضروات جديد' },
           summary: { en: 'Vegetable varieties enjoy an expedited registration path: they are exempt from VCU (Value for Cultivation & Use) testing. Only DUS (Distinctness, Uniformity, Stability) testing is required.', ar: 'تتمتع أصناف الخضروات بمسار تسجيل سريع: فهي معفاة من اختبار VCU. يُطلب فقط اختبار DUS.' },
           keyPoints: { en: ['Vegetables are exempt from VCU — only DUS testing required', 'Onion is the exception and still needs VCU (3 years)', '60-day opposition period after gazette publication precedes the grant'], ar: ['الخضروات معفاة من اختبار VCU — فقط اختبار DUS مطلوب', 'البصل استثناء ولا يزال يحتاج VCU (3 سنوات)', 'فترة اعتراض 60 يوماً بعد النشر في الجريدة قبل المنح'] },
-          procedure: { en: ['Step 1 — File the prescribed application form at PVPO/CASC with the relevant fee (Group A: EGP 100; Group B: EGP 25).', 'Step 2 — Submit documentation: technical statement, NGB deposit certificate, foreign-application copies with Arabic translation (supplementary docs may follow within 4 months).', 'Step 3 — Application processing: PVPO assigns a serial number and records the variety in the Register of Plant Varieties.', 'Step 4 — DUS examination against UPOV Test Guidelines (Distinctness, Uniformity, Stability); no VCU testing required for vegetables — except onion.', 'Step 5 — Acceptance is published in the monthly PVPO gazette; a 60-day opposition window opens for third-party challenges.', 'Step 6 — Final grant by ministerial decision and publication in the "Egyptian Gazette of Protected Plant Varieties".', 'Step 7 — Pay the certificate delivery fee (A: EGP 750; B: EGP 100) and begin annual maintenance-fee payments.'], ar: ['الخطوة 1 — قدّم نموذج الطلب المعتمد لـPVPO/CASC مع الرسم المقرر (المجموعة أ: 100 جنيه؛ ب: 25 جنيه).', 'الخطوة 2 — أرفق الوثائق: بيان تقني، شهادة إيداع من البنك القومي للجينات، نسخ من الطلبات الأجنبية بترجمة عربية (يجوز استكمالها خلال 4 أشهر).', 'الخطوة 3 — معالجة الطلب: يمنح PVPO رقماً مسلسلاً ويقيد الصنف في سجل الأصناف النباتية.', 'الخطوة 4 — فحص DUS وفق إرشادات UPOV (التميز، التجانس، الاستقرار)؛ لا يُشترط VCU للخضروات — باستثناء البصل.', 'الخطوة 5 — يُنشر القبول في جريدة PVPO الشهرية وتبدأ فترة اعتراض 60 يوماً.', 'الخطوة 6 — المنح النهائي بقرار وزاري ونشر في "الجريدة المصرية للأصناف النباتية المحمية".', 'الخطوة 7 — ادفع رسم تسليم الشهادة (أ: 750 جنيه؛ ب: 100 جنيه) وابدأ سداد رسوم الصيانة السنوية.'] },
+          procedure: { en: [
+            'Step 1 — All procedures must be completed through a licensed Egyptian agent or a registered branch of the foreign company. All documents must be in Arabic, except the authorisation letter and the DUS report.',
+            'Step 2 — Submit the official application form to the Technical Secretariat of the Seed Registration Committee at CASC.',
+            'Step 3 — For imported varieties: submit a valid certified formal authorisation letter, certified by the Egyptian Embassy in the country of origin.',
+            'Step 4 — Submit the import approval document.',
+            'Step 5 — Complete and submit the Technical Questionnaire for the variety (specific form for vegetable varieties).',
+            'Step 6 — DUS examination (Distinctness, Uniformity, Stability) against UPOV Test Guidelines. Note: vegetable varieties are exempt from VCU testing — except onion, which still requires VCU (3 years).',
+            'Step 7 — Acceptance is published in the monthly gazette; a 60-day opposition window opens.',
+            'Step 8 — Final grant by ministerial decision. Download printable registration forms from the portal: Application Form, Technical Questionnaire, Extension Form, Certificate Request Form.'
+          ], ar: [
+            'الخطوة 1 — تُستكمل جميع الإجراءات من خلال وكيل مصري مرخص أو فرع مسجل للشركة الأجنبية. تُملأ جميع المستندات بالعربية باستثناء خطاب التفويض وتقرير DUS.',
+            'الخطوة 2 — تقديم نموذج الطلب الرسمي إلى الأمانة الفنية للجنة تسجيل الأصناف في CASC.',
+            'الخطوة 3 — للأصناف المستوردة: تقديم تفويض رسمي مصدّق وساري المفعول، معتمد من السفارة المصرية في بلد المنشأ.',
+            'الخطوة 4 — تقديم وثيقة الموافقة على الاستيراد.',
+            'الخطوة 5 — تعبئة وتقديم الاستبيان الفني للصنف (نموذج خاص بأصناف الخضروات).',
+            'الخطوة 6 — فحص DUS (التميز، التجانس، الاستقرار) وفق إرشادات UPOV. ملاحظة: الخضروات معفاة من اختبار VCU — باستثناء البصل الذي يستلزم VCU (3 سنوات).',
+            'الخطوة 7 — نشر القبول في الجريدة الشهرية وفتح فترة اعتراض 60 يوماً.',
+            'الخطوة 8 — المنح النهائي بقرار وزاري. يمكن تحميل النماذج القابلة للطباعة من البوابة: نموذج الطلب، الاستبيان الفني، نموذج التمديد، نموذج طلب شهادة.'
+          ] },
           authorityIds: ['pvpo', 'casc'],
           documentIds: ['law-82-2002'],
         }
@@ -260,7 +340,25 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
           title: { en: 'Registering a Maize Variety', ar: 'تسجيل صنف ذرة جديد' },
           summary: { en: 'Maize has an expedited VCU testing timeline of 2 years (vs. 3 years for most other field crops). Testing occurs across multiple agro-ecological zones in Egypt.', ar: 'الذرة لديها جدول زمني معجل لاختبار VCU مدته سنتان (مقابل 3 سنوات لمعظم المحاصيل الحقلية الأخرى).' },
           keyPoints: { en: ['VCU for maize is expedited to 2 years (vs. 3 for other field crops)', 'DUS is required alongside VCU across agro-ecological zones', 'COMESA regional registration is available after the national grant'], ar: ['VCU للذرة مختصر إلى سنتين (مقابل 3 سنوات لباقي المحاصيل الحقلية)', 'DUS مطلوب مع VCU عبر المناطق البيئية-الزراعية', 'التسجيل الإقليمي في COMESA متاح بعد المنح الوطني'] },
-          procedure: { en: ['Step 1 — File the application at PVPO/CASC with the technical statement and fee.', 'Step 2 — Submit documentation: NGB deposit certificate, authenticated foreign-application copies, and genetic-resource records.', 'Step 3 — PVPO logs the application in the Register of Plant Varieties and assigns a serial number.', 'Step 4 — DUS examination against UPOV Test Guidelines by CASC (or designated third party).', 'Step 5 — VCU testing — 2 years across multiple agro-ecological zones, compared to commercial check varieties (yield, disease resistance, quality).', 'Step 6 — Gazette publication of acceptance and 60-day opposition window.', 'Step 7 — Final grant by ministerial decision; optional regional registration on the COMESA Variety Catalogue.'], ar: ['الخطوة 1 — قدّم الطلب لدى PVPO/CASC مع البيان التقني والرسم.', 'الخطوة 2 — أرفق الوثائق: شهادة إيداع NGB، نسخ مصدقة من الطلبات الأجنبية، وسجلات الموارد الوراثية.', 'الخطوة 3 — يسجّل PVPO الطلب في سجل الأصناف النباتية ويمنحه رقماً مسلسلاً.', 'الخطوة 4 — فحص DUS وفق إرشادات UPOV من CASC (أو جهة ثالثة معتمدة).', 'الخطوة 5 — اختبار VCU — سنتان عبر مناطق بيئية-زراعية متعددة ومقارنة مع الأصناف المرجعية (المحصول، مقاومة الأمراض، الجودة).', 'الخطوة 6 — النشر في الجريدة وفترة اعتراض 60 يوماً.', 'الخطوة 7 — المنح النهائي بقرار وزاري؛ مع إمكانية التسجيل الإقليمي في كتالوج أصناف COMESA.'] },
+          procedure: { en: [
+            'Step 1 — All procedures must be completed through a licensed Egyptian agent or a registered branch of the foreign company. All documents must be in Arabic, except the authorisation letter and the DUS report.',
+            'Step 2 — Submit the official application form to the Technical Secretariat of the Seed Registration Committee at CASC.',
+            'Step 3 — For imported varieties: submit a valid certified formal authorisation letter, certified by the Egyptian Embassy in the country of origin.',
+            'Step 4 — Submit the import approval document and complete the Technical Questionnaire for maize.',
+            'Step 5 — DUS examination against UPOV Test Guidelines by CASC (or designated third party).',
+            'Step 6 — VCU testing: 2 years (expedited for maize) across multiple agro-ecological zones, compared to commercial check varieties for yield, disease resistance, and quality.',
+            'Step 7 — Gazette publication of acceptance, 60-day opposition window, then final ministerial grant.',
+            'Step 8 — Optional: apply for regional registration on the COMESA Variety Catalogue after national grant.'
+          ], ar: [
+            'الخطوة 1 — تُستكمل جميع الإجراءات من خلال وكيل مصري مرخص أو فرع مسجل للشركة الأجنبية. تُملأ جميع المستندات بالعربية باستثناء خطاب التفويض وتقرير DUS.',
+            'الخطوة 2 — تقديم نموذج الطلب الرسمي إلى الأمانة الفنية للجنة تسجيل الأصناف في CASC.',
+            'الخطوة 3 — للأصناف المستوردة: تقديم تفويض رسمي مصدّق وساري المفعول، معتمد من السفارة المصرية في بلد المنشأ.',
+            'الخطوة 4 — تقديم وثيقة الموافقة على الاستيراد وتعبئة الاستبيان الفني للذرة.',
+            'الخطوة 5 — فحص DUS وفق إرشادات UPOV من CASC (أو جهة ثالثة معتمدة).',
+            'الخطوة 6 — اختبار VCU: سنتان (مسار مختصر للذرة) عبر مناطق بيئية-زراعية متعددة ومقارنة مع الأصناف المرجعية.',
+            'الخطوة 7 — النشر في الجريدة، فترة اعتراض 60 يوماً، ثم المنح الوزاري النهائي.',
+            'الخطوة 8 — اختياري: التقدم للتسجيل الإقليمي في كتالوج أصناف COMESA بعد المنح الوطني.'
+          ] },
           authorityIds: ['pvpo', 'casc'],
           documentIds: ['law-82-2002', 'law-53-1966'],
         }
@@ -270,7 +368,25 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
           title: { en: 'Registering a Field Crop Variety', ar: 'تسجيل صنف محصول حقلي جديد' },
           summary: { en: 'Field crop variety registration requires 3 years of VCU testing across multiple agro-ecological zones, plus DUS testing. The full 7-step process typically takes 4-5 years from first application.', ar: 'يستلزم تسجيل أصناف المحاصيل الحقلية 3 سنوات من اختبار VCU عبر مناطق زراعية بيئية متعددة، بالإضافة إلى اختبار DUS.' },
           keyPoints: { en: ['Full cycle is 4–5 years: 3 years VCU plus DUS in parallel', 'VRC evaluates; PVPO administers the Register', 'Protection lasts 20 years (25 years for trees and vines)'], ar: ['الدورة الكاملة 4-5 سنوات: 3 سنوات VCU مع DUS بالتوازي', 'لجنة تسجيل الأصناف (VRC) تقيّم ومكتب PVPO يدير السجل', 'الحماية لمدة 20 سنة (25 سنة للأشجار والكروم)'] },
-          procedure: { en: ['Step 1 — File the application and pay the fee at PVPO/CASC.', 'Step 2 — Submit the technical statement, NGB deposit certificate, and foreign-application copies in Arabic (within 4 months if deferred).', 'Step 3 — PVPO enters the application in the Register and assigns a serial number.', 'Step 4 — DUS examination against UPOV Test Guidelines (Distinctness, Uniformity, Stability for two cycles).', 'Step 5 — VCU trials — 3 years, multi-location, compared with commercial check varieties for yield, disease resistance, and quality.', 'Step 6 — Variety Registration Committee (VRC) reviews the results and recommends grant.', 'Step 7 — Publication in gazette, 60-day opposition window, then ministerial grant; protection runs 20 years (25 for trees/vines).'], ar: ['الخطوة 1 — تقديم الطلب ودفع الرسم لدى PVPO/CASC.', 'الخطوة 2 — إرفاق البيان التقني، شهادة إيداع NGB، ونسخ الطلبات الأجنبية بالعربية (خلال 4 أشهر إذا أُجِّلت).', 'الخطوة 3 — يسجل PVPO الطلب ويمنحه رقماً مسلسلاً.', 'الخطوة 4 — فحص DUS وفق إرشادات UPOV (التميز، التجانس، الاستقرار لدورتين).', 'الخطوة 5 — تجارب VCU — 3 سنوات متعددة المواقع ومقارنة مع الأصناف المرجعية (المحصول، المقاومة، الجودة).', 'الخطوة 6 — مراجعة لجنة تسجيل الأصناف (VRC) للنتائج والتوصية بالمنح.', 'الخطوة 7 — النشر في الجريدة، فترة اعتراض 60 يوماً، ثم المنح الوزاري؛ مدة الحماية 20 سنة (25 للأشجار/الكروم).'] },
+          procedure: { en: [
+            'Step 1 — All procedures must be completed through a licensed Egyptian agent or a registered branch of the foreign company. All documents must be in Arabic, except the authorisation letter and the DUS report.',
+            'Step 2 — Submit the official application form to the Technical Secretariat of the Seed Registration Committee at CASC.',
+            'Step 3 — For imported varieties: submit a valid certified formal authorisation letter, certified by the Egyptian Embassy in the country of origin.',
+            'Step 4 — Submit the import approval document.',
+            'Step 5 — Complete and submit the Technical Questionnaire for field crop varieties.',
+            'Step 6 — DUS examination against UPOV Test Guidelines (Distinctness, Uniformity, Stability — two cycles).',
+            'Step 7 — VCU trials: 3 years across multiple agro-ecological zones, compared with commercial check varieties for yield, disease resistance, and quality. The Variety Registration Committee (VRC) reviews and recommends grant.',
+            'Step 8 — Publication in gazette, 60-day opposition window, then ministerial grant. Download printable forms from the portal: Application Form, Technical Questionnaire, Extension Form, Certificate Request Form.'
+          ], ar: [
+            'الخطوة 1 — تُستكمل جميع الإجراءات من خلال وكيل مصري مرخص أو فرع مسجل للشركة الأجنبية. تُملأ جميع المستندات بالعربية باستثناء خطاب التفويض وتقرير DUS.',
+            'الخطوة 2 — تقديم نموذج الطلب الرسمي إلى الأمانة الفنية للجنة تسجيل الأصناف في CASC.',
+            'الخطوة 3 — للأصناف المستوردة: تقديم تفويض رسمي مصدّق وساري المفعول، معتمد من السفارة المصرية في بلد المنشأ.',
+            'الخطوة 4 — تقديم وثيقة الموافقة على الاستيراد.',
+            'الخطوة 5 — تعبئة وتقديم الاستبيان الفني لأصناف المحاصيل الحقلية.',
+            'الخطوة 6 — فحص DUS وفق إرشادات UPOV (التميز، التجانس، الاستقرار — دورتان).',
+            'الخطوة 7 — تجارب VCU: 3 سنوات عبر مناطق بيئية-زراعية متعددة ومقارنة مع الأصناف المرجعية. تراجع لجنة تسجيل الأصناف (VRC) النتائج وتوصي بالمنح.',
+            'الخطوة 8 — النشر في الجريدة، فترة اعتراض 60 يوماً، ثم المنح الوزاري. يمكن تحميل النماذج القابلة للطباعة من البوابة: نموذج الطلب، الاستبيان الفني، نموذج التمديد، نموذج طلب شهادة.'
+          ] },
           authorityIds: ['pvpo', 'casc'],
           documentIds: ['law-82-2002', 'law-53-1966'],
         }
@@ -362,7 +478,7 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
         result: {
           title: { en: 'Exporting to COMESA Region', ar: 'التصدير إلى منطقة الكوميسا' },
           summary: { en: 'Egypt became the 8th COMESA member to domesticate regional seed harmonization regulations in November 2019. Egyptian varieties registered on the COMESA Variety Catalogue can be traded freely across 8 member states.', ar: 'أصبحت مصر الدولة الثامنة في الكوميسا التي تستوعب لوائح تنسيق التقاوي الإقليمية في نوفمبر 2019.' },
-          keyPoints: { en: ['Register on the COMESA Variety Catalogue to waive 2–3 yr pre-commercialisation', 'Regional certificate of origin gives full customs-duty exemption', 'COMSHIP covers 13 staple crops across 8 member states'], ar: ['سجّل في كتالوج أصناف COMESA لإلغاء فترة 2-3 سنوات قبل التسويق', 'شهادة المنشأ الإقليمية تمنح إعفاءً كاملاً من الرسوم الجمركية', 'يغطي COMSHIP 13 محصولاً رئيسياً عبر 8 دول أعضاء'] },
+          keyPoints: { en: ['CASC export form, Form No. 5, trading licence, and inspection certificate are required before shipment', 'Register on the COMESA Variety Catalogue to waive 2–3 yr pre-commercialisation', 'Regional certificate of origin gives full customs-duty exemption', 'COMSHIP covers 13 staple crops across 8 member states'], ar: ['سجّل في كتالوج أصناف COMESA لإلغاء فترة 2-3 سنوات قبل التسويق', 'شهادة المنشأ الإقليمية تمنح إعفاءً كاملاً من الرسوم الجمركية', 'يغطي COMSHIP 13 محصولاً رئيسياً عبر 8 دول أعضاء'] },
           procedure: { en: ['Step 1 — Register the variety on the COMESA Variety Catalogue through CASC (requires prior national registration and DUS data).', 'Step 2 — CAPQ conducts field inspection of the production area during the growth cycle for the destination country\'s phytosanitary requirements.', 'Step 3 — Post-harvest sampling and ISTA-standard laboratory testing (germination, purity, pathogens).', 'Step 4 — CAPQ issues the Phytosanitary Certificate referencing the COMESA destination.', 'Step 5 — CASC issues the COMESA certification tags/certificate for the lot.', 'Step 6 — Apply for the COMESA Certificate of Origin to access the duty-free regime.', 'Step 7 — Ship with the full document set: invoice, packing list, BL, phytosanitary, COMESA certificate.'], ar: ['الخطوة 1 — سجّل الصنف في كتالوج أصناف COMESA عبر CASC (يتطلب تسجيلاً وطنياً وبيانات DUS).', 'الخطوة 2 — يجري CAPQ فحصاً حقلياً للإنتاج خلال دورة النمو وفق متطلبات الصحة النباتية للوجهة.', 'الخطوة 3 — أخذ عينات بعد الحصاد وإجراء اختبارات مخبرية وفق معايير ISTA (إنبات، نقاء، مسببات مرض).', 'الخطوة 4 — يُصدر CAPQ شهادة الصحة النباتية تشير إلى الوجهة داخل COMESA.', 'الخطوة 5 — تُصدر CASC علامات/شهادة اعتماد COMESA للدفعة.', 'الخطوة 6 — تقدّم بطلب شهادة منشأ COMESA للاستفادة من الإعفاء الجمركي.', 'الخطوة 7 — شحن الدفعة مع الوثائق: فاتورة، قائمة تعبئة، بوليصة، شهادة صحة، شهادة COMESA.'] },
           authorityIds: ['casc', 'capq'],
           documentIds: ['law-53-1966'],
@@ -394,7 +510,29 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
           title: { en: 'General Seed Export Process', ar: 'عملية تصدير التقاوي العامة' },
           summary: { en: 'Egyptian seed exports follow a 4-step process coordinated between CAPQ and CASC. OECD certification labels significantly enhance export credibility in international markets.', ar: 'تتبع صادرات التقاوي المصرية عملية من 4 خطوات منسقة بين CAPQ وCACS.' },
           keyPoints: { en: ['Four-step export process coordinated between CAPQ and CASC', 'OECD certification materially strengthens international credibility', 'TFTA (in force July 2024) opens a 29-state Africa-wide corridor'], ar: ['عملية تصدير من 4 خطوات بالتنسيق بين CAPQ وCASC', 'اعتماد OECD يعزز المصداقية الدولية بشكل جوهري', 'اتفاقية التجارة الثلاثية TFTA (يوليو 2024) تفتح ممراً لـ29 دولة أفريقية'] },
-          procedure: { en: ['Step 1 — CAPQ conducts field inspection during the growth cycle to verify freedom from quarantine pests of the importing country.', 'Step 2 — Post-harvest sampling and laboratory testing per importing country standards (germination, purity, pathogens).', 'Step 3 — CAPQ issues the Phytosanitary Certificate — mandatory for customs clearance at destination.', 'Step 4 — CASC issues OECD certification tags/certificates where the crop is covered by an OECD scheme.', 'Step 5 — Compile origin, contract, invoicing, and transport documents; lodge with Egyptian customs.', 'Step 6 — Ship the consignment, keep traceability records, and address any importing-country feedback promptly.'], ar: ['الخطوة 1 — يجري CAPQ فحصاً حقلياً خلال دورة النمو للتأكد من خلو الإنتاج من آفات الحجر في بلد الاستيراد.', 'الخطوة 2 — أخذ عينات بعد الحصاد وإجراء اختبارات مخبرية وفق متطلبات بلد الاستيراد (إنبات، نقاء، مسببات مرض).', 'الخطوة 3 — يُصدر CAPQ شهادة الصحة النباتية — إلزامية للتخليص الجمركي في الوجهة.', 'الخطوة 4 — تُصدر CASC علامات/شهادات اعتماد OECD عندما يكون المحصول ضمن مخطط OECD.', 'الخطوة 5 — جمّع وثائق المنشأ والعقد والفواتير والنقل، وقدّمها إلى الجمارك المصرية.', 'الخطوة 6 — شحن الدفعة، الاحتفاظ بسجلات التتبع، والاستجابة السريعة لأي ملاحظات من بلد الاستيراد.'] },
+          procedure: { en: [
+            'Step 1 — Obtain the export form from the Seed Committee Secretariat (+ 2 copies) and Form No. 5 for export (+ 2 copies).',
+            'Step 2 — Submit a written application to the Chairman of the Seed Committee (+ 2 copies) specifying quantities, varieties, and price.',
+            'Step 3 — Attach a copy of the seed trading licence and a copy of the exporters register.',
+            'Step 4 — Attach the inspection certificate for the seeds, or proof that they are currently under inspection.',
+            'Step 5 — Attach the Agricultural Professions Syndicate stamp (EGP 10) and the Martyr stamp.',
+            'Step 6 — Pay the Committee fees: 0.1% of the invoice value at the Ministry of Agriculture — Seed Committee Secretariat.',
+            'Step 7 — CAPQ conducts field inspection during the growth cycle and issues the Phytosanitary Certificate for the destination country.',
+            'Step 8 — CASC issues OECD certification tags/certificates where the crop is covered by an OECD scheme.',
+            'Step 9 — Upon receiving approval, pay the Syndicate fee of 0.5% of invoice value to the Agricultural Professions Syndicate.',
+            'Step 10 — The application is then certified by the Ministry of Agriculture — Seed Committee Secretariat before shipment.'
+          ], ar: [
+            'الخطوة 1 — استلام نموذج التصدير من أمانة لجنة التقاوي (+2 صورة) ونموذج رقم (5) تصدير (+2 صورة).',
+            'الخطوة 2 — تقديم طلب مكتوب باسم رئيس لجنة التقاوي (+2 صورة) مستوفى فيه الكميات والأصناف والسعر.',
+            'الخطوة 3 — إرفاق صورة ترخيص الاتجار في التقاوي وصورة سجل المصدرين.',
+            'الخطوة 4 — إرفاق شهادة الفحص للتقاوي أو ما يفيد أنها تحت الفحص حالياً.',
+            'الخطوة 5 — إرفاق دمغة نقابة المهن الزراعية (10 جنيهات) ودمغة طابع الشهيد.',
+            'الخطوة 6 — سداد رسوم اللجنة 0.1% من قيمة الفاتورة في وزارة الزراعة — أمانة لجنة التقاوي.',
+            'الخطوة 7 — يجري CAPQ فحصاً حقلياً خلال دورة النمو ويُصدر شهادة الصحة النباتية للوجهة.',
+            'الخطوة 8 — تُصدر CASC علامات/شهادات اعتماد OECD عندما يكون المحصول ضمن مخطط OECD.',
+            'الخطوة 9 — عند استلام الموافقة، سداد رسوم النقابة 0.5% من قيمة الفاتورة لصالح نقابة المهن الزراعية.',
+            'الخطوة 10 — اعتماد الطلب من وزارة الزراعة — أمانة لجنة التقاوي قبل الشحن.'
+          ] },
           authorityIds: ['capq', 'casc'],
           documentIds: ['res-562-2019'],
         }
@@ -583,9 +721,9 @@ export const MOCK_AUTHORITIES: Authority[] = [
     id: 'casc',
     name: { ar: 'الإدارة المركزية لفحص واعتماد التقاوي (CASC)', en: 'Central Administration for Seed Testing and Certification (CASC)' },
     shortName: 'CASC',
-    tasks: ['Variety Registration', 'Seed Certification', 'Seed Export Permits', 'Seed Import Permits', 'Field Inspection', 'OECD Certificates', 'Trade & Production Licensing', 'Seed Testing'],
-    address: { ar: '8 شارع الجامعة، الجيزة، جمهورية مصر العربية', en: '8 Gamaa Street, Giza, Arab Republic of Egypt' },
-    email: 'casc.egypt@hotmail.com',
+    tasks: ['Variety Registration', 'Seed Certification', 'Licensing Seed Dealers'],
+    address: { ar: 'مبنى وزارة الزراعة، الجيزة، مصر', en: 'Ministry of Agriculture Bldg, Giza, Egypt' },
+    email: 'info@casc.gov.eg',
     phone: '+20 2 35720831',
     channels: ['Physical Submission', 'Official Portal']
   },
@@ -612,14 +750,13 @@ export const MOCK_AUTHORITIES: Authority[] = [
   },
   {
     id: 'pvpo',
-    name: { ar: 'الجهاز المصري للملكية الفكرية — قسم حماية أصناف النباتات (EGIPA/PVPO)', en: 'Egyptian Intellectual Property Authority — Plant Variety Protection (EGIPA/PVPO)' },
-    shortName: 'EGIPA',
-    tasks: ['PVP Applications', 'Breeder Rights Registration', 'UPOV Compliance'],
-    address: { ar: '101 شارع القصر العيني، القاهرة، جمهورية مصر العربية — ص.ب. 11516', en: '101 Qasr El Aini Street, Cairo, Arab Republic of Egypt — P.O. Box 11516' },
-    email: 'http://www.egypo.gov.eg',
-    phone: '(202) 279-21291 — (202) 279-21274',
-    channels: ['Physical Submission'],
-    website: 'http://www.egypo.gov.eg'
+    name: { ar: 'مكتب حماية الأصناف النباتية (PVPO)', en: 'Plant Variety Protection Office (PVPO)' },
+    shortName: 'PVPO',
+    tasks: ['PVP Applications', 'Breeder Rights Registration'],
+    address: { ar: 'داخل مقر CASC، الجيزة', en: 'Within CASC HQ, Giza' },
+    email: 'pvp.office@casc.gov.eg',
+    phone: '+20 2 35720831',
+    channels: ['Physical Submission']
   },
   {
     id: 'ngb',
