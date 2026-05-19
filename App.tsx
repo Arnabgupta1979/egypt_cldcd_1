@@ -1595,6 +1595,10 @@ export default function App() {
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
   }, [lang]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [activeTab]);
+
   const navigateToDoc = (docId: string) => {
     setSelectedDocId(docId);
     setActiveTab('library');
