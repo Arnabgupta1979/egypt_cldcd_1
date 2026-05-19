@@ -55,10 +55,6 @@ const TopBanner: React.FC<{ lang: Language }> = ({ lang }) => {
         </div>
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1 text-[#2D4A32]">
-            <Phone className="w-3 h-3 text-[#2D4A32]" />
-            02-35731313
-          </span>
-          <span className="flex items-center gap-1 text-[#2D4A32]">
             <Mail className="w-3 h-3 text-[#2D4A32]" />
             casc.egypt@hotmail.com
           </span>
@@ -227,111 +223,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
         <div className="arabesque-divider"></div>
       </header>
 
-      {/* Stats Strip — inscribed band */}
-      <div className="bg-emerald-800 text-white py-10 border-y border-amber-100/30">
-        <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {[
-            { num: '2,866', label: isAr ? 'صنف مسجل' : 'Registered Varieties', icon: BookOpen },
-            { num: '12', label: isAr ? 'مختبر معتمد' : 'Certified Laboratories', icon: FlaskConical },
-            { num: '4', label: isAr ? 'فئات التصديق' : 'Seed Certification Classes', icon: Award },
-            { num: '30+', label: isAr ? 'سنة من الخدمة' : 'Years of Service', icon: Star },
-          ].map((s, i) => (
-            <div key={i} className="flex flex-col items-center gap-2 px-4 md:border-s md:border-white/15 md:first:border-s-0">
-              <s.icon className="w-5 h-5 text-white/80" />
-              <span className="text-4xl font-semibold text-white">{s.num}</span>
-              <span className="text-white/70 text-[11px] font-light uppercase">{s.label}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Quick-access cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-16 px-4 max-w-6xl mx-auto">
-          {[
-            { onClick: onGoLibrary, accent: 'emerald', icon: BookOpen,
-              title: isAr ? 'مكتبة التشريعات' : 'Legislation Library',
-              desc:  isAr ? 'الوصول المباشر إلى القوانين والقرارات الوزارية واللوائح المنظمة للقطاع.' : 'Direct access to laws, ministerial decrees, and governing regulations.',
-              cta:   isAr ? 'تصفح الآن' : 'Explore Now' },
-            { onClick: onGoCatalogue, accent: 'amber', icon: BookOpen,
-              title: isAr ? 'الكتالوج الوطني للأصناف' : 'National Variety Catalogue',
-              desc:  isAr ? 'قاعدة بيانات شاملة للأصناف المسجلة والمعتمدة ومربيها.' : 'Comprehensive database of registered and certified varieties and their breeders.',
-              cta:   isAr ? 'عرض الأصناف' : 'View Varieties' },
-            { onClick: onGoDirectory, accent: 'blue', icon: MapPin,
-              title: isAr ? 'دليل الجهات الرقابية' : 'Regulatory Authority Directory',
-              desc:  isAr ? 'دليلك للجهات المسؤولة عن كل مهمة وأماكن التقديم.' : 'Your guide to the authorities responsible for each task and submission points.',
-              cta:   isAr ? 'البحث في الدليل' : 'Search Directory' },
-          ].map((card, i) => {
-            const accentMap: Record<string, { iconBg: string; iconText: string; cta: string; corner: string }> = {
-              emerald: { iconBg: 'bg-[#E7FBB4]', iconText: 'text-[#638C6D]', cta: 'text-[#DF6D2D]', corner: 'bg-[#638C6D]' },
-            amber:   { iconBg: 'bg-[#E7FBB4]',  iconText: 'text-[#638C6D]', cta: 'text-[#DF6D2D]', corner: 'bg-[#DF6D2D]' },
-            blue:    { iconBg: 'bg-[#E7FBB4]',  iconText: 'text-[#638C6D]', cta: 'text-[#DF6D2D]', corner: 'bg-[#638C6D]' },
-          };
-          const a = accentMap[card.accent];
-          return (
-            <div
-              key={i}
-              onClick={card.onClick}
-              className="relative bg-white p-8 rounded-2xl shadow-md hover:shadow-xl border border-[#638C6D]/15 hover:border-[#638C6D]/30 transition-all duration-200 cursor-pointer group hover:-translate-y-1"
-            >
-              {/* Top corner crest */}
-              <div className={`absolute top-0 left-0 w-12 h-1 ${a.corner}`}></div>
-              <div className={`absolute top-0 left-0 h-12 w-1 ${a.corner}`}></div>
-
-              <div className={`w-12 h-12 ${a.iconBg} ${a.iconText} flex items-center justify-center mb-6 ring-1 ring-current/10`}>
-                <card.icon className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-semibold text-[#2D4A32] mb-3 leading-snug">{card.title}</h3>
-              <p className="text-[#3D3D3D] text-sm leading-relaxed mb-5">{card.desc}</p>
-              <span className={`${a.cta} font-semibold text-sm flex items-center gap-1 gold-underline inline-block`}>
-                {card.cta} <ChevronRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
-              </span>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* About CASC Teaser */}
-      <div className="bg-parchment-50 border-y border-parchment-200 py-20">
-        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 text-[#2D4A32] px-0 py-1 text-[11px] font-medium uppercase">
-              <Shield className="w-3 h-3 text-emerald-700" />
-              {isAr ? 'من نحن' : 'Who We Are'}
-            </div>
-            <h2 className="text-4xl font-bold text-[#2D4A32] leading-tight">
-              {isAr
-                ? 'الجهة الوطنية المسؤولة عن تصديق وتنظيم قطاع التقاوي في مصر'
-                : "Egypt's National Authority for Seed Certification & Regulation"}
-            </h2>
-            <div className="h-px w-16 bg-orange-500/70"></div>
-            <p className="text-[#3D3D3D] leading-relaxed text-[15px]">
-              {isAr
-                ? 'تأسست الإدارة المركزية لتصديق التقاوي (CASC) تحت مظلة وزارة الزراعة واستصلاح الأراضي لتكون المرجع الرسمي لتصديق التقاوي وتسجيل الأصناف وإصدار تراخيص الإنتاج والاستيراد والتصدير، بهدف ضمان سلامة القطاع وجودته.'
-                : 'The Central Administration for Seed Testing and Certification (CASC) operates under the Ministry of Agriculture & Land Reclamation as the official national authority for seed certification, variety registration, and issuing production, import, and export licences to ensure sector quality and compliance.'}
-            </p>
-            <button
-              onClick={onGoAbout}
-              className="bg-emerald-800 hover:bg-emerald-900 text-white px-6 py-3 font-semibold tracking-wide flex items-center gap-2 transition-all shadow-minted"
-            >
-              {isAr ? 'اعرف المزيد عن CASC' : 'Learn More About CASC'}
-              <ArrowRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
-            </button>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            {[
-              { icon: Award, title: isAr ? 'تصديق التقاوي' : 'Seed Certification', desc: isAr ? '4 فئات: مربي، أساس، مسجل، معتمد' : '4 classes: Breeder, Foundation, Registered, Certified' },
-              { icon: BookOpen, title: isAr ? 'تسجيل الأصناف' : 'Variety Registration', desc: isAr ? 'الكتالوج الوطني للأصناف المعتمدة' : 'National catalogue of approved varieties' },
-              { icon: Shield, title: isAr ? 'تراخيص الإنتاج' : 'Production Licences', desc: isAr ? 'ترخيص منتجي ومعالجي التقاوي' : 'Licensing seed producers and processors' },
-              { icon: Globe, title: isAr ? 'تصاريح الاستيراد والتصدير' : 'Import / Export Permits', desc: isAr ? 'الموافقة الفنية لحركة التقاوي الدولية' : 'Technical approval for international seed movement' },
-            ].map((item, i) => (
-              <div key={i} className="bg-white p-5 rounded-2xl border border-amber-100">
-                <item.icon className="w-6 h-6 text-emerald-700 mb-3" />
-                <h4 className="font-bold text-[#2D4A32] text-sm mb-1">{item.title}</h4>
-                <p className="text-[#3D3D3D] text-xs leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* Stats Strip, Quick-access cards, and About CASC Teaser removed per CASC feedback — May 2026 */}
 
     </div>
     </div>
@@ -605,13 +497,74 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
               </div>
             ))}
           </div>
-          <div className="px-8 pb-8">
+          <div className="px-8 pb-8 space-y-4">
+            {/* PDF Download Button */}
+            <button
+              onClick={() => {
+                const logoUrl = `${window.location.origin}${import.meta.env.BASE_URL}CASC-logo.png`;
+                const v = selectedVariety;
+                const isExpired = v.expiryDate && new Date(v.expiryDate) < new Date();
+                const html = `<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Variety Record — ${v.nameEn || v.nameAr}</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; padding: 40px; color: #1f3d2f; }
+  .header { display: flex; align-items: center; gap: 18px; border-bottom: 2px solid #638C6D; padding-bottom: 16px; margin-bottom: 24px; }
+  .header img { height: 64px; }
+  .org { display: flex; flex-direction: column; }
+  .org-name { font-size: 15px; font-weight: bold; color: #1f3d2f; }
+  .org-sub { font-size: 11px; color: #5a7a62; margin-top: 2px; }
+  .org-addr { font-size: 10px; color: #888; margin-top: 2px; }
+  h2 { font-size: 20px; margin: 0 0 4px 0; }
+  .category { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #638C6D; margin-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid #f0ead8; }
+  td:first-child { color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; width: 40%; }
+  td:last-child { font-weight: 500; }
+  .expired { color: #c0392b; }
+  .disclaimer { margin-top: 24px; font-size: 10px; color: #888; border-top: 1px solid #e8e0cc; padding-top: 12px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <img src="${logoUrl}" alt="CASC Logo" onerror="this.style.display='none'"/>
+  <div class="org">
+    <span class="org-name">Central Administration for Seed Testing and Certification (CASC)</span>
+    <span class="org-sub">Ministry of Agriculture and Land Reclamation — Arab Republic of Egypt</span>
+    <span class="org-addr">8 Gamaa Street, Giza, Egypt &nbsp;|&nbsp; casc.egypt@hotmail.com</span>
+  </div>
+</div>
+<div class="category">${v.category}</div>
+<h2>${v.nameEn || v.nameAr}</h2>
+${v.nameAr && v.nameEn ? `<div style="color:#638C6D;font-size:14px;margin-bottom:8px;">${v.nameAr}</div>` : ''}
+<table>
+  <tr><td>Crop</td><td>${v.cropEn}${v.cropAr ? ' — ' + v.cropAr : ''}</td></tr>
+  <tr><td>Variety Name (English)</td><td>${v.nameEn || '—'}</td></tr>
+  <tr><td>Variety Name (Arabic)</td><td>${v.nameAr || '—'}</td></tr>
+  <tr><td>Applicant / Registrant</td><td>${v.applicant || '—'}</td></tr>
+  <tr><td>Ministerial Decree No. &amp; Date</td><td>${v.decree || '—'}</td></tr>
+  <tr><td>Registration Expiry Date</td><td class="${isExpired ? 'expired' : ''}">${v.expiryDate || '—'}${isExpired ? ' (Expired)' : ''}</td></tr>
+  <tr><td>Notes</td><td>${v.notes || '—'}</td></tr>
+</table>
+<div class="disclaimer">Source: Crop Registration Committee — Ministry of Agriculture and Land Reclamation. This record is extracted from the National Registered Variety List. For verification or enquiries, contact the Technical Secretariat of the Seed Registration Committee at casc.egypt@hotmail.com. Printed: ${new Date().toLocaleDateString('en-GB')}.</div>
+</body></html>`;
+                const w = window.open('', '_blank');
+                if (w) { w.document.write(html); w.document.close(); w.print(); }
+              }}
+              className="w-full flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-3 rounded-xl transition-all shadow-sm"
+            >
+              <Download className="w-4 h-4" />
+              {isAr ? 'تحميل / طباعة بطاقة الصنف (PDF)' : 'Download / Print Variety Card (PDF)'}
+            </button>
+            {/* Disclaimer */}
             <div className="bg-amber-50 rounded-xl p-4 flex gap-3 items-start">
               <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
               <p className="text-xs text-amber-800">
                 {isAr
-                  ? 'هذه البيانات مستخرجة من السجل الرسمي للأصناف المسجلة لدى الإدارة المركزية لفحص واعتماد التقاوي (CASC). للتحقق أو الاستفسار، تواصل مع الأمانة الفنية للجنة تسجيل الأصناف.'
-                  : 'This data is extracted from the official CASC National Registered Variety List. For verification or enquiries, contact the Technical Secretariat of the Seed Registration Committee at casc.egypt@hotmail.com.'}
+                  ? 'هذه البيانات مستخرجة من القائمة الوطنية للأصناف المسجلة — لجنة تسجيل المحاصيل، وزارة الزراعة واستصلاح الأراضي. للتحقق أو الاستفسار، تواصل مع الأمانة الفنية للجنة تسجيل الأصناف على casc.egypt@hotmail.com.'
+                  : 'This data is extracted from the National Registered Variety List — Crop Registration Committee, Ministry of Agriculture and Land Reclamation. For verification or enquiries, contact the Technical Secretariat of the Seed Registration Committee at casc.egypt@hotmail.com.'}
               </p>
             </div>
           </div>
@@ -629,8 +582,8 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
           <h2 className="text-2xl font-bold mb-1">{isAr ? 'الكتالوج الوطني للأصناف المسجلة' : 'National Registered Variety Catalogue'}</h2>
           <p className="text-emerald-200 text-sm mb-4">
             {isAr
-              ? `${VARIETY_DATA.length.toLocaleString()} صنفاً مسجلاً رسمياً — المصدر: الإدارة المركزية لفحص واعتماد التقاوي (CASC)`
-              : `${VARIETY_DATA.length.toLocaleString()} officially registered varieties — Source: CASC National Registry`}
+              ? 'المصدر: لجنة تسجيل المحاصيل — وزارة الزراعة واستصلاح الأراضي'
+              : 'Source: Crop Registration Committee — Ministry of Agriculture and Land Reclamation'}
           </p>
           <p className="text-emerald-300 text-xs">
             {isAr
@@ -758,27 +711,20 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
         </div>
       )}
 
-      {/* Variety Registration Flowchart + Forms — always visible */}
-      <div className="mt-8 bg-white rounded-3xl border border-amber-100 shadow-sm overflow-hidden">
-        <div className="px-8 py-6 border-b border-amber-50 flex items-center gap-3">
-          <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
-            <BookOpen className="w-5 h-5 text-emerald-700" />
-          </div>
-          <div>
-            <h3 className="font-semibold text-[#2D4A32] text-lg">
-              {isAr ? 'كيفية تسجيل صنف في مصر' : 'How to Register a Variety in Egypt'}
-            </h3>
-            <p className="text-xs text-[#3D3D3D]/60 mt-0.5">
-              {isAr ? 'المسار الكامل — من التقديم إلى الإدراج في القائمة الوطنية' : 'Full pathway — from application to national list inclusion'}
-            </p>
-          </div>
+      {/* Variety Registration Procedures Link */}
+      <div className="mt-4 bg-emerald-50 border border-emerald-100 rounded-2xl p-5 flex items-center gap-4">
+        <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center shrink-0">
+          <ExternalLink className="w-5 h-5 text-emerald-700" />
         </div>
-        <div className="p-4">
-          <img
-            src={`${import.meta.env.BASE_URL}var_reg.png`}
-            alt={isAr ? 'مخطط تدفق تسجيل الأصناف في مصر' : 'Variety Registration in Egypt flowchart'}
-            className="w-full rounded-2xl"
-          />
+        <div>
+          <p className="text-sm font-semibold text-[#2D4A32]">
+            {isAr ? 'كيفية تسجيل صنف في مصر' : 'How to Register a Variety in Egypt'}
+          </p>
+          <p className="text-xs text-[#3D3D3D]/70 mt-0.5">
+            {isAr
+              ? 'راجع إجراءات تسجيل الأصناف الكاملة — بما فيها مخطط التدفق والنماذج المطلوبة — في صفحة خدمات CASC.'
+              : 'Full variety registration procedures — including the registration flowchart and required forms — are available in the CASC Services section.'}
+          </p>
         </div>
       </div>
 
@@ -1102,44 +1048,52 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           </p>
           <p className="text-emerald-100/80 max-w-2xl mx-auto leading-relaxed text-sm">
             {isAr
-              ? 'الإدارة المركزية لفحص واعتماد التقاوي هيئة حكومية رسمية محايدة لا تقوم بتطوير أو تربية أو إنتاج أو تسويق أو بيع أو تخزين التقاوي. وهي الجهة المفوضة من وزارة الزراعة للقيام بجميع المهام التي تتطلب الحياد، بما في ذلك تسجيل التقاوي وفحصها واختبارها واعتمادها ومراقبتها. تضم الإدارة هيكلاً تنظيمياً قوياً يشمل إدارات عامة تخدم جميع الأنشطة المتعلقة بالتقاوي، بالإضافة إلى مختبر مركزي معتمد من ISTA و12 محطة فحص موزعة على المحافظات.'
-              : 'CASC is a neutral, official government body that does not develop, breed, produce, market, sell, or store seeds. It is authorised by the Ministry of Agriculture to carry out all tasks requiring neutrality in this field, including seed registration, inspection, testing, certification, and monitoring. CASC has a strong organisational structure including general administrations serving all seed-related activities, an ISTA-accredited Central Seed Testing Laboratory, and 12 testing stations across governorates.'}
+              ? 'الإدارة المركزية لفحص واعتماد البذور إحدى الإدارات المركزية الهامة ضمن قطاع الإنتاج في وزارة الزراعة واستصلاح الأراضي. وهي هيئة حكومية رسمية محايدة لا تقوم بتطوير أو تربية أو إنتاج أو تسويق أو بيع أو تخزين التقاوي. وهي الجهة المفوضة من وزارة الزراعة للقيام بجميع المهام التي تتطلب الحياد في هذا المجال، بما في ذلك تسجيل التقاوي وفحصها واختبارها واعتمادها ومراقبتها. لدى الادارة هيكل تنظيمي قوي يضم ادارات عامة تخدم جميع الانشطة المتعلقة بالتقاوي، بالإضافة إلى معمل مركزي لفحص التقاوي معتمد من قِبل المنظمة الدولية لفحص البذور (ISTA)، وتعمل وفقاً لنظام شامل لضمان الجودة، كما تمتلك 12 محطة فحص موزعة على مختلف المحافظات.'
+              : 'The Central Administration for Seed Testing and Certification is one of the important central administrations within the Production Sector of the Ministry of Agriculture and Land Reclamation. It is a neutral, official government body that does not develop, breed, produce, market, sell, or store seeds. It is authorized by the Ministry of Agriculture to carry out all tasks requiring neutrality in this field, including seed registration, inspection, testing, certification, and monitoring. CASC has a strong organizational structure as it includes several general administrations serving all seed-related activities. In addition, the Central Seed Testing Laboratory is an accredited member of the International Seed Testing Organization (ISTA) and operates according to a comprehensive Quality Assurance System, in addition to 12 lab testing stations all over the governorates.'}
           </p>
         </div>
       </div>
 
-      {/* Mission & Vision */}
-      <div className="max-w-6xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-emerald-50 border border-emerald-100 p-8 rounded-3xl space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center">
-              <Target className="w-5 h-5 text-white" />
-            </div>
-            <h3 className="text-xl font-semibold text-[#2D4A32]">{isAr ? 'مهمتنا' : 'Our Mission'}</h3>
+      {/* CASC Goal & Five General Administrations */}
+      <div className="max-w-6xl mx-auto px-4 py-16">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold mb-4">
+            <Target className="w-3 h-3" />
+            {isAr ? 'هدف الإدارة المركزية' : "CASC's Goal"}
           </div>
-          <p className="text-emerald-800 leading-relaxed">
+          <h2 className="text-3xl font-semibold text-[#2D4A32] mb-3">
+            {isAr ? 'ضمان جودة عالية للتقاوي' : 'Assuring High Quality Seeds'}
+          </h2>
+          <p className="text-[#3D3D3D] text-sm max-w-2xl mx-auto">
             {isAr
-              ? 'ضمان توافر تقاوي عالية الجودة لجميع المزارعين المصريين من خلال نظام تصديق صارم وشفاف، يحمي القطاع الزراعي ويعزز الإنتاجية الوطنية، مع تيسير التجارة الدولية في التقاوي وفقاً للمعايير الدولية المعتمدة.'
-              : 'To ensure high-quality seeds are available to all Egyptian farmers through a rigorous, transparent certification system that protects the agricultural sector and enhances national productivity, while facilitating international seed trade in accordance with globally recognised standards.'}
+              ? 'يتحقق ذلك من خلال خمس إدارات عامة رئيسية:'
+              : 'This is achieved through 5 main important administrations:'}
           </p>
         </div>
-        <div className="bg-amber-50 border border-amber-100 p-8 rounded-3xl space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center">
-              <Star className="w-5 h-5 text-white" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {[
+            { icon: Shield, en: 'General Administration for Field Inspection', ar: 'الإدارة العامة للتفتيش الحقلي' },
+            { icon: BookOpen, en: 'General Administration for Seed Development and Standards', ar: 'الإدارة العامة لتطوير التقاوي والمعايير' },
+            { icon: FlaskConical, en: 'General Administration for Seed Testing Affairs', ar: 'الإدارة العامة لشؤون فحص التقاوي' },
+            { icon: Award, en: 'General Administration for Seed Certification', ar: 'الإدارة العامة لاعتماد التقاوي' },
+            { icon: Layers, en: 'General Administration for Gins and Oil Mills', ar: 'الإدارة العامة للمحالج والمعاصر' },
+          ].map((adm, i) => (
+            <div key={i} className="bg-white border border-amber-100 rounded-2xl p-6 shadow-sm flex items-start gap-4 hover:shadow-md transition-all">
+              <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0">
+                <adm.icon className="w-5 h-5 text-emerald-700" />
+              </div>
+              <div>
+                <p className="font-semibold text-[#2D4A32] text-sm leading-snug">{isAr ? adm.ar : adm.en}</p>
+                {!isAr && <p className="text-xs text-[#3D3D3D]/60 mt-1">{adm.ar}</p>}
+              </div>
             </div>
-            <h3 className="text-xl font-semibold text-[#2D4A32]">{isAr ? 'رؤيتنا' : 'Our Vision'}</h3>
-          </div>
-          <p className="text-amber-800 leading-relaxed">
-            {isAr
-              ? 'أن تكون مصر مركزاً إقليمياً رائداً في إنتاج التقاوي وتجارتها بحلول عام 2030، من خلال نظام تنظيمي رقمي متكامل يضع CASC في مقدمة مؤسسات تصديق التقاوي الأفريقية والشرق أوسطية.'
-              : 'For Egypt to become a leading regional hub for seed production and trade by 2030, through an integrated digital regulatory system that positions CASC at the forefront of African and Middle Eastern seed certification institutions.'}
-          </p>
+          ))}
         </div>
       </div>
 
-      {/* PVPO Historical Note */}
-      <div className="max-w-6xl mx-auto px-4 pb-4">
+      {/* PVPO Historical Note + Variety Registration Committee Clarification */}
+      <div className="max-w-6xl mx-auto px-4 pb-4 space-y-4">
+        {/* PVPO Note */}
         <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 flex gap-4 items-start">
           <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
           <div>
@@ -1148,8 +1102,22 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
             </p>
             <p className="text-xs text-amber-800 leading-relaxed">
               {isAr
-                ? 'ضمّت الإدارة المركزية لفحص واعتماد التقاوي مكتب حماية أصناف النباتات منذ عام 2003 حتى 2025، حيث أُنشئ بموجب قرار رئيس الوزراء رقم 492 لسنة 2003 والقرار الوزاري رقم 2341 لسنة 2003 (استناداً إلى قانون حماية الملكية الفكرية رقم 82 لسنة 2002، الفصل الرابع). شهدت الإدارة انضمام مصر إلى الاتحاد الدولي لحماية الأصناف النباتية الجديدة (UPOV) في ديسمبر 2019. وقد نُقل المكتب مؤخراً إلى هيئة مستقلة للملكية الفكرية تُسمى الجهاز المصري للملكية الفكرية (EGIPA) منذ مارس 2025.'
-                : "CASC included the Plant Variety Protection Office (PVPO) from 2003 until 2025, established by Prime Minister Decision No. 492 of 2003 and Ministerial Decree No. 2341 of 2003 (based on the Intellectual Property Protection Law No. 82 of 2002, Chapter Four). CASC witnessed Egypt's accession to UPOV in December 2019. The office was transferred to an independent intellectual property authority — the Egyptian Intellectual Property Authority (EGIPA) — in March 2025."}
+                ? 'ضمت الادارة المركزية لفحص واعتماد التقاوي مكتب حماية أصناف النباتات منذ 2003 حتى عام 2025، حيث تم إنشاؤه بموجب قرار رئيس الوزراء رقم (492) لسنة 2003 والقرار الوزاري رقم 2341 لسنة 2003 (استناداً إلى قانون حماية الملكية الفكرية رقم 82 لسنة 2002، الفصل الرابع). وشهدت الادارة انضمام مصر للاتحاد الدولي لحماية الاصناف النباتية الجديدة في ديسمبر 2019. وقد تم نقل المكتب مؤخراً إلى هيئة مستقلة للملكية الفكرية تُسمى الجهاز المصري للملكية الفكرية منذ مارس 2025. ولا يزال للمكتب ارتباط تشغيلي بـ CASC، إذ تُجرى اختبارات DUS اللازمة لحماية الأصناف في مختبرات CASC.'
+                : "CASC included the Plant Variety Protection Office (PVPO) from 2003 until 2025, established by Prime Minister Decision No. 492 of 2003 and Ministerial Decree No. 2341 of 2003 (based on the Intellectual Property Protection Law No. 82 of 2002, Chapter Four). CASC witnessed Egypt's accession to the International Union for the Protection of New Varieties of Plants (UPOV) in December 2019. The office was recently transferred to an independent intellectual property authority named the Egyptian Intellectual Property Authority (EGIPA) in March 2025. An operational link remains: the DUS testing required for plant variety protection is still carried out within CASC's laboratories."}
+            </p>
+          </div>
+        </div>
+        {/* Variety Registration Committee Clarification */}
+        <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 flex gap-4 items-start">
+          <Info className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-semibold text-emerald-900 mb-1">
+              {isAr ? 'ملاحظة: لجنة تسجيل الأصناف' : 'Note: Variety Registration Committee'}
+            </p>
+            <p className="text-xs text-emerald-800 leading-relaxed">
+              {isAr
+                ? 'لجنة تسجيل الأصناف ليست خدمة داخلية تابعة لـ CASC. وهي لجنة مستقلة تتبع وزارة الزراعة واستصلاح الأراضي، وتضم في أمانتها الفنية مكتباً مُستضافاً داخل CASC نظراً لارتباطه باختبارات DUS وVCU التي تُجريها CASC. يقدّم المتقدمون ملفاتهم إلى الأمانة الفنية للجنة التسجيل، وليس مباشرةً إلى CASC.'
+                : 'The Variety Registration Committee is not an internal CASC service. It is an independent committee under the Ministry of Agriculture and Land Reclamation, whose Technical Secretariat is co-located within CASC due to its dependence on DUS and VCU testing carried out by CASC laboratories. Applicants submit their files to the Technical Secretariat of the Registration Committee — not directly to CASC.'}
             </p>
           </div>
         </div>
@@ -1669,7 +1637,6 @@ export default function App() {
             </p>
             <div className="space-y-2 text-xs text-emerald-300/85">
               <p className="flex items-center gap-2"><MapPin className="w-3 h-3 text-orange-400 shrink-0" /> {lang === 'ar' ? '8 شارع الجامعة، الجيزة، جمهورية مصر العربية' : '8 Gamaa Street, Giza, Egypt'}</p>
-              <p className="flex items-center gap-2"><Phone className="w-3 h-3 text-orange-400 shrink-0" /> +20 2 3573-1313</p>
               <p className="flex items-center gap-2"><Mail className="w-3 h-3 text-orange-400 shrink-0" /> casc.egypt@hotmail.com</p>
             </div>
           </div>
