@@ -144,7 +144,7 @@ const Navbar: React.FC<{
 };
 
 // --- View: Home ---
-const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout: () => void, onGoLibrary: () => void }> = ({ lang, onStartJourney, onGoAbout, onGoLibrary }) => {
+const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout: () => void, onGoLibrary: () => void, onGoCatalogue: () => void, onGoDirectory: () => void }> = ({ lang, onStartJourney, onGoAbout, onGoLibrary, onGoCatalogue, onGoDirectory }) => {
   const isAr = lang === 'ar';
   return (
     <div className="animate-fade-in">
@@ -231,7 +231,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
       <div className="bg-emerald-800 text-white py-10 border-y border-amber-100/30">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
-            { num: '500+', label: isAr ? 'صنف مسجل' : 'Registered Varieties', icon: BookOpen },
+            { num: '2,866', label: isAr ? 'صنف مسجل' : 'Registered Varieties', icon: BookOpen },
             { num: '12', label: isAr ? 'مختبر معتمد' : 'Certified Laboratories', icon: FlaskConical },
             { num: '4', label: isAr ? 'فئات التصديق' : 'Seed Certification Classes', icon: Award },
             { num: '30+', label: isAr ? 'سنة من الخدمة' : 'Years of Service', icon: Star },
@@ -251,11 +251,11 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
               title: isAr ? 'مكتبة التشريعات' : 'Legislation Library',
               desc:  isAr ? 'الوصول المباشر إلى القوانين والقرارات الوزارية واللوائح المنظمة للقطاع.' : 'Direct access to laws, ministerial decrees, and governing regulations.',
               cta:   isAr ? 'تصفح الآن' : 'Explore Now' },
-            { onClick: () => {}, accent: 'amber', icon: BookOpen,
+            { onClick: onGoCatalogue, accent: 'amber', icon: BookOpen,
               title: isAr ? 'الكتالوج الوطني للأصناف' : 'National Variety Catalogue',
               desc:  isAr ? 'قاعدة بيانات شاملة للأصناف المسجلة والمعتمدة ومربيها.' : 'Comprehensive database of registered and certified varieties and their breeders.',
               cta:   isAr ? 'عرض الأصناف' : 'View Varieties' },
-            { onClick: () => {}, accent: 'blue', icon: MapPin,
+            { onClick: onGoDirectory, accent: 'blue', icon: MapPin,
               title: isAr ? 'دليل الجهات الرقابية' : 'Regulatory Authority Directory',
               desc:  isAr ? 'دليلك للجهات المسؤولة عن كل مهمة وأماكن التقديم.' : 'Your guide to the authorities responsible for each task and submission points.',
               cta:   isAr ? 'البحث في الدليل' : 'Search Directory' },
@@ -1619,6 +1619,8 @@ export default function App() {
             onStartJourney={() => setActiveTab('journeys')}
             onGoAbout={() => setActiveTab('about')}
             onGoLibrary={() => setActiveTab('library')}
+            onGoCatalogue={() => setActiveTab('catalogue')}
+            onGoDirectory={() => setActiveTab('directory')}
           />
         )}
         {activeTab === 'about' && (
