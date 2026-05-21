@@ -948,6 +948,7 @@ const ContactView: React.FC<{ lang: Language }> = ({ lang }) => {
 // --- View: About CASC ---
 const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoContact: () => void }> = ({ lang, onStartJourney, onGoContact }) => {
   const isAr = lang === 'ar';
+  const [showFlowchart, setShowFlowchart] = useState(false);
 
   const services = [
     {
@@ -1166,25 +1167,63 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
               : 'CASC delivers a comprehensive range of regulatory services covering the full seed lifecycle from production through to market.'}
           </p>
         </div>
+        {/* Lightbox for Variety Registration flowchart */}
+        {showFlowchart && (
+          <div
+            className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+            onClick={() => setShowFlowchart(false)}
+          >
+            <div className="relative max-w-4xl w-full" onClick={e => e.stopPropagation()}>
+              <button
+                onClick={() => setShowFlowchart(false)}
+                className="absolute -top-10 right-0 text-white text-sm font-semibold flex items-center gap-1 hover:text-orange-300 transition-colors"
+              >
+                ✕ {isAr ? 'إغلاق' : 'Close'}
+              </button>
+              <div className="bg-white rounded-2xl p-4 shadow-2xl">
+                <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-3 text-center">
+                  {isAr ? 'مخطط تدفق تسجيل الأصناف في مصر' : 'Variety Registration Flowchart — Egypt'}
+                </p>
+                <img
+                  src={`${import.meta.env.BASE_URL}var_reg.png`}
+                  alt={isAr ? 'مخطط تسجيل الأصناف' : 'Variety Registration flowchart'}
+                  className="w-full rounded-xl"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  {services.map((s, i) => (
-    <div key={i} className="group relative overflow-hidden rounded-[32px] shadow-2xl min-h-[460px]">
-      {/* Background image — fills entire card */}
+  {services.map((s, i) => {
+    const isVarReg = s.title.en === 'Variety Registration';
+    return (
+    <div
+      key={i}
+      onClick={isVarReg ? () => setShowFlowchart(true) : undefined}
+      className={`group relative overflow-hidden rounded-[32px] shadow-2xl min-h-[460px] ${isVarReg ? 'cursor-pointer' : ''}`}
+    >
+      {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
         style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${s.image})` }}
       />
-      {/* Gradient scrim at bottom for readability */}
-      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-      {/* Text box pinned to bottom */}
-      <div className="absolute inset-x-5 bottom-5 z-10">
-        <div className="rounded-2xl bg-white/75 backdrop-blur-md p-5 shadow-lg">
-          <h4 className="text-base font-semibold text-[#1f3d2f] mb-1.5">{s.title[lang]}</h4>
-          <p className="text-sm text-slate-800 leading-relaxed">{s.desc[lang]}</p>
+      {/* Gradient scrim */}
+      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/75 to-transparent" />
+      {/* Title strip — bottom only */}
+      <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-5">
+        <div className="rounded-xl bg-white/80 backdrop-blur-sm px-4 py-3 shadow-md flex items-center justify-between gap-2">
+          <h4 className="text-sm font-semibold text-[#1f3d2f]">{s.title[lang]}</h4>
+          {isVarReg && (
+            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full shrink-0">
+              {isAr ? 'عرض المخطط' : 'View flowchart'}
+            </span>
+          )}
         </div>
       </div>
     </div>
-  ))}
+    );
+  })}
 </div>
       </div>
 
