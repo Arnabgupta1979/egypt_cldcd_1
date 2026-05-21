@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import {
   Search,
   FileText,
@@ -1184,9 +1185,9 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           </p>
         </div>
         {/* Admin Wiki Modal */}
-        {adminModal && (
+        {adminModal && ReactDOM.createPortal(
           <div
-            className="fixed inset-0 z-50 bg-black/70 overflow-y-auto"
+            className="fixed inset-0 z-[9999] bg-black/70 overflow-y-auto"
             onClick={() => setAdminModal(null)}
           >
             <div className="min-h-full flex items-center justify-center p-4 py-8">
@@ -1238,7 +1239,8 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
               </div>
             </div>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -1338,9 +1340,9 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           </p>
         </div>
         {/* Lightbox for Variety Registration flowchart */}
-        {showFlowchart && (
+        {showFlowchart && ReactDOM.createPortal(
           <div
-            className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+            className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4"
             onClick={() => setShowFlowchart(false)}
           >
             <div className="relative max-w-4xl w-full" onClick={e => e.stopPropagation()}>
@@ -1361,7 +1363,8 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
                 />
               </div>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
