@@ -83,7 +83,7 @@ const Navbar: React.FC<{
   ];
 
   return (
-    <nav className="bg-emerald-700 text-white sticky top-0 z-50 shadow-lg border-b border-emerald-800/60">
+    <nav className="text-white sticky top-0 z-50 shadow-lg border-b border-[#1d5c1d]/60" style={{backgroundColor: '#2D6B2D'}}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-[72px]">
           <div className="flex items-center gap-4">
@@ -1186,11 +1186,12 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
         {/* Admin Wiki Modal */}
         {adminModal && (
           <div
-            className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-black/70 overflow-y-auto"
             onClick={() => setAdminModal(null)}
           >
+            <div className="min-h-full flex items-center justify-center p-4 py-8">
             <div
-              className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto"
+              className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full"
               onClick={e => e.stopPropagation()}
             >
               {/* Header */}
@@ -1235,6 +1236,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
                   {isAr ? 'للاستفسار: casc.egypt@hotmail.com' : 'For enquiries: casc.egypt@hotmail.com'}
                 </p>
               </div>
+            </div>
             </div>
           </div>
         )}
@@ -1786,7 +1788,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-parchment-50 bg-papyrus flex flex-col font-sans">
+    <div className={`min-h-screen bg-parchment-50 bg-papyrus flex flex-col ${lang === 'ar' ? 'font-cairo' : 'font-sans'}`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       {/* Egyptian flag stripe — Red / White / Black, with gold hairline */}
       <div className="flex h-1">
         <div className="flex-1 bg-[#CE1126]"></div>
