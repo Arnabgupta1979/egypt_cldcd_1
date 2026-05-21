@@ -752,8 +752,8 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             { name: { en: 'Application Form', ar: 'نموذج الطلب' }, file: null },
-            { name: { en: 'Technical Questionnaire — Local Variety', ar: 'الاستبيان الفني — صنف محلي' }, file: null },
-            { name: { en: 'Technical Questionnaire — Imported Variety', ar: 'الاستبيان الفني — صنف مستورد' }, file: null },
+            { name: { en: 'Technical Questionnaire for Local Varieties', ar: 'الاستبيان الفني للأصناف المحلية' }, file: 'local_var_QA.pdf' },
+            { name: { en: 'Technical Questionnaire for Imported Varieties', ar: 'الاستبيان الفني للأصناف المستوردة' }, file: 'imported_var_QA.pdf' },
             { name: { en: 'Form for Extending Registration of a Plant Variety', ar: 'نموذج تمديد تسجيل الصنف النباتي' }, file: null },
             { name: { en: 'Form for Requesting a Certificate of a Registered Plant Variety', ar: 'نموذج طلب شهادة صنف نباتي مسجل' }, file: null },
           ].map((form, i) => (
@@ -783,8 +783,8 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
           <Info className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
           <p className="text-xs text-emerald-800">
             {isAr
-              ? 'جميع المستندات تُقدَّم باليد وباللغة العربية، باستثناء خطاب التفويض وتقرير DUS. الإضافات والحذف والتعديلات مسموح بها فقط من قِبل لجنة التسجيل. للاستفسار: casc.egypt@hotmail.com'
-              : 'All documents are submitted by hand and in Arabic language, except the authorisation letter and the DUS report. Additions, deletions, and modifications are permitted only by the Registration Committee. For enquiries: casc.egypt@hotmail.com'}
+              ? 'جميع المستندات تُقدَّم باليد وباللغة العربية، باستثناء خطاب التفويض وتقرير DUS. النماذج أدناه باللغة العربية فقط — لا تتوفر نسخ إنجليزية لأن تعبئتها وتقديمها يتمان بالعربية حصراً، وعادةً من خلال وكيل مصري. الإضافات والحذف والتعديلات مسموح بها فقط من قِبل لجنة التسجيل. للاستفسار: casc.egypt@hotmail.com'
+              : 'All documents are submitted by hand and in Arabic language, except the authorisation letter and the DUS report. The forms below are in Arabic only — no English versions are provided, as they must be completed and submitted in Arabic, typically through an Egyptian agent. Additions, deletions, and modifications are permitted only by the Registration Committee. For enquiries: casc.egypt@hotmail.com'}
           </p>
         </div>
       </div>
@@ -971,10 +971,10 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
     {
       icon: Shield,
       image: 'Seed_producer_licensing.png',
-      title: { en: 'Field Inspection', ar: 'التفتيش الحقلي' },
+      title: { en: 'Field Inspection', ar: 'الإدارة العامة للتفتيش الحقلي' },
       desc: {
-        en: 'Field inspection aims to ensure the stability of the variety\'s characteristics during its propagation period and to verify the source of seeds. CASC field inspectors conduct official visits to registered seed production fields to verify isolation distances, off-type removal, crop purity, and compliance with certification class requirements.',
-        ar: 'يهدف التفتيش الحقلي إلى ضمان ثبات صفات الصنف خلال فترة تكاثره والتحقق من مصدر التقاوي. يجري مفتشو CASC الحقليون زيارات رسمية للحقول الإنتاجية المسجلة للتحقق من مسافات العزل وإزالة الأصناف الدخيلة ونقاء المحصول والامتثال لمتطلبات فئة الاعتماد.'
+        en: 'Field inspection is the first step in seed production certification. The administration consists of four management units: (1) Field Crops Field Inspection, (2) Vegetative Propagation Crops, (3) Vegetable Crops, (4) Quality Control Field Inspection. Required documents: copy of valid production licence, application form, invoice for seed examination, original Form 3 from the Certification Department, contractors list, inspection notification, and payment of prescribed fees.',
+        ar: 'التفتيش الحقلي هو أول خطوات اعتماد إنتاج التقاوي. تتكون الإدارة من أربع إدارات فرعية: (1) إدارة التفتيش الحقلي على المحاصيل الحقلية، (2) إدارة التفتيش الحقلي لمحاصيل التكاثر الخضري، (3) إدارة التفتيش الحقلي على محاصيل الخضر، (4) إدارة التفتيش الحقلي على مراقبة الجودة. المستندات المطلوبة: صورة من ترخيص الإنتاج ساري المفعول، طلب باسم الشركة، فاتورة فحص للتقاوي المطلوب استخدامها للزراعة، أصل استمارة 3 من قسم الاعتماد، كشف متعاقدين، إخطار فحص، سداد المصروفات المقررة.'
       }
     },
     {
@@ -1108,8 +1108,8 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
             </p>
             <p className="text-xs text-amber-800 leading-relaxed">
               {isAr
-                ? 'ضمت الادارة المركزية لفحص واعتماد التقاوي مكتب حماية أصناف النباتات منذ 2003 حتى عام 2025، حيث تم إنشاؤه بموجب قرار رئيس الوزراء رقم (492) لسنة 2003 والقرار الوزاري رقم 2341 لسنة 2003 (استناداً إلى قانون حماية الملكية الفكرية رقم 82 لسنة 2002، الفصل الرابع). وشهدت الادارة انضمام مصر للاتحاد الدولي لحماية الاصناف النباتية الجديدة في ديسمبر 2019. وقد تم نقل المكتب مؤخراً إلى هيئة مستقلة للملكية الفكرية تُسمى الجهاز المصري للملكية الفكرية منذ مارس 2025. ولا يزال للمكتب ارتباط تشغيلي بـ CASC، إذ تُجرى اختبارات DUS اللازمة لحماية الأصناف في مختبرات CASC.'
-                : "CASC included the Plant Variety Protection Office (PVPO) from 2003 until 2025, established by Prime Minister Decision No. 492 of 2003 and Ministerial Decree No. 2341 of 2003 (based on the Intellectual Property Protection Law No. 82 of 2002, Chapter Four). CASC witnessed Egypt's accession to the International Union for the Protection of New Varieties of Plants (UPOV) in December 2019. The office was recently transferred to an independent intellectual property authority named the Egyptian Intellectual Property Authority (EGIPA) in March 2025. An operational link remains: the DUS testing required for plant variety protection is still carried out within CASC's laboratories."}
+                ? 'ضمت الادارة المركزية لفحص واعتماد التقاوي مكتب حماية أصناف النباتات منذ 2003 حتى عام 2025، حيث تم إنشاؤه بموجب قرار رئيس الوزراء رقم (492) لسنة 2003 والقرار الوزاري رقم 2341 لسنة 2003 (استناداً إلى قانون حماية الملكية الفكرية رقم 82 لسنة 2002، الفصل الرابع). وشهدت الادارة انضمام مصر للاتحاد الدولي لحماية الاصناف النباتية الجديدة في ديسمبر 2019. وقد تم نقل المكتب مؤخراً إلى هيئة مستقلة للملكية الفكرية تُسمى الجهاز المصري للملكية الفكرية منذ مارس 2025. أهم ما يربط CASC بالجهاز المصري للملكية الفكرية الآن هو أن CASC تضطلع بإجراء اختبار DUS المطلوب لحماية الأصناف النباتية.'
+                : "CASC included the Plant Variety Protection Office (PVPO) from 2003 until 2025, established by Prime Minister Decision No. 492 of 2003 and Ministerial Decree No. 2341 of 2003 (based on the Intellectual Property Protection Law No. 82 of 2002, Chapter Four). CASC witnessed Egypt's accession to the International Union for the Protection of New Varieties of Plants (UPOV) in December 2019. The office was recently transferred to an independent intellectual property authority named the Egyptian Intellectual Property Authority (EGIPA) in March 2025. The most important connection (cooperation) between CASC and EGIPA now is that CASC is carrying the DUS Test that is required for variety protection."}
             </p>
           </div>
         </div>
@@ -1118,12 +1118,12 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           <Info className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
           <div>
             <p className="text-sm font-semibold text-emerald-900 mb-1">
-              {isAr ? 'ملاحظة: لجنة تسجيل الأصناف' : 'Note: Variety Registration Committee'}
+              {isAr ? 'ملاحظة: لجنة تسجيل الحاصلات الزراعية' : 'Note: Agricultural Crops Registration Committee'}
             </p>
             <p className="text-xs text-emerald-800 leading-relaxed">
               {isAr
-                ? 'لجنة تسجيل الأصناف ليست خدمة داخلية تابعة لـ CASC. وهي لجنة مستقلة تتبع وزارة الزراعة واستصلاح الأراضي، وتضم في أمانتها الفنية مكتباً مُستضافاً داخل CASC نظراً لارتباطه باختبارات DUS وVCU التي تُجريها CASC. يقدّم المتقدمون ملفاتهم إلى الأمانة الفنية للجنة التسجيل، وليس مباشرةً إلى CASC.'
-                : 'The Variety Registration Committee is not an internal CASC service. It is an independent committee under the Ministry of Agriculture and Land Reclamation, whose Technical Secretariat is co-located within CASC due to its dependence on DUS and VCU testing carried out by CASC laboratories. Applicants submit their files to the Technical Secretariat of the Registration Committee — not directly to CASC.'}
+                ? 'لجنة تسجيل الحاصلات الزراعية هي اللجنة الوحيدة بجمهورية مصر العربية المفوضة من وزارة الزراعة بالقيام بتسجيل أصناف الحاصلات الزراعية. ويحق لكل شخص طبيعي أو معنوي التقدم لتسجيل الأصناف النباتية. وتعمل لجنة التسجيل وفقاً لقانون الزراعة رقم 53 لعام 1966 والقرارات الوزارية المنظمة للعمل. تتبع لجنة تسجيل الأصناف وزارة الزراعة واستصلاح الأراضي، ويفوض رئيس اللجنة بتشكيل الأمانة الفنية للجنة والتي تقوم بالفحص الفني والإداري لطلبات التسجيل المقدمة.'
+                : 'The Agricultural Crops Registration Committee is the only committee in the Arab Republic of Egypt authorized by the Ministry of Agriculture to register agricultural crop varieties. Any natural or legal person may apply to register plant varieties. The Registration Committee operates in accordance with Agriculture Law No. 53 of 1966 and the ministerial decrees regulating its work. The Variety Registration Committee is directly under the Ministry of Agriculture and Land Reclamation. The Head of the Registration Committee is authorized to form the Committee\'s Technical Secretariat, which conducts the technical and administrative review of submitted registration applications.'}
             </p>
           </div>
         </div>
