@@ -166,8 +166,8 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
           backgroundAttachment: 'fixed',
           minHeight: '620px',
         }}>
-        {/* Dark gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/75 via-emerald-900/70 to-emerald-950/80"></div>
+        {/* Dark gradient overlay — heavier for legibility */}
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/85 via-emerald-950/80 to-emerald-950/90"></div>
         
         {/* Decorative arabesque corner ornaments */}
         <svg className="absolute top-6 left-6 w-20 h-20 text-amber-100/40 hidden md:block" viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1">
@@ -182,11 +182,13 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
         </svg>
 
         <div className="relative max-w-5xl mx-auto text-center space-y-5 px-4 pt-16 pb-14">
+          {/* Dark green legibility box behind text */}
+          <div className="bg-emerald-950/60 backdrop-blur-sm rounded-3xl px-8 py-10 mx-auto max-w-4xl">
           <div className="inline-flex items-center gap-2 bg-amber-100/95 text-[#2D4A32] px-4 py-1.5 rounded-sm text-xs font-medium uppercase border border-amber-100">
             <div className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></div>
             {isAr ? 'الموقع الرسمي لـ CASC' : 'Official CASC Digital Portal · v1.0 Beta'}
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.1] max-w-4xl mx-auto">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.1] max-w-4xl mx-auto mt-5">
             {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing & Certification'}
           </h1>
           {/* Ornamental flourish under title */}
@@ -217,6 +219,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
             >
               {isAr ? 'تصفح المكتبة' : 'Browse Library'}
             </button>
+          </div>
           </div>
         </div>
         {/* Bottom arabesque divider */}
@@ -949,6 +952,107 @@ const ContactView: React.FC<{ lang: Language }> = ({ lang }) => {
 const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoContact: () => void }> = ({ lang, onStartJourney, onGoContact }) => {
   const isAr = lang === 'ar';
   const [showFlowchart, setShowFlowchart] = useState(false);
+  const [adminModal, setAdminModal] = useState<null | {
+    en: string; ar: string;
+    bodyEn: string; bodyAr: string;
+    pointsEn: string[]; pointsAr: string[];
+    note?: { en: string; ar: string };
+  }>(null);
+
+  const adminWiki = [
+    {
+      en: 'General Administration for Field Inspection',
+      ar: 'الإدارة العامة للتفتيش الحقلي',
+      bodyEn: 'Field inspection is the first step in seed production certification. The administration ensures the stability of variety characteristics during the propagation period and verifies the source of seeds through official field visits to registered production areas.',
+      bodyAr: 'التفتيش الحقلي هو أول خطوات اعتماد إنتاج التقاوي. تضمن الإدارة ثبات صفات الصنف خلال فترة التكاثر والتحقق من مصدر التقاوي من خلال زيارات رسمية للحقول الإنتاجية المسجلة.',
+      pointsEn: [
+        'Field Crops Field Inspection Management',
+        'Vegetative Propagation Crops Management',
+        'Vegetable Crops Management',
+        'Field Inspection Directorate for Quality Control',
+      ],
+      pointsAr: [
+        'إدارة التفتيش الحقلي على المحاصيل الحقلية',
+        'إدارة التفتيش الحقلي لمحاصيل التكاثر الخضري',
+        'إدارة التفتيش الحقلي على محاصيل الخضر',
+        'إدارة التفتيش الحقلي على مراقبة الجودة',
+      ],
+      note: { en: 'Required documents: valid production licence, application form, invoice for seed examination, original Form 3 from Certification Dept, contractors list, inspection notification, and payment of fees.', ar: 'المستندات المطلوبة: ترخيص إنتاج ساري، طلب باسم الشركة، فاتورة فحص للتقاوي، أصل استمارة 3 من قسم الاعتماد، كشف متعاقدين، إخطار فحص، سداد المصروفات.' },
+    },
+    {
+      en: 'General Administration for Seed Development and Standards',
+      ar: 'الإدارة العامة لتطوير التقاوي والمعايير',
+      bodyEn: 'This administration is responsible for developing and maintaining the technical standards that govern seed quality across all certification classes in Egypt. It sets the minimum quality thresholds for germination, purity, moisture content, and other key seed attributes in line with international standards.',
+      bodyAr: 'تتولى هذه الإدارة وضع المعايير الفنية التي تحكم جودة التقاوي عبر جميع فئات الاعتماد في مصر. وتحدد الحدود الدنيا لمعايير الإنبات والنقاء والرطوبة وغيرها من الخصائص الرئيسية للتقاوي وفقاً للمعايير الدولية.',
+      pointsEn: [
+        'Setting national seed quality standards',
+        'Developing certification class specifications',
+        'Alignment with ISTA and OECD international standards',
+        'Technical review of seed variety characteristics',
+      ],
+      pointsAr: [
+        'وضع معايير جودة التقاوي الوطنية',
+        'تطوير مواصفات فئات الاعتماد',
+        'التوافق مع معايير ISTA وOECD الدولية',
+        'المراجعة الفنية لخصائص أصناف التقاوي',
+      ],
+    },
+    {
+      en: 'General Administration for Seed Testing Affairs',
+      ar: 'الإدارة العامة لشؤون فحص التقاوي',
+      bodyEn: 'This administration oversees the Central Seed Testing Laboratory — an accredited member of the International Seed Testing Association (ISTA) — and coordinates the network of 12 testing stations distributed across Egypt\'s governorates. It conducts official seed testing for import, export, and certification purposes.',
+      bodyAr: 'تشرف هذه الإدارة على المعمل المركزي لفحص التقاوي — العضو المعتمد في المنظمة الدولية لفحص البذور (ISTA) — وتنسق شبكة من 12 محطة فحص موزعة على محافظات مصر. وتجري الفحص الرسمي للتقاوي لأغراض الاستيراد والتصدير والاعتماد.',
+      pointsEn: [
+        'Central Seed Testing Laboratory (ISTA-accredited)',
+        '12 testing stations across governorates',
+        'Testing for germination, purity, moisture content, and seed health',
+        'Official sampling for import and export procedures',
+      ],
+      pointsAr: [
+        'المعمل المركزي لفحص التقاوي (معتمد من ISTA)',
+        '12 محطة فحص موزعة على المحافظات',
+        'فحص الإنبات والنقاء والرطوبة وصحة التقاوي',
+        'السحب الرسمي للعينات لإجراءات الاستيراد والتصدير',
+      ],
+    },
+    {
+      en: 'General Administration for Seed Certification',
+      ar: 'الإدارة العامة لاعتماد التقاوي',
+      bodyEn: 'This administration manages Egypt\'s seed certification system across four official classes: Breeder, Foundation, Registered, and Certified. It issues seed certification tags and OECD certificates for eligible lots destined for domestic use or international export.',
+      bodyAr: 'تدير هذه الإدارة نظام اعتماد التقاوي في مصر عبر أربع فئات رسمية: تقاوي مربٍّ، وتقاوي أساس، وتقاوي مسجل، وتقاوي معتمد. وتصدر بطاقات اعتماد التقاوي وشهادات OECD للدفعات المؤهلة المخصصة للاستخدام المحلي أو التصدير الدولي.',
+      pointsEn: [
+        'Four certification classes: Breeder, Foundation, Registered, Certified',
+        'Issuance of official certification tags (red, white, blue, orange)',
+        'OECD certificate issuance for export lots',
+        'Coordination with field inspection and laboratory testing',
+      ],
+      pointsAr: [
+        'أربع فئات اعتماد: مربٍّ، أساس، مسجل، معتمد',
+        'إصدار بطاقات الاعتماد الرسمية (حمراء، بيضاء، زرقاء، برتقالية)',
+        'إصدار شهادات OECD للدفعات المصدَّرة',
+        'التنسيق مع التفتيش الحقلي والفحص المختبري',
+      ],
+    },
+    {
+      en: 'General Administration for Gins and Oil Mills',
+      ar: 'الإدارة العامة للمحالج والمعاصر',
+      bodyEn: 'This administration oversees the licensing, inspection, and quality monitoring of cotton gins and oil mills operating within Egypt\'s seed and agricultural processing sector. It ensures that processing facilities meet regulatory standards for seed quality and handling.',
+      bodyAr: 'تشرف هذه الإدارة على ترخيص وتفتيش ومراقبة جودة محالج القطن والمعاصر العاملة في قطاع معالجة التقاوي والمحاصيل الزراعية في مصر. وتضمن أن تستوفي منشآت المعالجة المعايير التنظيمية لجودة التقاوي والتعامل معها.',
+      pointsEn: [
+        'Licensing of cotton gins and oil mills',
+        'Regulatory inspection of processing facilities',
+        'Seed quality monitoring during processing',
+        'Compliance enforcement for licensed operators',
+      ],
+      pointsAr: [
+        'ترخيص محالج القطن والمعاصر',
+        'التفتيش التنظيمي على منشآت المعالجة',
+        'مراقبة جودة التقاوي أثناء المعالجة',
+        'تطبيق معايير الامتثال على المشغلين المرخصين',
+      ],
+      note: { en: 'Detailed procedures for this administration are pending confirmation from CASC. Contact casc.egypt@hotmail.com for enquiries.', ar: 'الإجراءات التفصيلية لهذه الإدارة في انتظار التأكيد من CASC. للاستفسار: casc.egypt@hotmail.com' },
+    },
+  ];
 
   const services = [
     {
@@ -1027,14 +1131,13 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
 
       {/* Hero */}
       <div className="relative bg-emerald-950 text-white py-20 px-4 border-b border-orange-400/30 overflow-hidden">
-  {/* Seed store background image — zoomed to fill, lightly visible over dark green */}
+  {/* Seed store background image */}
   <div
     className="absolute inset-0 bg-cover bg-center scale-105"
     style={{ backgroundImage: `url(${import.meta.env.BASE_URL}Seed_store.png)` }}
   />
-  {/* Dark green tint — 82% opacity keeps brand colour dominant, image visible subtly */}
-  <div className="absolute inset-0 bg-emerald-950/82" />
-  {/* Radial highlight retained, sits on top */}
+  {/* Darker tint — 90% opacity for better legibility */}
+  <div className="absolute inset-0 bg-emerald-950/90" />
   <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(218,216,135,0.06),transparent_70%)] pointer-events-none"></div>
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <img
@@ -1042,22 +1145,25 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
             alt={isAr ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
             className="h-24 w-auto mx-auto bg-white rounded-md p-2 shadow-2xl ring-1 ring-orange-400/40"
           />
+          {/* Dark legibility box behind text */}
+          <div className="bg-emerald-950/70 backdrop-blur-sm rounded-2xl px-8 py-8 mx-auto">
           <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
             {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing and Certification'}
           </h1>
-          <div className="flex items-center justify-center gap-3">
+          <div className="flex items-center justify-center gap-3 mt-4">
             <div className="h-px w-10 bg-orange-400/60"></div>
             <svg className="w-3 h-3 text-orange-400" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z"/></svg>
             <div className="h-px w-10 bg-orange-400/60"></div>
           </div>
-          <p className="italic text-amber-200/90 text-lg">
+          <p className="italic text-amber-200/90 text-lg mt-4">
             {isAr ? 'وزارة الزراعة واستصلاح الأراضي — جمهورية مصر العربية' : 'Ministry of Agriculture & Land Reclamation — Arab Republic of Egypt'}
           </p>
-          <p className="text-emerald-100/80 max-w-2xl mx-auto leading-relaxed text-sm">
+          <p className="text-emerald-100/90 max-w-2xl mx-auto leading-relaxed text-sm mt-4">
             {isAr
               ? 'الإدارة المركزية لفحص واعتماد البذور إحدى الإدارات المركزية الهامة ضمن قطاع الإنتاج في وزارة الزراعة واستصلاح الأراضي. وهي هيئة حكومية رسمية محايدة لا تقوم بتطوير أو تربية أو إنتاج أو تسويق أو بيع أو تخزين التقاوي. وهي الجهة المفوضة من وزارة الزراعة للقيام بجميع المهام التي تتطلب الحياد في هذا المجال، بما في ذلك تسجيل التقاوي وفحصها واختبارها واعتمادها ومراقبتها. لدى الادارة هيكل تنظيمي قوي يضم ادارات عامة تخدم جميع الانشطة المتعلقة بالتقاوي، بالإضافة إلى معمل مركزي لفحص التقاوي معتمد من قِبل المنظمة الدولية لفحص البذور (ISTA)، وتعمل وفقاً لنظام شامل لضمان الجودة، كما تمتلك 12 محطة فحص موزعة على مختلف المحافظات.'
               : 'The Central Administration for Seed Testing and Certification is one of the important central administrations within the Production Sector of the Ministry of Agriculture and Land Reclamation. It is a neutral, official government body that does not develop, breed, produce, market, sell, or store seeds. It is authorized by the Ministry of Agriculture to carry out all tasks requiring neutrality in this field, including seed registration, inspection, testing, certification, and monitoring. CASC has a strong organizational structure as it includes several general administrations serving all seed-related activities. In addition, the Central Seed Testing Laboratory is an accredited member of the International Seed Testing Organization (ISTA) and operates according to a comprehensive Quality Assurance System, in addition to 12 lab testing stations all over the governorates.'}
           </p>
+          </div>
         </div>
       </div>
 
@@ -1077,21 +1183,83 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
               : 'This is achieved through 5 main important administrations:'}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {[
-            { icon: Shield, en: 'General Administration for Field Inspection', ar: 'الإدارة العامة للتفتيش الحقلي' },
-            { icon: BookOpen, en: 'General Administration for Seed Development and Standards', ar: 'الإدارة العامة لتطوير التقاوي والمعايير' },
-            { icon: FlaskConical, en: 'General Administration for Seed Testing Affairs', ar: 'الإدارة العامة لشؤون فحص التقاوي' },
-            { icon: Award, en: 'General Administration for Seed Certification', ar: 'الإدارة العامة لاعتماد التقاوي' },
-            { icon: Layers, en: 'General Administration for Gins and Oil Mills', ar: 'الإدارة العامة للمحالج والمعاصر' },
-          ].map((adm, i) => (
-            <div key={i} className="bg-white border border-amber-100 rounded-2xl p-6 shadow-sm flex items-start gap-4 hover:shadow-md transition-all">
-              <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0">
-                <adm.icon className="w-5 h-5 text-emerald-700" />
+        {/* Admin Wiki Modal */}
+        {adminModal && (
+          <div
+            className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+            onClick={() => setAdminModal(null)}
+          >
+            <div
+              className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto"
+              onClick={e => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="bg-emerald-800 text-white px-6 py-5 rounded-t-2xl">
+                <button
+                  onClick={() => setAdminModal(null)}
+                  className="absolute top-4 right-4 text-white/70 hover:text-white text-lg font-bold leading-none"
+                >✕</button>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-300 mb-1">CASC</p>
+                <h3 className="text-lg font-semibold leading-snug pr-6">
+                  {isAr ? adminModal.ar : adminModal.en}
+                </h3>
+                {!isAr && <p className="text-emerald-300 text-xs mt-1">{adminModal.ar}</p>}
               </div>
-              <div>
+              {/* Body */}
+              <div className="px-6 py-5 space-y-4">
+                <p className="text-sm text-[#3D3D3D] leading-relaxed">
+                  {isAr ? adminModal.bodyAr : adminModal.bodyEn}
+                </p>
+                <div>
+                  <p className="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-2">
+                    {isAr ? 'الأقسام الفرعية والوظائف الرئيسية' : 'Sub-units & Key Functions'}
+                  </p>
+                  <ul className="space-y-1.5">
+                    {(isAr ? adminModal.pointsAr : adminModal.pointsEn).map((pt, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-[#2D4A32]">
+                        <span className="mt-1 w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {adminModal.note && (
+                  <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 flex gap-2 items-start">
+                    <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                    <p className="text-xs text-amber-800 leading-relaxed">
+                      {isAr ? adminModal.note.ar : adminModal.note.en}
+                    </p>
+                  </div>
+                )}
+                <p className="text-[10px] text-[#3D3D3D]/50 pt-2 border-t border-amber-50">
+                  {isAr ? 'للاستفسار: casc.egypt@hotmail.com' : 'For enquiries: casc.egypt@hotmail.com'}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {adminWiki.map((adm, i) => (
+            <div
+              key={i}
+              onClick={() => setAdminModal(adm)}
+              className="bg-white border border-amber-100 rounded-2xl p-6 shadow-sm flex items-start gap-4 hover:shadow-md hover:border-emerald-200 transition-all cursor-pointer group"
+            >
+              <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-emerald-100 transition-colors">
+                {i === 0 && <Shield className="w-5 h-5 text-emerald-700" />}
+                {i === 1 && <BookOpen className="w-5 h-5 text-emerald-700" />}
+                {i === 2 && <FlaskConical className="w-5 h-5 text-emerald-700" />}
+                {i === 3 && <Award className="w-5 h-5 text-emerald-700" />}
+                {i === 4 && <Layers className="w-5 h-5 text-emerald-700" />}
+              </div>
+              <div className="flex-1 min-w-0">
                 <p className="font-semibold text-[#2D4A32] text-sm leading-snug">{isAr ? adm.ar : adm.en}</p>
                 {!isAr && <p className="text-xs text-[#3D3D3D]/60 mt-1">{adm.ar}</p>}
+                <p className="text-[10px] text-emerald-600 font-semibold mt-2 flex items-center gap-1">
+                  {isAr ? 'اضغط لمزيد من التفاصيل' : 'Click for details'}
+                  <ChevronRight className="w-3 h-3" />
+                </p>
               </div>
             </div>
           ))}
