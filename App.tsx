@@ -1169,7 +1169,8 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
       </div>
 
       {/* CASC Goal & Five General Administrations */}
-      <div className="max-w-6xl mx-auto px-4 py-16">
+      <div className="py-16" style={{ backgroundColor: '#f0f7f0' }}>
+      <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold mb-4">
             <Target className="w-3 h-3" />
@@ -1248,26 +1249,30 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
             <div
               key={i}
               onClick={() => setAdminModal(adm)}
-              className="bg-white border border-amber-100 rounded-2xl p-6 shadow-sm flex items-start gap-4 hover:shadow-md hover:border-emerald-200 transition-all cursor-pointer group"
+              className="rounded-2xl p-6 flex items-start gap-4 cursor-pointer group transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl"
+              style={{ backgroundColor: '#2D6B2D', boxShadow: '0 4px 16px rgba(45,107,45,0.25)' }}
             >
-              <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-emerald-100 transition-colors">
-                {i === 0 && <Shield className="w-5 h-5 text-emerald-700" />}
-                {i === 1 && <BookOpen className="w-5 h-5 text-emerald-700" />}
-                {i === 2 && <FlaskConical className="w-5 h-5 text-emerald-700" />}
-                {i === 3 && <Award className="w-5 h-5 text-emerald-700" />}
-                {i === 4 && <Layers className="w-5 h-5 text-emerald-700" />}
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110"
+                style={{ backgroundColor: 'rgba(255,255,255,0.18)' }}>
+                {i === 0 && <Shield className="w-6 h-6 text-white" />}
+                {i === 1 && <BookOpen className="w-6 h-6 text-white" />}
+                {i === 2 && <FlaskConical className="w-6 h-6 text-white" />}
+                {i === 3 && <Award className="w-6 h-6 text-white" />}
+                {i === 4 && <Layers className="w-6 h-6 text-white" />}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-[#2D4A32] text-sm leading-snug">{isAr ? adm.ar : adm.en}</p>
-                {!isAr && <p className="text-xs text-[#3D3D3D]/60 mt-1">{adm.ar}</p>}
-                <p className="text-[10px] text-emerald-600 font-semibold mt-2 flex items-center gap-1">
+                <p className="font-bold text-white text-base leading-snug">{isAr ? adm.ar : adm.en}</p>
+                {!isAr && <p className="text-sm mt-1" style={{ color: 'rgba(255,255,255,0.70)' }}>{adm.ar}</p>}
+                <p className="text-xs font-semibold mt-3 flex items-center gap-1 transition-all duration-200 group-hover:gap-2"
+                  style={{ color: 'rgba(255,255,255,0.85)' }}>
                   {isAr ? 'اضغط لمزيد من التفاصيل' : 'Click for details'}
-                  <ChevronRight className="w-3 h-3" />
+                  <ChevronRight className="w-3.5 h-3.5" />
                 </p>
               </div>
             </div>
           ))}
         </div>
+      </div>
       </div>
 
       {/* PVPO Historical Note + Variety Registration Committee Clarification */}
