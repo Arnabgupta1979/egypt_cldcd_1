@@ -226,7 +226,6 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
       {/* Stats Strip, Quick-access cards, and About CASC Teaser removed per CASC feedback — May 2026 */}
 
     </div>
-    </div>
   );
 };
 
@@ -501,55 +500,62 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
             {/* PDF Download Button */}
             <button
               onClick={() => {
-                const logoUrl = `${window.location.origin}${import.meta.env.BASE_URL}CASC-logo.png`;
                 const v = selectedVariety;
-                const isExpired = v.expiryDate && new Date(v.expiryDate) < new Date();
-                const html = `<!DOCTYPE html>
-<html dir="ltr" lang="en">
-<head>
-<meta charset="UTF-8"/>
-<title>Variety Record — ${v.nameEn || v.nameAr}</title>
-<style>
-  body { font-family: Arial, sans-serif; margin: 0; padding: 40px; color: #1f3d2f; }
-  .header { display: flex; align-items: center; gap: 18px; border-bottom: 2px solid #638C6D; padding-bottom: 16px; margin-bottom: 24px; }
-  .header img { height: 64px; }
-  .org { display: flex; flex-direction: column; }
-  .org-name { font-size: 15px; font-weight: bold; color: #1f3d2f; }
-  .org-sub { font-size: 11px; color: #5a7a62; margin-top: 2px; }
-  .org-addr { font-size: 10px; color: #888; margin-top: 2px; }
-  h2 { font-size: 20px; margin: 0 0 4px 0; }
-  .category { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #638C6D; margin-bottom: 8px; }
-  table { width: 100%; border-collapse: collapse; margin-top: 16px; }
-  td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid #f0ead8; }
-  td:first-child { color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; width: 40%; }
-  td:last-child { font-weight: 500; }
-  .expired { color: #c0392b; }
-  .disclaimer { margin-top: 24px; font-size: 10px; color: #888; border-top: 1px solid #e8e0cc; padding-top: 12px; }
-</style>
-</head>
-<body>
-<div class="header">
-  <img src="${logoUrl}" alt="CASC Logo" onerror="this.style.display='none'"/>
-  <div class="org">
-    <span class="org-name">Central Administration for Seed Testing and Certification (CASC)</span>
-    <span class="org-sub">Ministry of Agriculture and Land Reclamation — Arab Republic of Egypt</span>
-    <span class="org-addr">8 Gamaa Street, Giza, Egypt &nbsp;|&nbsp; casc.egypt@hotmail.com</span>
-  </div>
-</div>
-<div class="category">${v.category}</div>
-<h2>${v.nameEn || v.nameAr}</h2>
-${v.nameAr && v.nameEn ? `<div style="color:#638C6D;font-size:14px;margin-bottom:8px;">${v.nameAr}</div>` : ''}
-<table>
-  <tr><td>Crop</td><td>${v.cropEn}${v.cropAr ? ' — ' + v.cropAr : ''}</td></tr>
-  <tr><td>Variety Name (English)</td><td>${v.nameEn || '—'}</td></tr>
-  <tr><td>Variety Name (Arabic)</td><td>${v.nameAr || '—'}</td></tr>
-  <tr><td>Applicant / Registrant</td><td>${v.applicant || '—'}</td></tr>
-  <tr><td>Ministerial Decree No. &amp; Date</td><td>${v.decree || '—'}</td></tr>
-  <tr><td>Registration Expiry Date</td><td class="${isExpired ? 'expired' : ''}">${v.expiryDate || '—'}${isExpired ? ' (Expired)' : ''}</td></tr>
-  <tr><td>Notes</td><td>${v.notes || '—'}</td></tr>
-</table>
-<div class="disclaimer">Source: Crop Registration Committee — Ministry of Agriculture and Land Reclamation. This record is extracted from the National Registered Variety List. For verification or enquiries, contact the Technical Secretariat of the Seed Registration Committee at casc.egypt@hotmail.com. Printed: ${new Date().toLocaleDateString('en-GB')}.</div>
-</body></html>`;
+                const logoUrl = window.location.origin + import.meta.env.BASE_URL + 'CASC-logo.png';
+                const na = 'N/A';
+                const dash = ' / ';
+                const isExpired = v.expiryDate ? new Date(v.expiryDate) < new Date() : false;
+                const expiredLabel = isExpired ? ' (Expired)' : '';
+                const arabicSub = v.nameAr && v.nameEn
+                  ? '<div style="color:#638C6D;font-size:14px;margin-bottom:8px;">' + v.nameAr + '</div>'
+                  : '';
+                const cropCell = v.cropEn + (v.cropAr ? dash + v.cropAr : '');
+                const printDate = new Date().toLocaleDateString('en-GB');
+                const parts = [
+                  '<!DOCTYPE html><html dir="ltr" lang="en"><head><meta charset="UTF-8"/>',
+                  '<title>Variety Record - ' + (v.nameEn || v.nameAr) + '</title>',
+                  '<style>',
+                  'body{font-family:Arial,sans-serif;margin:0;padding:40px;color:#1f3d2f;}',
+                  '.hdr{display:flex;align-items:center;gap:18px;border-bottom:2px solid #638C6D;padding-bottom:16px;margin-bottom:24px;}',
+                  '.hdr img{height:64px;}',
+                  '.org{display:flex;flex-direction:column;}',
+                  '.on{font-size:15px;font-weight:bold;color:#1f3d2f;}',
+                  '.os{font-size:11px;color:#5a7a62;margin-top:2px;}',
+                  '.oa{font-size:10px;color:#888;margin-top:2px;}',
+                  'h2{font-size:20px;margin:0 0 4px 0;}',
+                  '.cat{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#638C6D;margin-bottom:8px;}',
+                  'table{width:100%;border-collapse:collapse;margin-top:16px;}',
+                  'td{padding:10px 12px;font-size:13px;border-bottom:1px solid #f0ead8;}',
+                  'td:first-child{color:#888;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;width:40%;}',
+                  'td:last-child{font-weight:500;}',
+                  '.exp{color:#c0392b;}',
+                  '.disc{margin-top:24px;font-size:10px;color:#888;border-top:1px solid #e8e0cc;padding-top:12px;}',
+                  '</style></head><body>',
+                  '<div class="hdr">',
+                  '<img src="' + logoUrl + '" alt="CASC" onerror="this.style.display=\'none\'"/>',
+                  '<div class="org">',
+                  '<span class="on">Central Administration for Seed Testing and Certification (CASC)</span>',
+                  '<span class="os">Ministry of Agriculture and Land Reclamation - Arab Republic of Egypt</span>',
+                  '<span class="oa">8 Gamaa Street, Giza, Egypt | casc.egypt@hotmail.com</span>',
+                  '</div></div>',
+                  '<div class="cat">' + v.category + '</div>',
+                  '<h2>' + (v.nameEn || v.nameAr) + '</h2>',
+                  arabicSub,
+                  '<table>',
+                  '<tr><td>Crop</td><td>' + cropCell + '</td></tr>',
+                  '<tr><td>Variety Name (English)</td><td>' + (v.nameEn || na) + '</td></tr>',
+                  '<tr><td>Variety Name (Arabic)</td><td>' + (v.nameAr || na) + '</td></tr>',
+                  '<tr><td>Applicant / Registrant</td><td>' + (v.applicant || na) + '</td></tr>',
+                  '<tr><td>Ministerial Decree No. and Date</td><td>' + (v.decree || na) + '</td></tr>',
+                  '<tr><td>Registration Expiry Date</td><td class="' + (isExpired ? 'exp' : '') + '">' + (v.expiryDate || na) + expiredLabel + '</td></tr>',
+                  '<tr><td>Notes</td><td>' + (v.notes || na) + '</td></tr>',
+                  '</table>',
+                  '<div class="disc">Source: Crop Registration Committee, Ministry of Agriculture and Land Reclamation. ',
+                  'Extracted from the National Registered Variety List. ',
+                  'For enquiries: casc.egypt@hotmail.com. Printed: ' + printDate + '.</div>',
+                  '</body></html>',
+                ];
+                const html = parts.join('');
                 const w = window.open('', '_blank');
                 if (w) { w.document.write(html); w.document.close(); w.print(); }
               }}
