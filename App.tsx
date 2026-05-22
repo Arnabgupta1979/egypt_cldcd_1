@@ -76,7 +76,7 @@ const Navbar: React.FC<{
   const navItems = [
     { id: 'home', label: isAr ? 'الرئيسية' : 'Home', icon: Home },
     { id: 'about', label: isAr ? 'عن CASC' : 'About CASC', icon: Info },
-    { id: 'journeys', label: isAr ? 'رحلتي' : 'My Journey', icon: ArrowRight },
+    { id: 'services', label: isAr ? 'خدمات CASC' : 'CASC Services', icon: Layers },
     { id: 'library', label: isAr ? 'المكتبة' : 'Library', icon: FileText },
     { id: 'catalogue', label: isAr ? 'الكتالوج' : 'Catalogue', icon: BookOpen },
     { id: 'directory', label: isAr ? 'الدليل' : 'Directory', icon: MapPin },
@@ -950,15 +950,9 @@ const ContactView: React.FC<{ lang: Language }> = ({ lang }) => {
 };
 
 // --- View: About CASC ---
-const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoContact: () => void }> = ({ lang, onStartJourney, onGoContact }) => {
+const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoContact: () => void, onGoServices: () => void }> = ({ lang, onStartJourney, onGoContact, onGoServices }) => {
   const isAr = lang === 'ar';
-  const [activeService, setActiveService] = useState<number | null>(null);
-  const [adminModal, setAdminModal] = useState<null | {
-    en: string; ar: string;
-    bodyEn: string; bodyAr: string;
-    pointsEn: string[]; pointsAr: string[];
-    note?: { en: string; ar: string };
-  }>(null);
+  // activeService and adminModal states removed — content is now inline (no popups)
 
   const adminWiki = [
     {
@@ -1055,6 +1049,288 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
     },
   ];
 
+
+  const contactPoints = [
+    { label: { en: 'Head Office', ar: 'المقر الرئيسي' }, value: { en: '8 Gamaa Street, Giza, Arab Republic of Egypt', ar: '8 شارع الجامعة، الجيزة، جمهورية مصر العربية' }, icon: MapPin },
+    { label: { en: 'Email', ar: 'البريد الإلكتروني' }, value: { en: 'casc.egypt@hotmail.com', ar: 'casc.egypt@hotmail.com' }, icon: Mail },
+    { label: { en: 'Working Hours', ar: 'ساعات العمل' }, value: { en: 'Sun – Thu: 8:30 AM – 3:00 PM (public services counter)', ar: 'الأحد – الخميس: 8:30 صباحاً – 3:00 مساءً (نافذة خدمة الجمهور)' }, icon: Clock },
+  ];
+
+  return (
+    <div className="animate-fade-in">
+
+      {/* Hero */}
+      <div className="relative bg-emerald-950 text-white py-20 px-4 border-b border-orange-400/30 overflow-hidden">
+  {/* Seed store background image */}
+  <div
+    className="absolute inset-0 bg-cover bg-center scale-105"
+    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}Seed_store.png)` }}
+  />
+  {/* Darker tint — 90% opacity for better legibility */}
+  <div className="absolute inset-0 bg-emerald-950/90" />
+  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(218,216,135,0.06),transparent_70%)] pointer-events-none"></div>
+        <div className="relative max-w-4xl mx-auto text-center space-y-6">
+          <img
+            src={`${import.meta.env.BASE_URL}CASC-logo.png`}
+            alt={isAr ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
+            className="h-24 w-auto mx-auto bg-white rounded-md p-2 shadow-2xl ring-1 ring-orange-400/40"
+          />
+          {/* Dark legibility box behind text */}
+          <div className="bg-emerald-950/70 backdrop-blur-sm rounded-2xl px-8 py-8 mx-auto">
+          <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
+            {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing and Certification'}
+          </h1>
+          <div className="flex items-center justify-center gap-3 mt-4">
+            <div className="h-px w-10 bg-orange-400/60"></div>
+            <svg className="w-3 h-3 text-orange-400" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z"/></svg>
+            <div className="h-px w-10 bg-orange-400/60"></div>
+          </div>
+          <p className="italic text-amber-200/90 text-lg mt-4">
+            {isAr ? 'وزارة الزراعة واستصلاح الأراضي — جمهورية مصر العربية' : 'Ministry of Agriculture & Land Reclamation — Arab Republic of Egypt'}
+          </p>
+          <p className="text-emerald-100/90 max-w-2xl mx-auto leading-relaxed text-sm mt-4">
+            {isAr
+              ? 'الإدارة المركزية لفحص واعتماد البذور إحدى الإدارات المركزية الهامة ضمن قطاع الإنتاج في وزارة الزراعة واستصلاح الأراضي. وهي هيئة حكومية رسمية محايدة لا تقوم بتطوير أو تربية أو إنتاج أو تسويق أو بيع أو تخزين التقاوي. وهي الجهة المفوضة من وزارة الزراعة للقيام بجميع المهام التي تتطلب الحياد في هذا المجال، بما في ذلك تسجيل التقاوي وفحصها واختبارها واعتمادها ومراقبتها. لدى الادارة هيكل تنظيمي قوي يضم ادارات عامة تخدم جميع الانشطة المتعلقة بالتقاوي، بالإضافة إلى معمل مركزي لفحص التقاوي معتمد من قِبل المنظمة الدولية لفحص البذور (ISTA)، وتعمل وفقاً لنظام شامل لضمان الجودة، كما تمتلك 12 محطة فحص موزعة على مختلف المحافظات.'
+              : 'The Central Administration for Seed Testing and Certification is one of the important central administrations within the Production Sector of the Ministry of Agriculture and Land Reclamation. It is a neutral, official government body that does not develop, breed, produce, market, sell, or store seeds. It is authorized by the Ministry of Agriculture to carry out all tasks requiring neutrality in this field, including seed registration, inspection, testing, certification, and monitoring. CASC has a strong organizational structure as it includes several general administrations serving all seed-related activities. In addition, the Central Seed Testing Laboratory is an accredited member of the International Seed Testing Organization (ISTA) and operates according to a comprehensive Quality Assurance System, in addition to 12 lab testing stations all over the governorates.'}
+          </p>
+          </div>
+        </div>
+      </div>
+
+      {/* CASC Goal & Five General Administrations */}
+      <div className="py-16" style={{ backgroundColor: '#f0f7f0' }}>
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold mb-4">
+            <Target className="w-3 h-3" />
+            {isAr ? 'هدف الإدارة المركزية' : "CASC's Goal"}
+          </div>
+          <h2 className="text-3xl font-semibold text-[#2D4A32] mb-3">
+            {isAr ? 'ضمان جودة عالية للتقاوي' : 'Assuring High Quality Seeds'}
+          </h2>
+          <p className="text-[#3D3D3D] text-sm max-w-2xl mx-auto">
+            {isAr
+              ? 'يتحقق ذلك من خلال خمس إدارات عامة رئيسية:'
+              : 'This is achieved through 5 main important administrations:'}
+          </p>
+        </div>
+        <div className="space-y-4">
+          {adminWiki.map((adm, i) => (
+            <div
+              key={i}
+              className="rounded-2xl overflow-hidden shadow-md"
+              style={{ backgroundColor: '#2D6B2D' }}
+            >
+              {/* Strip header row */}
+              <div className="flex items-center gap-5 px-6 py-5">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.18)' }}>
+                  {i === 0 && <Shield className="w-6 h-6 text-white" />}
+                  {i === 1 && <BookOpen className="w-6 h-6 text-white" />}
+                  {i === 2 && <FlaskConical className="w-6 h-6 text-white" />}
+                  {i === 3 && <Award className="w-6 h-6 text-white" />}
+                  {i === 4 && <Layers className="w-6 h-6 text-white" />}
+                </div>
+                <div>
+                  <p className="font-bold text-white text-base leading-snug">{isAr ? adm.ar : adm.en}</p>
+                  {!isAr && <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.65)' }}>{adm.ar}</p>}
+                </div>
+              </div>
+              {/* Inline content — no popup */}
+              <div className="bg-white/[0.06] border-t border-white/10 px-6 py-5 space-y-4">
+                <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.88)' }}>
+                  {isAr ? adm.bodyAr : adm.bodyEn}
+                </p>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(231,251,180,0.85)' }}>
+                    {isAr ? 'الأقسام الفرعية والوظائف الرئيسية' : 'Sub-units & Key Functions'}
+                  </p>
+                  <ul className="space-y-1.5">
+                    {(isAr ? adm.pointsAr : adm.pointsEn).map((pt, j) => (
+                      <li key={j} className="flex items-start gap-2 text-sm" style={{ color: 'rgba(255,255,255,0.82)' }}>
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E7FBB4] shrink-0"></span>
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {adm.note && (
+                  <div className="bg-amber-50/10 border border-amber-100/20 rounded-xl p-4 flex gap-2 items-start">
+                    <Info className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
+                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
+                      {isAr ? adm.note.ar : adm.note.en}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      </div>
+
+      {/* PVPO Historical Note + Variety Registration Committee Clarification */}
+      <div className="max-w-6xl mx-auto px-4 pb-4 space-y-4">
+        {/* PVPO Note */}
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 flex gap-4 items-start">
+          <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-semibold text-amber-900 mb-1">
+              {isAr ? 'ملاحظة: مكتب حماية أصناف النباتات (PVPO)' : 'Note: Plant Variety Protection Office (PVPO)'}
+            </p>
+            <p className="text-xs text-amber-800 leading-relaxed">
+              {isAr
+                ? 'ضمت الادارة المركزية لفحص واعتماد التقاوي مكتب حماية أصناف النباتات منذ 2003 حتى عام 2025، حيث تم إنشاؤه بموجب قرار رئيس الوزراء رقم (492) لسنة 2003 والقرار الوزاري رقم 2341 لسنة 2003 (استناداً إلى قانون حماية الملكية الفكرية رقم 82 لسنة 2002، الفصل الرابع). وشهدت الادارة انضمام مصر للاتحاد الدولي لحماية الاصناف النباتية الجديدة في ديسمبر 2019. وقد تم نقل المكتب مؤخراً إلى هيئة مستقلة للملكية الفكرية تُسمى الجهاز المصري للملكية الفكرية منذ مارس 2025. أهم ما يربط CASC بالجهاز المصري للملكية الفكرية الآن هو أن CASC تضطلع بإجراء اختبار DUS المطلوب لحماية الأصناف النباتية.'
+                : "CASC included the Plant Variety Protection Office (PVPO) from 2003 until 2025, established by Prime Minister Decision No. 492 of 2003 and Ministerial Decree No. 2341 of 2003 (based on the Intellectual Property Protection Law No. 82 of 2002, Chapter Four). CASC witnessed Egypt's accession to the International Union for the Protection of New Varieties of Plants (UPOV) in December 2019. The office was recently transferred to an independent intellectual property authority named the Egyptian Intellectual Property Authority (EGIPA) in March 2025. The most important connection (cooperation) between CASC and EGIPA now is that CASC is carrying the DUS Test that is required for variety protection."}
+            </p>
+          </div>
+        </div>
+        {/* Variety Registration Committee Clarification */}
+        <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 flex gap-4 items-start">
+          <Info className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-semibold text-emerald-900 mb-1">
+              {isAr ? 'ملاحظة: لجنة تسجيل الحاصلات الزراعية' : 'Note: Agricultural Crops Registration Committee'}
+            </p>
+            <p className="text-xs text-emerald-800 leading-relaxed">
+              {isAr
+                ? 'لجنة تسجيل الحاصلات الزراعية هي اللجنة الوحيدة بجمهورية مصر العربية المفوضة من وزارة الزراعة بالقيام بتسجيل أصناف الحاصلات الزراعية. ويحق لكل شخص طبيعي أو معنوي التقدم لتسجيل الأصناف النباتية. وتعمل لجنة التسجيل وفقاً لقانون الزراعة رقم 53 لعام 1966 والقرارات الوزارية المنظمة للعمل. تتبع لجنة تسجيل الأصناف وزارة الزراعة واستصلاح الأراضي، ويفوض رئيس اللجنة بتشكيل الأمانة الفنية للجنة والتي تقوم بالفحص الفني والإداري لطلبات التسجيل المقدمة.'
+                : 'The Agricultural Crops Registration Committee is the only committee in the Arab Republic of Egypt authorized by the Ministry of Agriculture to register agricultural crop varieties. Any natural or legal person may apply to register plant varieties. The Registration Committee operates in accordance with Agriculture Law No. 53 of 1966 and the ministerial decrees regulating its work. The Variety Registration Committee is directly under the Ministry of Agriculture and Land Reclamation. The Head of the Registration Committee is authorized to form the Committee\'s Technical Secretariat, which conducts the technical and administrative review of submitted registration applications.'}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Legal Mandate */}
+      <div className="bg-amber-50 border-t border-b border-amber-100 py-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center gap-3 mb-6">
+            <FileText className="w-6 h-6 text-emerald-600" />
+            <h3 className="text-2xl font-semibold text-[#2D4A32]">{isAr ? 'الأساس القانوني' : 'Legal Mandate'}</h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { ref: 'Law 94 / 1976', title: { en: 'Seed Law', ar: 'قانون التقاوي' }, desc: { en: 'The primary legal framework governing seed production, marketing, and quality control in Egypt. Forms the constitutional basis for all CASC operations.', ar: 'الإطار القانوني الرئيسي الذي يحكم إنتاج وتسويق ومراقبة جودة التقاوي في مصر. يشكّل الأساس الدستوري لجميع عمليات CASC.' } },
+              { ref: 'Min. Decree 2168 / 2008', title: { en: 'Executive Regulations', ar: 'اللائحة التنفيذية' }, desc: { en: 'Detailed executive regulations for Law 94/1976 covering certification procedures, laboratory accreditation, and penalty provisions.', ar: 'اللوائح التنفيذية التفصيلية للقانون 94/1976 التي تغطي إجراءات التصديق واعتماد المختبرات وأحكام العقوبات.' } },
+              { ref: 'UPOV 1991 / COMESA', title: { en: 'International Commitments', ar: 'الالتزامات الدولية' }, desc: { en: 'Egypt\'s treaty obligations through UPOV 1991 accession (plant variety protection), COMESA seed trade harmonisation, and OECD seed schemes.', ar: 'التزامات مصر بموجب انضمامها لـ UPOV 1991 (حماية الأصناف)، وتنسيق تجارة التقاوي في الكوميسا، ومخططات OECD للتقاوي.' } },
+            ].map((item, i) => (
+              <div key={i} className="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
+                <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded uppercase tracking-wider">{item.ref}</span>
+                <h4 className="font-bold text-[#2D4A32] mt-3 mb-2">{item.title[lang]}</h4>
+                <p className="text-[#3D3D3D] text-xs leading-relaxed">{item.desc[lang]}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* CASC Services CTA — links to the dedicated Services page */}
+      <div className="max-w-6xl mx-auto px-4 py-16">
+        <div className="bg-[#2D6B2D] rounded-3xl overflow-hidden shadow-xl flex flex-col md:flex-row items-center gap-8 px-10 py-12">
+          <div className="flex-1 text-white space-y-4">
+            <div className="inline-flex items-center gap-2 bg-white/15 text-white px-3 py-1 rounded-full text-xs font-bold">
+              <Layers className="w-3 h-3" />
+              {isAr ? 'خدمات CASC' : 'CASC Services'}
+            </div>
+            <h2 className="text-3xl font-semibold leading-tight">
+              {isAr ? 'ماذا تفعل CASC؟' : 'What Does CASC Do?'}
+            </h2>
+            <p className="text-emerald-100 text-sm leading-relaxed max-w-lg">
+              {isAr
+                ? 'تقدم CASC طيفاً شاملاً من الخدمات التنظيمية التي تغطي دورة حياة التقاوي بالكامل من الإنتاج حتى السوق.'
+                : 'CASC delivers a comprehensive range of regulatory services covering the full seed lifecycle from production through to market — including seed import and export, testing, certification, variety registration, and trade and production licensing.'}
+            </p>
+          </div>
+          <div className="shrink-0">
+            <button
+              onClick={onGoServices}
+              className="bg-[#DF6D2D] hover:bg-[#C84C05] text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg inline-flex items-center gap-3 text-base"
+            >
+              {isAr ? 'استعرض خدمات CASC' : 'View All CASC Services'}
+              <ArrowRight className={`w-5 h-5 ${isAr ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* Stakeholder Journey CTA */}
+      <div className="bg-emerald-900 text-white py-12 px-4">
+        <div className="max-w-3xl mx-auto text-center space-y-5">
+          <Users className="w-10 h-10 text-orange-400 mx-auto" />
+          <h3 className="text-2xl font-semibold">
+            {isAr ? 'هل أنت مزارع، مستورد، أو منتج تقاوي؟' : 'Are you a Farmer, Importer, or Seed Producer?'}
+          </h3>
+          <p className="text-emerald-200 text-sm leading-relaxed">
+            {isAr
+              ? 'استخدم رحلة المعنيين المخصصة للوصول إلى المعلومات التنظيمية ذات الصلة بوضعك بالتحديد.'
+              : 'Use our tailored Stakeholder Journey to access the regulatory information most relevant to your specific situation.'}
+          </p>
+          <button
+            onClick={onStartJourney}
+            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg inline-flex items-center gap-2"
+          >
+            {isAr ? 'ابدأ رحلتك الآن' : 'Start Your Journey Now'}
+            <ArrowRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
+          </button>
+        </div>
+      </div>
+
+      {/* Contact */}
+      <div className="max-w-6xl mx-auto px-4 py-16">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-semibold text-[#2D4A32]">{isAr ? 'تواصل مع CASC' : 'Contact CASC'}</h2>
+          <p className="text-[#3D3D3D] mt-2 text-sm">
+            {isAr ? 'مكاتبنا مفتوحة للجمهور خلال أيام الأسبوع.' : 'Our offices are open to the public on working days.'}
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          <div className="bg-white p-8 rounded-3xl border border-amber-100 shadow-sm space-y-6">
+            {contactPoints.map((cp, i) => (
+              <div key={i} className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0">
+                  <cp.icon className="w-5 h-5 text-emerald-700" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-semibold text-[#3D3D3D]/70 uppercase tracking-widest mb-0.5">{cp.label[lang]}</p>
+                  <p className="text-sm text-[#3D3D3D] font-semibold leading-relaxed">{cp.value[lang]}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="bg-emerald-50 p-8 rounded-3xl border border-emerald-100 space-y-6">
+            <h4 className="font-semibold text-emerald-900 text-lg">{isAr ? 'الأقسام الرئيسية في CASC / CASP' : 'Main CASC / CASP Departments'}</h4>
+            {[
+              { dept: { en: 'Seed Registration Committee — Technical Secretariat', ar: 'لجنة تسجيل الأصناف — الأمانة الفنية' }, contact: 'casc.egypt@hotmail.com' },
+              { dept: { en: 'Import / Export Permits (Seed Committee)', ar: 'تصاريح الاستيراد والتصدير — لجنة التقاوي' }, contact: 'casc.egypt@hotmail.com' },
+              { dept: { en: 'Central Seed Testing Laboratory (ISTA)', ar: 'المختبر المركزي لفحص التقاوي (ISTA)' }, contact: 'casc.egypt@hotmail.com' },
+              { dept: { en: 'Field Inspection & Certification', ar: 'التفتيش الحقلي والاعتماد' }, contact: 'casc.egypt@hotmail.com' },
+              { dept: { en: 'PVPO / EGIPA (Plant Variety Protection)', ar: 'الجهاز المصري للملكية الفكرية (EGIPA) — حماية أصناف النباتات' }, contact: 'http://www.egypo.gov.eg' },
+            ].map((d, i) => (
+              <div key={i} className="flex items-center justify-between py-3 border-b border-emerald-100 last:border-0">
+                <span className="text-sm font-bold text-emerald-900">{d.dept[lang]}</span>
+                <span className="text-xs text-emerald-600 font-mono">{d.contact}</span>
+              </div>
+            ))}
+            <button
+              onClick={onGoContact}
+              className="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 rounded-xl transition-all mt-2 flex items-center justify-center gap-2"
+            >
+              <Mail className="w-4 h-4" />
+              {isAr ? 'إرسال استفسار رسمي' : 'Send Official Enquiry'}
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  );
+};
+
+// --- View: CASC Services ---
+
+const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => void }> = ({ lang, onNavigateToDoc }) => {
+  const isAr = lang === 'ar';
+  const [activeService, setActiveService] = useState<number | null>(null);
+
   const services = [
     {
       icon: Globe,
@@ -1115,7 +1391,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
     {
       icon: Shield,
       image: 'Variety_registration.png',
-      title: { en: 'Field Inspection', ar: 'الإدارة العامة للتفتيش الحقلي' },
+      title: { en: 'Field Inspection', ar: 'التفتيش الحقلي' },
       points: {
         en: [
           'Field inspection is the first step in seed production certification',
@@ -1231,230 +1507,30 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
     },
   ];
 
-  const contactPoints = [
-    { label: { en: 'Head Office', ar: 'المقر الرئيسي' }, value: { en: '8 Gamaa Street, Giza, Arab Republic of Egypt', ar: '8 شارع الجامعة، الجيزة، جمهورية مصر العربية' }, icon: MapPin },
-    { label: { en: 'Email', ar: 'البريد الإلكتروني' }, value: { en: 'casc.egypt@hotmail.com', ar: 'casc.egypt@hotmail.com' }, icon: Mail },
-    { label: { en: 'Working Hours', ar: 'ساعات العمل' }, value: { en: 'Sun – Thu: 8:30 AM – 3:00 PM (public services counter)', ar: 'الأحد – الخميس: 8:30 صباحاً – 3:00 مساءً (نافذة خدمة الجمهور)' }, icon: Clock },
-  ];
-
   return (
     <div className="animate-fade-in">
-
       {/* Hero */}
-      <div className="relative bg-emerald-950 text-white py-20 px-4 border-b border-orange-400/30 overflow-hidden">
-  {/* Seed store background image */}
-  <div
-    className="absolute inset-0 bg-cover bg-center scale-105"
-    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}Seed_store.png)` }}
-  />
-  {/* Darker tint — 90% opacity for better legibility */}
-  <div className="absolute inset-0 bg-emerald-950/90" />
-  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(218,216,135,0.06),transparent_70%)] pointer-events-none"></div>
-        <div className="relative max-w-4xl mx-auto text-center space-y-6">
-          <img
-            src={`${import.meta.env.BASE_URL}CASC-logo.png`}
-            alt={isAr ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
-            className="h-24 w-auto mx-auto bg-white rounded-md p-2 shadow-2xl ring-1 ring-orange-400/40"
-          />
-          {/* Dark legibility box behind text */}
-          <div className="bg-emerald-950/70 backdrop-blur-sm rounded-2xl px-8 py-8 mx-auto">
-          <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
-            {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'Central Administration for Seed Testing and Certification'}
-          </h1>
-          <div className="flex items-center justify-center gap-3 mt-4">
-            <div className="h-px w-10 bg-orange-400/60"></div>
-            <svg className="w-3 h-3 text-orange-400" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z"/></svg>
-            <div className="h-px w-10 bg-orange-400/60"></div>
-          </div>
-          <p className="italic text-amber-200/90 text-lg mt-4">
-            {isAr ? 'وزارة الزراعة واستصلاح الأراضي — جمهورية مصر العربية' : 'Ministry of Agriculture & Land Reclamation — Arab Republic of Egypt'}
-          </p>
-          <p className="text-emerald-100/90 max-w-2xl mx-auto leading-relaxed text-sm mt-4">
-            {isAr
-              ? 'الإدارة المركزية لفحص واعتماد البذور إحدى الإدارات المركزية الهامة ضمن قطاع الإنتاج في وزارة الزراعة واستصلاح الأراضي. وهي هيئة حكومية رسمية محايدة لا تقوم بتطوير أو تربية أو إنتاج أو تسويق أو بيع أو تخزين التقاوي. وهي الجهة المفوضة من وزارة الزراعة للقيام بجميع المهام التي تتطلب الحياد في هذا المجال، بما في ذلك تسجيل التقاوي وفحصها واختبارها واعتمادها ومراقبتها. لدى الادارة هيكل تنظيمي قوي يضم ادارات عامة تخدم جميع الانشطة المتعلقة بالتقاوي، بالإضافة إلى معمل مركزي لفحص التقاوي معتمد من قِبل المنظمة الدولية لفحص البذور (ISTA)، وتعمل وفقاً لنظام شامل لضمان الجودة، كما تمتلك 12 محطة فحص موزعة على مختلف المحافظات.'
-              : 'The Central Administration for Seed Testing and Certification is one of the important central administrations within the Production Sector of the Ministry of Agriculture and Land Reclamation. It is a neutral, official government body that does not develop, breed, produce, market, sell, or store seeds. It is authorized by the Ministry of Agriculture to carry out all tasks requiring neutrality in this field, including seed registration, inspection, testing, certification, and monitoring. CASC has a strong organizational structure as it includes several general administrations serving all seed-related activities. In addition, the Central Seed Testing Laboratory is an accredited member of the International Seed Testing Organization (ISTA) and operates according to a comprehensive Quality Assurance System, in addition to 12 lab testing stations all over the governorates.'}
-          </p>
-          </div>
-        </div>
-      </div>
-
-      {/* CASC Goal & Five General Administrations */}
-      <div className="py-16" style={{ backgroundColor: '#f0f7f0' }}>
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold mb-4">
-            <Target className="w-3 h-3" />
-            {isAr ? 'هدف الإدارة المركزية' : "CASC's Goal"}
-          </div>
-          <h2 className="text-3xl font-semibold text-[#2D4A32] mb-3">
-            {isAr ? 'ضمان جودة عالية للتقاوي' : 'Assuring High Quality Seeds'}
-          </h2>
-          <p className="text-[#3D3D3D] text-sm max-w-2xl mx-auto">
-            {isAr
-              ? 'يتحقق ذلك من خلال خمس إدارات عامة رئيسية:'
-              : 'This is achieved through 5 main important administrations:'}
-          </p>
-        </div>
-        {/* Admin Wiki Modal */}
-        {adminModal && ReactDOM.createPortal(
-          <div
-            className="fixed inset-0 z-[9999] bg-black/70 overflow-y-auto"
-            onClick={() => setAdminModal(null)}
-          >
-            <div className="min-h-full flex items-center justify-center p-4 py-8">
-            <div
-              className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full"
-              onClick={e => e.stopPropagation()}
-            >
-              {/* Header */}
-              <div className="bg-emerald-800 text-white px-6 py-5 rounded-t-2xl">
-                <button
-                  onClick={() => setAdminModal(null)}
-                  className="absolute top-4 right-4 text-white/70 hover:text-white text-lg font-bold leading-none"
-                >✕</button>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-300 mb-1">CASC</p>
-                <h3 className="text-lg font-semibold leading-snug pr-6">
-                  {isAr ? adminModal.ar : adminModal.en}
-                </h3>
-                {!isAr && <p className="text-emerald-300 text-xs mt-1">{adminModal.ar}</p>}
-              </div>
-              {/* Body */}
-              <div className="px-6 py-5 space-y-4">
-                <p className="text-sm text-[#3D3D3D] leading-relaxed">
-                  {isAr ? adminModal.bodyAr : adminModal.bodyEn}
-                </p>
-                <div>
-                  <p className="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-2">
-                    {isAr ? 'الأقسام الفرعية والوظائف الرئيسية' : 'Sub-units & Key Functions'}
-                  </p>
-                  <ul className="space-y-1.5">
-                    {(isAr ? adminModal.pointsAr : adminModal.pointsEn).map((pt, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-[#2D4A32]">
-                        <span className="mt-1 w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
-                        {pt}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                {adminModal.note && (
-                  <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 flex gap-2 items-start">
-                    <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                    <p className="text-xs text-amber-800 leading-relaxed">
-                      {isAr ? adminModal.note.ar : adminModal.note.en}
-                    </p>
-                  </div>
-                )}
-                <p className="text-[10px] text-[#3D3D3D]/50 pt-2 border-t border-amber-50">
-                  {isAr ? 'للاستفسار: casc.egypt@hotmail.com' : 'For enquiries: casc.egypt@hotmail.com'}
-                </p>
-              </div>
-            </div>
-            </div>
-          </div>,
-          document.body
-        )}
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {adminWiki.map((adm, i) => (
-            <div
-              key={i}
-              onClick={() => setAdminModal(adm)}
-              className="rounded-2xl p-6 flex items-start gap-4 cursor-pointer group transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl"
-              style={{ backgroundColor: '#2D6B2D', boxShadow: '0 4px 16px rgba(45,107,45,0.25)' }}
-            >
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110"
-                style={{ backgroundColor: 'rgba(255,255,255,0.18)' }}>
-                {i === 0 && <Shield className="w-6 h-6 text-white" />}
-                {i === 1 && <BookOpen className="w-6 h-6 text-white" />}
-                {i === 2 && <FlaskConical className="w-6 h-6 text-white" />}
-                {i === 3 && <Award className="w-6 h-6 text-white" />}
-                {i === 4 && <Layers className="w-6 h-6 text-white" />}
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-bold text-white text-base leading-snug">{isAr ? adm.ar : adm.en}</p>
-                {!isAr && <p className="text-sm mt-1" style={{ color: 'rgba(255,255,255,0.70)' }}>{adm.ar}</p>}
-                <p className="text-xs font-semibold mt-3 flex items-center gap-1 transition-all duration-200 group-hover:gap-2"
-                  style={{ color: 'rgba(255,255,255,0.85)' }}>
-                  {isAr ? 'اضغط لمزيد من التفاصيل' : 'Click for details'}
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      </div>
-
-      {/* PVPO Historical Note + Variety Registration Committee Clarification */}
-      <div className="max-w-6xl mx-auto px-4 pb-4 space-y-4">
-        {/* PVPO Note */}
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 flex gap-4 items-start">
-          <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm font-semibold text-amber-900 mb-1">
-              {isAr ? 'ملاحظة: مكتب حماية أصناف النباتات (PVPO)' : 'Note: Plant Variety Protection Office (PVPO)'}
-            </p>
-            <p className="text-xs text-amber-800 leading-relaxed">
-              {isAr
-                ? 'ضمت الادارة المركزية لفحص واعتماد التقاوي مكتب حماية أصناف النباتات منذ 2003 حتى عام 2025، حيث تم إنشاؤه بموجب قرار رئيس الوزراء رقم (492) لسنة 2003 والقرار الوزاري رقم 2341 لسنة 2003 (استناداً إلى قانون حماية الملكية الفكرية رقم 82 لسنة 2002، الفصل الرابع). وشهدت الادارة انضمام مصر للاتحاد الدولي لحماية الاصناف النباتية الجديدة في ديسمبر 2019. وقد تم نقل المكتب مؤخراً إلى هيئة مستقلة للملكية الفكرية تُسمى الجهاز المصري للملكية الفكرية منذ مارس 2025. أهم ما يربط CASC بالجهاز المصري للملكية الفكرية الآن هو أن CASC تضطلع بإجراء اختبار DUS المطلوب لحماية الأصناف النباتية.'
-                : "CASC included the Plant Variety Protection Office (PVPO) from 2003 until 2025, established by Prime Minister Decision No. 492 of 2003 and Ministerial Decree No. 2341 of 2003 (based on the Intellectual Property Protection Law No. 82 of 2002, Chapter Four). CASC witnessed Egypt's accession to the International Union for the Protection of New Varieties of Plants (UPOV) in December 2019. The office was recently transferred to an independent intellectual property authority named the Egyptian Intellectual Property Authority (EGIPA) in March 2025. The most important connection (cooperation) between CASC and EGIPA now is that CASC is carrying the DUS Test that is required for variety protection."}
-            </p>
-          </div>
-        </div>
-        {/* Variety Registration Committee Clarification */}
-        <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 flex gap-4 items-start">
-          <Info className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm font-semibold text-emerald-900 mb-1">
-              {isAr ? 'ملاحظة: لجنة تسجيل الحاصلات الزراعية' : 'Note: Agricultural Crops Registration Committee'}
-            </p>
-            <p className="text-xs text-emerald-800 leading-relaxed">
-              {isAr
-                ? 'لجنة تسجيل الحاصلات الزراعية هي اللجنة الوحيدة بجمهورية مصر العربية المفوضة من وزارة الزراعة بالقيام بتسجيل أصناف الحاصلات الزراعية. ويحق لكل شخص طبيعي أو معنوي التقدم لتسجيل الأصناف النباتية. وتعمل لجنة التسجيل وفقاً لقانون الزراعة رقم 53 لعام 1966 والقرارات الوزارية المنظمة للعمل. تتبع لجنة تسجيل الأصناف وزارة الزراعة واستصلاح الأراضي، ويفوض رئيس اللجنة بتشكيل الأمانة الفنية للجنة والتي تقوم بالفحص الفني والإداري لطلبات التسجيل المقدمة.'
-                : 'The Agricultural Crops Registration Committee is the only committee in the Arab Republic of Egypt authorized by the Ministry of Agriculture to register agricultural crop varieties. Any natural or legal person may apply to register plant varieties. The Registration Committee operates in accordance with Agriculture Law No. 53 of 1966 and the ministerial decrees regulating its work. The Variety Registration Committee is directly under the Ministry of Agriculture and Land Reclamation. The Head of the Registration Committee is authorized to form the Committee\'s Technical Secretariat, which conducts the technical and administrative review of submitted registration applications.'}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Legal Mandate */}
-      <div className="bg-amber-50 border-t border-b border-amber-100 py-12 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-3 mb-6">
-            <FileText className="w-6 h-6 text-emerald-600" />
-            <h3 className="text-2xl font-semibold text-[#2D4A32]">{isAr ? 'الأساس القانوني' : 'Legal Mandate'}</h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              { ref: 'Law 94 / 1976', title: { en: 'Seed Law', ar: 'قانون التقاوي' }, desc: { en: 'The primary legal framework governing seed production, marketing, and quality control in Egypt. Forms the constitutional basis for all CASC operations.', ar: 'الإطار القانوني الرئيسي الذي يحكم إنتاج وتسويق ومراقبة جودة التقاوي في مصر. يشكّل الأساس الدستوري لجميع عمليات CASC.' } },
-              { ref: 'Min. Decree 2168 / 2008', title: { en: 'Executive Regulations', ar: 'اللائحة التنفيذية' }, desc: { en: 'Detailed executive regulations for Law 94/1976 covering certification procedures, laboratory accreditation, and penalty provisions.', ar: 'اللوائح التنفيذية التفصيلية للقانون 94/1976 التي تغطي إجراءات التصديق واعتماد المختبرات وأحكام العقوبات.' } },
-              { ref: 'UPOV 1991 / COMESA', title: { en: 'International Commitments', ar: 'الالتزامات الدولية' }, desc: { en: 'Egypt\'s treaty obligations through UPOV 1991 accession (plant variety protection), COMESA seed trade harmonisation, and OECD seed schemes.', ar: 'التزامات مصر بموجب انضمامها لـ UPOV 1991 (حماية الأصناف)، وتنسيق تجارة التقاوي في الكوميسا، ومخططات OECD للتقاوي.' } },
-            ].map((item, i) => (
-              <div key={i} className="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
-                <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded uppercase tracking-wider">{item.ref}</span>
-                <h4 className="font-bold text-[#2D4A32] mt-3 mb-2">{item.title[lang]}</h4>
-                <p className="text-[#3D3D3D] text-xs leading-relaxed">{item.desc[lang]}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* What We Do — Services */}
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold mb-4">
+      <div className="relative bg-emerald-950 text-white py-14 px-4 border-b border-orange-400/30 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(218,216,135,0.07),transparent_60%)] pointer-events-none" />
+        <div className="relative max-w-4xl mx-auto text-center space-y-4">
+          <div className="inline-flex items-center gap-2 bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full text-xs font-bold border border-orange-500/30">
             <Layers className="w-3 h-3" />
-            {isAr ? 'خدماتنا' : 'Our Services'}
+            {isAr ? 'خدمات CASC' : 'CASC Services'}
           </div>
-          <h2 className="text-3xl font-semibold text-[#2D4A32]">{isAr ? 'ماذا تفعل CASC؟' : 'What Does CASC Do?'}</h2>
-          <p className="text-[#3D3D3D] mt-3 max-w-2xl mx-auto text-sm">
+          <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
+            {isAr ? 'ماذا تفعل CASC؟' : 'What Does CASC Do?'}
+          </h1>
+          <p className="text-emerald-200/80 text-sm max-w-2xl mx-auto leading-relaxed">
             {isAr
               ? 'تقدم CASC طيفاً شاملاً من الخدمات التنظيمية التي تغطي دورة حياة التقاوي بالكامل من الإنتاج حتى السوق.'
-              : 'CASC delivers a comprehensive range of regulatory services covering the full seed lifecycle from production through to market.'}
+              : 'CASC delivers a comprehensive range of regulatory services covering the full seed lifecycle — from production through to market. Select a service to view procedure details.'}
           </p>
         </div>
-        {/* Service Procedure Modal — shared across all service cards */}
+      </div>
+
+      {/* Service cards grid — square cards */}
+      <div className="max-w-6xl mx-auto px-4 py-14">
+        {/* Service Procedure Modal */}
         {activeService !== null && ReactDOM.createPortal(
           <div
             className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4"
@@ -1464,7 +1540,6 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
               className="relative max-w-2xl w-full max-h-[85vh] flex flex-col"
               onClick={e => e.stopPropagation()}
             >
-              {/* Close button */}
               <button
                 onClick={() => setActiveService(null)}
                 className="absolute -top-10 right-0 text-white text-sm font-semibold flex items-center gap-1 hover:text-orange-300 transition-colors"
@@ -1472,7 +1547,6 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
                 ✕ {isAr ? 'إغلاق' : 'Close'}
               </button>
               <div className="bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col">
-                {/* Modal header */}
                 <div className="bg-[#2D4A32] px-6 py-4 shrink-0">
                   <p className="text-xs font-bold text-[#E7FBB4] uppercase tracking-widest mb-1">
                     {isAr ? 'إجراءات الخدمة' : 'Service Procedure'}
@@ -1481,7 +1555,6 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
                     {services[activeService].title[lang]}
                   </h3>
                 </div>
-                {/* Modal body — scrollable */}
                 <div
                   className="px-6 py-5 overflow-y-auto text-sm text-[#3D3D3D] leading-relaxed"
                   dir={isAr ? 'rtl' : 'ltr'}
@@ -1495,7 +1568,6 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
                     ))}
                   </ul>
                 </div>
-                {/* Modal footer */}
                 <div className="px-6 py-3 bg-amber-50 border-t border-amber-100 shrink-0">
                   <p className="text-[11px] text-amber-700">
                     {isAr
@@ -1509,103 +1581,44 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           document.body
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {services.map((s, i) => (
             <div
               key={i}
               onClick={() => setActiveService(i)}
-              className="group relative overflow-hidden rounded-[32px] shadow-2xl min-h-[460px] cursor-pointer"
+              className="group relative overflow-hidden cursor-pointer rounded-2xl shadow-lg"
+              style={{ aspectRatio: '1 / 1' }}
             >
               {/* Background image */}
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                 style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${s.image})` }}
               />
-              {/* Gradient scrim */}
-              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/75 to-transparent" />
-              {/* Title strip — bottom only */}
-              <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-5">
-                <div className="rounded-xl bg-white/80 backdrop-blur-sm px-4 py-3 shadow-md flex items-center justify-between gap-2">
-                  <h4 className="text-sm font-semibold text-[#1f3d2f]">{s.title[lang]}</h4>
-                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full shrink-0">
-                    {isAr ? 'عرض التفاصيل' : 'View details'}
+              {/* Gradient scrim — bottom third */}
+              <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/80 to-transparent" />
+              {/* Title strip — bottom */}
+              <div className="absolute inset-x-0 bottom-0 z-10 px-3 pb-3">
+                <div className="bg-white/85 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center justify-between gap-1">
+                  <h4 className="text-xs font-semibold text-[#1f3d2f] leading-tight">{s.title[lang]}</h4>
+                  <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-full shrink-0 whitespace-nowrap">
+                    {isAr ? 'تفاصيل' : 'Details'}
                   </span>
                 </div>
               </div>
             </div>
           ))}
         </div>
-      </div>
 
-      {/* Stakeholder Journey CTA */}
-      <div className="bg-emerald-900 text-white py-12 px-4">
-        <div className="max-w-3xl mx-auto text-center space-y-5">
-          <Users className="w-10 h-10 text-orange-400 mx-auto" />
-          <h3 className="text-2xl font-semibold">
-            {isAr ? 'هل أنت مزارع، مستورد، أو منتج تقاوي؟' : 'Are you a Farmer, Importer, or Seed Producer?'}
-          </h3>
-          <p className="text-emerald-200 text-sm leading-relaxed">
+        {/* Disclaimer */}
+        <div className="mt-8 bg-amber-50 border border-amber-100 rounded-2xl p-5 flex gap-3 items-start">
+          <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+          <p className="text-xs text-amber-800 leading-relaxed">
             {isAr
-              ? 'استخدم رحلة المعنيين المخصصة للوصول إلى المعلومات التنظيمية ذات الصلة بوضعك بالتحديد.'
-              : 'Use our tailored Stakeholder Journey to access the regulatory information most relevant to your specific situation.'}
-          </p>
-          <button
-            onClick={onStartJourney}
-            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg inline-flex items-center gap-2"
-          >
-            {isAr ? 'ابدأ رحلتك الآن' : 'Start Your Journey Now'}
-            <ArrowRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
-          </button>
-        </div>
-      </div>
-
-      {/* Contact */}
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-semibold text-[#2D4A32]">{isAr ? 'تواصل مع CASC' : 'Contact CASC'}</h2>
-          <p className="text-[#3D3D3D] mt-2 text-sm">
-            {isAr ? 'مكاتبنا مفتوحة للجمهور خلال أيام الأسبوع.' : 'Our offices are open to the public on working days.'}
+              ? 'تعكس المعلومات الواردة في هذه الصفحة الإجراءات الرسمية المنشورة من قِبل CASC. لا تُعدّ هذه البوابة بديلاً عن النصوص القانونية الرسمية. للاستفسار: casc.egypt@hotmail.com'
+              : 'The information on this page reflects official procedures published by CASC. This portal does not replace official legal texts or regulatory authority. For enquiries: casc.egypt@hotmail.com'}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          <div className="bg-white p-8 rounded-3xl border border-amber-100 shadow-sm space-y-6">
-            {contactPoints.map((cp, i) => (
-              <div key={i} className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0">
-                  <cp.icon className="w-5 h-5 text-emerald-700" />
-                </div>
-                <div>
-                  <p className="text-[10px] font-semibold text-[#3D3D3D]/70 uppercase tracking-widest mb-0.5">{cp.label[lang]}</p>
-                  <p className="text-sm text-[#3D3D3D] font-semibold leading-relaxed">{cp.value[lang]}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="bg-emerald-50 p-8 rounded-3xl border border-emerald-100 space-y-6">
-            <h4 className="font-semibold text-emerald-900 text-lg">{isAr ? 'الأقسام الرئيسية في CASC / CASP' : 'Main CASC / CASP Departments'}</h4>
-            {[
-              { dept: { en: 'Seed Registration Committee — Technical Secretariat', ar: 'لجنة تسجيل الأصناف — الأمانة الفنية' }, contact: 'casc.egypt@hotmail.com' },
-              { dept: { en: 'Import / Export Permits (Seed Committee)', ar: 'تصاريح الاستيراد والتصدير — لجنة التقاوي' }, contact: 'casc.egypt@hotmail.com' },
-              { dept: { en: 'Central Seed Testing Laboratory (ISTA)', ar: 'المختبر المركزي لفحص التقاوي (ISTA)' }, contact: 'casc.egypt@hotmail.com' },
-              { dept: { en: 'Field Inspection & Certification', ar: 'التفتيش الحقلي والاعتماد' }, contact: 'casc.egypt@hotmail.com' },
-              { dept: { en: 'PVPO / EGIPA (Plant Variety Protection)', ar: 'الجهاز المصري للملكية الفكرية (EGIPA) — حماية أصناف النباتات' }, contact: 'http://www.egypo.gov.eg' },
-            ].map((d, i) => (
-              <div key={i} className="flex items-center justify-between py-3 border-b border-emerald-100 last:border-0">
-                <span className="text-sm font-bold text-emerald-900">{d.dept[lang]}</span>
-                <span className="text-xs text-emerald-600 font-mono">{d.contact}</span>
-              </div>
-            ))}
-            <button
-              onClick={onGoContact}
-              className="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 rounded-xl transition-all mt-2 flex items-center justify-center gap-2"
-            >
-              <Mail className="w-4 h-4" />
-              {isAr ? 'إرسال استفسار رسمي' : 'Send Official Enquiry'}
-            </button>
-          </div>
-        </div>
       </div>
-
     </div>
   );
 };
@@ -1955,10 +1968,12 @@ export default function App() {
             lang={lang}
             onStartJourney={() => setActiveTab('journeys')}
             onGoContact={() => setActiveTab('contact')}
+            onGoServices={() => setActiveTab('services')}
           />
         )}
         {activeTab === 'library' && <LibraryView lang={lang} initialDocId={selectedDocId} />}
         {activeTab === 'journeys' && <JourneyView lang={lang} onNavigateToDoc={navigateToDoc} />}
+        {activeTab === 'services' && <CASCServicesView lang={lang} onNavigateToDoc={navigateToDoc} />}
         {activeTab === 'catalogue' && <CatalogueView lang={lang} />}
         {activeTab === 'directory' && <DirectoryView lang={lang} />}
         {activeTab === 'contact' && <ContactView lang={lang} />}
@@ -1999,7 +2014,7 @@ export default function App() {
             <h4 className="text-orange-400 mb-6 uppercase tracking-widest text-[11px] font-semibold">{lang === 'ar' ? 'أقسام البوابة' : 'Portal Sections'}</h4>
             <ul className="text-sm space-y-3.5">
               <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('about')}>{lang === 'ar' ? 'عن CASC' : 'About CASC'}</li>
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('journeys')}>{lang === 'ar' ? 'رحلات المعنيين' : 'Stakeholder Journeys'}</li>
+              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('services')}>{lang === 'ar' ? 'خدمات CASC' : 'CASC Services'}</li>
               <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('library')}>{lang === 'ar' ? 'مكتبة التشريعات' : 'Legislation Library'}</li>
               <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('catalogue')}>{lang === 'ar' ? 'الكتالوج الوطني' : 'National Variety Catalogue'}</li>
               <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('directory')}>{lang === 'ar' ? 'دليل الجهات' : 'Authority Directory'}</li>
