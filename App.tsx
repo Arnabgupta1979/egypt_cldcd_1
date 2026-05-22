@@ -978,80 +978,110 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
         'إدارة التفتيش الحقلي على محاصيل الخضر',
         'إدارة التفتيش الحقلي على مراقبة الجودة',
       ],
-      note: { en: 'Required documents: valid production licence, application form, invoice for seed examination, original Form 3 from Certification Dept, contractors list, inspection notification, and payment of fees.', ar: 'المستندات المطلوبة: ترخيص إنتاج ساري، طلب باسم الشركة، فاتورة فحص للتقاوي، أصل استمارة 3 من قسم الاعتماد، كشف متعاقدين، إخطار فحص، سداد المصروفات.' },
     },
     {
       en: 'General Administration for Seed Development and Standards',
       ar: 'الإدارة العامة لتطوير التقاوي والمعايير',
-      bodyEn: 'This administration is responsible for developing and maintaining the technical standards that govern seed quality across all certification classes in Egypt. It sets the minimum quality thresholds for germination, purity, moisture content, and other key seed attributes in line with international standards.',
-      bodyAr: 'تتولى هذه الإدارة وضع المعايير الفنية التي تحكم جودة التقاوي عبر جميع فئات الاعتماد في مصر. وتحدد الحدود الدنيا لمعايير الإنبات والنقاء والرطوبة وغيرها من الخصائص الرئيسية للتقاوي وفقاً للمعايير الدولية.',
+      bodyEn: 'It is one of the departments responsible for developing plans, monitoring, and following up on the implementation of seed-related legislation at all stages, proposing necessary amendments, and preparing draft decisions required to enforce the provisions of the Seed Law or complementary regulations. It also reviews the implementation of approved legislation. Furthermore, through one of its sub-departments — the Variety Testing Department — it conducts plant variety evaluation tests, namely Distinctness, Uniformity, and Stability (DUS) tests, in preparation for registering these varieties in the registration list and for obtaining variety protection.',
+      bodyAr: 'هى احد الإدارات المسئولة عن وضع خطط ومراقبة ومتابعة تنفيذ التشريعات الخاصة بالتقاوى فى جميع المراحل واقتراح التعديلات اللازمة وإعداد مشروعات القرارات اللازمة لتنفيذ أحكام قانون التقاوى أو المكملة للقانون ومراجعة تنفيذ التشريعات التى تم إقرارها. كما تقوم من خلال احد إدارتها الفرعية وهى إدارة اختبارات الأصناف بإجراء اختبارات تقييم الصنف النباتى وهى اختبارات التميز والتجانس والثبات (DUS) تمهيداً لتسجيل هذه الأصناف في قائمة التسجيل وكذلك للحصول على حماية الصنف.',
       pointsEn: [
-        'Setting national seed quality standards',
-        'Developing certification class specifications',
-        'Alignment with ISTA and OECD international standards',
-        'Technical review of seed variety characteristics',
+        'Studies and Researches Management',
+        'Licensing Management',
+        'Variety Testing Management',
+        'Guidance and Training Management',
+        'Projects Management',
       ],
       pointsAr: [
-        'وضع معايير جودة التقاوي الوطنية',
-        'تطوير مواصفات فئات الاعتماد',
-        'التوافق مع معايير ISTA وOECD الدولية',
-        'المراجعة الفنية لخصائص أصناف التقاوي',
+        'إدارة الدراسات والبحوث',
+        'إدارة التراخيص',
+        'إدارة اختبارات الأصناف',
+        'إدارة الإرشاد والتدريب',
+        'إدارة المشروعات',
       ],
     },
     {
       en: 'General Administration for Seed Testing Affairs',
       ar: 'الإدارة العامة لشؤون فحص التقاوي',
-      bodyEn: 'This administration oversees the Central Seed Testing Laboratory — an accredited member of the International Seed Testing Association (ISTA) — and coordinates the network of 12 testing stations distributed across Egypt\'s governorates. It conducts official seed testing for import, export, and certification purposes.',
-      bodyAr: 'تشرف هذه الإدارة على المعمل المركزي لفحص التقاوي — العضو المعتمد في المنظمة الدولية لفحص البذور (ISTA) — وتنسق شبكة من 12 محطة فحص موزعة على محافظات مصر. وتجري الفحص الرسمي للتقاوي لأغراض الاستيراد والتصدير والاعتماد.',
+      bodyEn: 'It is the second stage of monitoring seed quality through 13 inspection stations distributed across different governorates. Its service role is to test seed samples received from various seed production entities — whether governmental bodies, seed production companies, imported seeds, or exported seeds — and to report the examination results to them.',
+      bodyAr: 'هي ثانى حلقات الرقابة على جودة التقاوى من خلال 13 محطة فحص موزعه على المحافظات المختلفة ودورها الخدمى هو فحص عينات التقاوى الواردة من جهات إنتاج التقاوى المختلفة سواء الحكومية أو شركات إنتاج التقاوى أو التقاوى المستوردة والتقاوى المصدرة وتبليغ نتائج الفحص لهم.',
       pointsEn: [
-        'Central Seed Testing Laboratory (ISTA-accredited)',
-        '12 testing stations across governorates',
-        'Testing for germination, purity, moisture content, and seed health',
-        'Official sampling for import and export procedures',
+        'The Central Laboratory',
+        'Cashney and Auditing Department',
+        'Seed Health Management',
+        'Seed Testing and Certification in Governorates',
       ],
       pointsAr: [
-        'المعمل المركزي لفحص التقاوي (معتمد من ISTA)',
-        '12 محطة فحص موزعة على المحافظات',
-        'فحص الإنبات والنقاء والرطوبة وصحة التقاوي',
-        'السحب الرسمي للعينات لإجراءات الاستيراد والتصدير',
+        'إدارة المعمل المركزى للتقاوى',
+        'إدارة الجاشنى والمراجعة',
+        'إدارة فحص أمراض التقاوى',
+        'إدارة فحص واعتماد التقاوى بالمحافظات',
       ],
     },
     {
       en: 'General Administration for Seed Certification',
       ar: 'الإدارة العامة لاعتماد التقاوي',
-      bodyEn: 'This administration manages Egypt\'s seed certification system across four official classes: Breeder, Foundation, Registered, and Certified. It issues seed certification tags and OECD certificates for eligible lots destined for domestic use or international export.',
-      bodyAr: 'تدير هذه الإدارة نظام اعتماد التقاوي في مصر عبر أربع فئات رسمية: تقاوي مربٍّ، وتقاوي أساس، وتقاوي مسجل، وتقاوي معتمد. وتصدر بطاقات اعتماد التقاوي وشهادات OECD للدفعات المؤهلة المخصصة للاستخدام المحلي أو التصدير الدولي.',
+      bodyEn: 'The cycle of monitoring seed production and circulation is completed through the work of the General Administration for Seed Certification. Its service role is to supervise the monitoring of seed circulation in trading locations in accordance with the relevant legislation, collect samples of seeds prepared for sale, imported or exported abroad, implement the decisions of the Agricultural Crops Seed Committee, and follow up on the implementation of licensing procedures for seed production and trading sites.',
+      bodyAr: 'تكتمل حلقات الرقابة على إنتاج وتداول التقاوى بعمل الإدارة العامة لاعتماد التقاوى ودورها الخدمي هو الإشراف على عملية مراقبة التداول فى أماكن التداول طبقاً للتشريعات الخاصة بذلك وسحب عينات من التقاوى المعدة للبيع والمستوردة أو المصدرة للخارج وتنفيذ قرارات لجنة تقاوى الحاصلات الزراعية ومتابعة تنفيذ إجراءات ترخيص أماكن إنتاج واتجار التقاوى.',
       pointsEn: [
-        'Four certification classes: Breeder, Foundation, Registered, Certified',
-        'Issuance of official certification tags (red, white, blue, orange)',
-        'OECD certificate issuance for export lots',
-        'Coordination with field inspection and laboratory testing',
+        'Department of Trade and Circulation Control',
+        'Department of Certification of Exported and Imported Seeds',
+        'Department of Certification of Agricultural Crop Seeds',
+        'Department of Certification of Vegetatively Propagated Crop Seeds',
       ],
       pointsAr: [
-        'أربع فئات اعتماد: مربٍّ، أساس، مسجل، معتمد',
-        'إصدار بطاقات الاعتماد الرسمية (حمراء، بيضاء، زرقاء، برتقالية)',
-        'إصدار شهادات OECD للدفعات المصدَّرة',
-        'التنسيق مع التفتيش الحقلي والفحص المختبري',
+        'إدارة مراقبة الاتجار والتداول',
+        'إدارة اعتماد التقاوى المصدرة والمستوردة',
+        'إدارة اعتماد تقاوى الحاصلات الزراعية',
+        'إدارة اعتماد تقاوى الحاصلات التى تتكاثر خضرياً',
       ],
     },
     {
       en: 'General Administration for Gins and Oil Mills',
-      ar: 'الإدارة العامة للمحالج والمعاصر',
-      bodyEn: 'This administration oversees the licensing, inspection, and quality monitoring of cotton gins and oil mills operating within Egypt\'s seed and agricultural processing sector. It ensures that processing facilities meet regulatory standards for seed quality and handling.',
-      bodyAr: 'تشرف هذه الإدارة على ترخيص وتفتيش ومراقبة جودة محالج القطن والمعاصر العاملة في قطاع معالجة التقاوي والمحاصيل الزراعية في مصر. وتضمن أن تستوفي منشآت المعالجة المعايير التنظيمية لجودة التقاوي والتعامل معها.',
+      ar: 'الإدارة العامة للمحالج ومعاصر الزيوت',
+      bodyEn: 'Is responsible for issuing the necessary licences to operate ginneries and oil mills, renewing them annually, and supervising their activities in accordance with the provisions of Law No. 53 of 1966 and the ministerial decisions implementing it.',
+      bodyAr: 'تتولى إصدار التراخيص اللازمة لتشغيل المحالج ومعاصر الزيوت، وتجديدها سنوياً، والإشراف على أنشطتها وفقاً لأحكام القانون رقم 53 لسنة 1966 والقرارات الوزارية المنفذة له.',
       pointsEn: [
-        'Licensing of cotton gins and oil mills',
-        'Regulatory inspection of processing facilities',
-        'Seed quality monitoring during processing',
-        'Compliance enforcement for licensed operators',
+        'Directorate of Supervision of Ginneries',
+        'Directorate of Supervision of Oil Presses',
+        'Directorate of Therapeutic Devices Testing',
+        'Directorate of Data Preparation',
       ],
       pointsAr: [
-        'ترخيص محالج القطن والمعاصر',
-        'التفتيش التنظيمي على منشآت المعالجة',
-        'مراقبة جودة التقاوي أثناء المعالجة',
-        'تطبيق معايير الامتثال على المشغلين المرخصين',
+        'ادارة الإشراف على المحالج',
+        'ادارة الإشراف على المعاصر',
+        'ادارة اختبار الأجهزة العلاجية',
+        'ادارة إعداد البيانات',
       ],
-      note: { en: 'Detailed procedures for this administration are pending confirmation from CASC. Contact casc.egypt@hotmail.com for enquiries.', ar: 'الإجراءات التفصيلية لهذه الإدارة في انتظار التأكيد من CASC. للاستفسار: casc.egypt@hotmail.com' },
+    },
+  ];
+
+  // Committees & Offices — rendered separately below the 5 administrations
+  const committeeWiki = [
+    {
+      en: 'Agricultural Crop Varieties Registration Committee',
+      ar: 'لجنة تسجيل أصناف الحاصلات الزراعية',
+      bodyEn: '[Awaiting official description from CASC]',
+      bodyAr: '[في انتظار الوصف الرسمي من CASC]',
+      pointsEn: [],
+      pointsAr: [],
+      placeholder: true,
+    },
+    {
+      en: 'Agricultural Crop Seed Committee',
+      ar: 'لجنة تقاوى الحاصلات الزراعية',
+      bodyEn: 'The Secretariat Office of the Agricultural Crop Seeds Committee is located at the Central Administration for Seed Testing and Certification and directly follows the Ministry of Agriculture. Applications for the export or import of agricultural crop seeds are submitted according to the conditions set by the Committee and issued through ministerial decrees in this regard. This Committee was established in implementation of Article 17 of the Agriculture Law No. 53 of 1966. The Committee meets regularly (weekly) to review applications for seed import and export.',
+      bodyAr: 'يوجد مكتب أمانة لجنة تقاوى الحاصلات الزراعية بالإدارة المركزية لفحص واعتماد التقاوى حيث يتم التقدم بطلبات تصدير أو استيراد تقاوى الحاصلات الزراعية من خلال الشروط التى تحددها اللجنة والصادر بها القرارات الوزارية فى هذا الشأن. وهى اللجنة المشكلة تنفيذاً للمادة 17 من قانون الزراعة الصادر بالقانون رقم 53 لسنة 1966 وتجتمع بصفة دورية (أسبوعياً) لبحث طلبات استيراد وتصدير التقاوى.',
+      pointsEn: [],
+      pointsAr: [],
+    },
+    {
+      en: 'Plant Variety Protection Office (PVPO)',
+      ar: 'مكتب حماية أصناف النباتات',
+      bodyEn: 'The Plant Variety Protection Office (PVPO) operated within CASC from 2003 until March 2025, when it was transferred to an independent authority — the Egyptian Intellectual Property Authority (EGIPA). CASC continues to conduct the DUS (Distinctness, Uniformity, and Stability) tests required for variety protection applications submitted to EGIPA.',
+      bodyAr: 'عمل مكتب حماية أصناف النباتات (PVPO) ضمن CASC منذ عام 2003 حتى مارس 2025، حيث انتقل إلى جهة مستقلة هي الجهاز المصري للملكية الفكرية (EGIPA). لا تزال CASC تُجري اختبارات DUS (التميز والتجانس والثبات) المطلوبة لطلبات حماية الأصناف المقدمة إلى EGIPA.',
+      pointsEn: [],
+      pointsAr: [],
+      pvpo: true,
     },
   ];
 
@@ -1116,8 +1146,8 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           </h2>
           <p className="text-[#3D3D3D] text-sm max-w-2xl mx-auto">
             {isAr
-              ? 'يتحقق ذلك من خلال خمس إدارات عامة رئيسية:'
-              : 'This is achieved through 5 main important administrations:'}
+              ? 'تعمل CASC من خلال خمس إدارات عامة رئيسية، فضلاً عن استضافة أمانة اللجان الوطنية للتقاوي:'
+              : 'This is achieved through 5 main General Administrations, alongside hosting the secretariat of national seed committees:'}
           </p>
         </div>
         <div className="space-y-4">
@@ -1125,12 +1155,12 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
             <div
               key={i}
               className="rounded-2xl overflow-hidden shadow-md"
-              style={{ backgroundColor: '#2D6B2D' }}
+              style={{ backgroundColor: '#46BA06' }}
             >
               {/* Strip header row */}
               <div className="flex items-center gap-5 px-6 py-5">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.18)' }}>
+                  style={{ backgroundColor: 'rgba(255,255,255,0.20)' }}>
                   {i === 0 && <Shield className="w-6 h-6 text-white" />}
                   {i === 1 && <BookOpen className="w-6 h-6 text-white" />}
                   {i === 2 && <FlaskConical className="w-6 h-6 text-white" />}
@@ -1138,73 +1168,95 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
                   {i === 4 && <Layers className="w-6 h-6 text-white" />}
                 </div>
                 <div>
-                  <p className="font-bold text-white text-base leading-snug">{isAr ? adm.ar : adm.en}</p>
-                  {!isAr && <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.65)' }}>{adm.ar}</p>}
+                  <p className="font-bold text-white text-xl leading-snug">{isAr ? adm.ar : adm.en}</p>
+                  {!isAr && <p className="text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.72)' }}>{adm.ar}</p>}
                 </div>
               </div>
-              {/* Inline content — no popup */}
-              <div className="bg-white/[0.06] border-t border-white/10 px-6 py-5 space-y-4">
-                <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.88)' }}>
+              {/* Inline content */}
+              <div className="bg-black/[0.08] border-t border-white/15 px-6 py-5 space-y-4">
+                <p className="text-sm leading-relaxed text-white">
                   {isAr ? adm.bodyAr : adm.bodyEn}
                 </p>
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(231,251,180,0.85)' }}>
-                    {isAr ? 'الأقسام الفرعية والوظائف الرئيسية' : 'Sub-units & Key Functions'}
-                  </p>
-                  <ul className="space-y-1.5">
-                    {(isAr ? adm.pointsAr : adm.pointsEn).map((pt, j) => (
-                      <li key={j} className="flex items-start gap-2 text-sm" style={{ color: 'rgba(255,255,255,0.82)' }}>
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E7FBB4] shrink-0"></span>
-                        {pt}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                {adm.note && (
-                  <div className="bg-amber-50/10 border border-amber-100/20 rounded-xl p-4 flex gap-2 items-start">
-                    <Info className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
-                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
-                      {isAr ? adm.note.ar : adm.note.en}
+                {(isAr ? adm.pointsAr : adm.pointsEn).length > 0 && (
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest mb-2 text-white/70">
+                      {isAr ? 'الأقسام الفرعية والوظائف الرئيسية' : 'Sub-units & Key Functions'}
                     </p>
+                    <ul className="space-y-1.5">
+                      {(isAr ? adm.pointsAr : adm.pointsEn).map((pt, j) => (
+                        <li key={j} className="flex items-start gap-2 text-sm text-white">
+                          <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-white shrink-0"></span>
+                          {pt}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 )}
               </div>
             </div>
           ))}
         </div>
-      </div>
-      </div>
 
-      {/* PVPO Historical Note + Variety Registration Committee Clarification */}
-      <div className="max-w-6xl mx-auto px-4 pb-4 space-y-4">
-        {/* PVPO Note */}
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 flex gap-4 items-start">
-          <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm font-semibold text-amber-900 mb-1">
-              {isAr ? 'ملاحظة: مكتب حماية أصناف النباتات (PVPO)' : 'Note: Plant Variety Protection Office (PVPO)'}
+        {/* Committees & Offices — separate section */}
+        <div className="mt-10">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="h-px flex-1 bg-[#638C6D]/30" />
+            <p className="text-xs font-bold uppercase tracking-widest text-[#638C6D]">
+              {isAr ? 'اللجان والمكاتب المرتبطة' : 'Associated Committees & Offices'}
             </p>
-            <p className="text-xs text-amber-800 leading-relaxed">
-              {isAr
-                ? 'ضمت الادارة المركزية لفحص واعتماد التقاوي مكتب حماية أصناف النباتات منذ 2003 حتى عام 2025، حيث تم إنشاؤه بموجب قرار رئيس الوزراء رقم (492) لسنة 2003 والقرار الوزاري رقم 2341 لسنة 2003 (استناداً إلى قانون حماية الملكية الفكرية رقم 82 لسنة 2002، الفصل الرابع). وشهدت الادارة انضمام مصر للاتحاد الدولي لحماية الاصناف النباتية الجديدة في ديسمبر 2019. وقد تم نقل المكتب مؤخراً إلى هيئة مستقلة للملكية الفكرية تُسمى الجهاز المصري للملكية الفكرية منذ مارس 2025. أهم ما يربط CASC بالجهاز المصري للملكية الفكرية الآن هو أن CASC تضطلع بإجراء اختبار DUS المطلوب لحماية الأصناف النباتية.'
-                : "CASC included the Plant Variety Protection Office (PVPO) from 2003 until 2025, established by Prime Minister Decision No. 492 of 2003 and Ministerial Decree No. 2341 of 2003 (based on the Intellectual Property Protection Law No. 82 of 2002, Chapter Four). CASC witnessed Egypt's accession to the International Union for the Protection of New Varieties of Plants (UPOV) in December 2019. The office was recently transferred to an independent intellectual property authority named the Egyptian Intellectual Property Authority (EGIPA) in March 2025. The most important connection (cooperation) between CASC and EGIPA now is that CASC is carrying the DUS Test that is required for variety protection."}
-            </p>
+            <div className="h-px flex-1 bg-[#638C6D]/30" />
+          </div>
+          <div className="space-y-4">
+            {committeeWiki.map((item, i) => (
+              <div
+                key={i}
+                className="rounded-2xl overflow-hidden shadow-md border-2"
+                style={{
+                  backgroundColor: item.pvpo ? '#f8f4e8' : '#ffffff',
+                  borderColor: item.pvpo ? '#d4a800' : item.placeholder ? '#cbd5e1' : '#46BA06',
+                }}
+              >
+                {/* Header */}
+                <div
+                  className="flex items-center gap-4 px-6 py-4"
+                  style={{
+                    backgroundColor: item.pvpo ? '#fef3c7' : item.placeholder ? '#f1f5f9' : '#e8f9dc',
+                  }}
+                >
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ backgroundColor: item.pvpo ? '#d4a800' : item.placeholder ? '#94a3b8' : '#46BA06' }}
+                  >
+                    {i === 0 && <FileText className="w-5 h-5 text-white" />}
+                    {i === 1 && <Users className="w-5 h-5 text-white" />}
+                    {i === 2 && <Info className="w-5 h-5 text-white" />}
+                  </div>
+                  <div>
+                    <p className="font-bold text-lg text-[#1f3d2f] leading-snug">{isAr ? item.ar : item.en}</p>
+                    {!isAr && <p className="text-xs mt-0.5 text-[#3D3D3D]/60">{item.ar}</p>}
+                  </div>
+                  {item.placeholder && (
+                    <span className="ml-auto text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full border border-slate-200 uppercase tracking-wider shrink-0">
+                      {isAr ? 'قيد الإعداد' : 'To be filled'}
+                    </span>
+                  )}
+                  {item.pvpo && (
+                    <span className="ml-auto text-[10px] font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full border border-amber-200 uppercase tracking-wider shrink-0">
+                      {isAr ? 'تحول مؤسسي — 2025' : 'Institutional change — 2025'}
+                    </span>
+                  )}
+                </div>
+                {/* Body */}
+                <div className="px-6 py-5">
+                  <p className="text-sm leading-relaxed text-[#3D3D3D]">
+                    {isAr ? item.bodyAr : item.bodyEn}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-        {/* Variety Registration Committee Clarification */}
-        <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 flex gap-4 items-start">
-          <Info className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm font-semibold text-emerald-900 mb-1">
-              {isAr ? 'ملاحظة: لجنة تسجيل الحاصلات الزراعية' : 'Note: Agricultural Crops Registration Committee'}
-            </p>
-            <p className="text-xs text-emerald-800 leading-relaxed">
-              {isAr
-                ? 'لجنة تسجيل الحاصلات الزراعية هي اللجنة الوحيدة بجمهورية مصر العربية المفوضة من وزارة الزراعة بالقيام بتسجيل أصناف الحاصلات الزراعية. ويحق لكل شخص طبيعي أو معنوي التقدم لتسجيل الأصناف النباتية. وتعمل لجنة التسجيل وفقاً لقانون الزراعة رقم 53 لعام 1966 والقرارات الوزارية المنظمة للعمل. تتبع لجنة تسجيل الأصناف وزارة الزراعة واستصلاح الأراضي، ويفوض رئيس اللجنة بتشكيل الأمانة الفنية للجنة والتي تقوم بالفحص الفني والإداري لطلبات التسجيل المقدمة.'
-                : 'The Agricultural Crops Registration Committee is the only committee in the Arab Republic of Egypt authorized by the Ministry of Agriculture to register agricultural crop varieties. Any natural or legal person may apply to register plant varieties. The Registration Committee operates in accordance with Agriculture Law No. 53 of 1966 and the ministerial decrees regulating its work. The Variety Registration Committee is directly under the Ministry of Agriculture and Land Reclamation. The Head of the Registration Committee is authorized to form the Committee\'s Technical Secretariat, which conducts the technical and administrative review of submitted registration applications.'}
-            </p>
-          </div>
-        </div>
+      </div>
       </div>
 
       {/* Legal Mandate */}
