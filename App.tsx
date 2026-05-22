@@ -88,6 +88,14 @@ const Navbar: React.FC<{
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-[72px]">
           <div className="flex items-center gap-4">
+            {/* Language toggle — fixed on far left, always visible */}
+            <button
+              onClick={() => setLang(isAr ? 'en' : 'ar')}
+              className="flex items-center gap-2 bg-emerald-950/40 hover:bg-emerald-800 px-3 py-1.5 rounded-sm border border-emerald-700 hover:border-orange-400/50 transition-all shrink-0"
+            >
+              <Globe className="w-4 h-4" />
+              <span className="text-xs font-semibold tracking-wide font-sans">{isAr ? 'ENGLISH' : 'ARABIC'}</span>
+            </button>
             <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
               <img
                 src={`${import.meta.env.BASE_URL}CASC-logo.png`}
@@ -121,14 +129,6 @@ const Navbar: React.FC<{
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => setLang(isAr ? 'en' : 'ar')}
-              className="flex items-center gap-2 bg-emerald-950/40 hover:bg-emerald-800 px-3 py-1.5 rounded-sm border border-emerald-700 hover:border-orange-400/50 transition-all"
-            >
-              <Globe className="w-4 h-4" />
-              <span className="text-xs font-semibold tracking-wide">{isAr ? 'English' : 'العربية'}</span>
-            </button>
-            <div className="border-l border-emerald-700 h-6 mx-1"></div>
             <button className="flex items-center gap-2 text-white border border-white/70 hover:text-white hover:border-white transition-colors px-3 py-1.5 rounded-sm">
               <User className="w-5 h-5" />
               <span className="hidden sm:inline text-sm font-medium">{isAr ? 'دخول' : 'Login'}</span>
