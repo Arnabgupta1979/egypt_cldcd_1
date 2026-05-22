@@ -952,7 +952,7 @@ const ContactView: React.FC<{ lang: Language }> = ({ lang }) => {
 // --- View: About CASC ---
 const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoContact: () => void }> = ({ lang, onStartJourney, onGoContact }) => {
   const isAr = lang === 'ar';
-  const [showFlowchart, setShowFlowchart] = useState(false);
+  const [activeService, setActiveService] = useState<number | null>(null);
   const [adminModal, setAdminModal] = useState<null | {
     en: string; ar: string;
     bodyEn: string; bodyAr: string;
@@ -1344,28 +1344,48 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
               : 'CASC delivers a comprehensive range of regulatory services covering the full seed lifecycle from production through to market.'}
           </p>
         </div>
-        {/* Lightbox for Variety Registration flowchart */}
-        {showFlowchart && ReactDOM.createPortal(
+        {/* Service Procedure Modal — shared across all service cards */}
+        {activeService !== null && ReactDOM.createPortal(
           <div
             className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4"
-            onClick={() => setShowFlowchart(false)}
+            onClick={() => setActiveService(null)}
           >
-            <div className="relative max-w-4xl w-full" onClick={e => e.stopPropagation()}>
+            <div
+              className="relative max-w-2xl w-full max-h-[85vh] flex flex-col"
+              onClick={e => e.stopPropagation()}
+            >
+              {/* Close button */}
               <button
-                onClick={() => setShowFlowchart(false)}
+                onClick={() => setActiveService(null)}
                 className="absolute -top-10 right-0 text-white text-sm font-semibold flex items-center gap-1 hover:text-orange-300 transition-colors"
               >
                 ✕ {isAr ? 'إغلاق' : 'Close'}
               </button>
-              <div className="bg-white rounded-2xl p-4 shadow-2xl">
-                <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-3 text-center">
-                  {isAr ? 'مخطط تدفق تسجيل الأصناف في مصر' : 'Variety Registration Flowchart — Egypt'}
-                </p>
-                <img
-                  src={`${import.meta.env.BASE_URL}var_reg.png`}
-                  alt={isAr ? 'مخطط تسجيل الأصناف' : 'Variety Registration flowchart'}
-                  className="w-full rounded-xl"
-                />
+              <div className="bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+                {/* Modal header */}
+                <div className="bg-[#2D4A32] px-6 py-4 shrink-0">
+                  <p className="text-xs font-bold text-[#E7FBB4] uppercase tracking-widest mb-1">
+                    {isAr ? 'إجراءات الخدمة' : 'Service Procedure'}
+                  </p>
+                  <h3 className="text-lg font-semibold text-white">
+                    {services[activeService].title[lang]}
+                  </h3>
+                </div>
+                {/* Modal body — scrollable */}
+                <div
+                  className="px-6 py-5 overflow-y-auto text-sm text-[#3D3D3D] leading-relaxed"
+                  dir={isAr ? 'rtl' : 'ltr'}
+                >
+                  <p>{services[activeService].desc[lang]}</p>
+                </div>
+                {/* Modal footer */}
+                <div className="px-6 py-3 bg-amber-50 border-t border-amber-100 shrink-0">
+                  <p className="text-[11px] text-amber-700">
+                    {isAr
+                      ? 'تعكس هذه المعلومات الإجراءات الرسمية المنشورة من قِبل CASC. للاستفسار: casc.egypt@hotmail.com'
+                      : 'This information reflects official procedures published by CASC. For enquiries: casc.egypt@hotmail.com'}
+                  </p>
+                </div>
               </div>
             </div>
           </div>,
@@ -1373,36 +1393,31 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  {services.map((s, i) => {
-    const isVarReg = s.title.en === 'Variety Registration';
-    return (
-    <div
-      key={i}
-      onClick={isVarReg ? () => setShowFlowchart(true) : undefined}
-      className={`group relative overflow-hidden rounded-[32px] shadow-2xl min-h-[460px] ${isVarReg ? 'cursor-pointer' : ''}`}
-    >
-      {/* Background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-        style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${s.image})` }}
-      />
-      {/* Gradient scrim */}
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/75 to-transparent" />
-      {/* Title strip — bottom only */}
-      <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-5">
-        <div className="rounded-xl bg-white/80 backdrop-blur-sm px-4 py-3 shadow-md flex items-center justify-between gap-2">
-          <h4 className="text-sm font-semibold text-[#1f3d2f]">{s.title[lang]}</h4>
-          {isVarReg && (
-            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full shrink-0">
-              {isAr ? 'عرض المخطط' : 'View flowchart'}
-            </span>
-          )}
+          {services.map((s, i) => (
+            <div
+              key={i}
+              onClick={() => setActiveService(i)}
+              className="group relative overflow-hidden rounded-[32px] shadow-2xl min-h-[460px] cursor-pointer"
+            >
+              {/* Background image */}
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${s.image})` }}
+              />
+              {/* Gradient scrim */}
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/75 to-transparent" />
+              {/* Title strip — bottom only */}
+              <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-5">
+                <div className="rounded-xl bg-white/80 backdrop-blur-sm px-4 py-3 shadow-md flex items-center justify-between gap-2">
+                  <h4 className="text-sm font-semibold text-[#1f3d2f]">{s.title[lang]}</h4>
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full shrink-0">
+                    {isAr ? 'عرض التفاصيل' : 'View details'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-    </div>
-    );
-  })}
-</div>
       </div>
 
       {/* Stakeholder Journey CTA */}
