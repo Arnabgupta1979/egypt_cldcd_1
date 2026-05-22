@@ -1060,64 +1060,174 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
       icon: Globe,
       image: 'Import_export_permit.png',
       title: { en: 'Seed Export', ar: 'تصدير التقاوي' },
-      desc: {
-        en: 'Seed export requires: export form from the Seed Committee (+ 2 copies), Form No. 5 export (+ 2 copies), application to the Committee Chairman specifying quantities, varieties and price, copy of seed trading licence, copy of exporters register, inspection certificate or proof seeds are under inspection, and payment of stated fees. After receiving approval, the application is certified by the Ministry of Agriculture — Seed Committee Secretariat.',
-        ar: 'يتطلب تصدير التقاوي: نموذج التصدير من لجنة التقاوي (+2 صورة)، نموذج رقم (5) تصدير (+2 صورة)، طلب باسم رئيس اللجنة مستوفى فيه الكميات والأصناف والسعر، صورة ترخيص الاتجار في التقاوي، صورة سجل المصدرين، شهادة الفحص أو ما يفيد أن التقاوي تحت الفحص، وسداد الرسوم المقررة. بعد استلام الموافقة تُعتمد من وزارة الزراعة — أمانة لجنة التقاوي.'
-      }
+      points: {
+        en: [
+          'Export form from the Seed Committee (+ 2 copies)',
+          'Form No. 5 export (+ 2 copies)',
+          'Application to the Committee Chairman specifying quantities, varieties and price (+ 2 copies)',
+          'Copy of seed trading licence',
+          'Copy of exporters register',
+          'Inspection certificate, or proof that seeds are under inspection',
+          'Payment of stated fees',
+          'After receiving approval: application is certified by the Ministry of Agriculture — Seed Committee Secretariat',
+        ],
+        ar: [
+          'نموذج التصدير من لجنة التقاوي (+2 صورة)',
+          'نموذج رقم (5) تصدير (+2 صورة)',
+          'طلب باسم رئيس اللجنة مستوفى فيه الكميات والأصناف والسعر (+2 صورة)',
+          'صورة ترخيص الاتجار في التقاوي',
+          'صورة سجل المصدرين',
+          'شهادة الفحص أو ما يفيد أن التقاوي تحت الفحص',
+          'سداد الرسوم المقررة',
+          'بعد استلام الموافقة: تُعتمد من وزارة الزراعة — أمانة لجنة التقاوي',
+        ],
+      },
     },
     {
       icon: BookOpen,
-      image: 'Variety_registration.png',
+      image: 'Seed_producer_licensing.png',
       title: { en: 'Seed Import', ar: 'استيراد التقاوي' },
-      desc: {
-        en: 'Seed import requires: import form (+ 2 copies), application to the Committee Chairman specifying quantities, types and prices (+ 2 copies), proforma invoice (+ 5 copies), copy of importers register, copy of seed trading licence, copy of registered varieties for each application from the Variety Registration Committee, copy of origin statement for each variety from Agricultural Quarantine, and payment of fees.',
-        ar: 'يتطلب استيراد التقاوي: نموذج الاستيراد (+2 صورة)، طلب باسم رئيس اللجنة مستوفى بالكميات والأصناف والسعر (+2 صورة)، فاتورة مبدئية (+5 صور)، صورة سجل المستوردين، صورة ترخيص الاتجار في التقاوي، صورة من الأصناف المسجلة لكل طلب من لجنة تسجيل الأصناف، صورة من بيان المنشأ لكل صنف من الحجر الزراعي، وسداد الرسوم.'
-      }
+      points: {
+        en: [
+          'Import form from the Seed Committee (+ 2 copies)',
+          'Application to the Committee Chairman specifying quantities, types and prices (+ 2 copies)',
+          'Proforma invoice (+ 5 copies)',
+          'Copy of importers register',
+          'Copy of seed trading licence',
+          'Copy of registered varieties for each application from the Variety Registration Committee',
+          'Copy of origin statement for each variety from Agricultural Quarantine',
+          'Payment of fees',
+          'After receiving approval: application is certified by the Ministry of Agriculture — Seed Committee Secretariat',
+        ],
+        ar: [
+          'نموذج الاستيراد من لجنة التقاوي (+2 صورة)',
+          'طلب باسم رئيس اللجنة مستوفى بالكميات والأصناف والسعر (+2 صورة)',
+          'فاتورة مبدئية (+5 صور)',
+          'صورة سجل المستوردين',
+          'صورة ترخيص الاتجار في التقاوي',
+          'صورة من الأصناف المسجلة لكل طلب من لجنة تسجيل الأصناف',
+          'صورة من بيان المنشأ لكل صنف من الحجر الزراعي',
+          'سداد الرسوم',
+          'بعد استلام الموافقة: تُعتمد من وزارة الزراعة — أمانة لجنة التقاوي',
+        ],
+      },
     },
     {
       icon: Shield,
-      image: 'Seed_producer_licensing.png',
+      image: 'Variety_registration.png',
       title: { en: 'Field Inspection', ar: 'الإدارة العامة للتفتيش الحقلي' },
-      desc: {
-        en: 'Field inspection is the first step in seed production certification. The administration consists of four management units: (1) Field Crops Field Inspection, (2) Vegetative Propagation Crops, (3) Vegetable Crops, (4) Quality Control Field Inspection. Required documents: copy of valid production licence, application form, invoice for seed examination, original Form 3 from the Certification Department, contractors list, inspection notification, and payment of prescribed fees.',
-        ar: 'التفتيش الحقلي هو أول خطوات اعتماد إنتاج التقاوي. تتكون الإدارة من أربع إدارات فرعية: (1) إدارة التفتيش الحقلي على المحاصيل الحقلية، (2) إدارة التفتيش الحقلي لمحاصيل التكاثر الخضري، (3) إدارة التفتيش الحقلي على محاصيل الخضر، (4) إدارة التفتيش الحقلي على مراقبة الجودة. المستندات المطلوبة: صورة من ترخيص الإنتاج ساري المفعول، طلب باسم الشركة، فاتورة فحص للتقاوي المطلوب استخدامها للزراعة، أصل استمارة 3 من قسم الاعتماد، كشف متعاقدين، إخطار فحص، سداد المصروفات المقررة.'
-      }
+      points: {
+        en: [
+          'Field inspection is the first step in seed production certification',
+          'The administration comprises four units: Field Crops, Vegetative Propagation Crops, Vegetable Crops, and Quality Control Field Inspection',
+          'Copy of valid production licence',
+          'Application form (company name)',
+          'Invoice for examination of seeds to be used for planting',
+          'Original Form 3 from the Certification Department',
+          'Contractors list',
+          'Inspection notification',
+          'Payment of prescribed fees',
+        ],
+        ar: [
+          'التفتيش الحقلي هو أول خطوات اعتماد إنتاج التقاوي',
+          'تتكون الإدارة من أربع وحدات: المحاصيل الحقلية، التكاثر الخضري، محاصيل الخضر، ومراقبة الجودة',
+          'صورة من ترخيص الإنتاج ساري المفعول',
+          'طلب باسم الشركة',
+          'فاتورة فحص للتقاوي المطلوب استخدامها للزراعة',
+          'أصل استمارة 3 من قسم الاعتماد',
+          'كشف متعاقدين',
+          'إخطار فحص',
+          'سداد المصروفات المقررة',
+        ],
+      },
     },
     {
       icon: Award,
       image: 'Seedcertification.png',
       title: { en: 'Variety Registration', ar: 'تسجيل الأصناف' },
-      desc: {
-        en: 'All procedures for variety registration are completed through an Egyptian agent or a branch of the foreign company. Documents must be submitted in Arabic (except the authorisation letter and DUS report). The applicant submits an application form to the Technical Secretariat of the Seed Registration Committee, along with a valid certified authorisation from the Egyptian Embassy (for imported varieties), the import approval, and the completed Technical Questionnaire.',
-        ar: 'تُستكمل جميع إجراءات تسجيل الأصناف من خلال وكيل مصري أو فرع للشركة الأجنبية، وتُملأ المستندات بالعربية باستثناء خطاب التفويض وتقرير DUS. يُقدّم المتقدم طلباً للأمانة الفنية للجنة تسجيل الأصناف مع تفويض رسمي مصدّق من السفارة المصرية (للأصناف المستوردة) وتصريح الاستيراد والاستبيان الفني.'
-      }
+      points: {
+        en: [
+          'All procedures must be completed through an Egyptian agent or a branch of the foreign company',
+          'All documents must be submitted in Arabic (except the authorisation letter and DUS report)',
+          'Submit application form to the Technical Secretariat of the Seed Registration Committee',
+          'Submit valid certified authorisation from the Egyptian Embassy (for imported varieties)',
+          'Submit the import approval',
+          'Complete and submit the Technical Questionnaire',
+        ],
+        ar: [
+          'تُستكمل جميع الإجراءات من خلال وكيل مصري أو فرع للشركة الأجنبية',
+          'تُملأ جميع المستندات باللغة العربية باستثناء خطاب التفويض وتقرير DUS',
+          'تقديم طلب إلى الأمانة الفنية للجنة تسجيل الأصناف',
+          'تقديم تفويض رسمي مصدّق من السفارة المصرية (للأصناف المستوردة)',
+          'تقديم تصريح الاستيراد',
+          'ملء وتقديم الاستبيان الفني',
+        ],
+      },
     },
     {
       icon: FlaskConical,
       image: 'Seedlab.png',
       title: { en: 'ISTA & OECD Certificates', ar: 'شهادات ISTA وOECD' },
-      desc: {
-        en: 'CASC issues OECD certificates for eligible seed lots. Procedure: submit attached inspection documents (inspection approval and accreditation approval), submit testing request, sampling and testing are carried out, if lots are accepted all necessary certificates are issued, submit a request to the Head of CASC for the OECD certificate, and pay all fees. The Central Seed Testing Laboratory is an accredited ISTA member operating under a comprehensive Quality Assurance System, with 12 testing stations across governorates.',
-        ar: 'تُصدر CASC شهادات OECD للدفعات المؤهلة. الإجراءات: تقديم أوراق التفتيش (موافقة التفتيش وموافقة الاعتماد)، تقديم طلب الفحص، إجراء السحب والفحص، في حالة قبول اللوطات تُستخرج جميع الشهادات، تقديم طلب لرئيس الإدارة لإصدار شهادة OECD، ودفع المصروفات. المختبر المركزي عضو معتمد في ISTA ويعمل وفق نظام شامل لضمان الجودة مع 12 محطة فحص بالمحافظات.'
-      }
+      points: {
+        en: [
+          'The Central Seed Testing Laboratory is an accredited ISTA member with 12 testing stations across governorates',
+          'Submit inspection documents (inspection approval and accreditation approval)',
+          'Submit testing request',
+          'Sampling and testing are carried out on the seed lots',
+          'If lots are accepted, all necessary certificates are issued',
+          'Submit a request to the Head of CASC for the OECD certificate',
+          'Payment of all fees',
+        ],
+        ar: [
+          'المختبر المركزي عضو معتمد في ISTA مع 12 محطة فحص بالمحافظات',
+          'تقديم أوراق التفتيش (موافقة التفتيش وموافقة الاعتماد)',
+          'تقديم طلب الفحص',
+          'إجراء السحب والفحص على دفعات التقاوي',
+          'في حالة قبول اللوطات تُستخرج جميع الشهادات اللازمة',
+          'تقديم طلب لرئيس الإدارة لإصدار شهادة OECD',
+          'دفع جميع المصروفات',
+        ],
+      },
     },
     {
       icon: Target,
       image: 'Regulatory_compliance.png',
       title: { en: 'Trade & Production Licensing', ar: 'ترخيص الاتجار والإنتاج' },
-      desc: {
-        en: 'CASC issues licences for seed trading and production to companies and individuals wishing to operate in Egypt\'s seed sector. CASC inspects licensed facilities and can revoke non-compliant licences. Licence holders are required to comply with all seed quality standards and submit to regular CASC field and facility inspections.',
-        ar: 'تُصدر CASC تراخيص الاتجار والإنتاج للشركات والأفراد الراغبين في العمل في قطاع التقاوي المصري. تفتش CASC المنشآت المرخصة ويمكنها سحب التراخيص عند عدم الامتثال. يُلزَم حاملو التراخيص بالامتثال لمعايير جودة التقاوي والخضوع لفحوصات CASC الدورية.'
-      }
+      points: {
+        en: [
+          'CASC issues licences for seed trading and production to companies and individuals',
+          'Licensed facilities are subject to regular CASC field and facility inspections',
+          'Licence holders must comply with all seed quality standards',
+          'CASC may revoke licences in cases of non-compliance',
+        ],
+        ar: [
+          'تُصدر CASC تراخيص الاتجار والإنتاج للشركات والأفراد',
+          'تخضع المنشآت المرخصة لفحوصات CASC الدورية الميدانية والمنشآتية',
+          'يُلزَم حاملو التراخيص بالامتثال لجميع معايير جودة التقاوي',
+          'يحق لـ CASC سحب التراخيص في حالات عدم الامتثال',
+        ],
+      },
     },
     {
       icon: Users,
       image: 'Public_seed_production.png',
       title: { en: 'Seed Testing', ar: 'فحص التقاوي' },
-      desc: {
-        en: 'In cases of seed import or export, a sample is drawn by an official committee and sent to the Central Seed Testing Laboratory at CASC to be tested, completing procedures for either importation or exportation. Testing covers germination, purity, moisture content, and seed health according to ISTA standards.',
-        ar: 'في حالات استيراد أو تصدير التقاوي، تسحب لجنة رسمية عينة وترسلها إلى المختبر المركزي لفحص التقاوي في CASC لإجراء الاختبارات اللازمة لاستكمال إجراءات الاستيراد أو التصدير. يشمل الفحص الإنبات والنقاء والرطوبة وصحة التقاوي وفق معايير ISTA.'
-      }
+      points: {
+        en: [
+          'Required for all seed import and export procedures',
+          'A sample is drawn by an official committee and sent to the Central Seed Testing Laboratory at CASC',
+          'Testing covers germination, purity, moisture content, and seed health',
+          'Testing is conducted in accordance with ISTA standards',
+          'Results determine whether import or export procedures may be completed',
+        ],
+        ar: [
+          'مطلوب لجميع إجراءات استيراد وتصدير التقاوي',
+          'تسحب لجنة رسمية عينة وترسلها إلى المختبر المركزي لفحص التقاوي في CASC',
+          'يشمل الفحص الإنبات والنقاء والرطوبة وصحة التقاوي',
+          'يُجرى الفحص وفق معايير ISTA',
+          'تحدد النتائج ما إذا كان يمكن استكمال إجراءات الاستيراد أو التصدير',
+        ],
+      },
     },
   ];
 
@@ -1376,7 +1486,14 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
                   className="px-6 py-5 overflow-y-auto text-sm text-[#3D3D3D] leading-relaxed"
                   dir={isAr ? 'rtl' : 'ltr'}
                 >
-                  <p>{services[activeService].desc[lang]}</p>
+                  <ul className="space-y-2">
+                    {services[activeService].points[lang].map((point, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#638C6D] shrink-0" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
                 {/* Modal footer */}
                 <div className="px-6 py-3 bg-amber-50 border-t border-amber-100 shrink-0">
