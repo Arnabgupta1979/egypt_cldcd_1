@@ -86,51 +86,57 @@ const Navbar: React.FC<{
   return (
     <nav className="text-white sticky top-0 z-50 shadow-lg border-b border-[#1d5c1d]/60" style={{backgroundColor: '#2D6B2D'}}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[72px]">
-          <div className="flex items-center gap-4">
-            {/* Language toggle — fixed on far left, always visible */}
+        <div className="flex items-center h-[72px] gap-3">
+          {/* LEFT: language toggle + logo — always shrink-0 */}
+          <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => setLang(isAr ? 'en' : 'ar')}
-              className="flex items-center gap-2 bg-emerald-950/40 hover:bg-emerald-800 px-3 py-1.5 rounded-sm border border-emerald-700 hover:border-orange-400/50 transition-all shrink-0"
+              className="flex items-center gap-1.5 bg-emerald-950/40 hover:bg-emerald-800 px-2.5 py-1.5 rounded-sm border border-emerald-700 hover:border-orange-400/50 transition-all"
             >
-              <Globe className="w-4 h-4" />
+              <Globe className="w-4 h-4 shrink-0" />
               <span className="text-xs font-semibold tracking-wide font-sans">{isAr ? 'ENGLISH' : 'ARABIC'}</span>
             </button>
-            <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
+            <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
               <img
                 src={`${import.meta.env.BASE_URL}CASC-logo.png`}
                 alt={isAr ? 'شعار الإدارة المركزية لتصديق التقاوي' : 'CASC logo'}
                 className="h-12 w-auto bg-white rounded-md p-1 shadow-sm ring-1 ring-orange-500/40"
               />
-              <div className="hidden md:block ps-2 border-s border-emerald-800/70">
-                <div className="font-semibold text-lg leading-tight text-white">
+              <div className="hidden lg:block ps-2 border-s border-emerald-800/70">
+                <div className="font-semibold text-base leading-tight text-white whitespace-nowrap">
                   {isAr ? 'الإدارة المركزية لتصديق التقاوي' : 'CASC Egypt'}
                 </div>
-                <div className="text-amber-100 text-[10px] font-medium uppercase leading-tight mt-0.5">
+                <div className="text-amber-100 text-[10px] font-medium uppercase leading-tight mt-0.5 whitespace-nowrap">
                   {isAr ? 'وزارة الزراعة واستصلاح الأراضي' : 'Ministry of Agriculture & Land Reclamation'}
                 </div>
               </div>
             </div>
-            <div className="hidden md:flex ml-10 items-baseline space-x-1">
+          </div>
+
+          {/* CENTRE: nav items — flex-1, allow wrapping/overflow hidden, never pushes right zone */}
+          <div className="hidden md:flex flex-1 items-center justify-center overflow-hidden">
+            <div className="flex items-baseline gap-0.5">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`px-3 py-2 text-sm font-medium transition-all flex items-center gap-2 border-b-2 ${
+                  className={`px-2.5 py-2 text-sm font-medium transition-all flex items-center gap-1.5 border-b-2 whitespace-nowrap ${
                     activeTab === item.id
-                              ? 'border-orange-400 text-white'
+                      ? 'border-orange-400 text-white'
                       : 'border-transparent text-white hover:text-orange-200 hover:border-orange-400/40'
                   }`}
                 >
-                  <item.icon className="w-4 h-4" />
+                  <item.icon className="w-3.5 h-3.5 shrink-0" />
                   {item.label}
                 </button>
               ))}
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <button className="flex items-center gap-2 text-white border border-white/70 hover:text-white hover:border-white transition-colors px-3 py-1.5 rounded-sm">
-              <User className="w-5 h-5" />
+
+          {/* RIGHT: login — always shrink-0, never hidden */}
+          <div className="shrink-0 ml-auto md:ml-0">
+            <button className="flex items-center gap-2 text-white border border-white/70 hover:border-white transition-colors px-3 py-1.5 rounded-sm whitespace-nowrap">
+              <User className="w-4 h-4 shrink-0" />
               <span className="hidden sm:inline text-sm font-medium">{isAr ? 'دخول' : 'Login'}</span>
             </button>
           </div>
@@ -208,10 +214,10 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-6">
             <button
-              onClick={onStartJourney}
+              onClick={onGoAbout}
               className="bg-[#DF6D2D] hover:bg-[#C84C05] text-white px-8 py-3.5 font-semibold tracking-wide flex items-center gap-3 transition-all shadow-lg"
             >
-              {isAr ? 'ابدأ رحلتك كمعني بالقطاع' : 'Start Stakeholder Journey'}
+              {isAr ? 'تعرّف على CASC' : 'Know About CASC'}
               <ArrowRight className={`w-5 h-5 ${isAr ? 'rotate-180' : ''}`} />
             </button>
             <button
