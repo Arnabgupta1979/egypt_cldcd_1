@@ -2134,7 +2134,7 @@ export default function App() {
               <li>{lang === 'ar' ? 'تسجيل الأصناف' : 'Variety Registration'}</li>
               <li>{lang === 'ar' ? 'ترخيص المنتجين' : 'Producer Licensing'}</li>
               <li>{lang === 'ar' ? 'تصاريح الاستيراد والتصدير' : 'Import / Export Permits'}</li>
-              <li>{lang === 'ar' ? 'فحص التقاوي' : 'Seed Testings'}</li>
+              <li>{lang === 'ar' ? 'فحص التقاوي' : 'Seed Testing Laboratories'}</li>
             </ul>
           </div>
         </div>
