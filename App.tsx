@@ -770,6 +770,35 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
         </div>
       </div>
 
+      {/* Selection bar — sticky just below nav, visible in viewport while browsing */}
+      {checkedVarieties.size > 0 && (
+        <div className="sticky top-[72px] z-40 flex items-center gap-3 bg-[#1f3d2f] text-white px-5 py-3 rounded-2xl shadow-xl border border-[#46BA06]/50 animate-fade-in">
+          <div className="flex items-center gap-2 flex-1">
+            <div className="w-6 h-6 rounded-full bg-[#46BA06] flex items-center justify-center text-xs font-bold shrink-0">
+              {checkedVarieties.size}
+            </div>
+            <span className="text-sm font-medium">
+              {isAr
+                ? `${checkedVarieties.size} صنف محدد — اضغط عرض وطباعة لإنشاء PDF`
+                : `${checkedVarieties.size} ${checkedVarieties.size === 1 ? 'variety' : 'varieties'} selected — click View & Print to generate PDF`}
+            </span>
+          </div>
+          <button
+            onClick={printMultiple}
+            className="flex items-center gap-2 bg-[#46BA06] hover:bg-[#38960a] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-all shrink-0"
+          >
+            <Download className="w-4 h-4" />
+            {isAr ? 'عرض وطباعة' : 'View & Print'}
+          </button>
+          <button
+            onClick={clearChecked}
+            className="text-white/60 hover:text-white text-xs transition-colors px-1 shrink-0"
+          >
+            {isAr ? 'مسح' : 'Clear'}
+          </button>
+        </div>
+      )}
+
       {/* Results grid */}
       {displayedCards.length === 0 ? (
         <div className="text-center py-16 text-[#3D3D3D]/50">
@@ -835,36 +864,6 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
               </div>
             );
           })}
-        </div>
-      )}
-
-      {/* Sticky multi-print bar */}
-      {checkedVarieties.size > 0 && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-[#1f3d2f] text-white px-6 py-3.5 rounded-2xl shadow-2xl border border-[#46BA06]/40 animate-fade-in">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-[#46BA06] flex items-center justify-center text-xs font-bold shrink-0">
-              {checkedVarieties.size}
-            </div>
-            <span className="text-sm font-medium">
-              {isAr
-                ? `${checkedVarieties.size} صنف محدد`
-                : `${checkedVarieties.size} ${checkedVarieties.size === 1 ? 'variety' : 'varieties'} selected`}
-            </span>
-          </div>
-          <div className="h-4 w-px bg-white/20" />
-          <button
-            onClick={printMultiple}
-            className="flex items-center gap-2 bg-[#46BA06] hover:bg-[#38960a] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-all"
-          >
-            <Download className="w-4 h-4" />
-            {isAr ? 'عرض وطباعة' : 'View & Print'}
-          </button>
-          <button
-            onClick={clearChecked}
-            className="text-white/60 hover:text-white text-xs transition-colors px-1"
-          >
-            {isAr ? 'مسح الكل' : 'Clear all'}
-          </button>
         </div>
       )}
 
