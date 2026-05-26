@@ -421,7 +421,120 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
   const [cropFilter, setCropFilter] = useState('All');
   const [selectedVariety, setSelectedVariety] = useState<VarietyRecord | null>(null);
   const [page, setPage] = useState(1);
+  const [checkedVarieties, setCheckedVarieties] = useState<Set<string>>(new Set());
   const PAGE_SIZE = 24;
+
+  const toggleCheck = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCheckedVarieties(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+
+  const clearChecked = () => setCheckedVarieties(new Set());
+
+  const printMultiple = () => {
+    const selected = Array.from(checkedVarieties)
+      .map(id => VARIETY_DATA.find(v => v.id === id))
+      .filter(Boolean) as VarietyRecord[];
+    if (selected.length === 0) return;
+
+    const logoUrl = window.location.origin + import.meta.env.BASE_URL + 'CASC-logo.png';
+    const printDate = new Date().toLocaleDateString('en-GB');
+    const na = 'N/A';
+    const PER_PAGE = 3;
+
+    // Build card HTML for each variety
+    const cardHtml = (v: VarietyRecord) => {
+      const isExpired = v.expiryDate ? new Date(v.expiryDate) < new Date() : false;
+      return `
+        <div class="vcard">
+          <div class="vcard-header">
+            <div class="vcat">${v.category}</div>
+            <div class="vname">${v.nameEn || v.nameAr || na}</div>
+            ${v.nameAr && v.nameEn ? `<div class="vname-ar">${v.nameAr}</div>` : ''}
+          </div>
+          <div class="vcard-body">
+            <table>
+              <tr><td class="lbl">Crop</td><td>${v.cropEn || na}${v.cropAr ? ' — ' + v.cropAr : ''}</td></tr>
+              <tr><td class="lbl">Applicant / Registrant</td><td>${v.applicant || na}</td></tr>
+              <tr><td class="lbl">Ministerial Decree No. &amp; Date</td><td>${v.decree || na}</td></tr>
+              <tr><td class="lbl">Registration Expiry Date</td><td class="${isExpired ? 'expired' : 'valid'}">${v.expiryDate || na}${isExpired ? ' (Expired)' : ''}</td></tr>
+              ${v.notes ? `<tr><td class="lbl">Notes</td><td>${v.notes}</td></tr>` : ''}
+            </table>
+          </div>
+        </div>`;
+    };
+
+    // Group into pages of PER_PAGE
+    const pages: VarietyRecord[][] = [];
+    for (let i = 0; i < selected.length; i += PER_PAGE) {
+      pages.push(selected.slice(i, i + PER_PAGE));
+    }
+
+    const pageHtml = pages.map((group, pi) => `
+      <div class="page">
+        <div class="hdr">
+          <img src="${logoUrl}" alt="CASC" onerror="this.style.display='none'" />
+          <div class="hdr-text">
+            <div class="hdr-title">Central Administration for Seed Testing and Certification (CASC)</div>
+            <div class="hdr-sub">Ministry of Agriculture and Land Reclamation — Arab Republic of Egypt</div>
+            <div class="hdr-doc">National Registered Variety List — Selected Records</div>
+          </div>
+        </div>
+        <div class="cards">
+          ${group.map(cardHtml).join('')}
+        </div>
+        <div class="footer">
+          <span>Source: Crop Registration Committee, Ministry of Agriculture and Land Reclamation.</span>
+          <span>Printed: ${printDate} &nbsp;|&nbsp; Page ${pi + 1} of ${pages.length} &nbsp;|&nbsp; casc.egypt@hotmail.com</span>
+        </div>
+      </div>`).join('');
+
+    const html = `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/>
+<title>CASC — Selected Variety Records</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Arial,sans-serif;background:#fff;color:#1f3d2f;}
+  .page{
+    width:210mm;min-height:297mm;padding:18mm 18mm 14mm;
+    display:flex;flex-direction:column;
+    page-break-after:always;
+  }
+  /* Header */
+  .hdr{display:flex;align-items:center;gap:16px;border-bottom:3px solid #46BA06;padding-bottom:12px;margin-bottom:18px;}
+  .hdr img{height:60px;width:auto;}
+  .hdr-title{font-size:13px;font-weight:bold;color:#1f3d2f;margin-bottom:3px;}
+  .hdr-sub{font-size:10px;color:#5a7a62;margin-bottom:2px;}
+  .hdr-doc{font-size:10px;font-weight:bold;color:#46BA06;letter-spacing:0.5px;text-transform:uppercase;}
+  /* Cards */
+  .cards{flex:1;display:flex;flex-direction:column;gap:12px;}
+  .vcard{border:1.5px solid #d4e8c2;border-radius:10px;overflow:hidden;}
+  .vcard-header{background:linear-gradient(135deg,#46BA06 0%,#38960a 100%);padding:10px 16px;}
+  .vcat{font-size:9px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.8);margin-bottom:4px;}
+  .vname{font-size:16px;font-weight:bold;color:#fff;line-height:1.2;}
+  .vname-ar{font-size:12px;color:rgba(255,255,255,0.75);margin-top:3px;}
+  .vcard-body{background:#fff;padding:10px 16px;}
+  table{width:100%;border-collapse:collapse;}
+  td{padding:5px 8px;font-size:11px;border-bottom:1px solid #f0f0e8;vertical-align:top;}
+  td.lbl{color:#888;font-size:10px;text-transform:uppercase;letter-spacing:0.4px;width:38%;font-weight:600;}
+  .expired{color:#c0392b;font-weight:600;}
+  .valid{color:#27ae60;font-weight:600;}
+  /* Footer */
+  .footer{border-top:1px solid #e8e0cc;padding-top:8px;margin-top:12px;font-size:9px;color:#999;display:flex;justify-content:space-between;gap:8px;}
+  @media print{
+    body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .page{page-break-after:always;}
+  }
+</style>
+</head><body>${pageHtml}</body></html>`;
+
+    const w = window.open('', '_blank');
+    if (w) { w.document.write(html); w.document.close(); w.focus(); setTimeout(() => w.print(), 400); }
+  };
 
   const crops = getCropsForCategory(categoryFilter);
 
@@ -665,42 +778,93 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {displayedCards.map(v => (
-            <button
-              key={v.id}
-              onClick={() => setSelectedVariety(v)}
-              className="bg-white p-5 rounded-2xl border border-amber-100 hover:border-emerald-300 hover:shadow-md transition-all text-left group"
-            >
-              <div className="flex justify-between items-start mb-3">
-                <span className="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase">
-                  {isAr ? v.cropAr : v.cropEn}
-                </span>
-                <ChevronRight className="w-4 h-4 text-[#3D3D3D]/30 group-hover:text-emerald-600 shrink-0" />
+          {displayedCards.map(v => {
+            const isChecked = checkedVarieties.has(v.id);
+            return (
+              <div key={v.id} className="relative group">
+                {/* Checkbox — top-right corner */}
+                <div
+                  onClick={(e) => toggleCheck(v.id, e)}
+                  className={`absolute top-3 right-3 z-10 w-5 h-5 rounded border-2 flex items-center justify-center cursor-pointer transition-all
+                    ${isChecked
+                      ? 'bg-[#46BA06] border-[#46BA06]'
+                      : 'bg-white border-[#3D3D3D]/20 opacity-0 group-hover:opacity-100'}`}
+                >
+                  {isChecked && (
+                    <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 12 12">
+                      <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
+                </div>
+                <button
+                  onClick={() => setSelectedVariety(v)}
+                  className={`w-full bg-white p-5 rounded-2xl border transition-all text-left
+                    ${isChecked
+                      ? 'border-[#46BA06] shadow-md ring-1 ring-[#46BA06]/30'
+                      : 'border-amber-100 hover:border-emerald-300 hover:shadow-md'}`}
+                >
+                  <div className="flex justify-between items-start mb-3 pr-6">
+                    <span className="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase">
+                      {isAr ? v.cropAr : v.cropEn}
+                    </span>
+                    <ChevronRight className="w-4 h-4 text-[#3D3D3D]/30 group-hover:text-emerald-600 shrink-0" />
+                  </div>
+                  <h3 className="text-base font-semibold text-[#2D4A32] leading-snug mb-1">
+                    {v.nameEn || v.nameAr}
+                  </h3>
+                  {v.nameAr && v.nameEn && (
+                    <p className="text-xs text-[#3D3D3D]/60 mb-3">{v.nameAr}</p>
+                  )}
+                  <div className="space-y-1.5 mt-3 pt-3 border-t border-amber-50">
+                    <div className="flex justify-between text-xs">
+                      <span className="text-[#3D3D3D]/50">{isAr ? 'الجهة الطالبة' : 'Applicant'}</span>
+                      <span className="text-[#3D3D3D] font-medium truncate max-w-[140px]">{v.applicant || '—'}</span>
+                    </div>
+                    <div className="flex justify-between text-xs">
+                      <span className="text-[#3D3D3D]/50">{isAr ? 'قرار التسجيل' : 'Decree'}</span>
+                      <span className="text-[#3D3D3D] font-medium font-mono">{v.decree || '—'}</span>
+                    </div>
+                    <div className="flex justify-between text-xs">
+                      <span className="text-[#3D3D3D]/50">{isAr ? 'انتهاء التسجيل' : 'Expires'}</span>
+                      <span className={`font-medium ${v.expiryDate && v.expiryDate < new Date().toISOString().slice(0,10) ? 'text-red-500' : 'text-emerald-600'}`}>
+                        {v.expiryDate || '—'}
+                      </span>
+                    </div>
+                  </div>
+                </button>
               </div>
-              <h3 className="text-base font-semibold text-[#2D4A32] leading-snug mb-1">
-                {v.nameEn || v.nameAr}
-              </h3>
-              {v.nameAr && v.nameEn && (
-                <p className="text-xs text-[#3D3D3D]/60 mb-3">{v.nameAr}</p>
-              )}
-              <div className="space-y-1.5 mt-3 pt-3 border-t border-amber-50">
-                <div className="flex justify-between text-xs">
-                  <span className="text-[#3D3D3D]/50">{isAr ? 'الجهة الطالبة' : 'Applicant'}</span>
-                  <span className="text-[#3D3D3D] font-medium truncate max-w-[140px]">{v.applicant || '—'}</span>
-                </div>
-                <div className="flex justify-between text-xs">
-                  <span className="text-[#3D3D3D]/50">{isAr ? 'قرار التسجيل' : 'Decree'}</span>
-                  <span className="text-[#3D3D3D] font-medium font-mono">{v.decree || '—'}</span>
-                </div>
-                <div className="flex justify-between text-xs">
-                  <span className="text-[#3D3D3D]/50">{isAr ? 'انتهاء التسجيل' : 'Expires'}</span>
-                  <span className={`font-medium ${v.expiryDate && v.expiryDate < new Date().toISOString().slice(0,10) ? 'text-red-500' : 'text-emerald-600'}`}>
-                    {v.expiryDate || '—'}
-                  </span>
-                </div>
-              </div>
-            </button>
-          ))}
+            );
+          })}
+        </div>
+      )}
+
+      {/* Sticky multi-print bar */}
+      {checkedVarieties.size > 0 && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-[#1f3d2f] text-white px-6 py-3.5 rounded-2xl shadow-2xl border border-[#46BA06]/40 animate-fade-in">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-full bg-[#46BA06] flex items-center justify-center text-xs font-bold shrink-0">
+              {checkedVarieties.size}
+            </div>
+            <span className="text-sm font-medium">
+              {isAr
+                ? `${checkedVarieties.size} صنف محدد`
+                : `${checkedVarieties.size} ${checkedVarieties.size === 1 ? 'variety' : 'varieties'} selected`}
+            </span>
+          </div>
+          <div className="h-4 w-px bg-white/20" />
+          <button
+            onClick={printMultiple}
+            className="flex items-center gap-2 bg-[#46BA06] hover:bg-[#38960a] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-all"
+          >
+            <Download className="w-4 h-4" />
+            {isAr ? 'عرض وطباعة' : 'View & Print'}
+          </button>
+          <button
+            onClick={clearChecked}
+            className="text-white/60 hover:text-white text-xs transition-colors px-1"
+          >
+            {isAr ? 'مسح الكل' : 'Clear all'}
+          </button>
         </div>
       )}
 
