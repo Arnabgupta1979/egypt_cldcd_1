@@ -736,11 +736,6 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
           <p className="text-sm font-semibold text-[#2D4A32]">
             {isAr ? 'كيفية تسجيل صنف في مصر' : 'How to Register a Variety in Egypt'}
           </p>
-          <p className="text-xs text-[#3D3D3D]/70 mt-0.5">
-            {isAr
-              ? 'راجع إجراءات تسجيل الأصناف الكاملة — بما فيها مخطط التدفق والنماذج المطلوبة — في صفحة خدمات CASC.'
-              : 'Full variety registration procedures — including the registration flowchart and required forms — are available in the CASC Services section.'}
-          </p>
         </div>
       </div>
 
@@ -1060,11 +1055,10 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
     {
       en: 'Agricultural Crop Varieties Registration Committee',
       ar: 'لجنة تسجيل أصناف الحاصلات الزراعية',
-      bodyEn: '[Awaiting official description from CASC]',
-      bodyAr: '[في انتظار الوصف الرسمي من CASC]',
+      bodyEn: 'The Agricultural Crops Registration Committee is the only committee in the Arab Republic of Egypt authorized by the Ministry of Agriculture to register agricultural crop varieties. Any natural or legal person may apply to register plant varieties. The Registration Committee operates in accordance with Agriculture Law No. 53 of 1966 and the ministerial decrees regulating its work. The Variety Registration Committee is directly followed to the Ministry of Agriculture and Land Reclamation. The Technical secretary office of the Agricultural Seed Registration Committee conducts the technical and administrative review of the submitted registration applications.',
+      bodyAr: 'لجنة تسجيل الحاصلات الزراعية هي اللجنة الوحيدة بجمهورية مصر العربية المفوضة من وزارة الزراعة بالقيام بتسجيل أصناف الحاصلات الزراعية. ويحق لكل شخص طبيعي أو معنوي التقدم لتسجيل الأصناف النباتية. وتعمل لجنة التسجيل وفقاً لقانون الزراعة رقم 53 لعام 1966 والقرارات الوزارية المنظمة للعمل. تتبع لجنة تسجيل الأصناف وزارة الزراعة واستصلاح الأراضي مباشرةً، وتضطلع الأمانة الفنية للجنة بالفحص الفني والإداري لطلبات التسجيل المقدمة.',
       pointsEn: [],
       pointsAr: [],
-      placeholder: true,
     },
     {
       en: 'Agricultural Crop Seed Committee',
@@ -1213,19 +1207,19 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
                 className="rounded-2xl overflow-hidden shadow-md border-2"
                 style={{
                   backgroundColor: item.pvpo ? '#f8f4e8' : '#ffffff',
-                  borderColor: item.pvpo ? '#d4a800' : item.placeholder ? '#cbd5e1' : '#46BA06',
+                  borderColor: item.pvpo ? '#d4a800' : '#46BA06',
                 }}
               >
                 {/* Header */}
                 <div
                   className="flex items-center gap-4 px-6 py-4"
                   style={{
-                    backgroundColor: item.pvpo ? '#fef3c7' : item.placeholder ? '#f1f5f9' : '#e8f9dc',
+                    backgroundColor: item.pvpo ? '#fef3c7' : '#e8f9dc',
                   }}
                 >
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                    style={{ backgroundColor: item.pvpo ? '#d4a800' : item.placeholder ? '#94a3b8' : '#46BA06' }}
+                    style={{ backgroundColor: item.pvpo ? '#d4a800' : '#46BA06' }}
                   >
                     {i === 0 && <FileText className="w-5 h-5 text-white" />}
                     {i === 1 && <Users className="w-5 h-5 text-white" />}
@@ -1235,11 +1229,6 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
                     <p className="font-bold text-lg text-[#1f3d2f] leading-snug">{isAr ? item.ar : item.en}</p>
                     {!isAr && <p className="text-xs mt-0.5 text-[#3D3D3D]/60">{item.ar}</p>}
                   </div>
-                  {item.placeholder && (
-                    <span className="ml-auto text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full border border-slate-200 uppercase tracking-wider shrink-0">
-                      {isAr ? 'قيد الإعداد' : 'To be filled'}
-                    </span>
-                  )}
                   {item.pvpo && (
                     <span className="ml-auto text-[10px] font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full border border-amber-200 uppercase tracking-wider shrink-0">
                       {isAr ? 'تحول مؤسسي — 2025' : 'Institutional change — 2025'}
@@ -1527,20 +1516,8 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
       icon: Target,
       image: 'Regulatory_compliance.png',
       title: { en: 'Trade & Production Licensing', ar: 'ترخيص الاتجار والإنتاج' },
-      points: {
-        en: [
-          'CASC issues licences for seed trading and production to companies and individuals',
-          'Licensed facilities are subject to regular CASC field and facility inspections',
-          'Licence holders must comply with all seed quality standards',
-          'CASC may revoke licences in cases of non-compliance',
-        ],
-        ar: [
-          'تُصدر CASC تراخيص الاتجار والإنتاج للشركات والأفراد',
-          'تخضع المنشآت المرخصة لفحوصات CASC الدورية الميدانية والمنشآتية',
-          'يُلزَم حاملو التراخيص بالامتثال لجميع معايير جودة التقاوي',
-          'يحق لـ CASC سحب التراخيص في حالات عدم الامتثال',
-        ],
-      },
+      points: { en: [], ar: [] },
+      stillNoData: true,
     },
     {
       icon: Users,
@@ -1562,6 +1539,13 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
           'تحدد النتائج ما إذا كان يمكن استكمال إجراءات الاستيراد أو التصدير',
         ],
       },
+    },
+    {
+      icon: Layers,
+      image: 'Seedcertification.png',
+      title: { en: 'Cotton Ginning & Oil Pressing Licences', ar: 'تراخيص المحالج ومعاصر الزيوت' },
+      points: { en: [], ar: [] },
+      ginsPdf: true,
     },
   ];
 
@@ -1617,14 +1601,78 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
                   className="px-6 py-5 overflow-y-auto text-sm text-[#3D3D3D] leading-relaxed"
                   dir={isAr ? 'rtl' : 'ltr'}
                 >
-                  <ul className="space-y-2">
-                    {services[activeService].points[lang].map((point, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#638C6D] shrink-0" />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {services[activeService].stillNoData ? (
+                    <p className="text-[#3D3D3D]/60 italic text-center py-6">{isAr ? 'لا توجد بيانات حتى الآن' : 'Still no data'}</p>
+                  ) : services[activeService].ginsPdf ? (
+                    <div className="space-y-6">
+                      <p className="text-sm text-[#3D3D3D] leading-relaxed">
+                        {isAr
+                          ? 'يمكنك تنزيل الإجراءات الكاملة لكل من المحالج ومعاصر الزيوت من الروابط أدناه.'
+                          : 'Download the full licensing procedure documents for cotton gins and oil mills below.'}
+                      </p>
+                      {/* Gins */}
+                      <div className="bg-emerald-50 rounded-xl p-4 space-y-3">
+                        <p className="text-xs font-bold uppercase tracking-widest text-emerald-800">
+                          {isAr ? 'المحالج (حلج القطن)' : 'Cotton Gins (Ginneries)'}
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-2">
+                          <a
+                            href={`${import.meta.env.BASE_URL}GINS_EN.pdf`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 bg-[#46BA06] hover:bg-[#38960a] text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition-all"
+                          >
+                            <FileText className="w-4 h-4 shrink-0" />
+                            {isAr ? 'تنزيل — إنجليزي' : 'Download — English'}
+                          </a>
+                          <a
+                            href={`${import.meta.env.BASE_URL}GINS_AR.pdf`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 bg-[#46BA06] hover:bg-[#38960a] text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition-all"
+                          >
+                            <FileText className="w-4 h-4 shrink-0" />
+                            {isAr ? 'تنزيل — عربي' : 'Download — Arabic'}
+                          </a>
+                        </div>
+                      </div>
+                      {/* Mills */}
+                      <div className="bg-orange-50 rounded-xl p-4 space-y-3">
+                        <p className="text-xs font-bold uppercase tracking-widest text-orange-800">
+                          {isAr ? 'معاصر الزيوت' : 'Oil Mills'}
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-2">
+                          <a
+                            href={`${import.meta.env.BASE_URL}MILLS_EN.pdf`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 bg-[#DF6D2D] hover:bg-[#C84C05] text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition-all"
+                          >
+                            <FileText className="w-4 h-4 shrink-0" />
+                            {isAr ? 'تنزيل — إنجليزي' : 'Download — English'}
+                          </a>
+                          <a
+                            href={`${import.meta.env.BASE_URL}MILLS_AR.pdf`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 bg-[#DF6D2D] hover:bg-[#C84C05] text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition-all"
+                          >
+                            <FileText className="w-4 h-4 shrink-0" />
+                            {isAr ? 'تنزيل — عربي' : 'Download — Arabic'}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <ul className="space-y-2">
+                      {services[activeService].points[lang].map((point, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#638C6D] shrink-0" />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
                 <div className="px-6 py-3 bg-amber-50 border-t border-amber-100 shrink-0">
                   <p className="text-[11px] text-amber-700">
@@ -2086,7 +2134,7 @@ export default function App() {
               <li>{lang === 'ar' ? 'تسجيل الأصناف' : 'Variety Registration'}</li>
               <li>{lang === 'ar' ? 'ترخيص المنتجين' : 'Producer Licensing'}</li>
               <li>{lang === 'ar' ? 'تصاريح الاستيراد والتصدير' : 'Import / Export Permits'}</li>
-              <li>{lang === 'ar' ? 'مختبرات الجودة' : 'Quality Laboratories'}</li>
+              <li>{lang === 'ar' ? 'فحص التقاوي' : 'Seed Testings'}</li>
             </ul>
           </div>
         </div>
