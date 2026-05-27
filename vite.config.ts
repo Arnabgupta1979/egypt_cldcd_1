@@ -1,12 +1,13 @@
 import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
-import { cloudflare } from "@cloudflare/vite-plugin";
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
+    // GitHub Pages needs /egypt_cldcd_1/ — all other hosts (Netlify, local) use /
+    const base = process.env.GITHUB_ACTIONS ? '/egypt_cldcd_1/' : '/';
     return {
-      base: '/egypt_cldcd_1/',
+      base,
       server: {
         port: 5173,
         host: 'localhost',
