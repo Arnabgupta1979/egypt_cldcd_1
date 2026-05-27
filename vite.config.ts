@@ -6,7 +6,7 @@ import { cloudflare } from "@cloudflare/vite-plugin";
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
-      base: '/',
+      base: '/egypt_cldcd_1/',
       server: {
         port: 5173,
         host: 'localhost',
