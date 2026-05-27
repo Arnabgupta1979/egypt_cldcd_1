@@ -1,3 +1,5 @@
+on:
+  workflow_dispatch: # manual only, effectively disabling auto-deploy
 name: Deploy to GitHub Pages
 
 on:
