@@ -1292,131 +1292,126 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
 
       {/* CASC Goal & Five General Administrations */}
       <div className="py-16" style={{ backgroundColor: '#f0f7f0' }}>
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold mb-4">
+      <div className="max-w-5xl mx-auto px-4">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 bg-[#1B3A2D]/8 text-[#1B3A2D] px-3 py-1 rounded-full text-xs font-semibold tracking-widest uppercase mb-4 border border-[#1B3A2D]/15">
             <Target className="w-3 h-3" />
             {isAr ? 'هدف الإدارة المركزية' : "CASC's Goal"}
           </div>
-          <h2 className="text-3xl font-semibold text-[#2D4A32] mb-3">
+          <h2 className="text-4xl font-bold text-[#1B3A2D] mb-3 tracking-tight">
             {isAr ? 'ضمان جودة عالية للتقاوي' : 'Assuring High Quality Seeds'}
           </h2>
-          <p className="text-[#3D3D3D] text-sm max-w-2xl mx-auto">
+          <p className="text-[#4A5E54] text-sm max-w-2xl mx-auto leading-relaxed">
             {isAr
               ? 'تعمل CASC من خلال خمس إدارات عامة رئيسية، فضلاً عن استضافة أمانة اللجان الوطنية للتقاوي:'
               : 'This is achieved through 5 main General Administrations, alongside hosting the secretariat of national seed committees:'}
           </p>
         </div>
-        <div className="space-y-4">
-          {adminWiki.map((adm, i) => (
-            <div
-              key={i}
-              className="rounded-2xl overflow-hidden shadow-md"
-              style={{ backgroundColor: '#46BA06' }}
-            >
-              {/* Strip header row */}
-              <div className="flex items-center gap-5 px-6 py-5">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.20)' }}>
-                  {i === 0 && <Shield className="w-6 h-6 text-white" />}
-                  {i === 1 && <BookOpen className="w-6 h-6 text-white" />}
-                  {i === 2 && <FlaskConical className="w-6 h-6 text-white" />}
-                  {i === 3 && <Award className="w-6 h-6 text-white" />}
-                  {i === 4 && <Layers className="w-6 h-6 text-white" />}
-                </div>
-                <div>
-                  <p className="font-bold text-white text-xl leading-snug">{isAr ? adm.ar : adm.en}</p>
-                  {!isAr && <p className="text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.72)' }}>{adm.ar}</p>}
-                </div>
-              </div>
-              {/* Inline content */}
-              <div className="bg-black/[0.08] border-t border-white/15 px-6 py-5 space-y-4">
-                <p className="text-sm leading-relaxed text-white">
-                  {isAr ? adm.bodyAr : adm.bodyEn}
-                </p>
-                {(isAr ? adm.pointsAr : adm.pointsEn).length > 0 && (
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest mb-2 text-white/70">
-                      {isAr ? 'الأقسام الفرعية والوظائف الرئيسية' : 'Sub-units & Key Functions'}
-                    </p>
-                    <ul className="space-y-1.5">
-                      {(isAr ? adm.pointsAr : adm.pointsEn).map((pt, j) => (
-                        <li key={j} className="flex items-start gap-2 text-sm text-white">
-                          <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-white shrink-0"></span>
-                          {pt}
-                        </li>
-                      ))}
-                    </ul>
+
+        {/* Administration strips — refined ministerial style */}
+        <div className="space-y-3">
+          {adminWiki.map((adm, i) => {
+            const icons = [Shield, BookOpen, FlaskConical, Award, Layers];
+            const Icon = icons[i] || Shield;
+            return (
+              <div key={i} className="rounded-xl overflow-hidden border border-[#D6E4DC] shadow-sm bg-white">
+                {/* Narrow dark header band */}
+                <div className="flex items-center gap-4 px-6 py-4" style={{ backgroundColor: '#1B3A2D' }}>
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(255,255,255,0.12)' }}>
+                    <Icon className="w-4.5 h-4.5 text-white" style={{ width: '18px', height: '18px' }} />
                   </div>
-                )}
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-white text-lg leading-tight tracking-tight">{isAr ? adm.ar : adm.en}</p>
+                    {!isAr && <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>{adm.ar}</p>}
+                  </div>
+                  <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.6)' }}>
+                    {isAr ? 'إدارة عامة' : 'General Administration'}
+                  </span>
+                </div>
+                {/* Content panel — off-white, left accent border */}
+                <div className="flex">
+                  <div className="w-1 shrink-0" style={{ backgroundColor: '#638C6D' }} />
+                  <div className="flex-1 px-6 py-5 space-y-4">
+                    <p className="text-sm leading-relaxed text-[#2C3E35]">
+                      {isAr ? adm.bodyAr : adm.bodyEn}
+                    </p>
+                    {(isAr ? adm.pointsAr : adm.pointsEn).length > 0 && (
+                      <div>
+                        <p className="text-[9px] font-bold uppercase tracking-widest mb-3" style={{ color: '#638C6D' }}>
+                          {isAr ? 'الأقسام الفرعية' : 'Sub-units'}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {(isAr ? adm.pointsAr : adm.pointsEn).map((pt, j) => (
+                            <span
+                              key={j}
+                              className="text-xs px-3 py-1.5 rounded-md font-medium"
+                              style={{ backgroundColor: '#EEF4F0', color: '#1B3A2D', border: '1px solid #D0E2D6' }}
+                            >
+                              {pt}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Committees & Offices — separate section */}
+        {/* Committees & Offices */}
         <div className="mt-10">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="h-px flex-1 bg-[#638C6D]/30" />
-            <p className="text-xs font-bold uppercase tracking-widest text-[#638C6D]">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="h-px flex-1" style={{ backgroundColor: '#D6E4DC' }} />
+            <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#638C6D' }}>
               {isAr ? 'اللجان والمكاتب المرتبطة' : 'Associated Committees & Offices'}
             </p>
-            <div className="h-px flex-1 bg-[#638C6D]/30" />
+            <div className="h-px flex-1" style={{ backgroundColor: '#D6E4DC' }} />
           </div>
-          <div className="space-y-4">
-            {committeeWiki.map((item, i) => (
-              <div
-                key={i}
-                className="rounded-2xl overflow-hidden shadow-md border-2"
-                style={{
-                  backgroundColor: item.pvpo ? '#f8f4e8' : '#ffffff',
-                  borderColor: item.pvpo ? '#d4a800' : '#46BA06',
-                }}
-              >
-                {/* Header */}
-                <div
-                  className="flex items-center gap-4 px-6 py-4"
-                  style={{
-                    backgroundColor: item.pvpo ? '#fef3c7' : '#e8f9dc',
-                  }}
-                >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                    style={{ backgroundColor: item.pvpo ? '#d4a800' : '#46BA06' }}
-                  >
-                    {i === 0 && <FileText className="w-5 h-5 text-white" />}
-                    {i === 1 && <Users className="w-5 h-5 text-white" />}
-                    {i === 2 && <Info className="w-5 h-5 text-white" />}
+          <div className="space-y-3">
+            {committeeWiki.map((item, i) => {
+              const accentColor = item.pvpo ? '#92680A' : '#2D5E3A';
+              const tagBg = item.pvpo ? '#FEF3C7' : '#EEF4F0';
+              const tagText = item.pvpo ? '#92680A' : '#2D5E3A';
+              const tagBorder = item.pvpo ? '#F0D080' : '#C8DED0';
+              return (
+                <div key={i} className="rounded-xl overflow-hidden border shadow-sm bg-white" style={{ borderColor: '#D6E4DC' }}>
+                  <div className="flex">
+                    <div className="w-1 shrink-0" style={{ backgroundColor: accentColor }} />
+                    <div className="flex-1 px-6 py-5">
+                      <div className="flex items-start justify-between gap-4 mb-3">
+                        <div>
+                          <p className="font-bold text-base leading-snug" style={{ color: '#1B3A2D' }}>{isAr ? item.ar : item.en}</p>
+                          {!isAr && <p className="text-xs mt-0.5" style={{ color: '#7A9A84' }}>{item.ar}</p>}
+                        </div>
+                        <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded shrink-0 whitespace-nowrap border" style={{ backgroundColor: tagBg, color: tagText, borderColor: tagBorder }}>
+                          {item.pvpo
+                            ? (isAr ? 'تحول مؤسسي 2025' : 'Institutional change 2025')
+                            : (isAr ? 'لجنة' : 'Committee')}
+                        </span>
+                      </div>
+                      <p className="text-sm leading-relaxed" style={{ color: '#2C3E35' }}>
+                        {isAr ? item.bodyAr : item.bodyEn}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-bold text-lg text-[#1f3d2f] leading-snug">{isAr ? item.ar : item.en}</p>
-                    {!isAr && <p className="text-xs mt-0.5 text-[#3D3D3D]/60">{item.ar}</p>}
-                  </div>
-                  {item.pvpo && (
-                    <span className="ml-auto text-[10px] font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full border border-amber-200 uppercase tracking-wider shrink-0">
-                      {isAr ? 'تحول مؤسسي — 2025' : 'Institutional change — 2025'}
-                    </span>
-                  )}
                 </div>
-                {/* Body */}
-                <div className="px-6 py-5">
-                  <p className="text-sm leading-relaxed text-[#3D3D3D]">
-                    {isAr ? item.bodyAr : item.bodyEn}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
       </div>
 
       {/* Legal Mandate */}
-      <div className="bg-amber-50 border-t border-b border-amber-100 py-12 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-3 mb-6">
-            <FileText className="w-6 h-6 text-emerald-600" />
-            <h3 className="text-2xl font-semibold text-[#2D4A32]">{isAr ? 'الأساس القانوني' : 'Legal Mandate'}</h3>
+      <div className="py-14 px-4" style={{ backgroundColor: '#F4F7F5' }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#1B3A2D' }}>
+              <FileText className="w-4 h-4 text-white" />
+            </div>
+            <h3 className="text-xl font-bold tracking-tight" style={{ color: '#1B3A2D' }}>{isAr ? 'الأساس القانوني' : 'Legal Mandate'}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
@@ -1424,10 +1419,10 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
               { ref: 'Min. Decree 2168 / 2008', title: { en: 'Executive Regulations', ar: 'اللائحة التنفيذية' }, desc: { en: 'Detailed executive regulations for Law 94/1976 covering certification procedures, laboratory accreditation, and penalty provisions.', ar: 'اللوائح التنفيذية التفصيلية للقانون 94/1976 التي تغطي إجراءات التصديق واعتماد المختبرات وأحكام العقوبات.' } },
               { ref: 'UPOV 1991 / COMESA', title: { en: 'International Commitments', ar: 'الالتزامات الدولية' }, desc: { en: 'Egypt\'s treaty obligations through UPOV 1991 accession (plant variety protection), COMESA seed trade harmonisation, and OECD seed schemes.', ar: 'التزامات مصر بموجب انضمامها لـ UPOV 1991 (حماية الأصناف)، وتنسيق تجارة التقاوي في الكوميسا، ومخططات OECD للتقاوي.' } },
             ].map((item, i) => (
-              <div key={i} className="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
-                <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded uppercase tracking-wider">{item.ref}</span>
-                <h4 className="font-bold text-[#2D4A32] mt-3 mb-2">{item.title[lang]}</h4>
-                <p className="text-[#3D3D3D] text-xs leading-relaxed">{item.desc[lang]}</p>
+              <div key={i} className="bg-white p-6 rounded-xl border shadow-sm" style={{ borderColor: '#D6E4DC' }}>
+                <span className="text-[9px] font-bold text-white px-2 py-1 rounded uppercase tracking-wider" style={{ backgroundColor: '#2D5E3A' }}>{item.ref}</span>
+                <h4 className="font-bold mt-3 mb-2 text-sm" style={{ color: '#1B3A2D' }}>{item.title[lang]}</h4>
+                <p className="text-xs leading-relaxed" style={{ color: '#4A5E54' }}>{item.desc[lang]}</p>
               </div>
             ))}
           </div>
