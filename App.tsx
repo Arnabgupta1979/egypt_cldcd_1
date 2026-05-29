@@ -39,7 +39,7 @@ import { getDocumentSummary } from './geminiService';
 // --- Components ---
 
 // Top announcement / identity strip
-const TopBanner: React.FC<{ lang: Language }> = ({ lang }) => {
+const TopBanner: React.FC<{ lang: Language; setActiveTab: (t: string) => void }> = ({ lang, setActiveTab }) => {
   const isAr = lang === 'ar';
   return (
     <div className="bg-amber-100 text-[#2D4A32] text-xs py-2.5 px-4 border-b border-amber-100">
@@ -59,6 +59,14 @@ const TopBanner: React.FC<{ lang: Language }> = ({ lang }) => {
             <Mail className="w-3 h-3 text-[#2D4A32]" />
             casc.egypt@hotmail.com
           </span>
+          <span className="w-px h-3.5 bg-[#2D4A32]/30" />
+          <button
+            onClick={() => setActiveTab('login')}
+            className="flex items-center gap-1.5 text-[#2D4A32] hover:text-orange-700 font-semibold uppercase tracking-wide transition-colors"
+          >
+            <User className="w-3 h-3 shrink-0" />
+            {isAr ? 'دخول' : 'Login'}
+          </button>
         </div>
       </div>
     </div>
@@ -133,13 +141,7 @@ const Navbar: React.FC<{
             </div>
           </div>
 
-          {/* RIGHT: login — always shrink-0, never hidden */}
-          <div className="shrink-0 ml-auto md:ml-0">
-            <button className="flex items-center gap-2 text-white border border-white/70 hover:border-white transition-colors px-3 py-1.5 rounded-sm whitespace-nowrap">
-              <User className="w-4 h-4 shrink-0" />
-              <span className="hidden sm:inline text-sm font-medium">{isAr ? 'دخول' : 'Login'}</span>
-            </button>
-          </div>
+
         </div>
       </div>
     </nav>
@@ -2213,7 +2215,7 @@ export default function App() {
         <div className="flex-1 bg-[#0a0a0a]"></div>
       </div>
       <div className="h-px bg-orange-400/70"></div>
-      <TopBanner lang={lang} />
+      <TopBanner lang={lang} setActiveTab={setActiveTab} />
       <Navbar lang={lang} setLang={setLang} activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <main className="flex-grow">
