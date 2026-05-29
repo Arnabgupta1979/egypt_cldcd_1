@@ -1541,7 +1541,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
   const services = [
     {
       icon: Globe,
-      image: 'Import_export_permit.png',
+      image: 'seedexport.png',
       title: { en: 'Seed Export', ar: 'تصدير التقاوي' },
       points: {
         en: [
@@ -1568,7 +1568,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
     },
     {
       icon: BookOpen,
-      image: 'Seed_producer_licensing.png',
+      image: 'seedimport.png',
       title: { en: 'Seed Import', ar: 'استيراد التقاوي' },
       points: {
         en: [
@@ -1597,7 +1597,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
     },
     {
       icon: Shield,
-      image: 'Variety_registration.png',
+      image: 'fieldinspections.png',
       title: { en: 'Field Inspection', ar: 'التفتيش الحقلي' },
       points: {
         en: [
@@ -1626,7 +1626,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
     },
     {
       icon: Award,
-      image: 'Seedcertification.png',
+      image: 'varietyregistration.png',
       title: { en: 'Variety Registration', ar: 'تسجيل الأصناف' },
       points: {
         en: [
@@ -1649,7 +1649,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
     },
     {
       icon: FlaskConical,
-      image: 'Seedlab.png',
+      image: 'istaoecd.png',
       title: { en: 'ISTA & OECD Certificates', ar: 'شهادات ISTA وOECD' },
       points: {
         en: [
@@ -1674,14 +1674,14 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
     },
     {
       icon: Target,
-      image: 'Regulatory_compliance.png',
+      image: 'tradeandproducer_licensing.png',
       title: { en: 'Trade & Production Licensing', ar: 'ترخيص الاتجار والإنتاج' },
       points: { en: [], ar: [] },
       stillNoData: true,
     },
     {
       icon: Users,
-      image: 'Public_seed_production.png',
+      image: 'seedtesting.png',
       title: { en: 'Seed Testing', ar: 'فحص التقاوي' },
       points: {
         en: [
@@ -1702,7 +1702,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
     },
     {
       icon: Layers,
-      image: 'Seedcertification.png',
+      image: 'ginsandoils.png',
       title: { en: 'Cotton Ginning & Oil Pressing Licences', ar: 'تراخيص المحالج ومعاصر الزيوت' },
       points: { en: [], ar: [] },
       ginsPdf: true,
