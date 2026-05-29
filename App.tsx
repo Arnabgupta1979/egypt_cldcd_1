@@ -78,7 +78,7 @@ const Navbar: React.FC<{
     { id: 'about', label: isAr ? 'عن CASC' : 'About CASC', icon: Info },
     { id: 'services', label: isAr ? 'خدمات CASC' : 'CASC Services', icon: Layers },
     { id: 'library', label: isAr ? 'المكتبة' : 'Library', icon: FileText },
-    { id: 'catalogue', label: isAr ? 'الكتالوج' : 'Catalogue', icon: BookOpen },
+    { id: 'catalogue', label: isAr ? 'القائمة الوطنية للأصناف' : 'National Variety List', icon: BookOpen },
     { id: 'directory', label: isAr ? 'الدليل' : 'Directory', icon: MapPin },
     { id: 'contact', label: isAr ? 'تواصل' : 'Contact', icon: Mail },
   ];
@@ -591,7 +591,7 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
           className="flex items-center gap-2 text-[#3D3D3D]/70 hover:text-[#2D4A32] font-bold text-sm mb-6 transition-colors"
         >
           <ChevronLeft className="w-4 h-4" />
-          {isAr ? 'العودة إلى الكتالوج' : 'Back to Catalogue'}
+          {isAr ? 'العودة إلى القائمة الوطنية للأصناف' : 'Back to National Variety List'}
         </button>
         <div className="bg-white rounded-3xl border border-amber-100 shadow-lg overflow-hidden">
           <div className="bg-emerald-700 text-white px-8 py-6">
@@ -708,7 +708,7 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
       {/* Header */}
       <div className="bg-emerald-900 text-white p-8 rounded-3xl relative overflow-hidden shadow-xl">
         <div className="relative z-10">
-          <h2 className="text-2xl font-bold mb-1">{isAr ? 'الكتالوج الوطني للأصناف المسجلة' : 'National Registered Variety Catalogue'}</h2>
+          <h2 className="text-2xl font-bold mb-1">{isAr ? 'القائمة الوطنية للأصناف المسجلة' : 'National Variety List'}</h2>
           <p className="text-emerald-200 text-sm mb-4">
             {isAr
               ? 'المصدر: لجنة تسجيل المحاصيل — وزارة الزراعة واستصلاح الأراضي'
@@ -2280,7 +2280,7 @@ export default function App() {
               <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('about')}>{lang === 'ar' ? 'عن CASC' : 'About CASC'}</li>
               <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('services')}>{lang === 'ar' ? 'خدمات CASC' : 'CASC Services'}</li>
               <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('library')}>{lang === 'ar' ? 'مكتبة التشريعات' : 'Legislation Library'}</li>
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('catalogue')}>{lang === 'ar' ? 'الكتالوج الوطني' : 'National Variety Catalogue'}</li>
+              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('catalogue')}>{lang === 'ar' ? 'القائمة الوطنية للأصناف' : 'National Variety List'}</li>
               <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('directory')}>{lang === 'ar' ? 'دليل الجهات' : 'Authority Directory'}</li>
               <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('contact')}>{lang === 'ar' ? 'تواصل معنا' : 'Contact Us'}</li>
             </ul>
