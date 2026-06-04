@@ -921,7 +921,7 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            { name: { en: 'Application Form', ar: 'نموذج الطلب' }, file: null },
+            { name: { en: 'Application Form', ar: 'نموذج الطلب' }, file: 'reg_appl.pdf' },
             { name: { en: 'Technical Questionnaire for Local Varieties', ar: 'الاستبيان الفني للأصناف المحلية' }, file: 'local_var_QA.pdf' },
             { name: { en: 'Technical Questionnaire for Imported Varieties', ar: 'الاستبيان الفني للأصناف المستوردة' }, file: 'imported_var_QA.pdf' },
             { name: { en: 'Form for Extending Registration of a Plant Variety', ar: 'نموذج تمديد تسجيل الصنف النباتي' }, file: null },
@@ -1539,7 +1539,78 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
   const [activeService, setActiveService] = useState<number | null>(null);
 
   const services = [
+{
+      icon: Award,
+      image: 'varietyregistration.png',
+      title: { en: 'Variety Registration', ar: 'تسجيل الأصناف' },
+      points: {
+        en: [
+          'All procedures must be completed through an Egyptian agent or a branch of the foreign company',
+          'All documents must be submitted in Arabic (except the authorisation letter and DUS report)',
+          'Submit application form to the Technical Secretariat of the Seed Registration Committee',
+          'Submit valid certified authorisation from the Egyptian Embassy (for imported varieties)',
+          'Submit the import approval',
+          'Complete and submit the Technical Questionnaire',
+        ],
+        ar: [
+          'تُستكمل جميع الإجراءات من خلال وكيل مصري أو فرع للشركة الأجنبية',
+          'تُملأ جميع المستندات باللغة العربية باستثناء خطاب التفويض وتقرير DUS',
+          'تقديم طلب إلى الأمانة الفنية للجنة تسجيل الأصناف',
+          'تقديم تفويض رسمي مصدّق من السفارة المصرية (للأصناف المستوردة)',
+          'تقديم تصريح الاستيراد',
+          'ملء وتقديم الاستبيان الفني',
+        ],
+      },
+    },
+{
+      icon: Shield,
+      image: 'field.png',
+      title: { en: 'Field inspections for vegetable and field crops', ar: 'التفتيش الحقلي (الخضر والمحاصيل الحقلية)' },
+      points: {
+        en: [
+          'Field inspection is the first step in seed production certification',
+          'The administration comprises four units: Field Crops, Vegetative Propagation Crops, Vegetable Crops, and Quality Control Field Inspection',
+          'Copy of valid production licence',
+          'Application form (company name)',
+          'Invoice for examination of seeds to be used for planting',
+          'Original Form 3 from the Certification Department',
+          'Contractors list',
+          'Inspection notification',
+          'Payment of prescribed fees',
+        ],
+        ar: [
+          'التفتيش الحقلي هو أول خطوات اعتماد إنتاج التقاوي',
+          'تتكون الإدارة من أربع وحدات: المحاصيل الحقلية، التكاثر الخضري، محاصيل الخضر، ومراقبة الجودة',
+          'صورة من ترخيص الإنتاج ساري المفعول',
+          'طلب باسم الشركة',
+          'فاتورة فحص للتقاوي المطلوب استخدامها للزراعة',
+          'أصل استمارة 3 من قسم الاعتماد',
+          'كشف متعاقدين',
+          'إخطار فحص',
+          'سداد المصروفات المقررة',
+        ],
+      },
+    },
     {
+      icon: Shield,
+      image: 'potato.png',
+      title: { en: 'Field Inspection (Vegetatively Propagated Crops, Potatoes and Tissue Culture)', ar: 'التفتيش الحقلي (محاصيل التكاثر الخضري والبطاطس وزراعة الأنسجة)' },
+      points: {
+        en: [
+          'Copy of the Production Permit',
+          'Import Approval',
+          'Electronic Invoice',
+          'IF Test Result',
+        ],
+        ar: [
+          'صورة من تصريح الإنتاج',
+          'الموافقة الاستيرادية',
+          'الفاتورة الإلكترونية',
+          'نتيجة الـ IF',
+        ],
+      },
+    },
+{
       icon: Globe,
       image: 'seedexport.png',
       title: { en: 'Seed Export', ar: 'تصدير التقاوي' },
@@ -1566,7 +1637,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
         ],
       },
     },
-    {
+{
       icon: BookOpen,
       image: 'seedimport.png',
       title: { en: 'Seed Import', ar: 'استيراد التقاوي' },
@@ -1595,59 +1666,28 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
         ],
       },
     },
-    {
-      icon: Shield,
-      image: 'fieldinspections.png',
-      title: { en: 'Field Inspection', ar: 'التفتيش الحقلي' },
+{
+      icon: Users,
+      image: 'seedtesting.png',
+      title: { en: 'Seed Testing', ar: 'فحص التقاوي' },
       points: {
         en: [
-          'Field inspection is the first step in seed production certification',
-          'The administration comprises four units: Field Crops, Vegetative Propagation Crops, Vegetable Crops, and Quality Control Field Inspection',
-          'Copy of valid production licence',
-          'Application form (company name)',
-          'Invoice for examination of seeds to be used for planting',
-          'Original Form 3 from the Certification Department',
-          'Contractors list',
-          'Inspection notification',
-          'Payment of prescribed fees',
+          'Required for all seed import and export procedures',
+          'A sample is drawn by an official committee and sent to the Central Seed Testing Laboratory at CASC',
+          'Testing covers germination, purity, moisture content, and seed health',
+          'Testing is conducted in accordance with ISTA standards',
+          'Results determine whether import or export procedures may be completed',
         ],
         ar: [
-          'التفتيش الحقلي هو أول خطوات اعتماد إنتاج التقاوي',
-          'تتكون الإدارة من أربع وحدات: المحاصيل الحقلية، التكاثر الخضري، محاصيل الخضر، ومراقبة الجودة',
-          'صورة من ترخيص الإنتاج ساري المفعول',
-          'طلب باسم الشركة',
-          'فاتورة فحص للتقاوي المطلوب استخدامها للزراعة',
-          'أصل استمارة 3 من قسم الاعتماد',
-          'كشف متعاقدين',
-          'إخطار فحص',
-          'سداد المصروفات المقررة',
+          'مطلوب لجميع إجراءات استيراد وتصدير التقاوي',
+          'تسحب لجنة رسمية عينة وترسلها إلى المختبر المركزي لفحص التقاوي في CASC',
+          'يشمل الفحص الإنبات والنقاء والرطوبة وصحة التقاوي',
+          'يُجرى الفحص وفق معايير ISTA',
+          'تحدد النتائج ما إذا كان يمكن استكمال إجراءات الاستيراد أو التصدير',
         ],
       },
     },
-    {
-      icon: Award,
-      image: 'varietyregistration.png',
-      title: { en: 'Variety Registration', ar: 'تسجيل الأصناف' },
-      points: {
-        en: [
-          'All procedures must be completed through an Egyptian agent or a branch of the foreign company',
-          'All documents must be submitted in Arabic (except the authorisation letter and DUS report)',
-          'Submit application form to the Technical Secretariat of the Seed Registration Committee',
-          'Submit valid certified authorisation from the Egyptian Embassy (for imported varieties)',
-          'Submit the import approval',
-          'Complete and submit the Technical Questionnaire',
-        ],
-        ar: [
-          'تُستكمل جميع الإجراءات من خلال وكيل مصري أو فرع للشركة الأجنبية',
-          'تُملأ جميع المستندات باللغة العربية باستثناء خطاب التفويض وتقرير DUS',
-          'تقديم طلب إلى الأمانة الفنية للجنة تسجيل الأصناف',
-          'تقديم تفويض رسمي مصدّق من السفارة المصرية (للأصناف المستوردة)',
-          'تقديم تصريح الاستيراد',
-          'ملء وتقديم الاستبيان الفني',
-        ],
-      },
-    },
-    {
+{
       icon: FlaskConical,
       image: 'istaoecd.png',
       title: { en: 'ISTA & OECD Certificates', ar: 'شهادات ISTA وOECD' },
@@ -1672,35 +1712,14 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
         ],
       },
     },
-    {
+{
       icon: Target,
       image: 'tradeandproducer_licensing.png',
       title: { en: 'Trade & Production Licensing', ar: 'ترخيص الاتجار والإنتاج' },
       points: { en: [], ar: [] },
       stillNoData: true,
     },
-    {
-      icon: Users,
-      image: 'seedtesting.png',
-      title: { en: 'Seed Testing', ar: 'فحص التقاوي' },
-      points: {
-        en: [
-          'Required for all seed import and export procedures',
-          'A sample is drawn by an official committee and sent to the Central Seed Testing Laboratory at CASC',
-          'Testing covers germination, purity, moisture content, and seed health',
-          'Testing is conducted in accordance with ISTA standards',
-          'Results determine whether import or export procedures may be completed',
-        ],
-        ar: [
-          'مطلوب لجميع إجراءات استيراد وتصدير التقاوي',
-          'تسحب لجنة رسمية عينة وترسلها إلى المختبر المركزي لفحص التقاوي في CASC',
-          'يشمل الفحص الإنبات والنقاء والرطوبة وصحة التقاوي',
-          'يُجرى الفحص وفق معايير ISTA',
-          'تحدد النتائج ما إذا كان يمكن استكمال إجراءات الاستيراد أو التصدير',
-        ],
-      },
-    },
-    {
+{
       icon: Layers,
       image: 'ginsandoils.png',
       title: { en: 'Cotton Ginning & Oil Pressing Licences', ar: 'تراخيص المحالج ومعاصر الزيوت' },
@@ -1847,7 +1866,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
           document.body
         )}
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5">
           {services.map((s, i) => (
             <div
               key={i}
