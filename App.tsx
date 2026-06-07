@@ -1250,8 +1250,8 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
     {
       en: 'Agricultural Crop Seed Committee',
       ar: 'لجنة تقاوى الحاصلات الزراعية',
-      bodyEn: 'The Secretariat Office of the Agricultural Crop Seeds Committee is located at the Central Administration for Seed Testing and Certification and directly follows the Ministry of Agriculture. Applications for the export or import of agricultural crop seeds are submitted according to the conditions set by the Committee and issued through ministerial decrees in this regard. This Committee was established in implementation of Article 17 of the Agriculture Law No. 53 of 1966. The Committee meets regularly (weekly) to review applications for seed import and export.',
-      bodyAr: 'يوجد مكتب أمانة لجنة تقاوى الحاصلات الزراعية بالإدارة المركزية لفحص واعتماد التقاوى حيث يتم التقدم بطلبات تصدير أو استيراد تقاوى الحاصلات الزراعية من خلال الشروط التى تحددها اللجنة والصادر بها القرارات الوزارية فى هذا الشأن. وهى اللجنة المشكلة تنفيذاً للمادة 17 من قانون الزراعة الصادر بالقانون رقم 53 لسنة 1966 وتجتمع بصفة دورية (أسبوعياً) لبحث طلبات استيراد وتصدير التقاوى.',
+      bodyEn: 'The Secretariat Office of the Agricultural Crop Seeds Committee is located at the Central Administration for Seed Testing and Certification and directly follows the Ministry of Agriculture. Applications for the export or import of agricultural crop seeds are submitted according to the conditions set by the Committee and issued through ministerial decrees in this regard. This Committee was established in implementation of Article 17 of the Agriculture Law No. 53 of 1966. The Committee meets regularly (weekly) to review applications for seed import and export. Regarding the importation of potato seed, the Agricultural Crop Seeds Committee annually determines the official date for submitting applications for potato seed importation. This date is formally announced and published in the Official Gazette.',
+      bodyAr: 'يوجد مكتب أمانة لجنة تقاوى الحاصلات الزراعية بالإدارة المركزية لفحص واعتماد التقاوى حيث يتم التقدم بطلبات تصدير أو استيراد تقاوى الحاصلات الزراعية من خلال الشروط التى تحددها اللجنة والصادر بها القرارات الوزارية فى هذا الشأن. وهى اللجنة المشكلة تنفيذاً للمادة 17 من قانون الزراعة الصادر بالقانون رقم 53 لسنة 1966 وتجتمع بصفة دورية (أسبوعياً) لبحث طلبات استيراد وتصدير التقاوى. وبالنسبة لاستيراد تقاوي البطاطس، تقوم لجنة تقاوي الحاصلات الزراعية كل عام بتحديد ميعاد تقديم طلبات استيراد تقاوي البطاطس ويتم نشره في الجرائد الرسمية.',
       pointsEn: [],
       pointsAr: [],
     },
@@ -1739,7 +1739,31 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
       image: 'tradeandproducer_licensing.png',
       title: { en: 'Trade & Production Licensing', ar: 'ترخيص الاتجار والإنتاج' },
       points: { en: [], ar: [] },
-      stillNoData: true,
+      licensingPdf: true,
+      licensingIntro: {
+        en: 'This document sets out the conditions and required documents for issuing or renewing seven CASC licence categories:',
+        ar: 'يحدد هذا المستند الشروط والمستندات المطلوبة لاستخراج أو تجديد سبع فئات من تراخيص الإدارة المركزية لفحص واعتماد التقاوي:',
+      },
+      licensingPoints: {
+        en: [
+          'Trade in agricultural crop seeds (Form 9, Decree 829/2011)',
+          'Production of agricultural crop seeds (Form 2, Decree 829/2011)',
+          'Cold storage of seeds in refrigerators (Form 13)',
+          'Seed preparation, screening and sorting station (Form 15)',
+          'Certified fruit-seedling nursery (Annex 5, Decree 830/2011)',
+          'Seed warehouse for green re-export',
+          'Tissue-culture seedling-production laboratory (Form 2, Decree 904/2008)',
+        ],
+        ar: [
+          'الاتجار في تقاوي الحاصلات الزراعية (النموذج 9، القرار 829/2011)',
+          'إنتاج تقاوي الحاصلات الزراعية (النموذج 2، القرار 829/2011)',
+          'تخزين التقاوي بالثلاجات (النموذج 13)',
+          'محطة إعداد وغربلة وفرز التقاوي (النموذج 15)',
+          'مشتل شتلات فاكهة معتمدة (الملحق 5، القرار 830/2011)',
+          'مخزن تقاوي للتصدير الأخضر',
+          'معمل تشغيل زراعة أنسجة لإنتاج الشتلات (النموذج 2، القرار 904/2008)',
+        ],
+      },
     },
 {
       icon: Layers,
@@ -1804,6 +1828,31 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
                 >
                   {services[activeService].stillNoData ? (
                     <p className="text-[#3D3D3D]/60 italic text-center py-6">{isAr ? 'لا توجد بيانات حتى الآن' : 'Still no data'}</p>
+                  ) : services[activeService].licensingPdf ? (
+                    <div className="space-y-5">
+                      <p className="text-sm text-[#3D3D3D] leading-relaxed">
+                        {services[activeService].licensingIntro[lang]}
+                      </p>
+                      <ul className="space-y-2">
+                        {services[activeService].licensingPoints[lang].map((point, idx) => (
+                          <li key={idx} className="flex items-start gap-2">
+                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#638C6D] shrink-0" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="pt-2">
+                        <a
+                          href={`${import.meta.env.BASE_URL}licensing_CASC.pdf`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 bg-[#DF6D2D] hover:bg-[#C84C05] text-white text-sm font-semibold px-5 py-3 rounded-lg transition-all"
+                        >
+                          <Download className="w-4 h-4 shrink-0" />
+                          {isAr ? 'تنزيل المستند الكامل (PDF)' : 'Download Full Document (PDF)'}
+                        </a>
+                      </div>
+                    </div>
                   ) : services[activeService].ginsPdf ? (
                     <div className="space-y-6">
                       <p className="text-sm text-[#3D3D3D] leading-relaxed">

@@ -798,7 +798,8 @@ export const MOCK_AUTHORITIES: Authority[] = [
     address: { ar: 'مبنى وزارة الزراعة، الجيزة، مصر', en: 'Ministry of Agriculture Bldg, Giza, Egypt' },
     email: 'info@casc.gov.eg',
     phone: '+20 2 35720831',
-    channels: ['Physical Submission', 'Official Portal']
+    channels: ['Physical Submission', 'Official Portal'],
+    logo: 'CASC-logo.png'
   },
   {
     id: 'capq',
