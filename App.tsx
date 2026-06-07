@@ -384,6 +384,13 @@ const LibraryView: React.FC<{ lang: Language, initialDocId?: string }> = ({ lang
                 </div>
               </div>
 
+              {selectedDoc.notes && (
+                <div className="p-4 bg-emerald-50 rounded-xl flex gap-3 items-start border border-emerald-100">
+                  <Info className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <p className="text-xs text-emerald-800 leading-relaxed">{selectedDoc.notes[lang]}</p>
+                </div>
+              )}
+
               <div className="space-y-2 pt-4">
                 <button 
                   onClick={handleDownload}
@@ -1005,8 +1012,17 @@ const DirectoryView: React.FC<{ lang: Language }> = ({ lang }) => {
         {filtered.map(auth => (
           <div key={auth.id} className="bg-white p-8 rounded-3xl shadow-sm border border-amber-100 hover:shadow-xl transition-all">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-700 text-xl font-semibold">
-                {auth.shortName}
+              <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-700 text-xl font-semibold overflow-hidden">
+                {auth.logo ? (
+                  <img
+                    src={`${import.meta.env.BASE_URL}${auth.logo}`}
+                    alt={auth.shortName}
+                    className="w-full h-full object-contain p-1"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; (e.currentTarget.parentElement as HTMLElement).textContent = auth.shortName; }}
+                  />
+                ) : (
+                  auth.shortName
+                )}
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-[#2D4A32]">{auth.name[lang]}</h3>
@@ -1021,11 +1037,17 @@ const DirectoryView: React.FC<{ lang: Language }> = ({ lang }) => {
               </div>
               <div className="flex gap-3">
                 <Mail className="w-5 h-5 text-[#3D3D3D]/40 shrink-0" />
-                <p className="text-sm text-[#3D3D3D]">{auth.email}</p>
+                <div className="text-sm text-[#3D3D3D]">
+                  <p>{auth.email}</p>
+                  {auth.email2 && <p>{auth.email2}</p>}
+                </div>
               </div>
               <div className="flex gap-3">
                 <Phone className="w-5 h-5 text-[#3D3D3D]/40 shrink-0" />
-                <p className="text-sm text-[#3D3D3D]">{auth.phone}</p>
+                <div className="text-sm text-[#3D3D3D]" dir="ltr">
+                  <p>{auth.phone}</p>
+                  {auth.phone2 && <p>{auth.phone2}</p>}
+                </div>
               </div>
             </div>
 

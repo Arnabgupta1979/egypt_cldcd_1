@@ -64,6 +64,7 @@ export interface Document {
   supersedesId?: string;
   latestVersionId?: string;
   tags: string[];
+  notes?: { ar: string; en: string };
   summary?: string;
   content?: string; // OCR/Extracted text content
   downloadUrl?: string; // Link to actual PDF/Official source
@@ -86,7 +87,10 @@ export interface Authority {
   tasks: string[];
   address: { ar: string; en: string };
   email: string;
+  email2?: string;
   phone: string;
+  phone2?: string;
   channels: string[];
   website?: string;
+  logo?: string;
 }

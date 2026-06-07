@@ -236,7 +236,7 @@ export const JOURNEY_NODES: Record<string, JourneyNode> = {
           title: { en: 'Summer Potato Seed Import Rules', ar: 'قواعد استيراد تقاوي البطاطس الصيفية' },
           summary: { en: 'Summer potato seed imports are subject to the strictest controls in Egypt\'s seed sector. Only Elite or EU EEC2 grade tubers from CAPQ-approved countries are permitted.', ar: 'تخضع واردات تقاوي البطاطس الصيفية لأشد الضوابط في قطاع التقاوي المصري.' },
           keyPoints: { en: ['Shipments must arrive by 10 January; later arrivals are refused', 'Grade: Elite or EU EEC2 only; zero tolerance for brown rot', 'Variety must be CASC-registered or under a ≤10-ton trial permit'], ar: ['يجب أن تصل الشحنات قبل 10 يناير؛ الشحنات المتأخرة مرفوضة', 'الدرجة: Elite أو EU EEC2 فقط؛ تسامح صفري مع العفن البني', 'يجب أن يكون الصنف مسجلاً في CASC أو ضمن تصريح تجريبي ≤10 أطنان'] },
-          procedure: { en: ['Step 1 — Confirm the variety is on the current CASC potato register (or apply for a trial-quantity permit of up to 10 tons for a new variety).', 'Step 2 — Verify that the country of origin is on the CAPQ-approved list (brown-rot-free) for the current season.', 'Step 3 — Obtain the CAPQ Import Permit before the shipment departs origin.', 'Step 4 — Secure the exporting NPPO Phytosanitary Certificate certifying freedom from Ralstonia solanacearum.', 'Step 5 — Submit ACI/ACID and all documents via Nafeza at least 48 hours before port arrival, ensuring the vessel lands no later than 10 January.', 'Step 6 — On arrival, CAPQ performs tuber sampling and brown-rot laboratory testing at the port.', 'Step 7 — On clearance, customs releases the consignment under CAPQ traceability for movement to the grading station.'], ar: ['الخطوة 1 — تأكد من تسجيل الصنف في سجل البطاطس الحالي لـCASC (أو تقدّم بطلب تصريح تجريبي بحد أقصى 10 أطنان للصنف الجديد).', 'الخطوة 2 — تحقق من أن بلد المنشأ ضمن قائمة CAPQ المعتمدة (خالٍ من العفن البني) للموسم الحالي.', 'الخطوة 3 — احصل على تصريح الاستيراد من CAPQ قبل مغادرة الشحنة من المنشأ.', 'الخطوة 4 — استصدر شهادة صحة نباتية من NPPO بلد التصدير تؤكد الخلو من Ralstonia solanacearum.', 'الخطوة 5 — قدّم ACI/ACID وكافة المستندات عبر نافيزا قبل 48 ساعة من الوصول على الأقل، مع ضمان وصول السفينة قبل 10 يناير.', 'الخطوة 6 — عند الوصول يقوم CAPQ بأخذ عينات من التدرنات وإجراء اختبار العفن البني في المختبر.', 'الخطوة 7 — عند الإفراج يفرج الجمرك عن الشحنة تحت تتبع CAPQ لنقلها إلى محطة الفرز.'] },
+          procedure: { en: ['Step 1 — Confirm the variety is on the current CASC potato register (or apply for a trial-quantity permit of up to 10 tons for a new variety).', 'Step 2 — Verify that the country / PFA (Pest Free Area) of origin is on the CAPQ-approved list (brown-rot-free) for the current season.', 'Step 3 — Obtain the CAPQ Import Permit before the shipment departs origin.', 'Step 4 — Secure the exporting NPPO Phytosanitary Certificate certifying freedom from Ralstonia solanacearum.', 'Step 5 — Submit ACI/ACID and all documents via Nafeza at least 48 hours before port arrival, ensuring the vessel lands no later than 10 January.', 'Step 6 — On arrival, CAPQ performs tuber sampling and brown-rot laboratory testing at the port.', 'Step 7 — On clearance, customs releases the consignment under CAPQ traceability for movement to the grading station.'], ar: ['الخطوة 1 — تأكد من تسجيل الصنف في سجل البطاطس الحالي لـCASC (أو تقدّم بطلب تصريح تجريبي بحد أقصى 10 أطنان للصنف الجديد).', 'الخطوة 2 — تحقق من أن بلد المنشأ / المنطقة الخالية من الآفات (PFA) ضمن قائمة CAPQ المعتمدة (خالٍ من العفن البني) للموسم الحالي.', 'الخطوة 3 — احصل على تصريح الاستيراد من CAPQ قبل مغادرة الشحنة من المنشأ.', 'الخطوة 4 — استصدر شهادة صحة نباتية من NPPO بلد التصدير تؤكد الخلو من Ralstonia solanacearum.', 'الخطوة 5 — قدّم ACI/ACID وكافة المستندات عبر نافيزا قبل 48 ساعة من الوصول على الأقل، مع ضمان وصول السفينة قبل 10 يناير.', 'الخطوة 6 — عند الوصول يقوم CAPQ بأخذ عينات من التدرنات وإجراء اختبار العفن البني في المختبر.', 'الخطوة 7 — عند الإفراج يفرج الجمرك عن الشحنة تحت تتبع CAPQ لنقلها إلى محطة الفرز.'] },
           authorityIds: ['capq', 'casc'],
           documentIds: ['dec-1485-2015', 'res-562-2019'],
           deadline: { en: 'All summer season potato shipments must arrive by January 10.', ar: 'يجب أن تصل جميع شحنات البطاطس للموسم الصيفي قبل 10 يناير.' },
@@ -703,8 +703,8 @@ export const MOCK_DOCS: Document[] = [
   },
   {
     id: 'res-562-2019',
-    title: { ar: 'قرار وزاري رقم 562 لسنة 2019 بشأن الحجر الزراعي', en: 'Ministerial Resolution No. 562 of 2019 (Plant Quarantine)' },
-    type: 'Resolution',
+    title: { ar: 'قرار وزاري رقم 562 لسنة 2019 المنظم لأعمال الحجر الزراعي', en: 'Ministerial Decree No. 562 of 2019 regulating plant quarantine activities' },
+    type: 'Decree',
     authority: 'CAPQ',
     hierarchy: 'Ministerial',
     refNumber: '562/2019',
@@ -714,8 +714,8 @@ export const MOCK_DOCS: Document[] = [
     version: 'Current',
     status: DocStatus.IN_FORCE,
     tags: ['Quarantine', 'Import', 'Phytosanitary'],
-    downloadUrl: 'https://www.scribd.com/document/493765071/eg3-2019-562pqreg-en',
-    supersedesId: 'dec-3007-2001'
+    notes: { ar: 'تتوفر أيضاً ترجمة إنجليزية غير رسمية.', en: 'An unofficial English translation is also available.' },
+    downloadUrl: 'https://www.scribd.com/document/493765071/eg3-2019-562pqreg-en'
   },
   {
     id: 'dec-1485-2015',
@@ -747,22 +747,6 @@ export const MOCK_DOCS: Document[] = [
     status: DocStatus.IN_FORCE,
     tags: ['PVP', 'PVPO', 'Organization'],
     downloadUrl: 'https://faolex.fao.org/docs/pdf/egy123464.pdf'
-  },
-  {
-    id: 'dec-3007-2001',
-    title: { ar: 'قرار وزاري رقم 3007 لسنة 2001', en: 'Ministerial Decree No. 3007 of 2001' },
-    type: 'Decree',
-    authority: 'CAPQ',
-    hierarchy: 'Ministerial',
-    refNumber: '3007/2001',
-    issueDate: '2001-05-10',
-    effectiveDate: '2001-05-10',
-    language: 'Arabic',
-    version: '1.0',
-    status: DocStatus.SUPERSEDED,
-    latestVersionId: 'res-562-2019',
-    tags: ['Quarantine'],
-    downloadUrl: 'https://faolex.fao.org/docs/pdf/egy035471E.pdf'
   }
 ];
 
@@ -820,12 +804,15 @@ export const MOCK_AUTHORITIES: Authority[] = [
     id: 'capq',
     name: { ar: 'الإدارة المركزية للحجر الزراعي (CAPQ)', en: 'Central Administration of Plant Quarantine (CAPQ)' },
     shortName: 'CAPQ',
-    tasks: ['Phytosanitary Certificates', 'Import Permits', 'Quarantine Inspection'],
-    address: { ar: '1 شارع نادي الصيد، الدقي، الجيزة', en: '1 Nadi El Seid St, Dokki, Giza' },
-    email: 'contact@capq.gov.eg',
-    phone: '+20 2 33351625',
+    tasks: ['Phytosanitary Certificates', 'Import Permits', 'Quarantine Inspection', 'Pest Risk Analysis', 'Approval of New Origins'],
+    address: { ar: '1 شارع نادي الصيد، مبنى الهيئة العامة للإصلاح الزراعي التابعة لوزارة الزراعة واستصلاح الأراضي، الدور السادس، الدقي – الجيزة، جمهورية مصر العربية', en: '1 Nadi El-Said Street, General Authority for Land Reclamation Building (Ministry of Agriculture and Land Reclamation), 6th Floor, Dokki – Giza, Arab Republic of Egypt' },
+    email: 'ippc@capq.gov.eg',
+    email2: 'tech.office@capq.gov.eg',
+    phone: '+202 37608574',
+    phone2: '+202 3335162',
     channels: ['ePhyto Portal', 'Physical Submission'],
-    website: 'https://www.capq.gov.eg'
+    website: 'https://www.capq.gov.eg',
+    logo: 'capq.jpg'
   },
   {
     id: 'casp',
