@@ -29,7 +29,8 @@ import {
   Star,
   Megaphone,
   FlaskConical,
-  ListOrdered
+  ListOrdered,
+  Compass
 } from 'lucide-react';
 import { Language, Document, DocStatus, Variety, Authority, Stakeholder, JourneyNode, JourneyResult } from './types';
 import { MOCK_DOCS, MOCK_VARIETIES, MOCK_AUTHORITIES, STAKEHOLDERS, JOURNEY_NODES } from './constants';
@@ -160,8 +161,8 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
           <Megaphone className="w-4 h-4 text-emerald-700 shrink-0" />
           <p className="text-xs text-emerald-700 font-semibold tracking-wide">
             {isAr
-              ? 'إشعار: آخر موعد لتقديم طلبات استيراد تقاوي البطاطس للموسم الصيفي هو 10 يناير 2026. يرجى التأكد من استيفاء جميع متطلبات الحجر الزراعي.'
-              : 'Notice: The deadline for potato seed import applications (summer season) is January 10, 2026. Ensure all phytosanitary requirements are met.'}
+              ? 'إشعار: يُحدَّد موعد تقديم طلبات استيراد تقاوي البطاطس للموسم سنوياً من لجنة تقاوي الحاصلات الزراعية ويُنشر في الجريدة الرسمية. يرجى تأكيد موعد الموسم الحالي مع CAPQ/CASC واستيفاء جميع متطلبات الحجر الزراعي.'
+              : 'Notice: The deadline for potato seed import applications is set annually by the Agricultural Crop Seeds Committee and published in the Official Gazette. Confirm the current season\'s date with CAPQ/CASC and ensure all phytosanitary requirements are met.'}
           </p>
         </div>
       </div>
@@ -1995,15 +1996,15 @@ const ResultView: React.FC<{
   return (
     <div className="space-y-6 animate-slide-in">
       {/* Header */}
-      <div className={`${stakeholder.bgColor} ${stakeholder.borderColor} border-2 p-8 rounded-3xl`}>
+      <div className="bg-[#1B3A2D] p-8 rounded-3xl shadow-lg">
         <div className="flex items-start gap-4">
           <span className="text-4xl">{stakeholder.emoji}</span>
           <div>
-            <p className={`text-xs font-semibold uppercase tracking-widest ${stakeholder.textColor} mb-1`}>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#E7FBB4] mb-1">
               {stakeholder.label[lang]}
             </p>
-            <h3 className="text-2xl font-semibold text-[#2D4A32] leading-tight mb-3">{result.title[lang]}</h3>
-            <p className="text-[#2D4A32] leading-relaxed">{result.summary[lang]}</p>
+            <h3 className="text-2xl font-semibold text-white leading-tight mb-3">{result.title[lang]}</h3>
+            <p className="text-emerald-100/90 leading-relaxed">{result.summary[lang]}</p>
           </div>
         </div>
       </div>
@@ -2030,15 +2031,15 @@ const ResultView: React.FC<{
         <div className="space-y-4">
           {/* Stepwise Procedure */}
           {result.procedure && result.procedure[lang] && result.procedure[lang].length > 0 && (
-            <div className="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
-              <h4 className="font-semibold text-[#2D4A32] text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
-                <ListOrdered className="w-4 h-4 text-emerald-500" />
+            <div className="bg-white rounded-2xl border border-[#1B3A2D]/15 shadow-sm overflow-hidden">
+              <h4 className="font-semibold text-[#E7FBB4] text-xs uppercase tracking-widest px-6 py-3 bg-[#1B3A2D] flex items-center gap-2">
+                <ListOrdered className="w-4 h-4 text-[#E7FBB4]" />
                 {isAr ? 'الإجراءات خطوة بخطوة' : 'Stepwise Procedure'}
               </h4>
-              <ol className="space-y-3">
+              <ol className="space-y-3 p-6">
                 {result.procedure[lang].map((step, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-[#2D4A32] leading-relaxed">
-                    <span className={`w-6 h-6 rounded-full ${stakeholder.bgColor} ${stakeholder.textColor} text-[11px] font-semibold flex items-center justify-center shrink-0 mt-0.5 border ${stakeholder.borderColor}`}>
+                    <span className="w-6 h-6 rounded-full bg-[#1B3A2D] text-[#E7FBB4] text-[11px] font-semibold flex items-center justify-center shrink-0 mt-0.5">
                       {i + 1}
                     </span>
                     <span>{step}</span>
@@ -2068,20 +2069,29 @@ const ResultView: React.FC<{
         <div className="space-y-4">
           {/* Authorities */}
           {authorities.length > 0 && (
-            <div className="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
-              <h4 className="font-semibold text-[#2D4A32] text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
-                <Building className="w-4 h-4 text-emerald-700" />
+            <div className="bg-[#1B3A2D] p-6 rounded-2xl shadow-md">
+              <h4 className="font-semibold text-[#E7FBB4] text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
+                <Building className="w-4 h-4 text-[#E7FBB4]" />
                 {isAr ? 'الجهات المعنية' : 'Relevant Authorities'}
               </h4>
               <div className="space-y-3">
                 {authorities.map(auth => (
-                  <div key={auth.id} className="flex items-center gap-3 p-3 bg-amber-50 rounded-xl">
-                    <div className={`w-10 h-10 ${stakeholder.bgColor} rounded-lg flex items-center justify-center ${stakeholder.textColor} text-xs font-semibold shrink-0`}>
-                      {auth.shortName}
+                  <div key={auth.id} className="flex items-center gap-3 p-3 bg-white/10 rounded-xl">
+                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-[#1B3A2D] text-xs font-semibold shrink-0 overflow-hidden">
+                      {auth.logo ? (
+                        <img
+                          src={`${import.meta.env.BASE_URL}${auth.logo}`}
+                          alt={auth.shortName}
+                          className="w-full h-full object-contain p-0.5"
+                          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; (e.currentTarget.parentElement as HTMLElement).textContent = auth.shortName; }}
+                        />
+                      ) : (
+                        auth.shortName
+                      )}
                     </div>
                     <div className="min-w-0">
-                      <p className="text-xs font-bold text-[#2D4A32] truncate">{auth.name[lang]}</p>
-                      <p className="text-[10px] text-[#3D3D3D]/70 flex items-center gap-1 mt-0.5">
+                      <p className="text-xs font-bold text-white truncate">{auth.name[lang]}</p>
+                      <p className="text-[10px] text-emerald-200/80 flex items-center gap-1 mt-0.5">
                         <Phone className="w-3 h-3" /> {auth.phone}
                       </p>
                     </div>
@@ -2093,9 +2103,9 @@ const ResultView: React.FC<{
 
           {/* Documents */}
           {documents.length > 0 && (
-            <div className="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
-              <h4 className="font-semibold text-[#2D4A32] text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
-                <FileText className="w-4 h-4 text-emerald-700" />
+            <div className="bg-[#1B3A2D] p-6 rounded-2xl shadow-md">
+              <h4 className="font-semibold text-[#E7FBB4] text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
+                <FileText className="w-4 h-4 text-[#E7FBB4]" />
                 {isAr ? 'المستندات القانونية' : 'Legal Documents'}
               </h4>
               <div className="space-y-2">
@@ -2103,13 +2113,13 @@ const ResultView: React.FC<{
                   <button
                     key={doc.id}
                     onClick={() => onNavigateToDoc(doc.id)}
-                    className="w-full text-left flex items-center justify-between p-3 bg-amber-50 hover:bg-emerald-50 rounded-xl transition-all group border border-transparent hover:border-emerald-200"
+                    className="w-full text-left flex items-center justify-between p-3 bg-white/10 hover:bg-white/20 rounded-xl transition-all group"
                   >
                     <div>
-                      <p className="text-xs font-bold text-[#2D4A32] group-hover:text-emerald-800">{doc.title[lang]}</p>
-                      <p className="text-[10px] text-[#3D3D3D]/70 font-mono">{doc.refNumber}</p>
+                      <p className="text-xs font-bold text-white group-hover:text-[#E7FBB4]">{doc.title[lang]}</p>
+                      <p className="text-[10px] text-emerald-200/70 font-mono">{doc.refNumber}</p>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-[#3D3D3D]/50 group-hover:text-emerald-600 shrink-0" />
+                    <ChevronRight className={`w-4 h-4 text-emerald-200/60 group-hover:text-[#E7FBB4] shrink-0 ${isAr ? 'rotate-180' : ''}`} />
                   </button>
                 ))}
               </div>
@@ -2182,9 +2192,16 @@ const JourneyView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => v
     <div className="max-w-4xl mx-auto py-10 px-4 animate-fade-in">
       {/* Header */}
       <div className="mb-8">
-        <h2 className="text-3xl font-semibold text-emerald-950 mb-1">
-          {isAr ? 'رحلة المعنيين بالقطاع' : 'Stakeholder Journey'}
-        </h2>
+        <div className="flex items-center gap-3 mb-2">
+          <img
+            src={`${import.meta.env.BASE_URL}CASC-logo.png`}
+            alt="CASC"
+            className="h-11 w-auto bg-white rounded-md p-1 shadow-sm ring-1 ring-[#1B3A2D]/15 shrink-0"
+          />
+          <h2 className="text-3xl font-semibold text-emerald-950">
+            {isAr ? 'رحلة المعنيين بالقطاع' : 'Stakeholder Journey'}
+          </h2>
+        </div>
         <p className="text-[#3D3D3D] text-sm">
           {isAr ? 'حدد هويتك لنرشدك إلى المعلومات التنظيمية المناسبة.' : 'Identify who you are and we\'ll guide you to the right regulatory information.'}
         </p>
@@ -2194,9 +2211,8 @@ const JourneyView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => v
               <div
                 key={i}
                 className={`h-1.5 flex-1 rounded-full transition-all duration-500 ${
-                  i < totalDepth ? `bg-${selectedStakeholder.accentColor}-500` : 'bg-slate-200'
+                  i < totalDepth ? 'bg-[#DF6D2D]' : 'bg-slate-200'
                 }`}
-                style={i < totalDepth ? { backgroundColor: '' } : {}}
               />
             ))}
           </div>
@@ -2214,11 +2230,11 @@ const JourneyView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => v
               <button
                 key={s.id}
                 onClick={() => handleSelectStakeholder(s)}
-                className={`${s.bgColor} ${s.borderColor} border-2 p-6 rounded-2xl text-left hover:shadow-lg transition-all group hover:scale-[1.02]`}
+                className="bg-[#1B3A2D] p-6 rounded-2xl text-left hover:shadow-xl transition-all group hover:scale-[1.02] ring-1 ring-[#638C6D]/30"
               >
                 <span className="text-4xl block mb-4">{s.emoji}</span>
-                <h3 className={`font-semibold text-[#2D4A32] text-lg mb-1 group-hover:${s.textColor}`}>{s.label[lang]}</h3>
-                <p className="text-[#3D3D3D] text-xs leading-relaxed">{s.description[lang]}</p>
+                <h3 className="font-semibold text-white text-lg mb-1 group-hover:text-[#E7FBB4] transition-colors">{s.label[lang]}</h3>
+                <p className="text-emerald-100/75 text-xs leading-relaxed">{s.description[lang]}</p>
               </button>
             ))}
           </div>
@@ -2235,26 +2251,26 @@ const JourneyView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => v
 
       {/* Stakeholder Question Node */}
       {selectedStakeholder && currentNode && !currentResult && (
-        <div className="bg-white p-8 rounded-[32px] shadow-xl border border-amber-100">
-          <div className="flex items-center gap-3 mb-8">
+        <div className="bg-white rounded-[32px] shadow-xl border border-[#1B3A2D]/15 overflow-hidden">
+          <div className="flex items-center gap-3 px-8 py-6 bg-[#1B3A2D]">
             <span className="text-3xl">{selectedStakeholder.emoji}</span>
             <div>
-              <p className={`text-xs font-semibold uppercase tracking-widest ${selectedStakeholder.textColor}`}>{selectedStakeholder.label[lang]}</p>
-              <h3 className="text-xl font-semibold text-[#2D4A32]">{currentNode.question[lang]}</h3>
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#E7FBB4]">{selectedStakeholder.label[lang]}</p>
+              <h3 className="text-xl font-semibold text-white">{currentNode.question[lang]}</h3>
             </div>
           </div>
-          <div className="grid grid-cols-1 gap-3">
+          <div className="grid grid-cols-1 gap-3 p-8">
             {currentNode.options.map(opt => (
               <button
                 key={opt.id}
                 onClick={() => handleSelectOption(opt.id)}
-                className={`p-5 border-2 border-amber-100 rounded-xl hover:${selectedStakeholder.borderColor} hover:${selectedStakeholder.bgColor} text-left font-bold transition-all flex items-center justify-between group bg-white`}
+                className="p-5 border-2 border-[#1B3A2D]/15 rounded-xl hover:border-[#1B3A2D] hover:bg-[#1B3A2D] text-left font-bold transition-all flex items-center justify-between group bg-white"
               >
                 <div>
-                  <span className="text-[#2D4A32] font-bold group-hover:text-[#2D4A32]">{opt.label[lang]}</span>
-                  {opt.sublabel && <p className="text-xs text-[#3D3D3D]/70 mt-0.5 font-normal">{opt.sublabel[lang]}</p>}
+                  <span className="text-[#2D4A32] font-bold group-hover:text-white transition-colors">{opt.label[lang]}</span>
+                  {opt.sublabel && <p className="text-xs text-[#3D3D3D]/70 mt-0.5 font-normal group-hover:text-emerald-100/80">{opt.sublabel[lang]}</p>}
                 </div>
-                <ChevronRight className={`w-5 h-5 text-[#3D3D3D]/50 group-hover:${selectedStakeholder.textColor} shrink-0`} />
+                <ChevronRight className={`w-5 h-5 text-[#3D3D3D]/50 group-hover:text-[#E7FBB4] shrink-0 ${isAr ? 'rotate-180' : ''}`} />
               </button>
             ))}
           </div>
@@ -2338,6 +2354,19 @@ export default function App() {
       <footer className="bg-emerald-950 text-emerald-200 mt-0 border-t border-orange-600/30">
         {/* Top arabesque divider — flipped */}
         <div className="arabesque-divider" style={{ transform: 'scaleY(-1)' }}></div>
+        {/* Persistent Stakeholder Journey call-to-action */}
+        <div className="max-w-7xl mx-auto px-4 pt-10">
+          <button
+            onClick={() => setActiveTab('journeys')}
+            className="w-full group flex items-center justify-center gap-3 bg-[#DF6D2D] hover:bg-[#C84C05] text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-lg"
+          >
+            <Compass className="w-5 h-5 shrink-0" />
+            <span className="text-sm md:text-base">
+              {lang === 'ar' ? 'ابدأ رحلة المستفيد — دليل تفاعلي خطوة بخطوة' : 'Start the Stakeholder Journey — an interactive step-by-step guide'}
+            </span>
+            <ChevronRight className={`w-5 h-5 shrink-0 transition-transform group-hover:translate-x-1 ${lang === 'ar' ? 'rotate-180 group-hover:-translate-x-1' : ''}`} />
+          </button>
+        </div>
         <div className="py-16">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="col-span-1 md:col-span-2 space-y-6">
