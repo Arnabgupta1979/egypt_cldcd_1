@@ -796,8 +796,8 @@ export const MOCK_AUTHORITIES: Authority[] = [
     name: { ar: 'الإدارة المركزية لفحص واعتماد التقاوي (CASC)', en: 'Central Administration for Seed Testing and Certification (CASC)' },
     shortName: 'CASC',
     tasks: ['Variety Registration', 'Seed Certification', 'Licensing Seed Dealers'],
-    address: { ar: 'مبنى وزارة الزراعة، الجيزة، مصر', en: 'Ministry of Agriculture Bldg, Giza, Egypt' },
-    email: 'info@casc.gov.eg',
+    address: { ar: '8 شارع الجامعة، الجيزة، مصر', en: '8 Gamaa Street, Giza, Egypt' },
+    email: 'casc.egypt@hotmail.com',
     phone: '+20 2 35720831',
     channels: ['Physical Submission', 'Official Portal'],
     logo: 'CASC-logo.png'
@@ -821,9 +821,10 @@ export const MOCK_AUTHORITIES: Authority[] = [
     name: { ar: 'الإدارة المركزية لإنتاج التقاوي (CASP)', en: 'Central Administration for Seed Production (CASP)' },
     shortName: 'CASP',
     tasks: ['Public Seed Production', 'Certified Seed Multiplication', 'Foundation Seed Supply'],
-    address: { ar: '8 شارع جمعة القاهرة، الجيزة، مصر', en: '8 Gamaa El Kahera Street, Giza, Egypt' },
-    email: 'Not available',
+    address: { ar: '8 شارع الجامعة، الجيزة، مصر', en: '8 Gamaa Street, Giza, Egypt' },
+    email: 'info@cssp.gov.eg',
     phone: '+20 2 35694060',
+    fax: '02 35734516',
     channels: ['Physical Submission', 'Cooperative Network']
   },
   {

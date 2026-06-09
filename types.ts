@@ -90,6 +90,7 @@ export interface Authority {
   email2?: string;
   phone: string;
   phone2?: string;
+  fax?: string;
   channels: string[];
   website?: string;
   logo?: string;

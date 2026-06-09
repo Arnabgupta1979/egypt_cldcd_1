@@ -1048,6 +1048,11 @@ const DirectoryView: React.FC<{ lang: Language }> = ({ lang }) => {
                 <div className="text-sm text-[#3D3D3D]" dir="ltr">
                   <p>{auth.phone}</p>
                   {auth.phone2 && <p>{auth.phone2}</p>}
+                  {(auth as any).fax && (
+                    <p className="text-[#3D3D3D]/70">
+                      {isAr ? 'فاكس: ' : 'Fax: '}{(auth as any).fax}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -1844,13 +1849,13 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
                       </ul>
                       <div className="pt-2">
                         <a
-                          href={`${import.meta.env.BASE_URL}licensing_CASC.pdf`}
+                          href={`${import.meta.env.BASE_URL}${isAr ? 'licensing_CASC.pdf' : 'licensing_CASC_EN.docx'}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 bg-[#DF6D2D] hover:bg-[#C84C05] text-white text-sm font-semibold px-5 py-3 rounded-lg transition-all"
                         >
                           <Download className="w-4 h-4 shrink-0" />
-                          {isAr ? 'تنزيل المستند الكامل (PDF)' : 'Download Full Document (PDF)'}
+                          {isAr ? 'تنزيل المستند الكامل (PDF)' : 'Download Full Document (English)'}
                         </a>
                       </div>
                     </div>
