@@ -833,7 +833,7 @@ export const MOCK_AUTHORITIES: Authority[] = [
     shortName: 'EGIPA',
     tasks: ['PVP Applications', 'Breeder Rights Registration'],
     address: { ar: 'انتقلت حماية الأصناف النباتية إلى الجهاز المصري للملكية الفكرية (EGIPA) في مارس 2025. لا تزال CASC تُجري اختبارات DUS المطلوبة لطلبات الحماية المقدمة إلى EGIPA.', en: 'Plant variety protection transferred to the Egyptian Intellectual Property Authority (EGIPA) in March 2025. CASC still conducts the DUS tests required for protection applications submitted to EGIPA.' },
-    email: 'Not available',
+    email: 'pvp_office@egypo.gov.eg',
     phone: 'Not available',
     channels: ['Physical Submission'],
     website: 'http://www.egypo.gov.eg'
