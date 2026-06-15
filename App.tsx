@@ -1696,7 +1696,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
     },
 {
       icon: Users,
-      image: 'seedtesting.png',
+      image: 'Seedtesting.png',
       title: { en: 'Seed Testing', ar: 'فحص التقاوي' },
       points: {
         en: [
@@ -1960,9 +1960,9 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
               <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/80 to-transparent" />
               {/* Title strip — bottom */}
               <div className="absolute inset-x-0 bottom-0 z-10 px-3 pb-3">
-                <div className="bg-white/85 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center justify-between gap-1">
-                  <h4 className="text-xs font-semibold text-[#1f3d2f] leading-tight">{s.title[lang]}</h4>
-                  <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-full shrink-0 whitespace-nowrap">
+                <div className="bg-white/75 backdrop-blur-md rounded-xl px-4 py-3 flex items-center justify-between gap-2">
+                  <h4 className="text-sm font-bold text-[#1f3d2f] leading-snug">{s.title[lang]}</h4>
+                  <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50/90 px-2 py-1 rounded-full shrink-0 whitespace-nowrap">
                     {isAr ? 'تفاصيل' : 'Details'}
                   </span>
                 </div>
