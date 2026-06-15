@@ -1998,12 +1998,25 @@ const ResultView: React.FC<{
   const authorities = MOCK_AUTHORITIES.filter(a => result.authorityIds.includes(a.id));
   const documents = MOCK_DOCS.filter(d => result.documentIds.includes(d.id));
 
+  const resultImageMap: Record<string, string> = {
+    farmer: 'farmer.png',
+    importer: 'importer.png',
+    producer: 'company.png',
+    breeder: 'researcher.png',
+    exporter: 'exporter.png',
+    investor: 'f_investor.png',
+  };
+
   return (
     <div className="space-y-6 animate-slide-in">
       {/* Header */}
       <div className="bg-[#1B3A2D] p-8 rounded-3xl shadow-lg">
         <div className="flex items-start gap-4">
-          <span className="text-4xl">{stakeholder.emoji}</span>
+          <img
+            src={`${import.meta.env.BASE_URL}${resultImageMap[stakeholder.id]}`}
+            alt={stakeholder.label['en']}
+            className="w-14 h-14 rounded-xl object-cover shrink-0 ring-2 ring-white/20"
+          />
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-[#E7FBB4] mb-1">
               {stakeholder.label[lang]}
@@ -2193,6 +2206,15 @@ const JourneyView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => v
   const totalDepth = nodeHistory.length + (currentResult ? 1 : 0);
   const progressSteps = selectedStakeholder ? Math.max(totalDepth + 1, 2) : 0;
 
+  const stakeholderImageMap: Record<string, string> = {
+    farmer: 'farmer.png',
+    importer: 'importer.png',
+    producer: 'company.png',
+    breeder: 'researcher.png',
+    exporter: 'exporter.png',
+    investor: 'f_investor.png',
+  };
+
   return (
     <div className="max-w-4xl mx-auto py-10 px-4 animate-fade-in">
       {/* Header */}
@@ -2227,19 +2249,27 @@ const JourneyView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => v
       {/* Step 0: Stakeholder Selection */}
       {!selectedStakeholder && (
         <div>
-          <p className="text-sm font-bold text-[#3D3D3D]/70 uppercase tracking-widest mb-6">
+          <p className="text-sm font-bold text-[#1B3A2D]/60 uppercase tracking-widest mb-6">
             {isAr ? 'من أنت؟' : 'Who are you?'}
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {STAKEHOLDERS.map(s => (
               <button
                 key={s.id}
                 onClick={() => handleSelectStakeholder(s)}
-                className="bg-[#1B3A2D] p-6 rounded-2xl text-left hover:shadow-xl transition-all group hover:scale-[1.02] ring-1 ring-[#638C6D]/30"
+                className="bg-white rounded-2xl text-left hover:shadow-xl transition-all group hover:scale-[1.02] ring-1 ring-[#1B3A2D]/15 hover:ring-[#1B3A2D]/40 overflow-hidden flex flex-col"
               >
-                <span className="text-4xl block mb-4">{s.emoji}</span>
-                <h3 className="font-semibold text-white text-lg mb-1 group-hover:text-[#E7FBB4] transition-colors">{s.label[lang]}</h3>
-                <p className="text-emerald-100/75 text-xs leading-relaxed">{s.description[lang]}</p>
+                <div className="w-full h-44 bg-[#F5F0E8] overflow-hidden flex items-center justify-center">
+                  <img
+                    src={`${import.meta.env.BASE_URL}${stakeholderImageMap[s.id]}`}
+                    alt={s.label['en']}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-5 flex-1 border-t border-[#1B3A2D]/10">
+                  <h3 className="font-semibold text-[#1B3A2D] text-base mb-1 group-hover:text-[#DF6D2D] transition-colors">{s.label[lang]}</h3>
+                  <p className="text-[#3D3D3D]/65 text-xs leading-relaxed">{s.description[lang]}</p>
+                </div>
               </button>
             ))}
           </div>
@@ -2258,7 +2288,11 @@ const JourneyView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => v
       {selectedStakeholder && currentNode && !currentResult && (
         <div className="bg-white rounded-[32px] shadow-xl border border-[#1B3A2D]/15 overflow-hidden">
           <div className="flex items-center gap-3 px-8 py-6 bg-[#1B3A2D]">
-            <span className="text-3xl">{selectedStakeholder.emoji}</span>
+            <img
+              src={`${import.meta.env.BASE_URL}${stakeholderImageMap[selectedStakeholder.id]}`}
+              alt={selectedStakeholder.label['en']}
+              className="w-12 h-12 rounded-xl object-cover shrink-0 ring-2 ring-white/20"
+            />
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-[#E7FBB4]">{selectedStakeholder.label[lang]}</p>
               <h3 className="text-xl font-semibold text-white">{currentNode.question[lang]}</h3>
@@ -2349,7 +2383,11 @@ export default function App() {
           />
         )}
         {activeTab === 'library' && <LibraryView lang={lang} initialDocId={selectedDocId} />}
-        {activeTab === 'journeys' && <JourneyView lang={lang} onNavigateToDoc={navigateToDoc} />}
+        {activeTab === 'journeys' && (
+          <div className="bg-[#F7F3ED] min-h-screen">
+            <JourneyView lang={lang} onNavigateToDoc={navigateToDoc} />
+          </div>
+        )}
         {activeTab === 'services' && <CASCServicesView lang={lang} onNavigateToDoc={navigateToDoc} />}
         {activeTab === 'catalogue' && <CatalogueView lang={lang} />}
         {activeTab === 'directory' && <DirectoryView lang={lang} />}
