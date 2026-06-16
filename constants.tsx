@@ -798,7 +798,6 @@ export const MOCK_AUTHORITIES: Authority[] = [
     tasks: ['Variety Registration', 'Seed Certification', 'Licensing Seed Dealers'],
     address: { ar: '8 شارع الجامعة، الجيزة، مصر', en: '8 Gamaa Street, Giza, Egypt' },
     email: 'casc.egypt@hotmail.com',
-    phone: '+20 2 35720831',
     channels: ['Physical Submission', 'Official Portal'],
     logo: 'CASC-logo.png'
   },

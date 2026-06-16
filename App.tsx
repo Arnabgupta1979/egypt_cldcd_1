@@ -817,8 +817,9 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {displayedCards.map(v => {
+          {displayedCards.map((v, idx) => {
             const isChecked = checkedVarieties.has(v.id);
+            const isDark = idx % 2 === 1;
             return (
               <div key={v.id} className="relative group">
                 {/* Checkbox — top-right corner */}
@@ -827,7 +828,9 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
                   className={`absolute top-3 right-3 z-10 w-5 h-5 rounded border-2 flex items-center justify-center cursor-pointer transition-all
                     ${isChecked
                       ? 'bg-[#46BA06] border-[#46BA06]'
-                      : 'bg-white border-[#3D3D3D]/20 opacity-0 group-hover:opacity-100'}`}
+                      : isDark
+                        ? 'bg-[#1B3A2D] border-white/30 opacity-0 group-hover:opacity-100'
+                        : 'bg-white border-[#3D3D3D]/20 opacity-0 group-hover:opacity-100'}`}
                 >
                   {isChecked && (
                     <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 12 12">
@@ -837,35 +840,39 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
                 </div>
                 <button
                   onClick={() => setSelectedVariety(v)}
-                  className={`w-full bg-white p-5 rounded-2xl border transition-all text-left
+                  className={`w-full p-5 rounded-2xl border transition-all text-left
                     ${isChecked
-                      ? 'border-[#46BA06] shadow-md ring-1 ring-[#46BA06]/30'
-                      : 'border-amber-100 hover:border-emerald-300 hover:shadow-md'}`}
+                      ? isDark
+                        ? 'bg-[#1B3A2D] border-[#46BA06] shadow-md ring-1 ring-[#46BA06]/30'
+                        : 'bg-white border-[#46BA06] shadow-md ring-1 ring-[#46BA06]/30'
+                      : isDark
+                        ? 'bg-[#1B3A2D] border-[#2D5E3A] hover:border-[#638C6D] hover:shadow-md'
+                        : 'bg-white border-amber-100 hover:border-emerald-300 hover:shadow-md'}`}
                 >
                   <div className="flex justify-between items-start mb-3 pr-6">
-                    <span className="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase">
+                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${isDark ? 'bg-[#E7FBB4]/15 text-[#E7FBB4]' : 'bg-emerald-50 text-emerald-700'}`}>
                       {isAr ? v.cropAr : v.cropEn}
                     </span>
-                    <ChevronRight className="w-4 h-4 text-[#3D3D3D]/30 group-hover:text-emerald-600 shrink-0" />
+                    <ChevronRight className={`w-4 h-4 shrink-0 ${isDark ? 'text-white/30 group-hover:text-[#E7FBB4]' : 'text-[#3D3D3D]/30 group-hover:text-emerald-600'}`} />
                   </div>
-                  <h3 className="text-base font-semibold text-[#2D4A32] leading-snug mb-1">
+                  <h3 className={`text-base font-semibold leading-snug mb-1 ${isDark ? 'text-white' : 'text-[#2D4A32]'}`}>
                     {v.nameEn || v.nameAr}
                   </h3>
                   {v.nameAr && v.nameEn && (
-                    <p className="text-xs text-[#3D3D3D]/60 mb-3">{v.nameAr}</p>
+                    <p className={`text-xs mb-3 ${isDark ? 'text-white/50' : 'text-[#3D3D3D]/60'}`}>{v.nameAr}</p>
                   )}
-                  <div className="space-y-1.5 mt-3 pt-3 border-t border-amber-50">
+                  <div className={`space-y-1.5 mt-3 pt-3 border-t ${isDark ? 'border-white/10' : 'border-amber-50'}`}>
                     <div className="flex justify-between text-xs">
-                      <span className="text-[#3D3D3D]/50">{isAr ? 'الجهة الطالبة' : 'Applicant'}</span>
-                      <span className="text-[#3D3D3D] font-medium truncate max-w-[140px]">{v.applicant || '—'}</span>
+                      <span className={isDark ? 'text-white/50' : 'text-[#3D3D3D]/50'}>{isAr ? 'الجهة الطالبة' : 'Applicant'}</span>
+                      <span className={`font-medium truncate max-w-[140px] ${isDark ? 'text-white/90' : 'text-[#3D3D3D]'}`}>{v.applicant || '—'}</span>
                     </div>
                     <div className="flex justify-between text-xs">
-                      <span className="text-[#3D3D3D]/50">{isAr ? 'قرار التسجيل' : 'Decree'}</span>
-                      <span className="text-[#3D3D3D] font-medium font-mono">{v.decree || '—'}</span>
+                      <span className={isDark ? 'text-white/50' : 'text-[#3D3D3D]/50'}>{isAr ? 'قرار التسجيل' : 'Decree'}</span>
+                      <span className={`font-medium font-mono ${isDark ? 'text-white/90' : 'text-[#3D3D3D]'}`}>{v.decree || '—'}</span>
                     </div>
                     <div className="flex justify-between text-xs">
-                      <span className="text-[#3D3D3D]/50">{isAr ? 'انتهاء التسجيل' : 'Expires'}</span>
-                      <span className={`font-medium ${v.expiryDate && v.expiryDate < new Date().toISOString().slice(0,10) ? 'text-red-500' : 'text-emerald-600'}`}>
+                      <span className={isDark ? 'text-white/50' : 'text-[#3D3D3D]/50'}>{isAr ? 'انتهاء التسجيل' : 'Expires'}</span>
+                      <span className={`font-medium ${v.expiryDate && v.expiryDate < new Date().toISOString().slice(0,10) ? 'text-red-400' : isDark ? 'text-[#E7FBB4]' : 'text-emerald-600'}`}>
                         {v.expiryDate || '—'}
                       </span>
                     </div>
