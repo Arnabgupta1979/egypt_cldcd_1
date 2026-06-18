@@ -86,7 +86,6 @@ const Navbar: React.FC<{
     { id: 'home', label: isAr ? 'الرئيسية' : 'Home', icon: Home },
     { id: 'about', label: isAr ? 'عن CASC' : 'About CASC', icon: Info },
     { id: 'services', label: isAr ? 'خدمات CASC' : 'CASC Services', icon: Layers },
-    { id: 'library', label: isAr ? 'المكتبة' : 'Library', icon: FileText },
     { id: 'catalogue', label: isAr ? 'القائمة الوطنية للأصناف' : 'National Variety List', icon: BookOpen },
     { id: 'directory', label: isAr ? 'الدليل' : 'Directory', icon: MapPin },
     { id: 'contact', label: isAr ? 'تواصل' : 'Contact', icon: Mail },
