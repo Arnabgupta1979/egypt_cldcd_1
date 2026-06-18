@@ -2436,8 +2436,8 @@ export default function App() {
             </div>
             <p className="text-sm max-w-sm leading-relaxed text-emerald-100/70">
               {lang === 'ar'
-                ? 'الجهة الوطنية المسؤولة عن تصديق التقاوي وتسجيل الأصناف وترخيص المنتجين والرقابة على جودة التقاوي في جمهورية مصر العربية منذ عام 1976.'
-                : 'The national authority responsible for seed certification, variety registration, producer licensing, and seed quality oversight in Egypt since 1976.'}
+                ? 'الهيئة الوطنية المسؤولة عن اعتماد البذور، وتسجيل الأصناف، وترخيص المنتجين، ومراقبة جودة البذور في جمهورية مصر العربية.'
+                : 'The national authority responsible for seed certification, variety registration, producer licensing, and seed quality oversight in Egypt.'}
             </p>
             <div className="space-y-2 text-xs text-emerald-300/85">
               <p className="flex items-center gap-2"><MapPin className="w-3 h-3 text-orange-400 shrink-0" /> {lang === 'ar' ? '8 شارع الجامعة، الجيزة، جمهورية مصر العربية' : '8 Gamaa Street, Giza, Egypt'}</p>
