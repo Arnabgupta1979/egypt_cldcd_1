@@ -1702,7 +1702,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
     },
 {
       icon: Users,
-      image: 'Seedtesting.png',
+      image: 'seedtesting.png',
       title: { en: 'Seed Testing', ar: 'فحص التقاوي' },
       points: {
         en: [
