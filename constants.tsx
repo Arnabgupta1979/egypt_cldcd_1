@@ -793,7 +793,7 @@ export const MOCK_VARIETIES: Variety[] = [
 export const MOCK_AUTHORITIES: Authority[] = [
   {
     id: 'casc',
-    name: { ar: 'الإدارة المركزية لفحص واعتماد التقاوي (CASC)', en: 'Central Administration for Seed Testing and Certification (CASC)' },
+    name: { ar: 'الإدارة المركزية لتصديق التقاوي (CASC)', en: 'Central Administration for Seed Testing and Certification (CASC)' },
     shortName: 'CASC',
     tasks: ['Variety Registration', 'Seed Certification', 'Licensing Seed Dealers'],
     address: { ar: '8 شارع الجامعة، الجيزة، مصر', en: '8 Gamaa Street, Giza, Egypt' },

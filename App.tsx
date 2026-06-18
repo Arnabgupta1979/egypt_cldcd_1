@@ -1264,7 +1264,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
       en: 'Agricultural Crop Seed Committee',
       ar: 'لجنة تقاوى الحاصلات الزراعية',
       bodyEn: 'The Secretariat Office of the Agricultural Crop Seeds Committee is located at the Central Administration for Seed Testing and Certification and directly follows the Ministry of Agriculture. Applications for the export or import of agricultural crop seeds are submitted according to the conditions set by the Committee and issued through ministerial decrees in this regard. This Committee was established in implementation of Article 17 of the Agriculture Law No. 53 of 1966. The Committee meets regularly (weekly) to review applications for seed import and export. Regarding the importation of potato seed, the Agricultural Crop Seeds Committee annually determines the official date for submitting applications for potato seed importation. This date is formally announced and published in the Official Gazette.',
-      bodyAr: 'يوجد مكتب أمانة لجنة تقاوى الحاصلات الزراعية بالإدارة المركزية لفحص واعتماد التقاوى حيث يتم التقدم بطلبات تصدير أو استيراد تقاوى الحاصلات الزراعية من خلال الشروط التى تحددها اللجنة والصادر بها القرارات الوزارية فى هذا الشأن. وهى اللجنة المشكلة تنفيذاً للمادة 17 من قانون الزراعة الصادر بالقانون رقم 53 لسنة 1966 وتجتمع بصفة دورية (أسبوعياً) لبحث طلبات استيراد وتصدير التقاوى. وبالنسبة لاستيراد تقاوي البطاطس، تقوم لجنة تقاوي الحاصلات الزراعية كل عام بتحديد ميعاد تقديم طلبات استيراد تقاوي البطاطس ويتم نشره في الجرائد الرسمية.',
+      bodyAr: 'يوجد مكتب أمانة لجنة تقاوى الحاصلات الزراعية بالإدارة المركزية لتصديق التقاوي حيث يتم التقدم بطلبات تصدير أو استيراد تقاوى الحاصلات الزراعية من خلال الشروط التى تحددها اللجنة والصادر بها القرارات الوزارية فى هذا الشأن. وهى اللجنة المشكلة تنفيذاً للمادة 17 من قانون الزراعة الصادر بالقانون رقم 53 لسنة 1966 وتجتمع بصفة دورية (أسبوعياً) لبحث طلبات استيراد وتصدير التقاوى. وبالنسبة لاستيراد تقاوي البطاطس، تقوم لجنة تقاوي الحاصلات الزراعية كل عام بتحديد ميعاد تقديم طلبات استيراد تقاوي البطاطس ويتم نشره في الجرائد الرسمية.',
       pointsEn: [],
       pointsAr: [],
     },
@@ -1320,7 +1320,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           </p>
           <p className="text-emerald-100/90 max-w-2xl mx-auto leading-relaxed text-sm mt-4">
             {isAr
-              ? 'الإدارة المركزية لفحص واعتماد البذور إحدى الإدارات المركزية الهامة ضمن قطاع الإنتاج في وزارة الزراعة واستصلاح الأراضي. وهي هيئة حكومية رسمية محايدة لا تقوم بتطوير أو تربية أو إنتاج أو تسويق أو بيع أو تخزين التقاوي. وهي الجهة المفوضة من وزارة الزراعة للقيام بجميع المهام التي تتطلب الحياد في هذا المجال، بما في ذلك تسجيل التقاوي وفحصها واختبارها واعتمادها ومراقبتها. لدى الادارة هيكل تنظيمي قوي يضم ادارات عامة تخدم جميع الانشطة المتعلقة بالتقاوي، بالإضافة إلى معمل مركزي لفحص التقاوي معتمد من قِبل المنظمة الدولية لفحص البذور (ISTA)، وتعمل وفقاً لنظام شامل لضمان الجودة، كما تمتلك 12 محطة فحص موزعة على مختلف المحافظات.'
+              ? 'الإدارة المركزية لتصديق التقاوي إحدى الإدارات المركزية الهامة ضمن قطاع الإنتاج في وزارة الزراعة واستصلاح الأراضي. وهي هيئة حكومية رسمية محايدة لا تقوم بتطوير أو تربية أو إنتاج أو تسويق أو بيع أو تخزين التقاوي. وهي الجهة المفوضة من وزارة الزراعة للقيام بجميع المهام التي تتطلب الحياد في هذا المجال، بما في ذلك تسجيل التقاوي وفحصها واختبارها واعتمادها ومراقبتها. لدى الادارة هيكل تنظيمي قوي يضم ادارات عامة تخدم جميع الانشطة المتعلقة بالتقاوي، بالإضافة إلى معمل مركزي لفحص التقاوي معتمد من قِبل المنظمة الدولية لفحص البذور (ISTA)، وتعمل وفقاً لنظام شامل لضمان الجودة، كما تمتلك 12 محطة فحص موزعة على مختلف المحافظات.'
               : 'The Central Administration for Seed Testing and Certification is one of the important central administrations within the Production Sector of the Ministry of Agriculture and Land Reclamation. It is a neutral, official government body that does not develop, breed, produce, market, sell, or store seeds. It is authorized by the Ministry of Agriculture to carry out all tasks requiring neutrality in this field, including seed registration, inspection, testing, certification, and monitoring. CASC has a strong organizational structure as it includes several general administrations serving all seed-related activities. In addition, the Central Seed Testing Laboratory is an accredited member of the International Seed Testing Organization (ISTA) and operates according to a comprehensive Quality Assurance System, in addition to 12 lab testing stations all over the governorates.'}
           </p>
           </div>
@@ -1452,7 +1452,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              { ref: 'Law 53 / 1966', title: { en: 'Seed Law', ar: 'قانون التقاوي' }, desc: { en: 'The primary legal framework governing seed production, marketing, and quality control in Egypt. Forms the constitutional basis for all CASC operations.', ar: 'الإطار القانوني الرئيسي الذي يحكم إنتاج وتسويق ومراقبة جودة التقاوي في مصر. يشكّل الأساس الدستوري لجميع عمليات CASC.' } },
+              { ref: 'Law 53 / 1966', title: { en: 'Agriculture Law', ar: 'قانون الزراعة' }, desc: { en: 'The comprehensive legal framework governing agriculture in Egypt, including seed production, marketing, and quality control. Forms the legal basis for all CASC operations.', ar: 'الإطار القانوني الشامل الذي ينظم القطاع الزراعي في مصر، بما في ذلك إنتاج التقاوي وتسويقها ومراقبة جودتها. يشكّل الأساس القانوني لجميع عمليات CASC.' } },
               { ref: 'UPOV 1991 / COMESA', title: { en: 'International Commitments', ar: 'الالتزامات الدولية' }, desc: { en: 'Egypt\'s treaty obligations through UPOV 1991 accession (plant variety protection), COMESA seed trade harmonisation, OECD seed schemes, and ISTA seed testing standards.', ar: 'التزامات مصر بموجب انضمامها لـ UPOV 1991 (حماية الأصناف)، وتنسيق تجارة التقاوي في الكوميسا، ومخططات OECD للتقاوي، ومعايير ISTA لفحص التقاوي.' } },
             ].map((item, i) => (
               <div key={i} className="bg-white p-6 rounded-xl border shadow-sm" style={{ borderColor: '#D6E4DC' }}>
@@ -1754,7 +1754,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
       licensingPdf: true,
       licensingIntro: {
         en: 'This document sets out the conditions and required documents for issuing or renewing seven CASC licence categories:',
-        ar: 'يحدد هذا المستند الشروط والمستندات المطلوبة لاستخراج أو تجديد سبع فئات من تراخيص الإدارة المركزية لفحص واعتماد التقاوي:',
+        ar: 'يحدد هذا المستند الشروط والمستندات المطلوبة لاستخراج أو تجديد سبع فئات من تراخيص الإدارة المركزية لتصديق التقاوي:',
       },
       licensingPoints: {
         en: [
