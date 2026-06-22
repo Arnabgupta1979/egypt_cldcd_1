@@ -51,7 +51,7 @@ const TopBanner: React.FC<{ lang: Language; setActiveTab: (t: string) => void }>
           </span>
           <span className="tracking-wide">
             {isAr
-              ? 'البوابة الرسمية للإدارة المركزية لاعتماد التقاوي — وزارة الزراعة واستصلاح الأراضي، جمهورية مصر العربية'
+              ? 'البوابة الرسمية للإدارة المركزية لفحص واعتماد التقاوي — وزارة الزراعة واستصلاح الأراضي، جمهورية مصر العربية'
               : 'Official Portal of CASC — Central Administration for Seed Testing and Certification | Ministry of Agriculture & Land Reclamation, Egypt'}
           </span>
         </div>
@@ -107,12 +107,12 @@ const Navbar: React.FC<{
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
               <img
                 src={`${import.meta.env.BASE_URL}CASC-logo.png`}
-                alt={isAr ? 'شعار الإدارة المركزية لاعتماد التقاوي' : 'CASC logo'}
+                alt={isAr ? 'شعار الإدارة المركزية لفحص واعتماد التقاوي' : 'CASC logo'}
                 className="h-12 w-auto bg-white rounded-md p-1 shadow-sm ring-1 ring-orange-500/40"
               />
               <div className="hidden lg:block ps-2 border-s border-emerald-800/70">
                 <div className="font-semibold text-base leading-tight text-white whitespace-nowrap">
-                  {isAr ? 'الإدارة المركزية لاعتماد التقاوي' : 'CASC Egypt'}
+                  {isAr ? 'الإدارة المركزية لفحص واعتماد التقاوي' : 'CASC Egypt'}
                 </div>
                 <div className="text-amber-100 text-[10px] font-medium uppercase leading-tight mt-0.5 whitespace-nowrap">
                   {isAr ? 'وزارة الزراعة واستصلاح الأراضي' : 'Ministry of Agriculture & Land Reclamation'}
@@ -198,7 +198,7 @@ const HomeView: React.FC<{ lang: Language, onStartJourney: () => void, onGoAbout
             {isAr ? 'الموقع الرسمي لـ CASC' : 'Official CASC Digital Portal · v1.0 Beta'}
           </div>
           <h1 className="text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.1] max-w-4xl mx-auto mt-5">
-            {isAr ? 'الإدارة المركزية لاعتماد التقاوي' : 'Central Administration for Seed Testing & Certification'}
+            {isAr ? 'الإدارة المركزية لفحص واعتماد التقاوي' : 'Central Administration for Seed Testing & Certification'}
           </h1>
           {/* Ornamental flourish under title */}
           <div className="flex items-center justify-center gap-3 pt-1">
@@ -1263,7 +1263,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
       en: 'Agricultural Crop Seed Committee',
       ar: 'لجنة تقاوى الحاصلات الزراعية',
       bodyEn: 'The Secretariat Office of the Agricultural Crop Seeds Committee is located at the Central Administration for Seed Testing and Certification and directly follows the Ministry of Agriculture. Applications for the export or import of agricultural crop seeds are submitted according to the conditions set by the Committee and issued through ministerial decrees in this regard. This Committee was established in implementation of Article 17 of the Agriculture Law No. 53 of 1966. The Committee meets regularly (weekly) to review applications for seed import and export. Regarding the importation of potato seed, the Agricultural Crop Seeds Committee annually determines the official date for submitting applications for potato seed importation. This date is formally announced and published in the Official Gazette.',
-      bodyAr: 'يوجد مكتب أمانة لجنة تقاوى الحاصلات الزراعية بالإدارة المركزية لاعتماد التقاوي حيث يتم التقدم بطلبات تصدير أو استيراد تقاوى الحاصلات الزراعية من خلال الشروط التى تحددها اللجنة والصادر بها القرارات الوزارية فى هذا الشأن. وهى اللجنة المشكلة تنفيذاً للمادة 17 من قانون الزراعة الصادر بالقانون رقم 53 لسنة 1966 وتجتمع بصفة دورية (أسبوعياً) لبحث طلبات استيراد وتصدير التقاوى. وبالنسبة لاستيراد تقاوي البطاطس، تقوم لجنة تقاوي الحاصلات الزراعية كل عام بتحديد ميعاد تقديم طلبات استيراد تقاوي البطاطس ويتم نشره في الجرائد الرسمية.',
+      bodyAr: 'يوجد مكتب أمانة لجنة تقاوى الحاصلات الزراعية بالإدارة المركزية لفحص واعتماد التقاوي حيث يتم التقدم بطلبات تصدير أو استيراد تقاوى الحاصلات الزراعية من خلال الشروط التى تحددها اللجنة والصادر بها القرارات الوزارية فى هذا الشأن. وهى اللجنة المشكلة تنفيذاً للمادة 17 من قانون الزراعة الصادر بالقانون رقم 53 لسنة 1966 وتجتمع بصفة دورية (أسبوعياً) لبحث طلبات استيراد وتصدير التقاوى. وبالنسبة لاستيراد تقاوي البطاطس، تقوم لجنة تقاوي الحاصلات الزراعية كل عام بتحديد ميعاد تقديم طلبات استيراد تقاوي البطاطس ويتم نشره في الجرائد الرسمية.',
       pointsEn: [],
       pointsAr: [],
     },
@@ -1301,13 +1301,13 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           <img
             src={`${import.meta.env.BASE_URL}CASC-logo.png`}
-            alt={isAr ? 'شعار الإدارة المركزية لاعتماد التقاوي' : 'CASC logo'}
+            alt={isAr ? 'شعار الإدارة المركزية لفحص واعتماد التقاوي' : 'CASC logo'}
             className="h-24 w-auto mx-auto bg-white rounded-md p-2 shadow-2xl ring-1 ring-orange-400/40"
           />
           {/* Dark legibility box behind text */}
           <div className="bg-emerald-950/70 backdrop-blur-sm rounded-2xl px-8 py-8 mx-auto">
           <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
-            {isAr ? 'الإدارة المركزية لاعتماد التقاوي' : 'Central Administration for Seed Testing and Certification'}
+            {isAr ? 'الإدارة المركزية لفحص واعتماد التقاوي' : 'Central Administration for Seed Testing and Certification'}
           </h1>
           <div className="flex items-center justify-center gap-3 mt-4">
             <div className="h-px w-10 bg-orange-400/60"></div>
@@ -1319,7 +1319,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
           </p>
           <p className="text-emerald-100/90 max-w-2xl mx-auto leading-relaxed text-sm mt-4">
             {isAr
-              ? 'الإدارة المركزية لاعتماد التقاوي إحدى الإدارات المركزية الهامة ضمن قطاع الإنتاج في وزارة الزراعة واستصلاح الأراضي. وهي هيئة حكومية رسمية محايدة لا تقوم بتطوير أو تربية أو إنتاج أو تسويق أو بيع أو تخزين التقاوي. وهي الجهة المفوضة من وزارة الزراعة للقيام بجميع المهام التي تتطلب الحياد في هذا المجال، بما في ذلك تسجيل التقاوي وفحصها واختبارها واعتمادها ومراقبتها. لدى الادارة هيكل تنظيمي قوي يضم ادارات عامة تخدم جميع الانشطة المتعلقة بالتقاوي، بالإضافة إلى معمل مركزي لفحص التقاوي معتمد من قِبل المنظمة الدولية لفحص البذور (ISTA)، وتعمل وفقاً لنظام شامل لضمان الجودة، كما تمتلك 12 محطة فحص موزعة على مختلف المحافظات.'
+              ? 'الإدارة المركزية لفحص واعتماد التقاوي إحدى الإدارات المركزية الهامة ضمن قطاع الإنتاج في وزارة الزراعة واستصلاح الأراضي. وهي هيئة حكومية رسمية محايدة لا تقوم بتطوير أو تربية أو إنتاج أو تسويق أو بيع أو تخزين التقاوي. وهي الجهة المفوضة من وزارة الزراعة للقيام بجميع المهام التي تتطلب الحياد في هذا المجال، بما في ذلك تسجيل التقاوي وفحصها واختبارها واعتمادها ومراقبتها. لدى الادارة هيكل تنظيمي قوي يضم ادارات عامة تخدم جميع الانشطة المتعلقة بالتقاوي، بالإضافة إلى معمل مركزي لفحص التقاوي معتمد من قِبل المنظمة الدولية لفحص البذور (ISTA)، وتعمل وفقاً لنظام شامل لضمان الجودة، كما تمتلك 12 محطة فحص موزعة على مختلف المحافظات.'
               : 'The Central Administration for Seed Testing and Certification is one of the important central administrations within the Production Sector of the Ministry of Agriculture and Land Reclamation. It is a neutral, official government body that does not develop, breed, produce, market, sell, or store seeds. It is authorized by the Ministry of Agriculture to carry out all tasks requiring neutrality in this field, including seed registration, inspection, testing, certification, and monitoring. CASC has a strong organizational structure as it includes several general administrations serving all seed-related activities. In addition, the Central Seed Testing Laboratory is an accredited member of the International Seed Testing Organization (ISTA) and operates according to a comprehensive Quality Assurance System, in addition to 12 lab testing stations all over the governorates.'}
           </p>
           </div>
@@ -1753,7 +1753,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
       licensingPdf: true,
       licensingIntro: {
         en: 'This document sets out the conditions and required documents for issuing or renewing seven CASC licence categories:',
-        ar: 'يحدد هذا المستند الشروط والمستندات المطلوبة لاستخراج أو تجديد سبع فئات من تراخيص الإدارة المركزية لاعتماد التقاوي:',
+        ar: 'يحدد هذا المستند الشروط والمستندات المطلوبة لاستخراج أو تجديد سبع فئات من تراخيص الإدارة المركزية لفحص واعتماد التقاوي:',
       },
       licensingPoints: {
         en: [
@@ -2421,12 +2421,12 @@ export default function App() {
             <div className="flex items-center gap-3">
               <img
                 src={`${import.meta.env.BASE_URL}CASC-logo.png`}
-                alt={lang === 'ar' ? 'شعار الإدارة المركزية لاعتماد التقاوي' : 'CASC logo'}
+                alt={lang === 'ar' ? 'شعار الإدارة المركزية لفحص واعتماد التقاوي' : 'CASC logo'}
                 className="h-14 w-auto bg-white rounded-md p-1.5 shadow-sm ring-1 ring-orange-400/40"
               />
               <div className="ps-3 border-s border-emerald-600">
                 <div className="text-white font-semibold text-base leading-tight">
-                  {lang === 'ar' ? 'الإدارة المركزية لاعتماد التقاوي' : 'Central Administration for Seed Testing & Certification'}
+                  {lang === 'ar' ? 'الإدارة المركزية لفحص واعتماد التقاوي' : 'Central Administration for Seed Testing & Certification'}
                 </div>
                 <div className="text-orange-400/80 text-[10px] uppercase tracking-widest font-semibold mt-1">
                   {lang === 'ar' ? 'وزارة الزراعة واستصلاح الأراضي' : 'Ministry of Agriculture & Land Reclamation — Egypt'}
