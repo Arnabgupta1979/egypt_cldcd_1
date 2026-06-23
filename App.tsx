@@ -818,7 +818,7 @@ const CatalogueView: React.FC<{ lang: Language }> = ({ lang }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {displayedCards.map((v, idx) => {
             const isChecked = checkedVarieties.has(v.id);
-            const isDark = idx % 2 === 1;
+            const isDark = false;
             return (
               <div key={v.id} className="relative group">
                 {/* Checkbox — top-right corner */}
