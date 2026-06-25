@@ -2440,34 +2440,34 @@ export default function App() {
                 <div className="text-white font-semibold text-base leading-tight">
                   {lang === 'ar' ? 'الإدارة المركزية لفحص واعتماد التقاوي' : 'Central Administration for Seed Testing & Certification'}
                 </div>
-                <div className="text-orange-400/80 text-[10px] uppercase tracking-widest font-semibold mt-1">
+                <div className="text-yellow-400 text-[10px] uppercase tracking-widest font-semibold mt-1">
                   {lang === 'ar' ? 'وزارة الزراعة واستصلاح الأراضي' : 'Ministry of Agriculture & Land Reclamation — Egypt'}
                 </div>
               </div>
             </div>
-            <p className="text-sm max-w-sm leading-relaxed text-emerald-100/70">
+            <p className="text-sm max-w-sm leading-relaxed text-white/90">
               {lang === 'ar'
                 ? 'الهيئة الوطنية المسؤولة عن اعتماد البذور، وتسجيل الأصناف، وترخيص المنتجين، ومراقبة جودة البذور في جمهورية مصر العربية.'
                 : 'The national authority responsible for seed certification, variety registration, producer licensing, and seed quality oversight in Egypt.'}
             </p>
             <div className="space-y-2 text-xs text-emerald-300/85">
-              <p className="flex items-center gap-2"><MapPin className="w-3 h-3 text-orange-400 shrink-0" /> {lang === 'ar' ? '8 شارع الجامعة، الجيزة، جمهورية مصر العربية' : '8 Gamaa Street, Giza, Egypt'}</p>
-              <p className="flex items-center gap-2"><Mail className="w-3 h-3 text-orange-400 shrink-0" /> casc.egypt@hotmail.com</p>
+              <p className="flex items-center gap-2 text-white"><MapPin className="w-3 h-3 text-orange-400 shrink-0" /> {lang === 'ar' ? '8 شارع الجامعة، الجيزة، جمهورية مصر العربية' : '8 Gamaa Street, Giza, Egypt'}</p>
+              <p className="flex items-center gap-2 text-white"><Mail className="w-3 h-3 text-orange-400 shrink-0" /> casc.egypt@hotmail.com</p>
             </div>
           </div>
           <div>
-            <h4 className="text-orange-400 mb-6 uppercase tracking-widest text-[11px] font-semibold">{lang === 'ar' ? 'أقسام البوابة' : 'Portal Sections'}</h4>
+            <h4 className="text-yellow-400 mb-6 uppercase tracking-widest text-[11px] font-semibold">{lang === 'ar' ? 'أقسام البوابة' : 'Portal Sections'}</h4>
             <ul className="text-sm space-y-3.5">
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('about')}>{lang === 'ar' ? 'عن CASC' : 'About CASC'}</li>
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('services')}>{lang === 'ar' ? 'خدمات CASC' : 'CASC Services'}</li>
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('library')}>{lang === 'ar' ? 'مكتبة التشريعات' : 'Legislation Library'}</li>
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('catalogue')}>{lang === 'ar' ? 'القائمة الوطنية للأصناف' : 'National Variety List'}</li>
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('directory')}>{lang === 'ar' ? 'دليل الجهات' : 'Authority Directory'}</li>
-              <li className="text-emerald-200/80 hover:text-orange-500 cursor-pointer transition-colors" onClick={() => setActiveTab('contact')}>{lang === 'ar' ? 'تواصل معنا' : 'Contact Us'}</li>
+              <li className="text-white hover:text-yellow-400 cursor-pointer transition-colors" onClick={() => setActiveTab('about')}>{lang === 'ar' ? 'عن CASC' : 'About CASC'}</li>
+              <li className="text-white hover:text-yellow-400 cursor-pointer transition-colors" onClick={() => setActiveTab('services')}>{lang === 'ar' ? 'خدمات CASC' : 'CASC Services'}</li>
+              <li className="text-white hover:text-yellow-400 cursor-pointer transition-colors" onClick={() => setActiveTab('library')}>{lang === 'ar' ? 'مكتبة التشريعات' : 'Legislation Library'}</li>
+              <li className="text-white hover:text-yellow-400 cursor-pointer transition-colors" onClick={() => setActiveTab('catalogue')}>{lang === 'ar' ? 'القائمة الوطنية للأصناف' : 'National Variety List'}</li>
+              <li className="text-white hover:text-yellow-400 cursor-pointer transition-colors" onClick={() => setActiveTab('directory')}>{lang === 'ar' ? 'دليل الجهات' : 'Authority Directory'}</li>
+              <li className="text-white hover:text-yellow-400 cursor-pointer transition-colors" onClick={() => setActiveTab('contact')}>{lang === 'ar' ? 'تواصل معنا' : 'Contact Us'}</li>
             </ul>
           </div>
           <div>
-            <h4 className="text-orange-400 mb-6 uppercase tracking-widest text-[11px] font-semibold">{lang === 'ar' ? 'خدمات CASC' : 'CASC Services'}</h4>
+            <h4 className="text-yellow-400 mb-6 uppercase tracking-widest text-[11px] font-semibold">{lang === 'ar' ? 'خدمات CASC' : 'CASC Services'}</h4>
             <ul className="text-sm space-y-3.5 text-emerald-300/75">
               <li>{lang === 'ar' ? 'اعتماد التقاوي' : 'Seed Certification'}</li>
               <li>{lang === 'ar' ? 'تسجيل الأصناف' : 'Variety Registration'}</li>
@@ -2477,12 +2477,12 @@ export default function App() {
             </ul>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-emerald-700 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest font-semibold text-emerald-500/90">
+        <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-emerald-700 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest font-semibold text-white/60">
           <span>© {new Date().getFullYear()} CASC — Central Administration for Seed Testing and Certification, MALR Egypt. All Rights Reserved.</span>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <span className="cursor-pointer hover:text-orange-500">Terms of Use</span>
-            <span className="cursor-pointer hover:text-orange-500">Privacy Policy</span>
-            <span className="cursor-pointer hover:text-orange-500">Accessibility</span>
+            <span className="cursor-pointer text-white/60 hover:text-yellow-400">Terms of Use</span>
+            <span className="cursor-pointer text-white/60 hover:text-yellow-400">Privacy Policy</span>
+            <span className="cursor-pointer text-white/60 hover:text-yellow-400">Accessibility</span>
           </div>
         </div>
         </div>
