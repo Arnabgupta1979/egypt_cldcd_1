@@ -1567,7 +1567,7 @@ const AboutView: React.FC<{ lang: Language, onStartJourney: () => void, onGoCont
 
 // --- View: CASC Services ---
 
-const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => void }> = ({ lang, onNavigateToDoc }) => {
+const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string) => void, onGoCatalogue: () => void }> = ({ lang, onNavigateToDoc, onGoCatalogue }) => {
   const isAr = lang === 'ar';
   const [activeService, setActiveService] = useState<number | null>(null);
 
@@ -1941,6 +1941,18 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
                       ? 'تعكس هذه المعلومات الإجراءات الرسمية المنشورة من قِبل CASC. للاستفسار: casc.egypt@hotmail.com'
                       : 'This information reflects official procedures published by CASC. For enquiries: casc.egypt@hotmail.com'}
                   </p>
+                  <div className="mt-4 flex justify-center">
+                    <button
+                      onClick={() => onGoCatalogue()}
+                      className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white font-semibold text-sm px-6 py-2.5 transition-colors shadow-md"
+                      style={{ clipPath: 'polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%)', borderRadius: '2px' }}
+                    >
+                      {isAr ? 'الانتقال إلى القائمة الوطنية للأصناف' : 'Go to National Variety List'}
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2393,7 +2405,7 @@ export default function App() {
             <JourneyView lang={lang} onNavigateToDoc={navigateToDoc} />
           </div>
         )}
-        {activeTab === 'services' && <CASCServicesView lang={lang} onNavigateToDoc={navigateToDoc} />}
+        {activeTab === 'services' && <CASCServicesView lang={lang} onNavigateToDoc={navigateToDoc} onGoCatalogue={() => setActiveTab('catalogue')} />}
         {activeTab === 'catalogue' && <CatalogueView lang={lang} />}
         {activeTab === 'directory' && <DirectoryView lang={lang} />}
         {activeTab === 'contact' && <ContactView lang={lang} />}
