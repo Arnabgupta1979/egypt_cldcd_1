@@ -1941,6 +1941,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
                       ? 'تعكس هذه المعلومات الإجراءات الرسمية المنشورة من قِبل CASC. للاستفسار: casc.egypt@hotmail.com'
                       : 'This information reflects official procedures published by CASC. For enquiries: casc.egypt@hotmail.com'}
                   </p>
+                  {activeService === 0 && (
                   <div className="mt-4 flex justify-center">
                     <button
                       onClick={() => onGoCatalogue()}
@@ -1953,6 +1954,7 @@ const CASCServicesView: React.FC<{ lang: Language, onNavigateToDoc: (id: string)
                       </svg>
                     </button>
                   </div>
+                  )}
                 </div>
               </div>
             </div>
